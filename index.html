@@ -9,6 +9,42 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+    <style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  <style>
+  .parallax-bg {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .animate-fadeInUp {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 1.5s ease-out forwards;
+  }
+  
+  .delay-300 { animation-delay: 0.3s; opacity: 0; }
+  .delay-600 { animation-delay: 0.6s; opacity: 0; }
+  .delay-900 { animation-delay: 0.9s; opacity: 0; }
+</style>
   .font-cinzel { font-family: 'Cinzel', serif; }
   .font-inter { font-family: 'Inter', sans-serif; }
 </style>ead>
