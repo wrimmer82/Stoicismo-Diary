@@ -5,56 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stoicismo Diario - Il Tuo Compagno di Crescita Personale</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</h<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  <style>
-  .parallax-bg {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-</style>
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  
-  .animate-fadeInUp {
-    animation: fadeInUp 1s ease-out forwards;
-  }
-  
-  .animate-fadeIn {
-    animation: fadeIn 1.5s ease-out forwards;
-  }
-  
-  .delay-300 { animation-delay: 0.3s; opacity: 0; }
-  .delay-600 { animation-delay: 0.6s; opacity: 0; }
-  .delay-900 { animation-delay: 0.9s; opacity: 0; }
-</style>
-  .font-cinzel { font-family: 'Cinzel', serif; }
-  .font-inter { font-family: 'Inter', sans-serif; }
-</style>ead>
-<body class="bg-gray-50">
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+        .delay-900 { animation-delay: 0.9s; opacity: 0; }
+
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter">
     <!-- Navigation -->
     <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold text-indigo-600">🏛️ Stoicismo Diario</span>
+                    <span class="text-2xl font-bold text-indigo-600 font-cinzel">🏛️ Stoicismo Diario</span>
                 </div>
                 <div class="hidden md:flex space-x-8">
                     <a href="#features" class="text-gray-700 hover:text-indigo-600">Funzionalità</a>
@@ -66,15 +66,16 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative text-white py-20 min-h-screen flex items-center" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('LandingPage1.jpg') center/cover no-repeat fixed;">
+    <section class="parallax-bg relative text-white py-20 min-h-screen flex items-center" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('LandingPage1.jpg') center/cover no-repeat fixed;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-<h1 class="text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide">Non conta quante volte cadi, ma quante volte ti rialzi</h1>            <p class="text-xl mb-8 max-w-2xl mx-auto">
+            <h1 class="text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide">Non conta quante volte cadi, ma quante volte ti rialzi</h1>
+            <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
                 Trasforma la tua vita quotidiana con i principi degli antichi filosofi. 
                 Riflessioni guidate dall'AI per costruire resilienza e serenità.
             </p>
             
             <!-- Email Signup Form -->
-            <div class="max-w-md mx-auto">
+            <div class="max-w-md mx-auto animate-fadeInUp delay-600">
                 <form class="flex flex-col sm:flex-row gap-3" onsubmit="handleSubmit(event)">
                     <input 
                         type="email" 
@@ -84,7 +85,8 @@
                     >
                     <button 
                         type="submit"
-class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-600 hover:text-gray-900 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"                    >
+                        class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-600 hover:text-gray-900 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                    >
                         Inizia Gratis
                     </button>
                 </form>
@@ -96,11 +98,12 @@ class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-grad
     <!-- Features Section -->
     <section id="features" class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center mb-16 text-gray-900">I Tre Pilastri della Crescita Stoica</h2>
+            <h2 class="text-4xl font-cinzel font-bold text-center mb-16 text-gray-900">I Tre Pilastri della Crescita Stoica</h2>
             
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 hover:border-yellow-400"                    <div class="text-5xl mb-4">🎯</div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 hover:border-yellow-400">
+                    <div class="text-5xl mb-4">🎯</div>
                     <h3 class="text-2xl font-bold mb-3 text-gray-900">Controllo delle Emozioni</h3>
                     <p class="text-gray-600">
                         L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare 
@@ -109,8 +112,9 @@ class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duratio
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
-class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 hover:border-yellow-400"                    <h3 class="text-2xl font-bold mb-3 text-gray-900">Memento Mori</h3>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 hover:border-yellow-400">
+                    <div class="text-5xl mb-4">📖</div>
+                    <h3 class="text-2xl font-bold mb-3 text-gray-900">Memento Mori</h3>
                     <p class="text-gray-600">
                         Ricevi citazioni personalizzate dai grandi stoici (Marco Aurelio, Seneca, Epitteto) 
                         basate sul tuo percorso personale e sulle sfide che stai affrontando.
@@ -118,9 +122,10 @@ class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duratio
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 hover:border-yellow-400">
                     <div class="text-5xl mb-4">💪</div>
-class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 hover:border-yellow-400"                    <p class="text-gray-600">
+                    <h3 class="text-2xl font-bold mb-3 text-gray-900">Premeditatio Malorum</h3>
+                    <p class="text-gray-600">
                         Pratica la visualizzazione negativa con scenari guidati dall'AI per costruire 
                         resilienza emotiva e prepararti alle avversità con saggezza.
                     </p>
@@ -132,7 +137,7 @@ class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duratio
     <!-- Social Proof -->
     <section class="bg-indigo-50 py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-600 mb-8 italic text-lg">
+            <p class="text-gray-600 mb-8 italic text-lg font-cinzel">
                 "Non è ciò che ti accade, ma come reagisci che conta." - Epitteto
             </p>
             <div class="flex justify-center items-center space-x-12">
@@ -157,7 +162,7 @@ class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duratio
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-4 gap-8">
                 <div>
-                    <h4 class="text-xl font-bold mb-4">🏛️ Stoicismo Diario</h4>
+                    <h4 class="text-xl font-bold mb-4 font-cinzel">🏛️ Stoicismo Diario</h4>
                     <p class="text-gray-400">La tua guida quotidiana alla saggezza stoica.</p>
                 </div>
                 <div>
