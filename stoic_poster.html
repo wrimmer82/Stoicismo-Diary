@@ -14,26 +14,25 @@
 
     body {
       margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #1f2933 0, #020617 55%);
+      padding: 16px 0;
+      background: transparent;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #e5e7eb;
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
     }
 
     .poster-container {
       width: 100%;
-      max-width: 400px;
-      padding: 16px;
-      border-radius: 18px;
-      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.18), rgba(15, 23, 42, 0.96));
-      border: 1px solid rgba(252, 211, 77, 0.45);
+      max-width: 380px;
+      padding: 20px;
+      border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.12), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(252, 211, 77, 0.4);
       box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.75),
-        0 0 35px rgba(251, 191, 36, 0.28);
+        0 12px 32px rgba(0, 0, 0, 0.6),
+        0 0 24px rgba(251, 191, 36, 0.2);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -43,82 +42,60 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.18), transparent 60%);
-      opacity: 0.7;
+      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.15), transparent 55%);
+      opacity: 0.6;
       pointer-events: none;
     }
 
     .busto-img {
-      width: 70%;
-      max-width: 260px;
+      width: 65%;
+      max-width: 220px;
       height: auto;
       border-radius: 999px;
-      border: 2px solid rgba(253, 224, 71, 0.8);
+      border: 2px solid rgba(253, 224, 71, 0.75);
       box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.9),
-        0 0 30px rgba(250, 204, 21, 0.35);
+        0 10px 28px rgba(0, 0, 0, 0.85),
+        0 0 22px rgba(250, 204, 21, 0.3);
       object-fit: cover;
-      margin-top: 6px;
+      margin-top: 4px;
       position: relative;
       z-index: 2;
     }
 
     .halo {
       position: absolute;
-      top: 22px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
-      width: 68%;
-      max-width: 260px;
-      height: 68%;
+      width: 63%;
+      max-width: 220px;
+      height: 63%;
       border-radius: 999px;
-      background: radial-gradient(circle at top, rgba(253, 224, 71, 0.5), transparent 65%);
-      opacity: 0.65;
-      filter: blur(4px);
+      background: radial-gradient(circle at top, rgba(253, 224, 71, 0.45), transparent 60%);
+      opacity: 0.6;
+      filter: blur(3px);
       z-index: 1;
     }
 
-    .badge {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 999px;
-      border: 1px solid rgba(250, 204, 21, 0.6);
-      padding: 4px 10px;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #facc15;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      z-index: 3;
-    }
-
-    .badge span.icon {
-      font-size: 13px;
-    }
-
     .title-block {
-      margin-top: 10px;
+      margin-top: 12px;
       position: relative;
       z-index: 3;
     }
 
     .title-block h1 {
       font-family: "Cinzel", "Times New Roman", serif;
-      font-size: 18px;
-      letter-spacing: 0.15em;
+      font-size: 16px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #fef3c7;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .title-block h2 {
       font-family: "Cinzel", "Times New Roman", serif;
-      font-size: 15px;
-      letter-spacing: 0.16em;
+      font-size: 14px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: #fde68a;
       opacity: 0.9;
@@ -126,21 +103,21 @@
     }
 
     .title-block .subtitle {
-      font-size: 11px;
-      letter-spacing: 0.14em;
+      font-size: 10px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #e5e7eb;
-      opacity: 0.75;
+      opacity: 0.7;
     }
 
     .divider {
-      width: 64%;
+      width: 58%;
       height: 1px;
-      margin: 12px auto 10px auto;
+      margin: 10px auto 8px auto;
       background: linear-gradient(
         to right,
         transparent,
-        rgba(250, 204, 21, 0.9),
+        rgba(250, 204, 21, 0.85),
         transparent
       );
       position: relative;
@@ -150,11 +127,11 @@
     .divider::after {
       content: "";
       position: absolute;
-      top: -3px;
-      width: 5px;
-      height: 5px;
+      top: -2.5px;
+      width: 4px;
+      height: 4px;
       border-radius: 999px;
-      background: rgba(250, 204, 21, 0.9);
+      background: rgba(250, 204, 21, 0.85);
     }
 
     .divider::before {
@@ -167,43 +144,43 @@
 
     .latin-quote {
       font-family: "Cinzel", "Times New Roman", serif;
-      font-size: 13px;
-      letter-spacing: 0.16em;
+      font-size: 12px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #fef9c3;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
 
     .main-quote {
-      font-size: 12px;
+      font-size: 11px;
       color: #e5e7eb;
-      line-height: 1.6;
-      margin: 0 auto 8px auto;
-      max-width: 320px;
+      line-height: 1.55;
+      margin: 0 auto 7px auto;
+      max-width: 310px;
     }
 
     .explanation {
-      font-size: 11px;
+      font-size: 10.5px;
       color: #d1d5db;
       line-height: 1.5;
-      margin: 0 auto 8px auto;
-      max-width: 340px;
+      margin: 0 auto 7px auto;
+      max-width: 320px;
     }
 
     .ai-note {
-      font-size: 11px;
+      font-size: 10px;
       color: #fbbf24;
       line-height: 1.5;
-      margin: 0 auto;
-      max-width: 340px;
+      margin: 0 auto 6px auto;
+      max-width: 320px;
       font-style: italic;
     }
 
     .author {
-      margin-top: 10px;
-      font-size: 11px;
+      margin-top: 8px;
+      font-size: 10px;
       color: #9ca3af;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
@@ -214,36 +191,30 @@
 
     @media (max-width: 480px) {
       .poster-container {
-        max-width: 360px;
-        padding: 12px;
-        border-radius: 16px;
+        max-width: 340px;
+        padding: 16px;
       }
 
       .busto-img {
-        width: 72%;
+        width: 68%;
       }
 
       .latin-quote {
-        font-size: 12px;
-        letter-spacing: 0.12em;
+        font-size: 11px;
       }
 
       .main-quote,
       .explanation,
       .ai-note {
-        font-size: 11px;
+        font-size: 10px;
       }
 
       .title-block h1 {
-        font-size: 17px;
+        font-size: 15px;
       }
 
       .title-block h2 {
-        font-size: 14px;
-      }
-
-      .title-block .subtitle {
-        font-size: 10px;
+        font-size: 13px;
       }
     }
   </style>
@@ -251,11 +222,6 @@
 <body>
   <div class="poster-container">
     <div class="halo"></div>
-
-    <div class="badge">
-      <span class="icon">⚖️</span>
-      <span>Via Stoica</span>
-    </div>
 
     <img src="busto_1_spalle.png" alt="Marco Aurelio" class="busto-img">
 
@@ -268,7 +234,7 @@
     <div class="divider"></div>
 
     <div class="latin-quote">
-      “Quod obstat viae, via fit.”
+      "Quod obstat viae, via fit."
     </div>
 
     <p class="main-quote">
@@ -278,13 +244,12 @@
     <p class="explanation">
       Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. 
       La mente razionale può trasformare ogni impedimento in opportunità di crescita, 
-      adattando i propri scopi all'ostacolo anziché fuggirlo.
+      adattando i propri scopi all'ostacolo.
     </p>
 
     <p class="ai-note">
       Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate 
-      basate sui tuoi problemi quotidiani reali, aiutandoti a trasformare ogni blocco in 
-      un passo concreto sul tuo percorso stoico.
+      basate sui tuoi problemi quotidiani reali.
     </p>
 
     <div class="author">
