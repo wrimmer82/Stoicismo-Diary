@@ -14,25 +14,25 @@
 
     body {
       margin: 0;
-      padding: 16px 0;
+      padding: 0;
       background: transparent;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .poster-container {
       width: 100%;
-      max-width: 380px;
-      padding: 20px;
-      border-radius: 16px;
-      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.12), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(252, 211, 77, 0.4);
+      height: 100%;
+      min-height: 600px;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 24px 24px 26px 24px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.16), rgba(15, 23, 42, 0.98));
+      border: 1px solid rgba(252, 211, 77, 0.45);
       box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.6),
-        0 0 24px rgba(251, 191, 36, 0.2);
+        0 18px 45px rgba(0, 0, 0, 0.75),
+        0 0 35px rgba(251, 191, 36, 0.28);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -42,82 +42,82 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.15), transparent 55%);
-      opacity: 0.6;
+      background: radial-gradient(circle at top, rgba(252, 211, 77, 0.18), transparent 60%);
+      opacity: 0.7;
       pointer-events: none;
     }
 
     .busto-img {
-      width: 65%;
-      max-width: 220px;
+      width: 80%;
+      max-width: 320px;
       height: auto;
       border-radius: 999px;
-      border: 2px solid rgba(253, 224, 71, 0.75);
+      border: 2px solid rgba(253, 224, 71, 0.8);
       box-shadow:
-        0 10px 28px rgba(0, 0, 0, 0.85),
-        0 0 22px rgba(250, 204, 21, 0.3);
+        0 12px 32px rgba(0, 0, 0, 0.9),
+        0 0 30px rgba(250, 204, 21, 0.35);
       object-fit: cover;
-      margin-top: 4px;
+      margin-top: 6px;
       position: relative;
       z-index: 2;
     }
 
     .halo {
       position: absolute;
-      top: 18px;
+      top: 26px;
       left: 50%;
       transform: translateX(-50%);
-      width: 63%;
-      max-width: 220px;
-      height: 63%;
+      width: 78%;
+      max-width: 330px;
+      height: 78%;
       border-radius: 999px;
-      background: radial-gradient(circle at top, rgba(253, 224, 71, 0.45), transparent 60%);
-      opacity: 0.6;
-      filter: blur(3px);
+      background: radial-gradient(circle at top, rgba(253, 224, 71, 0.5), transparent 65%);
+      opacity: 0.65;
+      filter: blur(4px);
       z-index: 1;
     }
 
     .title-block {
-      margin-top: 12px;
+      margin-top: 14px;
       position: relative;
       z-index: 3;
     }
 
     .title-block h1 {
       font-family: "Cinzel", "Times New Roman", serif;
-      font-size: 16px;
-      letter-spacing: 0.14em;
+      font-size: 18px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #fef3c7;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .title-block h2 {
       font-family: "Cinzel", "Times New Roman", serif;
-      font-size: 14px;
-      letter-spacing: 0.15em;
+      font-size: 16px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #fde68a;
       opacity: 0.9;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .title-block .subtitle {
-      font-size: 10px;
-      letter-spacing: 0.12em;
+      font-size: 11px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #e5e7eb;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
     .divider {
-      width: 58%;
+      width: 64%;
       height: 1px;
-      margin: 10px auto 8px auto;
+      margin: 14px auto 10px auto;
       background: linear-gradient(
         to right,
         transparent,
-        rgba(250, 204, 21, 0.85),
+        rgba(250, 204, 21, 0.9),
         transparent
       );
       position: relative;
@@ -127,11 +127,11 @@
     .divider::after {
       content: "";
       position: absolute;
-      top: -2.5px;
-      width: 4px;
-      height: 4px;
+      top: -3px;
+      width: 5px;
+      height: 5px;
       border-radius: 999px;
-      background: rgba(250, 204, 21, 0.85);
+      background: rgba(250, 204, 21, 0.9);
     }
 
     .divider::before {
@@ -144,43 +144,43 @@
 
     .latin-quote {
       font-family: "Cinzel", "Times New Roman", serif;
-      font-size: 12px;
-      letter-spacing: 0.14em;
+      font-size: 13px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: #fef9c3;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
     .main-quote {
-      font-size: 11px;
+      font-size: 12px;
       color: #e5e7eb;
-      line-height: 1.55;
-      margin: 0 auto 7px auto;
-      max-width: 310px;
+      line-height: 1.6;
+      margin: 0 auto 8px auto;
+      max-width: 360px;
     }
 
     .explanation {
-      font-size: 10.5px;
+      font-size: 11px;
       color: #d1d5db;
-      line-height: 1.5;
-      margin: 0 auto 7px auto;
-      max-width: 320px;
+      line-height: 1.55;
+      margin: 0 auto 8px auto;
+      max-width: 370px;
     }
 
     .ai-note {
-      font-size: 10px;
+      font-size: 11px;
       color: #fbbf24;
       line-height: 1.5;
       margin: 0 auto 6px auto;
-      max-width: 320px;
+      max-width: 370px;
       font-style: italic;
     }
 
     .author {
-      margin-top: 8px;
-      font-size: 10px;
+      margin-top: 10px;
+      font-size: 11px;
       color: #9ca3af;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
@@ -191,30 +191,36 @@
 
     @media (max-width: 480px) {
       .poster-container {
-        max-width: 340px;
-        padding: 16px;
+        max-width: 400px;
+        padding: 18px 16px 22px 16px;
+        min-height: 560px;
       }
 
       .busto-img {
-        width: 68%;
+        width: 82%;
       }
 
       .latin-quote {
-        font-size: 11px;
+        font-size: 12px;
+        letter-spacing: 0.13em;
       }
 
       .main-quote,
       .explanation,
       .ai-note {
-        font-size: 10px;
+        font-size: 11px;
       }
 
       .title-block h1 {
-        font-size: 15px;
+        font-size: 17px;
       }
 
       .title-block h2 {
-        font-size: 13px;
+        font-size: 15px;
+      }
+
+      .title-block .subtitle {
+        font-size: 10px;
       }
     }
   </style>
@@ -234,7 +240,7 @@
     <div class="divider"></div>
 
     <div class="latin-quote">
-      "Quod obstat viae, via fit."
+      “Quod obstat viae, via fit.”
     </div>
 
     <p class="main-quote">
@@ -244,12 +250,13 @@
     <p class="explanation">
       Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. 
       La mente razionale può trasformare ogni impedimento in opportunità di crescita, 
-      adattando i propri scopi all'ostacolo.
+      adattando i propri scopi all'ostacolo anziché fuggirlo.
     </p>
 
     <p class="ai-note">
       Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate 
-      basate sui tuoi problemi quotidiani reali.
+      basate sui tuoi problemi quotidiani reali, aiutandoti a trasformare ogni blocco in 
+      un passo concreto sul tuo percorso stoico.
     </p>
 
     <div class="author">
