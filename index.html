@@ -57,34 +57,41 @@
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
-                    <img src="https://raw.githubusercontent.com/wrimmer82/Stoicismo-Diary/main/sigma_logo.png" alt="The Stoic Journey" class="h-8 w-8 md:h-10 md:w-10 object-contain">
-                    <span class="text-2xl font-bold text-indigo-600 font-cinzel">The Stoic Journey</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#features" class="text-gray-700 hover:text-indigo-600">Funzionalità</a>
-                    <a href="#pricing" class="text-gray-700 hover:text-indigo-600">Prezzi</a>
-                    <a href="#" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Inizia Ora</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section class="parallax-bg relative text-white py-20 min-h-screen flex items-center" style="background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url('colonnato_restaurato.png') center/cover no-repeat fixed;">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide">Non conta quante volte cadi, ma quante volte ti rialzi</h1>
+    <section class="parallax-bg relative text-white py-20 min-h-screen flex flex-col" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('colonnato_restaurato.png') center/cover no-repeat fixed;">
+        
+        <!-- Top Right: Accedi Button -->
+        <div class="absolute top-8 right-8 z-20">
+            <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
+                Accedi
+            </a>
+        </div>
+
+        <!-- Center Content -->
+        <div class="flex-1 flex flex-col items-center justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <!-- Logo + Brand Name Centered -->
+            <div class="flex flex-col items-center gap-4 mb-12 animate-fadeIn">
+                <img src="https://raw.githubusercontent.com/wrimmer82/Stoicismo-Diary/main/sigma_logo.png" 
+                     alt="The Stoic Journey" 
+                     class="h-20 w-20 md:h-24 md:w-24 object-contain drop-shadow-2xl">
+                <h1 class="text-4xl md:text-5xl font-bold font-cinzel tracking-wider text-white drop-shadow-2xl">
+                    The Stoic Journey
+                </h1>
+            </div>
+
+            <!-- Main Headline -->
+            <h2 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl">
+                Non conta quante volte cadi, ma quante volte ti rialzi
+            </h2>
+            
             <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
                 Trasforma la tua vita quotidiana con i principi degli antichi filosofi. 
                 Riflessioni guidate dall'AI per costruire resilienza e serenità.
             </p>
             
             <!-- Email Signup Form -->
-            <div class="max-w-md mx-auto animate-fadeInUp delay-600">
+            <div class="max-w-md mx-auto animate-fadeInUp delay-600 w-full">
                 <form class="flex flex-col sm:flex-row gap-3" onsubmit="handleSubmit(event)">
                     <input 
                         type="email" 
@@ -274,30 +281,3 @@
                     <ul class="space-y-2 text-gray-400">
                         <li><a href="#" class="hover:text-white">Blog</a></li>
                         <li><a href="#" class="hover:text-white">Guide Stoiche</a></li>
-                        <li><a href="#" class="hover:text-white">Community</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-semibold mb-3">Contatti</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>Email: info@thestoicjourney.com</li>
-                        <li>Twitter: @StoicJourney</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 The Stoic Journey. Tutti i diritti riservati.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input[type="email"]').value;
-            alert(`Grazie! Ti abbiamo inviato una email di conferma a: ${email}`);
-            event.target.reset();
-        }
-    </script>
-</body>
-</html>
