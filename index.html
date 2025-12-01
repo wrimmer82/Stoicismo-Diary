@@ -19,6 +19,10 @@
                 transform: translateY(0);
             }
         }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         .animate-fadeInUp {
             animation: fadeInUp 1s ease-out forwards;
         }
@@ -44,7 +48,7 @@
             overflow: hidden;
         }
 
-        /* ----------- Reveal Animation Styles ----------- */
+        /* Reveal Animation */
         .reveal {
             opacity: 0;
             transform: translateY(60px);
@@ -55,11 +59,25 @@
             opacity: 1;
             transform: none;
         }
+
+        /* Gradiente tramonto continuo */
+        .sunset-gradient {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%,      /* Viola scuro profondo */
+                #2d1b3d 15%,     /* Viola medio */
+                #4a2c4f 30%,     /* Viola-grigio */
+                #6b4a5a 45%,     /* Viola-rosato */
+                #8b5a4e 60%,     /* Arancio bruciato */
+                #a8754a 75%,     /* Ambra scuro */
+                #c49050 85%,     /* Oro antico */
+                #1c1410 100%     /* Nero-ambra finale */
+            );
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
     <!-- Hero Section -->
-    <section class="parallax-bg relative text-white py-20 min-h-screen flex flex-col justify-between" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('colonnato_restaurato.png') center/cover no-repeat fixed;">
+    <section class="parallax-bg relative text-white py-20 min-h-screen flex flex-col justify-between sunset-gradient">
         <!-- Top Right: Accedi Button -->
         <div class="absolute top-8 right-8 z-20">
             <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
@@ -104,8 +122,8 @@
         </div>
     </section>
 
-    <!-- Features Section con Reveal Animation -->
-    <section class="py-20 bg-gradient-to-b from-black via-gray-900 to-amber-950/40">
+    <!-- Features Section -->
+    <section class="py-20 sunset-gradient">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <h2 class="text-4xl font-cinzel font-bold text-center mb-16 text-slate-100">I Pilastri della Crescita Stoica</h2>
           <div class="grid md:grid-cols-3 gap-10">
@@ -167,13 +185,13 @@
                 «En tois eph' hemin kai en tois ouk eph' hemin»
               </div>
               <p class="text-[11px] md:text-[13px] text-slate-200/90 leading-relaxed mb-2">
-                La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è.
+                La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
               </p>
               <p class="text-[11px] md:text-[13px] text-slate-300/90 leading-relaxed mb-2">
-                Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare.
+                Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
               </p>
               <p class="text-[11px] md:text-[13px] text-amber-300/90 italic leading-relaxed">
-                L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi.
+                L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
               </p>
             </div>
 
@@ -201,13 +219,13 @@
                 «Qui omnia timet, nihil cogitat»
               </div>
               <p class="text-[11px] md:text-[13px] text-slate-200/90 leading-relaxed mb-2">
-                La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi.
+                La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
               </p>
               <p class="text-[11px] md:text-[13px] text-slate-300/90 leading-relaxed mb-2">
-                Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere.
+                Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
               </p>
               <p class="text-[11px] md:text-[13px] text-amber-300/90 italic leading-relaxed">
-                L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità.
+                L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
               </p>
             </div>
         </div>
@@ -215,7 +233,7 @@
     </section>
 
     <!-- Memento Mori Section -->
-    <section class="bg-black py-20">
+    <section class="py-20 sunset-gradient">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide">
                 MEMENTO MORI
@@ -283,7 +301,6 @@
 
         // Reveal effect script
         document.addEventListener("DOMContentLoaded", function() {
-            // Per ciascun elemento con .reveal applica l'effetto quando entra nel viewport
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
                     var rect = el.getBoundingClientRect(),
@@ -294,7 +311,7 @@
                 });
             }
             window.addEventListener("scroll", revealOnScroll);
-            revealOnScroll(); // per check iniziale
+            revealOnScroll();
         });
     </script>
 </body>
