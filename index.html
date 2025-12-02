@@ -61,6 +61,17 @@
             transform: none;
         }
 
+        /* Fade-in on scroll per Memento Mori */
+        .fade-in-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        .fade-in-scroll.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* Gradiente tramonto continuo */
         .sunset-gradient {
             background: linear-gradient(180deg, 
@@ -233,23 +244,23 @@
         </div>
     </section>
 
-    <!-- Memento Mori Section con gradiente tramonto -->
+    <!-- Memento Mori Section con gradiente tramonto e Fade-in on Scroll -->
     <section class="py-20 sunset-gradient">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide">
+            <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide fade-in-scroll">
                 MEMENTO MORI
             </h3>
-            <p class="text-xl md:text-2xl text-yellow-500/90 font-cinzel italic mb-8 leading-relaxed">
+            <p class="text-xl md:text-2xl text-yellow-500/90 font-cinzel italic mb-8 leading-relaxed fade-in-scroll">
                 "Ricordati che devi morire"
             </p>
-            <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8"></div>
+            <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8 fade-in-scroll"></div>
             
             <!-- Testo con font romano, più grande e colore che spicca -->
-            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide">
+            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide fade-in-scroll">
                 La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
             </p>
             
-            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide">
+            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide fade-in-scroll">
                 Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero.
             </p>
         </div>
@@ -303,7 +314,7 @@
             event.target.reset();
         }
 
-        // Reveal effect script
+        // Reveal effect script per le card dei filosofi
         document.addEventListener("DOMContentLoaded", function() {
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
@@ -316,8 +327,25 @@
             }
             window.addEventListener("scroll", revealOnScroll);
             revealOnScroll();
+
+            // IntersectionObserver per Memento Mori fade-in
+            const fadeElements = document.querySelectorAll('.fade-in-scroll');
+            
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            fadeElements.forEach(element => {
+                fadeObserver.observe(element);
+            });
         });
     </script>
 </body>
 </html>
-
