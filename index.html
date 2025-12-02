@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         @keyframes fadeInUp {
             from {
@@ -39,6 +39,7 @@
             background-size: cover;
         }
         .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         .poster-frame {
             width: 100%;
@@ -242,10 +243,13 @@
                 "Ricordati che devi morire"
             </p>
             <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8"></div>
-            <p class="text-base md:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-6">
+            
+            <!-- Testo con font romano, più grande e colore che spicca -->
+            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide">
                 La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
             </p>
-            <p class="text-sm md:text-base text-gray-400 leading-relaxed max-w-2xl mx-auto">
+            
+            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide">
                 Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero.
             </p>
         </div>
@@ -316,6 +320,3 @@
     </script>
 </body>
 </html>
-
-
-
