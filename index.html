@@ -65,6 +65,21 @@
             overflow: hidden;
         }
 
+        /* Bordo nero per testo hero */
+        .text-stroke-black {
+            text-shadow: 
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                -3px 0 0 #000,
+                3px 0 0 #000,
+                0 -3px 0 #000,
+                0 3px 0 #000,
+                -2px -2px 4px rgba(0,0,0,0.8),
+                2px 2px 8px rgba(0,0,0,0.6);
+        }
+
         /* Reveal Animation */
         .reveal {
             opacity: 0;
@@ -137,7 +152,7 @@
                 <img src="sigma_logo.png"
                      alt="The Stoic Journey"
                      class="h-16 w-16 md:h-20 md:w-20 object-contain drop-shadow-2xl">
-                <h1 class="text-3xl md:text-5xl font-bold font-cinzel tracking-wider text-white drop-shadow-2xl">
+                <h1 class="text-3xl md:text-5xl font-bold font-cinzel tracking-wider text-white text-stroke-black">
                     The Stoic Journey
                 </h1>
             </div>
@@ -145,7 +160,7 @@
         
         <!-- Center/Bottom Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10">
-            <h2 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto">
+            <h2 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto text-stroke-black">
                 Non conta quante volte cadi, ma quante volte ti rialzi
             </h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
@@ -405,3 +420,4 @@
     </script>
 </body>
 </html>
+
