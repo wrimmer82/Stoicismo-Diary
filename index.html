@@ -32,12 +32,28 @@
         .delay-300 { animation-delay: 0.3s; opacity: 0; }
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .delay-900 { animation-delay: 0.9s; opacity: 0; }
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        
+        /* Parallax con effetto zoom prospettico */
+        .parallax-zoom-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            perspective: 1px;
+            transform-style: preserve-3d;
         }
+        
+        .parallax-zoom-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('colonnato_restaurato.png') center/cover no-repeat;
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+            transition: transform 0.1s ease-out;
+        }
+        
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
@@ -103,16 +119,20 @@
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
-    <!-- Hero Section con colonnato -->
-    <section class="parallax-bg relative text-white py-20 min-h-screen flex flex-col justify-between" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('colonnato_restaurato.png') center/cover no-repeat fixed;">
+    <!-- Hero Section con effetto zoom parallax -->
+    <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
+        <!-- Background con effetto zoom -->
+        <div class="parallax-zoom-bg" id="parallaxBg"></div>
+        
         <!-- Top Right: Accedi Button -->
         <div class="absolute top-8 right-8 z-20">
             <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
                 Accedi
             </a>
         </div>
+        
         <!-- Top Content Area -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-12 relative z-10">
             <div class="flex items-center justify-center gap-4 mb-8 animate-fadeIn">
                 <img src="sigma_logo.png"
                      alt="The Stoic Journey"
@@ -122,8 +142,9 @@
                 </h1>
             </div>
         </div>
+        
         <!-- Center/Bottom Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10">
             <h2 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto">
                 Non conta quante volte cadi, ma quante volte ti rialzi
             </h2>
@@ -330,6 +351,24 @@
             alert(`Grazie! Ti abbiamo inviato una email di conferma a: ${email}`);
             event.target.reset();
         }
+
+        // Effetto zoom parallax su scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.getElementById('parallaxBg');
+            
+            // Calcola zoom e scala in base allo scroll
+            const maxScroll = window.innerHeight;
+            const scrollFraction = Math.min(scrolled / maxScroll, 1);
+            
+            // Zoom progressivo: da scale(2) a scale(2.5) mentre scrolli
+            const scaleValue = 2 + (scrollFraction * 0.5);
+            
+            // Movimento prospettico
+            const translateZ = -1 - (scrollFraction * 0.3);
+            
+            parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
+        });
 
         // Reveal effect script per le card dei filosofi
         document.addEventListener("DOMContentLoaded", function() {
