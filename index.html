@@ -92,6 +92,33 @@
             transform: none;
         }
 
+        /* Effetto rotazione 3D per card filosofi */
+        .card-3d {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02);
+        }
+        
+        .card-3d::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .card-3d:hover::before {
+            opacity: 1;
+        }
+
         /* Fade-in on scroll per Memento Mori */
         .fade-in-scroll {
             opacity: 0;
@@ -192,8 +219,8 @@
            </h2>
           <div class="grid md:grid-cols-3 gap-10">
             <!-- MARCO AURELIO -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal">
-              <div class="relative mb-6">
+            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
+              <div class="relative mb-6 z-10">
                 <div class="absolute inset-0 translate-y-6">
                   <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
                 </div>
@@ -201,33 +228,33 @@
                      alt="Marco Aurelio"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan">
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
                 Marco Aurelio
               </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan">
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
                 Impedimentum Via Est
               </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan">
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
                 Il cammino attraverso gli ostacoli
               </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan">
+              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
                 «Quod obstat viae, via fit.»
               </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan">
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
                 "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
               </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan">
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
                 Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
               </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan">
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
                 Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
               </p>
             </div>
 
             <!-- EPITTETO -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal">
-              <div class="relative mb-6">
+            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
+              <div class="relative mb-6 z-10">
                 <div class="absolute inset-0 translate-y-6">
                   <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
                 </div>
@@ -235,33 +262,33 @@
                      alt="Epitteto"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan">
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
                 Epitteto
               </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan">
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
                 In Nostra Potestate
               </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan">
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
                 La dicotomia del controllo
               </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan">
+              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
                 «En tois eph' hemin kai en tois ouk eph' hemin»
               </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan">
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
                 La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
               </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan">
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
                 Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
               </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan">
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
                 L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
               </p>
             </div>
 
             <!-- SENECA -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal">
-              <div class="relative mb-6">
+            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
+              <div class="relative mb-6 z-10">
                 <div class="absolute inset-0 translate-y-6">
                   <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
                 </div>
@@ -269,26 +296,26 @@
                      alt="Seneca"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan">
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
                 Seneca
               </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan">
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
                 Praemeditatio Malorum
               </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan">
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
                 Prepararsi al peggio per vivere meglio
               </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan">
+              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
                 «Qui omnia timet, nihil cogitat»
               </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan">
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
                 La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
               </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan">
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
                 Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
               </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan">
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
                 L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
               </p>
             </div>
@@ -419,5 +446,6 @@
     </script>
 </body>
 </html>
+
 
 
