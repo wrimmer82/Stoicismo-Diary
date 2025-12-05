@@ -139,27 +139,26 @@
         <!-- Background con effetto zoom -->
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
-        <!-- Top Right: Accedi Button -->
-        <div class="absolute top-8 right-8 z-20">
+        <!-- Top Bar: Logo Sinistra + Accedi Destra -->
+        <div class="absolute top-8 left-8 right-8 z-20 flex justify-between items-center">
+            <!-- Logo Sigma a sinistra -->
+            <div class="flex items-center gap-3 animate-fadeIn">
+                <img src="sigma_logo.png"
+                     alt="The Stoic Journey"
+                     class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
+                <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black hidden sm:inline">
+                    The Stoic Journey
+                </span>
+            </div>
+            
+            <!-- Bottone Accedi a destra -->
             <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
                 Accedi
             </a>
         </div>
         
-        <!-- Top Content Area -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-12 relative z-10">
-            <div class="flex items-center justify-center gap-4 mb-8 animate-fadeIn">
-                <img src="sigma_logo.png"
-                     alt="The Stoic Journey"
-                     class="h-16 w-16 md:h-20 md:w-20 object-contain drop-shadow-2xl">
-                <h1 class="text-3xl md:text-5xl font-bold font-cinzel tracking-wider text-white text-stroke-black">
-                    The Stoic Journey
-                </h1>
-            </div>
-        </div>
-        
         <!-- Center/Bottom Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10 mt-auto">
             <h2 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto text-stroke-black">
                 Non conta quante volte cadi, ma quante volte ti rialzi
             </h2>
@@ -420,4 +419,5 @@
     </script>
 </body>
 </html>
+
 
