@@ -33,25 +33,26 @@
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .delay-900 { animation-delay: 0.9s; opacity: 0; }
         
-        /* Parallax con effetto zoom prospettico */
+        /* Parallax INTENSO con effetto zoom prospettico potenziato */
         .parallax-zoom-container {
             position: relative;
             height: 100vh;
             overflow: hidden;
-            perspective: 1px;
+            perspective: 2px;
             transform-style: preserve-3d;
         }
         
         .parallax-zoom-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('colonnato_restaurato.png') center/cover no-repeat;
-            transform: translateZ(-1px) scale(2);
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('colonnato_restaurato.png') center/cover no-repeat;
+            transform: translateZ(-2px) scale(3);
             z-index: -1;
-            transition: transform 0.1s ease-out;
+            transition: transform 0.05s ease-out;
+            will-change: transform;
         }
         
         .font-cinzel { font-family: 'Cinzel', serif; }
@@ -161,9 +162,9 @@
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
-    <!-- Hero Section con effetto zoom parallax -->
+    <!-- Hero Section con effetto zoom parallax INTENSO -->
     <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
-        <!-- Background con effetto zoom -->
+        <!-- Background con effetto zoom potenziato -->
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
         <!-- Top Bar: Logo Sinistra + Accedi Destra -->
@@ -393,22 +394,25 @@
             event.target.reset();
         }
 
-        // Effetto zoom parallax su scroll
+        // Effetto zoom parallax INTENSO su scroll - attraversa il colonnato
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxBg = document.getElementById('parallaxBg');
             
-            // Calcola zoom e scala in base allo scroll
-            const maxScroll = window.innerHeight;
+            // Calcola zoom INTENSO in base allo scroll
+            const maxScroll = window.innerHeight * 1.5; // Range esteso
             const scrollFraction = Math.min(scrolled / maxScroll, 1);
             
-            // Zoom progressivo: da scale(2) a scale(2.5) mentre scrolli
-            const scaleValue = 2 + (scrollFraction * 0.5);
+            // Zoom DRAMMATICO: da scale(3) a scale(5.5) 
+            const scaleValue = 3 + (scrollFraction * 2.5);
             
-            // Movimento prospettico
-            const translateZ = -1 - (scrollFraction * 0.3);
+            // Movimento prospettico verso il punto di fuga
+            const translateZ = -2 - (scrollFraction * 1.5);
             
-            parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
+            // Movimento verticale per simulare passaggio sotto l'arco
+            const translateY = scrollFraction * 20;
+            
+            parallaxBg.style.transform = `translateZ(${translateZ}px) translateY(${translateY}%) scale(${scaleValue})`;
         });
 
         // Reveal effect script per le card dei filosofi
@@ -446,6 +450,7 @@
     </script>
 </body>
 </html>
+
 
 
 
