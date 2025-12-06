@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cos'è lo Stoicismo - The Stoic Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        .delay-300 { animation-delay: 0.3s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+        
+        .parallax-zoom-container {
+            position: relative;
+            height: 60vh;
+            min-height: 400px;
+            overflow: hidden;
+            perspective: 1px;
+            transform-style: preserve-3d;
+        }
+        
+        .parallax-zoom-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('Muro-vhils-Marco-aurelio-Biano-Nero-2.jpg') center/cover no-repeat;
+            transform: translateZ(-1px) scale(2);
+            z-index: -1;
+            transition: transform 0.1s ease-out;
+        }
+        
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+
+        .text-stroke-black {
+            text-shadow: 
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                -3px 0 0 #000,
+                3px 0 0 #000,
+                0 -3px 0 #000,
+                0 3px 0 #000,
+                -2px -2px 4px rgba(0,0,0,0.8),
+                2px 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.95s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: transform, opacity;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .sunset-gradient {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%,
+                #2d1b3d 15%,
+                #4a2c4f 30%,
+                #6b4a5a 45%,
+                #8b5a4e 60%,
+                #a8754a 75%,
+                #c49050 85%,
+                #1c1410 100%
+            );
+        }
+
+        .text-3d {
+            text-shadow: 
+                1px 1px 0 #c49050,
+                2px 2px 0 #b8834a,
+                3px 3px 0 #ac7644,
+                4px 4px 0 #a0693e,
+                5px 5px 0 #945c38,
+                6px 6px 0 #884f32,
+                7px 7px 0 #7c422c,
+                8px 8px 15px rgba(0, 0, 0, 0.6);
+            transform: perspective(500px) rotateX(5deg);
+            letter-spacing: 0.05em;
+        }
+
+        .philosopher-card {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease;
+        }
+        
+        .philosopher-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .quote-box {
+            border-left: 4px solid #fbbf24;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(251, 191, 36, 0.02) 100%);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .timeline-line {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -6px;
+            top: 0.5rem;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #fbbf24;
+            border: 3px solid #1a0f1f;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter">
+    <!-- Hero Section -->
+    <section class="parallax-zoom-container relative text-white flex flex-col justify-between">
+        <div class="parallax-zoom-bg" id="parallaxBg"></div>
+        
+        <!-- Top Bar -->
+        <div class="absolute top-8 left-8 right-8 z-20 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 animate-fadeIn hover:opacity-80 transition-opacity">
+                <img src="sigma_logo.png"
+                     alt="The Stoic Journey"
+                     class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
+                <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black hidden sm:inline">
+                    The Stoic Journey
+                </span>
+            </a>
+            
+            <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
+                Accedi
+            </a>
+        </div>
+        
+        <!-- Center Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-16 relative z-10 mt-auto">
+            <h1 class="text-4xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide text-stroke-black">
+                Cos'è lo Stoicismo
+            </h1>
+            <p class="text-xl md:text-2xl mb-4 max-w-3xl mx-auto font-trajan animate-fadeInUp delay-300 text-amber-200">
+                Una filosofia di 2300 anni più attuale che mai
+            </p>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 reveal">
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+                    Lo stoicismo è una filosofia pratica fondata ad Atene intorno al 300 a.C. da <strong>Zenone di Cizio</strong>. Non è una teoria astratta, ma un sistema di vita che ha aiutato imperatori, schiavi, scrittori e persone comuni ad affrontare le sfide dell'esistenza con lucidità e serenità.
+                </p>
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                    Oggi, oltre 2000 anni dopo, lo stoicismo sta vivendo una straordinaria rinascita perché offre strumenti concreti per gestire ansia, stress e incertezza nella vita moderna.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dalle Origini alla Roma Imperiale -->
+    <section class="py-20 sunset-gradient">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d">
+                Dalle Origini Greche alla Roma Imperiale
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 mb-16">
+                <!-- Colonna Timeline -->
+                <div class="reveal">
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-300 mb-8">Il Viaggio attraverso i Secoli</h3>
+                    
+                    <div class="timeline-line space-y-8">
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <div class="text-amber-200 font-bold mb-2">300 a.C. - Atene</div>
+                                <p class="text-slate-300 leading-relaxed">
+                                    <strong class="text-amber-300">Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome "stoicismo". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <div class="text-amber-200 font-bold mb-2">280-206 a.C.</div>
+                                <p class="text-slate-300 leading-relaxed">
+                                    <strong class="text-amber-300">Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. "Senza Crisippo non ci sarebbe la Stoà" - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <div class="text-amber-200 font-bold mb-2">I-II sec. d.C. - Roma</div>
+                                <p class="text-slate-300 leading-relaxed">
+                                    Lo stoicismo raggiunge il suo apice nella Roma imperiale con tre figure straordinarie: <strong class="text-amber-300">Seneca</strong> (filosofo e consigliere), <strong class="text-amber-300">Epitteto</strong> (ex schiavo divenuto maestro) e <strong class="text-amber-300">Marco Aurelio</strong> (imperatore filosofo).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Colonna Contesto -->
+                <div class="reveal">
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-300 mb-8">Perché Nacque lo Stoicismo</h3>
+                    
+                    <div class="bg-slate-900/80 rounded-2xl p-6 border border-amber-400/30 mb-6">
+                        <p class="text-slate-200 leading-relaxed mb-4">
+                            Lo stoicismo emerge nell'<strong class="text-amber-300">età ellenistica</strong>, dopo la morte di Alessandro Magno (323 a.C.). Il mondo greco vive una crisi profonda: le città-stato perdono indipendenza, l'incertezza politica è costante, gli individui si sentono impotenti davanti a forze più grandi.
+                        </p>
+                        <p class="text-slate-200 leading-relaxed">
+                            In questo contesto di crisi, le persone non cercavano speculazioni astratte, ma <strong class="text-amber-300">guide pratiche per vivere bene</strong> nonostante le avversità. Lo stoicismo risponde offrendo strumenti concreti per trovare serenità interiore indipendentemente dalle circostanze esterne.
+                        </p>
+                    </div>
+                    
+                    <div class="quote-box">
+                        <p class="text-amber-200 italic font-trajan leading-relaxed">
+                            "Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- I Tre Filosofi Romani -->
+    <section class="py-20 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-4 text-slate-100 text-3d">
+                I Tre Maestri dello Stoicismo Romano
+            </h2>
+            <p class="text-center text-xl text-amber-300 mb-16 font-trajan">
+                Tre vite diverse, una stessa saggezza
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Seneca -->
+                <div class="philosopher-card bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-400/50 rounded-2xl p-6 reveal">
+                    <div class="flex justify-center mb-6">
+                        <img src="busto_3_semplice.jpg" 
+                             alt="Seneca" 
+                             class="w-48 h-48 rounded-full border-2 border-amber-300 object-cover shadow-2xl">
+                    </div>
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-200 text-center mb-2">Seneca</h3>
+                    <p class="text-sm text-amber-300/80 text-center mb-4 font-trajan">4 a.C. - 65 d.C.</p>
+                    <p class="text-slate-300 leading-relaxed text-sm mb-4">
+                        Filosofo, drammaturgo e consigliere dell'imperatore Nerone. Le sue <strong class="text-amber-300">Lettere a Lucilio</strong> sono una guida spirituale progressiva che accompagna il lettore verso la saggezza.
+                    </p>
+                    <div class="bg-slate-900/50 rounded-lg p-3 border border-amber-400/20">
+                        <p class="text-amber-200 italic text-sm font-trajan">
+                            "Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Epitteto -->
+                <div class="philosopher-card bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-400/50 rounded-2xl p-6 reveal">
+                    <div class="flex justify-center mb-6">
+                        <img src="busto_2_semplice.jpg" 
+                             alt="Epitteto" 
+                             class="w-48 h-48 rounded-full border-2 border-amber-300 object-cover shadow-2xl">
+                    </div>
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-200 text-center mb-2">Epitteto</h3>
+                    <p class="text-sm text-amber-300/80 text-center mb-4 font-trajan">50 - 138 d.C.</p>
+                    <p class="text-slate-300 leading-relaxed text-sm mb-4">
+                        Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class="text-amber-300">Manuale</strong> è un vademecum tascabile di saggezza pratica. Insegna la distinzione tra ciò che dipende da noi e ciò che non dipende.
+                    </p>
+                    <div class="bg-slate-900/50 rounded-lg p-3 border border-amber-400/20">
+                        <p class="text-amber-200 italic text-sm font-trajan">
+                            "Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Marco Aurelio -->
+                <div class="philosopher-card bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-400/50 rounded-2xl p-6 reveal">
+                    <div class="flex justify-center mb-6">
+                        <img src="busto_1_variazione.jpg" 
+                             alt="Marco Aurelio" 
+                             class="w-48 h-48 rounded-full border-2 border-amber-300 object-cover shadow-2xl">
+                    </div>
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-200 text-center mb-2">Marco Aurelio</h3>
+                    <p class="text-sm text-amber-300/80 text-center mb-4 font-trajan">121 - 180 d.C.</p>
+                    <p class="text-slate-300 leading-relaxed text-sm mb-4">
+                        Imperatore di Roma, l'uomo più potente del mondo che medita sulla vanità del potere. I suoi <strong class="text-amber-300">Colloqui con sé stesso</strong> sono un diario filosofico scritto durante le campagne militari.
+                    </p>
+                    <div class="bg-slate-900/50 rounded-lg p-3 border border-amber-400/20">
+                        <p class="text-amber-200 italic text-sm font-trajan">
+                            "Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- I Principi Fondamentali -->
+    <section class="py-20 sunset-gradient">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d">
+                I Principi che Cambiano la Vita
+            </h2>
+            
+            <div class="space-y-12">
+                <!-- Principio 1 -->
+                <div class="reveal bg-slate-900/80 rounded-2xl p-8 border border-amber-400/40">
+                    <div class="flex items-start gap-6">
+                        <div class="hidden md:block text-6xl text-amber-400 font-cinzel font-bold">01</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 mb-4">
+                                La Dicotomia del Controllo
+                            </h3>
+                            <p class="text-slate-200 leading-relaxed mb-4 text-lg">
+                                Il principio fondamentale insegnato da Epitteto: distinguere con lucidità ciò che dipende da noi dalle cose che non possiamo controllare.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                                <div class="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+                                    <h4 class="text-green-400 font-bold mb-2 font-cinzel">✓ Dipende da te</h4>
+                                    <ul class="text-slate-300 space-y-2 text-sm">
+                                        <li>• Le tue opinioni e giudizi</li>
+                                        <li>• I tuoi desideri e avversioni</li>
+                                        <li>• Le tue scelte e azioni</li>
+                                        <li>• Il tuo atteggiamento</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+                                    <h4 class="text-red-400 font-bold mb-2 font-cinzel">✗ Non dipende da te</h4>
+                                    <ul class="text-slate-300 space-y-2 text-sm">
+                                        <li>• Gli eventi esterni</li>
+                                        <li>• Le opinioni altrui</li>
+                                        <li>• I risultati finali</li>
+                                        <li>• Il corpo e la salute</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-6 bg-amber-900/20 border-l-4 border-amber-400 p-4 rounded">
+                                <p class="text-amber-200 font-semibold">
+                                    💡 Applicazione oggi: Invece di stressarti per il traffico (non controlli), concentrati su come reagisci (controlli). Questa distinzione libera energia mentale enorme.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Principio 2 -->
+                <div class="reveal bg-slate-900/80 rounded-2xl p-8 border border-amber-400/40">
+                    <div class="flex items-start gap-6">
+                        <div class="hidden md:block text-6xl text-amber-400 font-cinzel font-bold">02</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 mb-4">
+                                Le Quattro Virtù Cardinali
+                            </h3>
+                            <p class="text-slate-200 leading-relaxed mb-6 text-lg">
+                                Per gli stoici, la felicità autentica deriva dalla virtù, non dalle circostanze esterne. Queste quattro qualità sono il fondamento della vita degna di essere vissuta.
+                            </p>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-slate-950/50 border border-amber-400/20 rounded-lg p-5">
+                                    <h4 class="text-xl text-amber-300 font-cinzel font-bold mb-3">🧠 Saggezza (Sophia)</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Giudizio corretto, capacità di discernere il bene dal male, comprensione della realtà così com'è.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-950/50 border border-amber-400/20 rounded-lg p-5">
+                                    <h4 class="text-xl text-amber-300 font-cinzel font-bold mb-3">💪 Coraggio (Andreia)</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Resistenza fisica e morale, perseveranza nelle difficoltà, agire rettamente nonostante la paura.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-950/50 border border-amber-400/20 rounded-lg p-5">
+                                    <h4 class="text-xl text-amber-300 font-cinzel font-bold mb-3">⚖️ Giustizia (Dikaiosyne)</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Rispetto dei doveri verso gli altri, equità, riconoscimento della comune umanità, cittadinanza cosmica.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-950/50 border border-amber-400/20 rounded-lg p-5">
+                                    <h4 class="text-xl text-amber-300 font-cinzel font-bold mb-3">🎯 Temperanza (Sophrosyne)</h4>
+                                    <p class="text-slate-300 text-sm leading-relaxed">
+                                        Autocontrollo, moderazione, ordine interiore, libertà dagli impulsi distruttivi.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Principio 3 -->
+                <div class="reveal bg-slate-900/80 rounded-2xl p-8 border border-amber-400/40">
+                    <div class="flex items-start gap-6">
+                        <div class="hidden md:block text-6xl text-amber-400 font-cinzel font-bold">03</div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 mb-4">
+                                Vivere Secondo Natura
+                            </h3>
+                            <p class="text-slate-200 leading-relaxed mb-4 text-lg">
+                                Il fine ultimo dello stoicismo è <em>"vivere in accordo con la natura"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.
+                            </p>
+                            <div class="bg-slate-950/50 border border-amber-400/20 rounded-lg p-6 mb-6">
+                                <p class="text-slate-300 leading-relaxed mb-4">
+                                    Non si tratta di "tornare alla natura selvaggia", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class="text-amber-300">Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.
+                                </p>
+                                <p class="text-amber-200 italic font-trajan">
+                                    Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stoicismo Oggi -->
+    <section class="py-20 bg-slate-950">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-slate-100 mb-6 text-3d">
+                    Perché lo Stoicismo è Così Attuale Oggi
+                </h2>
+                <p class="text-xl text-amber-300 font-trajan">
+                    2300 anni dopo, più rilevante che mai
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-16">
+                <!-- Card Sinistra -->
+                <div class="reveal bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-400/40 rounded-2xl p-8">
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-300 mb-6">🧘 Gestione di Ansia e Stress</h3>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        La <strong class="text-amber-200">Terapia Cognitivo-Comportamentale</strong> (CBT), uno dei trattamenti più efficaci per ansia e depressione, deriva direttamente dallo stoicismo. Il suo fondatore, Albert Ellis, citava esplicitamente Epitteto.
+                    </p>
+                    <div class="bg-amber-900/10 border border-amber-400/20 rounded-lg p-4">
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            <strong class="text-amber-300">Principio chiave:</strong> Non sono gli eventi che ci turbano, ma i nostri giudizi sugli eventi. Cambiando i pensieri automatici negativi, trasformiamo le emozioni.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card Destra -->
+                <div class="reveal bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-400/40 rounded-2xl p-8">
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-300 mb-6">💼 Performance e Resilienza</h3>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        Atleti olimpici, imprenditori della Silicon Valley, militari d'élite utilizzano tecniche stoiche per mantenere lucidità sotto pressione e trasformare ostacoli in opportunità.
+                    </p>
+                    <div class="bg-amber-900/10 border border-amber-400/20 rounded-lg p-4">
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            <strong class="text-amber-300">Applicazione moderna:</strong> La premeditazione delle avversità (premeditatio malorum) prepara mentalmente a scenari peggiori, riducendo ansia e aumentando preparazione.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box Centrale Immagine -->
+            <div class="reveal bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-amber-400/50 rounded-3xl p-8 md:p-12 mb-16">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-3xl font-cinzel font-bold text-amber-300 mb-6">
+                            La Saggezza Antica per la Vita Moderna
+                        </h3>
+                        <p class="text-slate-200 leading-relaxed mb-6 text-lg">
+                            In un'epoca di <strong class="text-amber-300">sovraccarico informativo</strong>, <strong class="text-amber-300">confronto sociale continuo</strong> (social media) e <strong class="text-amber-300">incertezza economica</strong>, lo stoicismo offre:
+                        </p>
+                        <ul class="space-y-3 text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-400 text-xl">→</span>
+                                <span><strong class="text-amber-300">Chiarezza mentale</strong> su cosa conta davvero</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-400 text-xl">→</span>
+                                <span><strong class="text-amber-300">Strumenti pratici</strong> per decisioni difficili</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-400 text-xl">→</span>
+                                <span><strong class="text-amber-300">Resilienza emotiva</strong> nei momenti di crisi</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="text-amber-400 text-xl">→</span>
+                                <span><strong class="text-amber-300">Libertà interiore</strong> dalle pressioni esterne</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="Marco_Aurelio_2.jpg" 
+                             alt="Marco Aurelio" 
+                             class="rounded-2xl shadow-2xl border-2 border-amber-400/50 max-h-96 object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sezione Pratica -->
+            <div class="reveal bg-gradient-to-r from-amber-900/20 to-amber-800/20 border border-amber-400/40 rounded-2xl p-8">
+                <h3 class="text-3xl font-cinzel font-bold text-amber-300 text-center mb-8">
+                    Come Praticare lo Stoicismo Oggi
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-slate-950/50 rounded-xl p-6 border border-amber-400/20">
+                        <div class="text-4xl mb-4">📖</div>
+                        <h4 class="text-xl font-cinzel font-bold text-amber-300 mb-3">Letture Fondamentali</h4>
+                        <ul class="text-slate-300 space-y-2 text-sm">
+                            <li>• <strong class="text-amber-200">Manuale</strong> di Epitteto</li>
+                            <li>• <strong class="text-amber-200">Colloqui</strong> di Marco Aurelio</li>
+                            <li>• <strong class="text-amber-200">Lettere a Lucilio</strong> di Seneca</li>
+                            <li>• <strong class="text-amber-200">De Brevitate Vitae</strong> di Seneca</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-950/50 rounded-xl p-6 border border-amber-400/20">
+                        <div class="text-4xl mb-4">📝</div>
+                        <h4 class="text-xl font-cinzel font-bold text-amber-300 mb-3">Diario Stoico</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-3">
+                            Marco Aurelio teneva un diario filosofico. Anche tu puoi:
+                        </p>
+                        <ul class="text-slate-300 space-y-2 text-sm">
+                            <li>• Esame mattutino delle sfide</li>
+                            <li>• Riflessioni durante il giorno</li>
+                            <li>• Revisione serale delle azioni</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-slate-950/50 rounded-xl p-6 border border-amber-400/20">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h4 class="text-xl font-cinzel font-bold text-amber-300 mb-3">Pratiche Quotidiane</h4>
+                        <ul class="text-slate-300 space-y-2 text-sm">
+                            <li>• Meditazione sulla mortalità</li>
+                            <li>• Premeditazione avversità</li>
+                            <li>• Esercizio del distanziamento</li>
+                            <li>• Visualizzazione della giornata</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-amber-900/30 border border-amber-400/40 rounded-xl p-6 text-center">
+                    <p class="text-amber-200 font-bold text-lg mb-3 font-cinzel">
+                        💡 Il diario cartaceo è fondamentale
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        Scrivere a mano rallenta il pensiero, favorisce riflessione profonda e consolida l'apprendimento. Marco Aurelio scriveva i suoi <em>Colloqui</em> durante le campagne militari, in condizioni estreme. Il diario è il tuo campo di allenamento filosofico quotidiano.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 sunset-gradient">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-slate-100 mb-6 text-3d">
+                Inizia il Tuo Viaggio Stoico
+            </h2>
+            <p class="text-xl text-amber-200 mb-8 leading-relaxed">
+                The Stoic Journey ti accompagna con sfide quotidiane personalizzate, riflessioni guidate dall'AI e una community di praticanti moderni.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="index.html#signup" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-8 py-4 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-2xl font-cinzel">
+                    Inizia Gratis Oggi
+                </a>
+                <a href="index.html" class="bg-white/10 backdrop-blur-sm text-white border-2 border-white/40 hover:bg-white/20 font-bold px-8 py-4 rounded-lg text-lg transition-all duration-300 font-cinzel">
+                    Torna alla Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="flex items-center gap-2 text-xl font-bold mb-4 font-cinzel">
+                        <img src="sigma_logo.png" alt="The Stoic Journey" class="h-7 w-7 object-contain">
+                        The Stoic Journey
+                    </h4>
+                    <p class="text-gray-400">La tua guida quotidiana alla saggezza stoica.</p>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-3">Prodotto</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Funzionalità</a></li>
+                        <li><a href="#" class="hover:text-white">Prezzi</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-3">Risorse</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Blog</a></li>
+                        <li><a href="cosa-e-stoicismo.html" class="hover:text-white">Cos'è lo Stoicismo</a></li>
+                        <li><a href="#" class="hover:text-white">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold mb-3">Contatti</h5>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Email: info@thestoicjourney.com</li>
+                        <li>Twitter: @StoicJourney</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 The Stoic Journey. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Effetto zoom parallax su scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxBg = document.getElementById('parallaxBg');
+            
+            if (parallaxBg) {
+                const maxScroll = window.innerHeight * 0.6;
+                const scrollFraction = Math.min(scrolled / maxScroll, 1);
+                const scaleValue = 2 + (scrollFraction * 0.5);
+                const translateZ = -1 - (scrollFraction * 0.3);
+                
+                parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
+            }
+        });
+
+        // Reveal effect script
+        document.addEventListener("DOMContentLoaded", function() {
+            function revealOnScroll() {
+                document.querySelectorAll('.reveal').forEach(function(el) {
+                    var rect = el.getBoundingClientRect(),
+                        windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+                    if (rect.top <= windowHeight - 100) {
+                        el.classList.add("visible");
+                    }
+                });
+            }
+            window.addEventListener("scroll", revealOnScroll);
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
