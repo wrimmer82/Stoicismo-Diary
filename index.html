@@ -201,21 +201,11 @@
             <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
                 Trasforma la tua vita quotidiana con i principi degli antichi filosofi. Riflessioni guidate dall'AI per costruire resilienza e serenità.
             </p>
-            <div class="max-w-md mx-auto animate-fadeInUp delay-600 w-full">
-                <form class="flex flex-col sm:flex-row gap-3" onsubmit="handleSubmit(event)">
-                    <input
-                        type="email"
-                        placeholder="La tua email"
-                        required
-                        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
-                    >
-                    <button
-                        type="submit"
-                        class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-3 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold"
-                    >
-                        Inizia Gratis
-                    </button>
-                </form>
+            <!-- Bottone CTA Centrato -->
+            <div class="flex justify-center animate-fadeInUp delay-600">
+                <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-10 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-lg">
+                    Inizia Gratis
+                </a>
             </div>
         </div>
     </section>
@@ -395,13 +385,6 @@
         </div>
     </footer>
     <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            const email = event.target.querySelector('input[type="email"]').value;
-            alert(`Grazie! Ti abbiamo inviato una email di conferma a: ${email}`);
-            event.target.reset();
-        }
-
         // Effetto zoom parallax su scroll
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
