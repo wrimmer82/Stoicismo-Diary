@@ -166,27 +166,31 @@
         <!-- Background con effetto zoom -->
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
-        <!-- Top Bar: Logo Sinistra + Link Centro + Accedi Destra -->
-        <div class="absolute top-8 left-8 right-8 z-20 flex justify-between items-center">
-            <!-- Logo Sigma a sinistra -->
-            <div class="flex items-center gap-3 animate-fadeIn">
-                <img src="sigma_logo.png"
-                     alt="The Stoic Journey"
-                     class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
-                <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black hidden sm:inline">
-                    The Stoic Journey
-                </span>
+        <!-- Top Bar: Logo Sinistra + Link Centro Assoluto + Accedi Destra -->
+        <div class="absolute top-8 left-8 right-8 z-20">
+            <div class="flex justify-between items-center">
+                <!-- Logo Sigma a sinistra -->
+                <div class="flex items-center gap-3 animate-fadeIn">
+                    <img src="sigma_logo.png"
+                         alt="The Stoic Journey"
+                         class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
+                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black hidden sm:inline">
+                        The Stoic Journey
+                    </span>
+                </div>
+                
+                <!-- Bottone Accedi a destra -->
+                <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
+                    Accedi
+                </a>
             </div>
             
-            <!-- Link Cos'è lo Stoicismo al centro -->
-            <a href="cosa-e-stoicismo.html" class="hidden md:block bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
-                Cos'è lo Stoicismo
-            </a>
-            
-            <!-- Bottone Accedi a destra -->
-            <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold">
-                Accedi
-            </a>
+            <!-- Link Cos'è lo Stoicismo centrato in assoluto -->
+            <div class="absolute left-1/2 top-0 transform -translate-x-1/2">
+                <a href="cosa-e-stoicismo.html" class="hidden md:block bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap">
+                    Cos'è lo Stoicismo
+                </a>
+            </div>
         </div>
         
         <!-- Center/Bottom Content -->
