@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione - The Stoic Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+        .shake { animation: shake 0.5s; }
+        
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .sunset-gradient {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%,
+                #2d1b3d 15%,
+                #4a2c4f 30%,
+                #6b4a5a 45%,
+                #8b5a4e 60%,
+                #a8754a 75%,
+                #c49050 85%,
+                #1c1410 100%
+            );
+        }
+        
+        .input-focus:focus {
+            border-color: rgba(251, 191, 36, 0.8);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            transform: scale(1.01);
+        }
+        
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-weak { width: 33%; background: #ef4444; }
+        .strength-medium { width: 66%; background: #f59e0b; }
+        .strength-strong { width: 100%; background: #10b981; }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter">
+    <!-- Main Section -->
+    <section class="min-h-screen sunset-gradient flex items-center justify-center py-12 px-4">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-12 items-center">
+            
+            <!-- Left: Filosofo + Citazione (3 col) -->
+            <div class="md:col-span-3 text-center md:text-left animate-fadeIn">
+                <!-- Logo e Link Home -->
+                <a href="index.html" class="inline-flex items-center gap-3 mb-8 hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-12 w-12 object-contain drop-shadow-2xl">
+                    <span class="text-2xl font-bold font-cinzel tracking-wider text-white">
+                        The Stoic Journey
+                    </span>
+                </a>
+                
+                <!-- Citazione Rotativa -->
+                <div class="mb-8 animate-fadeIn delay-200">
+                    <h1 class="text-4xl md:text-6xl font-cinzel font-bold text-amber-200 mb-6 leading-tight">
+                        "Non conta quante volte cadi, ma quante volte ti rialzi"
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-200 font-baskerville italic">
+                        — Marco Aurelio
+                    </p>
+                </div>
+                
+                <!-- Immagine Filosofo -->
+                <div class="flex justify-center md:justify-start animate-fadeIn delay-400">
+                    <img src="busto_1_spalle.png" 
+                         alt="Marco Aurelio" 
+                         class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl">
+                </div>
+            </div>
+            
+            <!-- Right: Form Registrazione (2 col) -->
+            <div class="md:col-span-2 animate-fadeIn delay-600">
+                <div class="bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-8 md:p-10 backdrop-blur-sm shadow-2xl">
+                    
+                    <!-- Header Form -->
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-300 mb-3">
+                            Inizia il Tuo Viaggio
+                        </h2>
+                        <p class="text-slate-300 font-baskerville">
+                            Unisciti a migliaia di praticanti moderni dello stoicismo
+                        </p>
+                    </div>
+                    
+                    <!-- Form -->
+                    <form id="registrationForm" class="space-y-6">
+                        
+                        <!-- Nome (opzionale) -->
+                        <div>
+                            <label for="nome" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                                Il tuo nome nella storia
+                            </label>
+                            <input 
+                                type="text" 
+                                id="nome" 
+                                placeholder="es. Marco"
+                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                                Email per il tuo viaggio *
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                required
+                                placeholder="stoico@esempio.com"
+                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden font-baskerville"></p>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div>
+                            <label for="password" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                                Crea la tua password *
+                            </label>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                required
+                                placeholder="Minimo 8 caratteri"
+                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            
+                            <!-- Password Strength Indicator -->
+                            <div class="mt-2">
+                                <div class="bg-slate-800 h-1 rounded-full overflow-hidden">
+                                    <div id="strengthBar" class="password-strength"></div>
+                                </div>
+                                <p id="strengthText" class="text-xs mt-1 font-baskerville"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- Privacy Checkbox -->
+                        <div class="flex items-start gap-3">
+                            <input 
+                                type="checkbox" 
+                                id="privacy" 
+                                required
+                                class="mt-1 w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400">
+                            <label for="privacy" class="text-sm text-slate-300 font-baskerville leading-relaxed">
+                                Accetto la <a href="#" class="text-amber-300 underline hover:text-amber-200">Privacy Policy</a>. 
+                                I miei dati sono sotto il mio controllo - dicotomia del controllo applicata.
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-4 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel">
+                            Accetta la Sfida
+                        </button>
+                        
+                        <!-- Divider -->
+                        <div class="relative my-6">
+                            <div class="absolute inset-0 flex items-center">
+                                <div class="w-full border-t border-slate-700"></div>
+                            </div>
+                            <div class="relative flex justify-center text-sm">
+                                <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville">oppure</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Social Login -->
+                        <button 
+                            type="button"
+                            class="w-full bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-6 py-3 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            Continua con Google
+                        </button>
+                        
+                    </form>
+                    
+                    <!-- Login Link -->
+                    <div class="mt-6 text-center">
+                        <p class="text-slate-400 font-baskerville">
+                            Hai già un account? 
+                            <a href="#" class="text-amber-300 underline hover:text-amber-200 font-semibold">
+                                Accedi qui
+                            </a>
+                        </p>
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="mt-8 pt-6 border-t border-slate-700">
+                        <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-400 font-baskerville">
+                            <span>✓ Gratis per sempre</span>
+                            <span>✓ Nessuna carta richiesta</span>
+                            <span>✓ Cancellazione istantanea</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        // Validazione Email
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        
+        emailInput.addEventListener('blur', function() {
+            const email = this.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email && !emailRegex.test(email)) {
+                emailError.textContent = "Anche Epitteto avrebbe verificato questa email";
+                emailError.classList.remove('hidden');
+                this.classList.add('shake');
+                setTimeout(() => this.classList.remove('shake'), 500);
+            } else {
+                emailError.classList.add('hidden');
+            }
+        });
+        
+        // Password Strength
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+        
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            
+            strengthBar.className = 'password-strength';
+            
+            if (strength <= 1) {
+                strengthBar.classList.add('strength-weak');
+                strengthText.textContent = "Schiavo delle password deboli";
+                strengthText.className = "text-xs mt-1 text-red-400 font-baskerville";
+            } else if (strength <= 2) {
+                strengthBar.classList.add('strength-medium');
+                strengthText.textContent = "Sulla via della sicurezza";
+                strengthText.className = "text-xs mt-1 text-amber-400 font-baskerville";
+            } else {
+                strengthBar.classList.add('strength-strong');
+                strengthText.textContent = "Imperatore della sicurezza";
+                strengthText.className = "text-xs mt-1 text-green-400 font-baskerville";
+            }
+        });
+        
+        // Form Submit
+        const form = document.getElementById('registrationForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Qui andrà la logica di registrazione vera
+            // Per ora mostriamo solo un messaggio
+            alert('Benvenuto nel Viaggio Stoico! (Questa è una demo - implementazione backend in arrivo)');
+        });
+    </script>
+</body>
+</html>
