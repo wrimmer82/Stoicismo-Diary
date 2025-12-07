@@ -18,13 +18,31 @@
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
         .animate-fadeIn {
             animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-slideDown {
+            animation: slideDown 0.3s ease-out forwards;
         }
         .delay-200 { animation-delay: 0.2s; opacity: 0; }
         .delay-400 { animation-delay: 0.4s; opacity: 0; }
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .shake { animation: shake 0.5s; }
+        .spinner {
+            border: 3px solid rgba(251, 191, 36, 0.3);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
         
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-baskerville { font-family: 'Libre Baskerville', serif; }
@@ -49,6 +67,16 @@
             transform: scale(1.01);
         }
         
+        .input-error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        
+        .input-success {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        
         .password-strength {
             height: 4px;
             border-radius: 2px;
@@ -58,6 +86,31 @@
         .strength-weak { width: 33%; background: #ef4444; }
         .strength-medium { width: 66%; background: #f59e0b; }
         .strength-strong { width: 100%; background: #10b981; }
+        
+        .password-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            margin-bottom: 0.5rem;
+            z-index: 50;
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
@@ -107,46 +160,90 @@
                         </p>
                     </div>
                     
-                    <!-- Form -->
-                    <form id="registrationForm" class="space-y-6">
+                    <!-- Google Sign-In Button (PRIORITARIO) -->
+                    <button 
+                        id="googleSignInBtn"
+                        type="button"
+                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-6 border-2 border-gray-200">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span id="googleBtnText" class="font-cinzel">Continua con Google</span>
+                        <div id="googleSpinner" class="spinner hidden"></div>
+                    </button>
+                    
+                    <!-- Divider -->
+                    <div class="relative my-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-700"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville">oppure con email</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Email/Password -->
+                    <form id="registrationForm" class="space-y-5" novalidate>
                         
-                        <!-- Nome (opzionale) -->
+                        <!-- Nome Completo -->
                         <div>
                             <label for="nome" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Il tuo nome nella storia
+                                Nome completo
+                                <span class="text-slate-500 font-normal text-xs ml-1">(opzionale)</span>
                             </label>
                             <input 
                                 type="text" 
                                 id="nome" 
-                                placeholder="es. Marco"
+                                placeholder="es. Marco Aurelio"
+                                autocomplete="name"
                                 class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p class="text-slate-400 text-xs mt-1 font-baskerville">Ti chiameremo così nelle email</p>
                         </div>
                         
                         <!-- Email -->
                         <div>
                             <label for="email" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Email per il tuo viaggio *
+                                Email *
                             </label>
                             <input 
                                 type="email" 
                                 id="email" 
                                 required
                                 placeholder="stoico@esempio.com"
+                                autocomplete="email"
                                 class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden font-baskerville"></p>
+                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                            <p id="emailSuccess" class="text-green-400 text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Email valida</p>
                         </div>
                         
                         <!-- Password -->
                         <div>
                             <label for="password" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Crea la tua password *
+                                Password *
                             </label>
-                            <input 
-                                type="password" 
-                                id="password" 
-                                required
-                                placeholder="Minimo 8 caratteri"
-                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    required
+                                    placeholder="Minimo 8 caratteri"
+                                    autocomplete="new-password"
+                                    class="w-full px-4 py-3 pr-12 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                                <!-- Toggle Visibility Icon -->
+                                <button 
+                                    type="button" 
+                                    id="togglePassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
+                                    data-tooltip="Mostra password">
+                                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
                             
                             <!-- Password Strength Indicator -->
                             <div class="mt-2">
@@ -155,49 +252,89 @@
                                 </div>
                                 <p id="strengthText" class="text-xs mt-1 font-baskerville"></p>
                             </div>
+                            
+                            <!-- Password Requirements -->
+                            <div id="passwordRequirements" class="mt-3 space-y-1 text-xs font-baskerville hidden">
+                                <p class="text-slate-400 font-semibold mb-1">La password deve contenere:</p>
+                                <div class="flex items-center gap-2" id="req-length">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400">Almeno 8 caratteri</span>
+                                </div>
+                                <div class="flex items-center gap-2" id="req-uppercase">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400">Una lettera maiuscola</span>
+                                </div>
+                                <div class="flex items-center gap-2" id="req-lowercase">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400">Una lettera minuscola</span>
+                                </div>
+                                <div class="flex items-center gap-2" id="req-number">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400">Un numero</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Conferma Password -->
+                        <div>
+                            <label for="confirmPassword" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                                Conferma password *
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    required
+                                    placeholder="Ripeti la password"
+                                    autocomplete="new-password"
+                                    class="w-full px-4 py-3 pr-12 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                                <!-- Toggle Visibility Icon -->
+                                <button 
+                                    type="button" 
+                                    id="toggleConfirmPassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
+                                    data-tooltip="Mostra password">
+                                    <svg id="eyeIconConfirm" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p id="confirmPasswordError" class="text-red-400 text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                            <p id="confirmPasswordSuccess" class="text-green-400 text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Le password coincidono</p>
                         </div>
                         
                         <!-- Privacy Checkbox -->
-                        <div class="flex items-start gap-3">
+                        <div class="flex items-start gap-3 pt-2">
                             <input 
                                 type="checkbox" 
                                 id="privacy" 
                                 required
-                                class="mt-1 w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400">
-                            <label for="privacy" class="text-sm text-slate-300 font-baskerville leading-relaxed">
-                                Accetto la <a href="#" class="text-amber-300 underline hover:text-amber-200">Privacy Policy</a>. 
-                                I miei dati sono sotto il mio controllo - dicotomia del controllo applicata.
+                                class="mt-1 w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="privacy" class="text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
+                                Accetto i <a href="#" class="text-amber-300 underline hover:text-amber-200">Termini di Servizio</a> e la <a href="#" class="text-amber-300 underline hover:text-amber-200">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <!-- Newsletter Checkbox (opzionale) -->
+                        <div class="flex items-start gap-3">
+                            <input 
+                                type="checkbox" 
+                                id="newsletter" 
+                                checked
+                                class="mt-1 w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="newsletter" class="text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
+                                Voglio ricevere riflessioni stoiche settimanali via email
                             </label>
                         </div>
                         
                         <!-- Submit Button -->
                         <button 
                             type="submit"
-                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-4 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel">
-                            Accetta la Sfida
-                        </button>
-                        
-                        <!-- Divider -->
-                        <div class="relative my-6">
-                            <div class="absolute inset-0 flex items-center">
-                                <div class="w-full border-t border-slate-700"></div>
-                            </div>
-                            <div class="relative flex justify-center text-sm">
-                                <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville">oppure</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Social Login -->
-                        <button 
-                            type="button"
-                            class="w-full bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 px-6 py-3 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold flex items-center justify-center gap-3">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                            </svg>
-                            Continua con Google
+                            id="submitBtn"
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-4 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                            <span id="submitBtnText">Accetta la Sfida</span>
+                            <div id="submitSpinner" class="spinner hidden"></div>
                         </button>
                         
                     </form>
@@ -206,7 +343,7 @@
                     <div class="mt-6 text-center">
                         <p class="text-slate-400 font-baskerville">
                             Hai già un account? 
-                            <a href="#" class="text-amber-300 underline hover:text-amber-200 font-semibold">
+                            <a href="accedi.html" class="text-amber-300 underline hover:text-amber-200 font-semibold">
                                 Accedi qui
                             </a>
                         </p>
@@ -215,9 +352,32 @@
                     <!-- Trust Badges -->
                     <div class="mt-8 pt-6 border-t border-slate-700">
                         <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-400 font-baskerville">
-                            <span>✓ Gratis per sempre</span>
-                            <span>✓ Nessuna carta richiesta</span>
-                            <span>✓ Cancellazione istantanea</span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Gratis per sempre
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Nessuna carta richiesta
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Cancellazione istantanea
+                            </span>
+                        </div>
+                        
+                        <!-- Security Badge -->
+                        <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            I tuoi dati sono protetti e crittografati
                         </div>
                     </div>
                     
@@ -228,41 +388,115 @@
     </section>
 
     <script>
-        // Validazione Email
+        // ========== ELEMENTI DOM ==========
+        const form = document.getElementById('registrationForm');
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('emailError');
-        
-        emailInput.addEventListener('blur', function() {
-            const email = this.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (email && !emailRegex.test(email)) {
-                emailError.textContent = "Anche Epitteto avrebbe verificato questa email";
-                emailError.classList.remove('hidden');
-                this.classList.add('shake');
-                setTimeout(() => this.classList.remove('shake'), 500);
-            } else {
-                emailError.classList.add('hidden');
-            }
-        });
-        
-        // Password Strength
+        const emailSuccess = document.getElementById('emailSuccess');
         const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        const confirmPasswordSuccess = document.getElementById('confirmPasswordSuccess');
         const strengthBar = document.getElementById('strengthBar');
         const strengthText = document.getElementById('strengthText');
+        const passwordRequirements = document.getElementById('passwordRequirements');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnText = document.getElementById('submitBtnText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const googleSignInBtn = document.getElementById('googleSignInBtn');
+        const googleBtnText = document.getElementById('googleBtnText');
+        const googleSpinner = document.getElementById('googleSpinner');
+        
+        // ========== TOGGLE PASSWORD VISIBILITY ==========
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.setAttribute('data-tooltip', type === 'password' ? 'Mostra password' : 'Nascondi password');
+        });
+        
+        toggleConfirmPassword.addEventListener('click', function() {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            this.setAttribute('data-tooltip', type === 'password' ? 'Mostra password' : 'Nascondi password');
+        });
+        
+        // ========== VALIDAZIONE EMAIL ==========
+        emailInput.addEventListener('blur', validateEmail);
+        emailInput.addEventListener('input', function() {
+            emailError.classList.add('hidden');
+            emailSuccess.classList.add('hidden');
+            emailInput.classList.remove('input-error', 'input-success');
+        });
+        
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email) {
+                emailError.textContent = "L'email è obbligatoria";
+                emailError.classList.remove('hidden');
+                emailSuccess.classList.add('hidden');
+                emailInput.classList.add('input-error');
+                emailInput.classList.remove('input-success');
+                emailInput.classList.add('shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            if (!emailRegex.test(email)) {
+                emailError.textContent = "Anche Epitteto avrebbe verificato questa email";
+                emailError.classList.remove('hidden');
+                emailSuccess.classList.add('hidden');
+                emailInput.classList.add('input-error');
+                emailInput.classList.remove('input-success');
+                emailInput.classList.add('shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            emailError.classList.add('hidden');
+            emailSuccess.classList.remove('hidden');
+            emailInput.classList.remove('input-error');
+            emailInput.classList.add('input-success');
+            return true;
+        }
+        
+        // ========== PASSWORD STRENGTH ==========
+        passwordInput.addEventListener('focus', function() {
+            passwordRequirements.classList.remove('hidden');
+        });
         
         passwordInput.addEventListener('input', function() {
             const password = this.value;
             let strength = 0;
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password)
+            };
             
-            if (password.length >= 8) strength++;
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-            if (/[0-9]/.test(password)) strength++;
+            // Aggiorna indicatori requisiti
+            updateRequirement('req-length', requirements.length);
+            updateRequirement('req-uppercase', requirements.uppercase);
+            updateRequirement('req-lowercase', requirements.lowercase);
+            updateRequirement('req-number', requirements.number);
+            
+            // Calcola forza
+            if (requirements.length) strength++;
+            if (requirements.uppercase && requirements.lowercase) strength++;
+            if (requirements.number) strength++;
             if (/[^a-zA-Z0-9]/.test(password)) strength++;
             
             strengthBar.className = 'password-strength';
             
-            if (strength <= 1) {
+            if (password.length === 0) {
+                strengthBar.style.width = '0';
+                strengthText.textContent = '';
+            } else if (strength <= 1) {
                 strengthBar.classList.add('strength-weak');
                 strengthText.textContent = "Schiavo delle password deboli";
                 strengthText.className = "text-xs mt-1 text-red-400 font-baskerville";
@@ -275,16 +509,125 @@
                 strengthText.textContent = "Imperatore della sicurezza";
                 strengthText.className = "text-xs mt-1 text-green-400 font-baskerville";
             }
+            
+            // Valida conferma password se già compilata
+            if (confirmPasswordInput.value) {
+                validateConfirmPassword();
+            }
         });
         
-        // Form Submit
-        const form = document.getElementById('registrationForm');
+        function updateRequirement(id, met) {
+            const element = document.getElementById(id);
+            const icon = element.querySelector('span:first-child');
+            const text = element.querySelector('span:last-child');
+            
+            if (met) {
+                icon.textContent = '✓';
+                icon.className = 'text-green-500';
+                text.className = 'text-green-400';
+            } else {
+                icon.textContent = '○';
+                icon.className = 'text-slate-500';
+                text.className = 'text-slate-400';
+            }
+        }
+        
+        // ========== CONFERMA PASSWORD ==========
+        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+        confirmPasswordInput.addEventListener('input', function() {
+            confirmPasswordError.classList.add('hidden');
+            confirmPasswordSuccess.classList.add('hidden');
+            confirmPasswordInput.classList.remove('input-error', 'input-success');
+        });
+        
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            
+            if (!confirmPassword) {
+                confirmPasswordError.textContent = "Conferma la tua password";
+                confirmPasswordError.classList.remove('hidden');
+                confirmPasswordSuccess.classList.add('hidden');
+                confirmPasswordInput.classList.add('input-error');
+                confirmPasswordInput.classList.remove('input-success');
+                confirmPasswordInput.classList.add('shake');
+                setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Le password non coincidono";
+                confirmPasswordError.classList.remove('hidden');
+                confirmPasswordSuccess.classList.add('hidden');
+                confirmPasswordInput.classList.add('input-error');
+                confirmPasswordInput.classList.remove('input-success');
+                confirmPasswordInput.classList.add('shake');
+                setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            confirmPasswordError.classList.add('hidden');
+            confirmPasswordSuccess.classList.remove('hidden');
+            confirmPasswordInput.classList.remove('input-error');
+            confirmPasswordInput.classList.add('input-success');
+            return true;
+        }
+        
+        // ========== GOOGLE SIGN-IN ==========
+        googleSignInBtn.addEventListener('click', function() {
+            googleBtnText.textContent = 'Reindirizzamento...';
+            googleSpinner.classList.remove('hidden');
+            googleSignInBtn.disabled = true;
+            
+            // Simulazione - Qui andrà l'integrazione Supabase
+            setTimeout(() => {
+                alert('🚧 Integrazione Google OAuth in arrivo!\n\nPer ora usa registrazione con email.');
+                googleBtnText.textContent = 'Continua con Google';
+                googleSpinner.classList.add('hidden');
+                googleSignInBtn.disabled = false;
+            }, 1500);
+        });
+        
+        // ========== FORM SUBMIT ==========
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Qui andrà la logica di registrazione vera
-            // Per ora mostriamo solo un messaggio
-            alert('Benvenuto nel Viaggio Stoico! (Questa è una demo - implementazione backend in arrivo)');
+            // Validazioni
+            const isEmailValid = validateEmail();
+            const isConfirmPasswordValid = validateConfirmPassword();
+            const isPasswordStrong = passwordInput.value.length >= 8;
+            const isPrivacyAccepted = document.getElementById('privacy').checked;
+            
+            if (!isEmailValid || !isConfirmPasswordValid || !isPasswordStrong) {
+                alert('⚠️ Correggi gli errori nel form prima di procedere');
+                return;
+            }
+            
+            if (!isPrivacyAccepted) {
+                alert('⚠️ Devi accettare i Termini di Servizio e la Privacy Policy');
+                return;
+            }
+            
+            // Mostra loading
+            submitBtnText.textContent = 'Creazione account...';
+            submitSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            
+            // Simulazione registrazione
+            setTimeout(() => {
+                const nome = document.getElementById('nome').value || 'Stoico';
+                const email = emailInput.value;
+                
+                alert(`✅ Benvenuto nel Viaggio Stoico, ${nome}!\n\nTi abbiamo inviato un'email di conferma a:\n${email}\n\nControlla la tua casella di posta (anche spam).`);
+                
+                // Redirect a home o dashboard
+                // window.location.href = 'index.html';
+                
+                // Reset form (per demo)
+                submitBtnText.textContent = 'Accetta la Sfida';
+                submitSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+            }, 2000);
         });
     </script>
 </body>
