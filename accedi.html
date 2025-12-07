@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accedi - The Stoic Journey</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-slideDown {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+        .shake { animation: shake 0.5s; }
+        .spinner {
+            border: 3px solid rgba(251, 191, 36, 0.3);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .sunset-gradient {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%,
+                #2d1b3d 15%,
+                #4a2c4f 30%,
+                #6b4a5a 45%,
+                #8b5a4e 60%,
+                #a8754a 75%,
+                #c49050 85%,
+                #1c1410 100%
+            );
+        }
+        
+        .input-focus:focus {
+            border-color: rgba(251, 191, 36, 0.8);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            transform: scale(1.01);
+        }
+        
+        .input-error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            margin-bottom: 0.5rem;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter">
+    <!-- Main Section -->
+    <section class="min-h-screen sunset-gradient flex items-center justify-center py-12 px-4">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-12 items-center">
+            
+            <!-- Left: Filosofo + Citazione (3 col) -->
+            <div class="md:col-span-3 text-center md:text-left animate-fadeIn">
+                <!-- Logo e Link Home -->
+                <a href="index.html" class="inline-flex items-center gap-3 mb-8 hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-12 w-12 object-contain drop-shadow-2xl">
+                    <span class="text-2xl font-bold font-cinzel tracking-wider text-white">
+                        The Stoic Journey
+                    </span>
+                </a>
+                
+                <!-- Citazione Rotativa -->
+                <div class="mb-8 animate-fadeIn delay-200">
+                    <h1 class="text-4xl md:text-6xl font-cinzel font-bold text-amber-200 mb-6 leading-tight">
+                        "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno"
+                    </h1>
+                    <p class="text-xl md:text-2xl text-slate-200 font-baskerville italic">
+                        — Epitteto
+                    </p>
+                </div>
+                
+                <!-- Immagine Filosofo -->
+                <div class="flex justify-center md:justify-start animate-fadeIn delay-400">
+                    <img src="busto_2_semplice.png" 
+                         alt="Epitteto" 
+                         class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl">
+                </div>
+            </div>
+            
+            <!-- Right: Form Login (2 col) -->
+            <div class="md:col-span-2 animate-fadeIn delay-600">
+                <div class="bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-8 md:p-10 backdrop-blur-sm shadow-2xl">
+                    
+                    <!-- Header Form -->
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-300 mb-3">
+                            Bentornato, Stoico
+                        </h2>
+                        <p class="text-slate-300 font-baskerville">
+                            Accedi al tuo percorso di crescita personale
+                        </p>
+                    </div>
+                    
+                    <!-- Google Sign-In Button -->
+                    <button 
+                        id="googleSignInBtn"
+                        type="button"
+                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-6 border-2 border-gray-200">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span id="googleBtnText" class="font-cinzel">Accedi con Google</span>
+                        <div id="googleSpinner" class="spinner hidden"></div>
+                    </button>
+                    
+                    <!-- Divider -->
+                    <div class="relative my-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-700"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville">oppure con email</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Login -->
+                    <form id="loginForm" class="space-y-6" novalidate>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                                Email
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                required
+                                placeholder="stoico@esempio.com"
+                                autocomplete="email"
+                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label for="password" class="block text-sm font-semibold text-amber-200 font-cinzel">
+                                    Password
+                                </label>
+                                <button 
+                                    type="button"
+                                    id="forgotPasswordBtn"
+                                    class="text-sm text-amber-300 hover:text-amber-200 underline font-baskerville">
+                                    Password dimenticata?
+                                </button>
+                            </div>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    required
+                                    placeholder="La tua password"
+                                    autocomplete="current-password"
+                                    class="w-full px-4 py-3 pr-12 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                                <!-- Toggle Visibility Icon -->
+                                <button 
+                                    type="button" 
+                                    id="togglePassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
+                                    data-tooltip="Mostra password">
+                                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p id="passwordError" class="text-red-400 text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                        </div>
+                        
+                        <!-- Remember Me -->
+                        <div class="flex items-center gap-3">
+                            <input 
+                                type="checkbox" 
+                                id="remember" 
+                                class="w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="remember" class="text-sm text-slate-300 font-baskerville cursor-pointer">
+                                Ricordami su questo dispositivo
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            id="loginBtn"
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-4 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                            <span id="loginBtnText">Accedi al Viaggio</span>
+                            <div id="loginSpinner" class="spinner hidden"></div>
+                        </button>
+                        
+                    </form>
+                    
+                    <!-- Signup Link -->
+                    <div class="mt-6 text-center">
+                        <p class="text-slate-400 font-baskerville">
+                            Non hai ancora un account? 
+                            <a href="registrazione.html" class="text-amber-300 underline hover:text-amber-200 font-semibold">
+                                Registrati qui
+                            </a>
+                        </p>
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="mt-8 pt-6 border-t border-slate-700">
+                        <div class="flex items-center justify-center gap-2 text-xs text-slate-500">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            Connessione sicura e crittografata
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Modal Recupero Password -->
+    <div id="resetPasswordModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center z-50 px-4">
+        <div class="bg-slate-900 border-2 border-amber-400/50 rounded-2xl p-8 max-w-md w-full animate-fadeIn">
+            <h3 class="text-2xl font-cinzel font-bold text-amber-300 mb-4">
+                Recupera Password
+            </h3>
+            <p class="text-slate-300 font-baskerville mb-6">
+                Inserisci la tua email. Ti invieremo un link per reimpostare la password.
+            </p>
+            
+            <form id="resetPasswordForm" class="space-y-4">
+                <div>
+                    <label for="resetEmail" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                        Email
+                    </label>
+                    <input 
+                        type="email" 
+                        id="resetEmail" 
+                        required
+                        placeholder="stoico@esempio.com"
+                        class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                    <p id="resetEmailError" class="text-red-400 text-sm mt-1 hidden font-baskerville"></p>
+                </div>
+                
+                <div class="flex gap-3">
+                    <button 
+                        type="button"
+                        id="closeModalBtn"
+                        class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-lg transition-all duration-300 font-cinzel">
+                        Annulla
+                    </button>
+                    <button 
+                        type="submit"
+                        id="sendResetBtn"
+                        class="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 rounded-lg transition-all duration-300 font-cinzel flex items-center justify-center gap-2">
+                        <span id="sendResetBtnText">Invia Link</span>
+                        <div id="resetSpinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ========== CONFIGURAZIONE SUPABASE ==========
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // ========== ELEMENTI DOM ==========
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const passwordInput = document.getElementById('password');
+        const passwordError = document.getElementById('passwordError');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginBtnText = document.getElementById('loginBtnText');
+        const loginSpinner = document.getElementById('loginSpinner');
+        const googleSignInBtn = document.getElementById('googleSignInBtn');
+        const googleBtnText = document.getElementById('googleBtnText');
+        const googleSpinner = document.getElementById('googleSpinner');
+        
+        // Modal Recupero Password
+        const resetPasswordModal = document.getElementById('resetPasswordModal');
+        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const resetPasswordForm = document.getElementById('resetPasswordForm');
+        const resetEmailInput = document.getElementById('resetEmail');
+        const resetEmailError = document.getElementById('resetEmailError');
+        const sendResetBtn = document.getElementById('sendResetBtn');
+        const sendResetBtnText = document.getElementById('sendResetBtnText');
+        const resetSpinner = document.getElementById('resetSpinner');
+        
+        // ========== TOGGLE PASSWORD VISIBILITY ==========
+        const togglePassword = document.getElementById('togglePassword');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.setAttribute('data-tooltip', type === 'password' ? 'Mostra password' : 'Nascondi password');
+        });
+        
+        // ========== GOOGLE SIGN-IN ==========
+        googleSignInBtn.addEventListener('click', async function() {
+            googleBtnText.textContent = 'Reindirizzamento...';
+            googleSpinner.classList.remove('hidden');
+            googleSignInBtn.disabled = true;
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                        redirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
+                    }
+                });
+                
+                if (error) throw error;
+                
+            } catch (error) {
+                console.error('Errore Google Sign-In:', error);
+                alert('❌ Errore: ' + error.message + '\n\nDevi prima configurare Google OAuth in Supabase.');
+                
+                googleBtnText.textContent = 'Accedi con Google';
+                googleSpinner.classList.add('hidden');
+                googleSignInBtn.disabled = false;
+            }
+        });
+        
+        // ========== LOGIN FORM ==========
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Reset errori
+            emailError.classList.add('hidden');
+            passwordError.classList.add('hidden');
+            emailInput.classList.remove('input-error');
+            passwordInput.classList.remove('input-error');
+            
+            // Validazione
+            if (!email || !password) {
+                if (!email) {
+                    emailError.textContent = "L'email è obbligatoria";
+                    emailError.classList.remove('hidden');
+                    emailInput.classList.add('input-error');
+                }
+                if (!password) {
+                    passwordError.textContent = "La password è obbligatoria";
+                    passwordError.classList.remove('hidden');
+                    passwordInput.classList.add('input-error');
+                }
+                return;
+            }
+            
+            // Mostra loading
+            loginBtnText.textContent = 'Accesso in corso...';
+            loginSpinner.classList.remove('hidden');
+            loginBtn.disabled = true;
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+                
+                if (error) throw error;
+                
+                // Successo!
+                alert('✅ Accesso effettuato con successo!\n\nBenvenuto nel Viaggio Stoico.');
+                window.location.href = 'dashboard.html';
+                
+            } catch (error) {
+                console.error('Errore login:', error);
+                
+                let errorMessage = 'Credenziali non valide. Verifica email e password.';
+                
+                if (error.message.includes('Invalid login credentials')) {
+                    errorMessage = 'Email o password errati. Riprova.';
+                } else if (error.message.includes('Email not confirmed')) {
+                    errorMessage = 'Email non confermata. Controlla la tua casella di posta.';
+                } else {
+                    errorMessage = error.message;
+                }
+                
+                passwordError.textContent = errorMessage;
+                passwordError.classList.remove('hidden');
+                passwordInput.classList.add('input-error');
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+                
+                loginBtnText.textContent = 'Accedi al Viaggio';
+                loginSpinner.classList.add('hidden');
+                loginBtn.disabled = false;
+            }
+        });
+        
+        // ========== RECUPERO PASSWORD ==========
+        forgotPasswordBtn.addEventListener('click', function() {
+            resetPasswordModal.classList.remove('hidden');
+            resetPasswordModal.classList.add('flex');
+            resetEmailInput.value = emailInput.value; // Pre-compila con email inserita
+        });
+        
+        closeModalBtn.addEventListener('click', function() {
+            resetPasswordModal.classList.add('hidden');
+            resetPasswordModal.classList.remove('flex');
+        });
+        
+        resetPasswordForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const resetEmail = resetEmailInput.value.trim();
+            
+            resetEmailError.classList.add('hidden');
+            
+            if (!resetEmail) {
+                resetEmailError.textContent = "Inserisci la tua email";
+                resetEmailError.classList.remove('hidden');
+                return;
+            }
+            
+            sendResetBtnText.textContent = 'Invio...';
+            resetSpinner.classList.remove('hidden');
+            sendResetBtn.disabled = true;
+            
+            try {
+                const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+                    redirectTo: window.location.origin + '/Stoicismo-Diary/reset-password.html'
+                });
+                
+                if (error) throw error;
+                
+                alert('✅ Email inviata!\n\nTi abbiamo inviato un link per reimpostare la password.\n\nControlla la tua casella di posta (anche spam).');
+                
+                resetPasswordModal.classList.add('hidden');
+                resetPasswordModal.classList.remove('flex');
+                resetEmailInput.value = '';
+                
+            } catch (error) {
+                console.error('Errore reset password:', error);
+                resetEmailError.textContent = 'Errore: ' + error.message;
+                resetEmailError.classList.remove('hidden');
+            } finally {
+                sendResetBtnText.textContent = 'Invia Link';
+                resetSpinner.classList.add('hidden');
+                sendResetBtn.disabled = false;
+            }
+        });
+        
+        // ========== CONTROLLO SESSIONE ESISTENTE ==========
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                // Utente già loggato, redirect a dashboard
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
