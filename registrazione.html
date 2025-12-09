@@ -132,14 +132,24 @@
             backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
-            justify-center;
+            justify-content: center;
             z-index: 9998;
+        }
+        
+        /* Philosopher circles hover effect */
+        .philosopher-circle {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .philosopher-circle img {
+            position: relative;
         }
         
         /* MOBILE OPTIMIZATIONS */
         @media (max-width: 768px) {
-            .philosopher-image {
-                display: none !important; /* Nascondi immagine su mobile */
+            .philosopher-images {
+                display: none !important; /* Nascondi immagini su mobile */
             }
             .quote-section h1 {
                 font-size: 1.875rem !important; /* 30px invece di 60px */
@@ -174,7 +184,7 @@
     <section class="min-h-screen sunset-gradient flex items-center justify-center py-8 md:py-12 px-4">
         <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
             
-            <!-- Left: Filosofo + Citazione (3 col) -->
+            <!-- Left: Filosofi + Citazione (3 col) -->
             <div class="md:col-span-3 text-center md:text-left animate-fadeIn">
                 <!-- Logo e Link Home -->
                 <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
@@ -194,11 +204,38 @@
                     </p>
                 </div>
                 
-                <!-- Immagine Filosofo - NASCOSTA SU MOBILE -->
-                <div class="philosopher-image flex justify-center md:justify-start animate-fadeIn delay-400">
-                    <img src="marco_aurelio_3d.jpg" 
-                         alt="Marco Aurelio" 
-                         class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl">
+                <!-- Immagini 3 Filosofi - Layout Anelli Olimpici (SOLO DESKTOP) -->
+                <div class="philosopher-images flex justify-center md:justify-start animate-fadeIn delay-400">
+                    <div class="relative w-full max-w-md mx-auto md:mx-0">
+                        <!-- Riga superiore: Marco Aurelio + Epitteto -->
+                        <div class="flex justify-center gap-4 mb-[-60px] md:mb-[-80px]">
+                            <!-- Marco Aurelio (sinistra) -->
+                            <div class="philosopher-circle group">
+                                <img src="marco_aurelio_3d.jpg" 
+                                     alt="Marco Aurelio" 
+                                     class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
+                                <p class="text-center text-xs md:text-sm text-amber-200 font-cinzel mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
+                            </div>
+                            
+                            <!-- Epitteto (destra) -->
+                            <div class="philosopher-circle group">
+                                <img src="Epitteto_3d.jpg" 
+                                     alt="Epitteto" 
+                                     class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
+                                <p class="text-center text-xs md:text-sm text-amber-200 font-cinzel mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Riga inferiore: Zenone (centro) -->
+                        <div class="flex justify-center">
+                            <div class="philosopher-circle group">
+                                <img src="Zenone_di_Cinzio_3d.jpg" 
+                                     alt="Zenone di Cinzio" 
+                                     class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400 relative z-10">
+                                <p class="text-center text-xs md:text-sm text-amber-200 font-cinzel mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Zenone di Cinzio</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -467,6 +504,14 @@
             {
                 text: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
                 author: "Epitteto"
+            },
+            {
+                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
+                author: "Zenone di Cizio"
+            },
+            {
+                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
+                author: "Marco Aurelio"
             }
         ];
         
