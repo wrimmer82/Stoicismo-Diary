@@ -2,13 +2,26 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrazione - The Stoic Journey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Registrazione - The Stoic Journey | Inizia il Tuo Percorso Stoico</title>
+    <meta name="description" content="Unisciti a migliaia di praticanti dello stoicismo. Crea il tuo account gratuito e inizia il viaggio di crescita personale guidato dalla filosofia antica.">
+    <meta name="keywords" content="stoicismo, registrazione, meditazione, crescita personale, filosofia">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Registrazione - The Stoic Journey">
+    <meta property="og:description" content="Unisciti al viaggio stoico. Registrazione gratuita.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wrimmer82.github.io/Stoicismo-Diary/registrazione.html">
+    
+    <!-- Scripts & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -26,16 +39,25 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         .animate-fadeIn {
             animation: fadeIn 0.8s ease-out forwards;
         }
         .animate-slideDown {
             animation: slideDown 0.3s ease-out forwards;
         }
+        .animate-slideUp {
+            animation: slideUp 0.3s ease-out forwards;
+        }
         .delay-200 { animation-delay: 0.2s; opacity: 0; }
         .delay-400 { animation-delay: 0.4s; opacity: 0; }
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .shake { animation: shake 0.5s; }
+        
         .spinner {
             border: 3px solid rgba(251, 191, 36, 0.3);
             border-top-color: #fbbf24;
@@ -93,54 +115,87 @@
             user-select: none;
         }
         
-        .tooltip {
-            position: relative;
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            max-width: 400px;
+            z-index: 9999;
         }
         
-        .tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            margin-bottom: 0.5rem;
-            z-index: 50;
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-center;
+            z-index: 9998;
+        }
+        
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 768px) {
+            .philosopher-image {
+                display: none !important; /* Nascondi immagine su mobile */
+            }
+            .quote-section h1 {
+                font-size: 1.875rem !important; /* 30px invece di 60px */
+                line-height: 2.25rem !important;
+            }
+            .quote-section p {
+                font-size: 1rem !important; /* 16px invece di 24px */
+            }
+            .form-container {
+                padding: 1.5rem !important; /* Riduci padding */
+            }
+            .form-spacing {
+                gap: 1rem !important; /* Riduci spacing tra campi */
+            }
         }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
+    
+    <!-- Loading Overlay (nascosto di default) -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4" style="width: 48px; height: 48px; border-width: 4px;"></div>
+            <p class="text-white font-cinzel text-lg" id="loadingText">Creazione account...</p>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast"></div>
+    
     <!-- Main Section -->
-    <section class="min-h-screen sunset-gradient flex items-center justify-center py-12 px-4">
-        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-12 items-center">
+    <section class="min-h-screen sunset-gradient flex items-center justify-center py-8 md:py-12 px-4">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
             
             <!-- Left: Filosofo + Citazione (3 col) -->
             <div class="md:col-span-3 text-center md:text-left animate-fadeIn">
                 <!-- Logo e Link Home -->
-                <a href="index.html" class="inline-flex items-center gap-3 mb-8 hover:opacity-80 transition-opacity">
-                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-12 w-12 object-contain drop-shadow-2xl">
-                    <span class="text-2xl font-bold font-cinzel tracking-wider text-white">
+                <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-10 w-10 md:h-12 md:w-12 object-contain drop-shadow-2xl">
+                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white">
                         The Stoic Journey
                     </span>
                 </a>
                 
                 <!-- Citazione Rotativa -->
-                <div class="mb-8 animate-fadeIn delay-200">
-                    <h1 class="text-4xl md:text-6xl font-cinzel font-bold text-amber-200 mb-6 leading-tight">
+                <div class="mb-6 md:mb-8 animate-fadeIn delay-200 quote-section">
+                    <h1 id="rotatingQuote" class="text-3xl md:text-6xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
                         "Non conta quante volte cadi, ma quante volte ti rialzi"
                     </h1>
-                    <p class="text-xl md:text-2xl text-slate-200 font-baskerville italic">
+                    <p id="rotatingAuthor" class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
                         — Marco Aurelio
                     </p>
                 </div>
                 
-                <!-- Immagine Filosofo - MODIFICATA QUI -->
-                <div class="flex justify-center md:justify-start animate-fadeIn delay-400">
+                <!-- Immagine Filosofo - NASCOSTA SU MOBILE -->
+                <div class="philosopher-image flex justify-center md:justify-start animate-fadeIn delay-400">
                     <img src="marco_aurelio_3d.jpg" 
                          alt="Marco Aurelio" 
                          class="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl">
@@ -149,49 +204,49 @@
             
             <!-- Right: Form Registrazione (2 col) -->
             <div class="md:col-span-2 animate-fadeIn delay-600">
-                <div class="bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-8 md:p-10 backdrop-blur-sm shadow-2xl">
+                <div class="form-container bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-6 md:p-10 backdrop-blur-sm shadow-2xl">
                     
                     <!-- Header Form -->
-                    <div class="text-center mb-8">
-                        <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-300 mb-3">
+                    <div class="text-center mb-6 md:mb-8">
+                        <h2 class="text-2xl md:text-4xl font-cinzel font-bold text-amber-300 mb-2 md:mb-3">
                             Inizia il Tuo Viaggio
                         </h2>
-                        <p class="text-slate-300 font-baskerville">
+                        <p class="text-sm md:text-base text-slate-300 font-baskerville">
                             Unisciti a migliaia di praticanti moderni dello stoicismo
                         </p>
                     </div>
                     
-                    <!-- Google Sign-In Button (PRIORITARIO) -->
+                    <!-- Google Sign-In Button -->
                     <button 
                         id="googleSignInBtn"
                         type="button"
-                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-6 border-2 border-gray-200">
-                        <svg class="w-6 h-6" viewBox="0 0 24 24">
+                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 md:py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-4 md:mb-6 border-2 border-gray-200">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                         </svg>
-                        <span id="googleBtnText" class="font-cinzel">Continua con Google</span>
+                        <span id="googleBtnText" class="font-cinzel text-sm md:text-base">Continua con Google</span>
                         <div id="googleSpinner" class="spinner hidden"></div>
                     </button>
                     
                     <!-- Divider -->
-                    <div class="relative my-6">
+                    <div class="relative my-4 md:my-6">
                         <div class="absolute inset-0 flex items-center">
                             <div class="w-full border-t border-slate-700"></div>
                         </div>
-                        <div class="relative flex justify-center text-sm">
+                        <div class="relative flex justify-center text-xs md:text-sm">
                             <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville">oppure con email</span>
                         </div>
                     </div>
                     
                     <!-- Form Email/Password -->
-                    <form id="registrationForm" class="space-y-5" novalidate>
+                    <form id="registrationForm" class="form-spacing space-y-4 md:space-y-5" novalidate>
                         
                         <!-- Nome Completo -->
                         <div>
-                            <label for="nome" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                            <label for="nome" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
                                 Nome completo
                                 <span class="text-slate-500 font-normal text-xs ml-1">(opzionale)</span>
                             </label>
@@ -200,13 +255,13 @@
                                 id="nome" 
                                 placeholder="es. Marco Aurelio"
                                 autocomplete="name"
-                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
                             <p class="text-slate-400 text-xs mt-1 font-baskerville">Ti chiameremo così nelle email</p>
                         </div>
                         
                         <!-- Email -->
                         <div>
-                            <label for="email" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                            <label for="email" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
                                 Email *
                             </label>
                             <input 
@@ -215,14 +270,14 @@
                                 required
                                 placeholder="stoico@esempio.com"
                                 autocomplete="email"
-                                class="w-full px-4 py-3 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
-                            <p id="emailSuccess" class="text-green-400 text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Email valida</p>
+                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p id="emailError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                            <p id="emailSuccess" class="text-green-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Email valida</p>
                         </div>
                         
                         <!-- Password -->
                         <div>
-                            <label for="password" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                            <label for="password" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
                                 Password *
                             </label>
                             <div class="relative">
@@ -232,14 +287,12 @@
                                     required
                                     placeholder="Minimo 8 caratteri"
                                     autocomplete="new-password"
-                                    class="w-full px-4 py-3 pr-12 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                                <!-- Toggle Visibility Icon -->
+                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
                                 <button 
                                     type="button" 
                                     id="togglePassword"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
-                                    data-tooltip="Mostra password">
-                                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
+                                    <svg id="eyeIcon" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
@@ -255,7 +308,7 @@
                             </div>
                             
                             <!-- Password Requirements -->
-                            <div id="passwordRequirements" class="mt-3 space-y-1 text-xs font-baskerville hidden">
+                            <div id="passwordRequirements" class="mt-2 md:mt-3 space-y-1 text-xs font-baskerville hidden">
                                 <p class="text-slate-400 font-semibold mb-1">La password deve contenere:</p>
                                 <div class="flex items-center gap-2" id="req-length">
                                     <span class="text-slate-500">○</span>
@@ -278,7 +331,7 @@
                         
                         <!-- Conferma Password -->
                         <div>
-                            <label for="confirmPassword" class="block text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                            <label for="confirmPassword" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
                                 Conferma password *
                             </label>
                             <div class="relative">
@@ -288,43 +341,41 @@
                                     required
                                     placeholder="Ripeti la password"
                                     autocomplete="new-password"
-                                    class="w-full px-4 py-3 pr-12 bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                                <!-- Toggle Visibility Icon -->
+                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
                                 <button 
                                     type="button" 
                                     id="toggleConfirmPassword"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
-                                    data-tooltip="Mostra password">
-                                    <svg id="eyeIconConfirm" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
+                                    <svg id="eyeIconConfirm" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
                                 </button>
                             </div>
-                            <p id="confirmPasswordError" class="text-red-400 text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
-                            <p id="confirmPasswordSuccess" class="text-green-400 text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Le password coincidono</p>
+                            <p id="confirmPasswordError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                            <p id="confirmPasswordSuccess" class="text-green-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Le password coincidono</p>
                         </div>
                         
                         <!-- Privacy Checkbox -->
-                        <div class="flex items-start gap-3 pt-2">
+                        <div class="flex items-start gap-2 md:gap-3 pt-2">
                             <input 
                                 type="checkbox" 
                                 id="privacy" 
                                 required
-                                class="mt-1 w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
-                            <label for="privacy" class="text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
+                                class="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="privacy" class="text-xs md:text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
                                 Accetto i <a href="#" class="text-amber-300 underline hover:text-amber-200">Termini di Servizio</a> e la <a href="#" class="text-amber-300 underline hover:text-amber-200">Privacy Policy</a>
                             </label>
                         </div>
                         
-                        <!-- Newsletter Checkbox (opzionale) -->
-                        <div class="flex items-start gap-3">
+                        <!-- Newsletter Checkbox -->
+                        <div class="flex items-start gap-2 md:gap-3">
                             <input 
                                 type="checkbox" 
                                 id="newsletter" 
                                 checked
-                                class="mt-1 w-5 h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
-                            <label for="newsletter" class="text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
+                                class="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="newsletter" class="text-xs md:text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
                                 Voglio ricevere riflessioni stoiche settimanali via email
                             </label>
                         </div>
@@ -333,7 +384,7 @@
                         <button 
                             type="submit"
                             id="submitBtn"
-                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-4 rounded-lg text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
                             <span id="submitBtnText">Accetta la Sfida</span>
                             <div id="submitSpinner" class="spinner hidden"></div>
                         </button>
@@ -341,8 +392,8 @@
                     </form>
                     
                     <!-- Login Link -->
-                    <div class="mt-6 text-center">
-                        <p class="text-slate-400 font-baskerville">
+                    <div class="mt-4 md:mt-6 text-center">
+                        <p class="text-xs md:text-sm text-slate-400 font-baskerville">
                             Hai già un account? 
                             <a href="accedi.html" class="text-amber-300 underline hover:text-amber-200 font-semibold">
                                 Accedi qui
@@ -351,22 +402,22 @@
                     </div>
                     
                     <!-- Trust Badges -->
-                    <div class="mt-8 pt-6 border-t border-slate-700">
-                        <div class="flex flex-wrap justify-center gap-4 text-xs text-slate-400 font-baskerville">
+                    <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-slate-700">
+                        <div class="flex flex-wrap justify-center gap-3 md:gap-4 text-xs text-slate-400 font-baskerville">
                             <span class="flex items-center gap-1">
-                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
                                 Gratis per sempre
                             </span>
                             <span class="flex items-center gap-1">
-                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
                                 Nessuna carta richiesta
                             </span>
                             <span class="flex items-center gap-1">
-                                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                                 </svg>
                                 Cancellazione istantanea
@@ -374,8 +425,8 @@
                         </div>
                         
                         <!-- Security Badge -->
-                        <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <div class="mt-3 md:mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                            <svg class="w-3 h-3 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                             </svg>
                             I tuoi dati sono protetti e crittografati
@@ -393,8 +444,88 @@
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         
-        // Inizializza Supabase client
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // ========== CITAZIONI ROTANTI ==========
+        const quotes = [
+            {
+                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "Non è ciò che ti accade, ma come reagisci che conta",
+                author: "Epitteto"
+            },
+            {
+                text: "Abbiamo due orecchie e una bocca per ascoltare più di quanto parliamo",
+                author: "Zenone di Cizio"
+            },
+            {
+                text: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
+                author: "Epitteto"
+            }
+        ];
+        
+        let currentQuoteIndex = 0;
+        
+        function rotateQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            const quote = quotes[currentQuoteIndex];
+            
+            const quoteEl = document.getElementById('rotatingQuote');
+            const authorEl = document.getElementById('rotatingAuthor');
+            
+            // Fade out
+            quoteEl.style.opacity = '0';
+            authorEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteEl.textContent = `"${quote.text}"`;
+                authorEl.textContent = `— ${quote.author}`;
+                
+                // Fade in
+                quoteEl.style.transition = 'opacity 0.5s';
+                authorEl.style.transition = 'opacity 0.5s';
+                quoteEl.style.opacity = '1';
+                authorEl.style.opacity = '1';
+            }, 500);
+        }
+        
+        // Ruota citazione ogni 8 secondi
+        setInterval(rotateQuote, 8000);
+        
+        // ========== TOAST NOTIFICATIONS ==========
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `animate-slideUp p-4 rounded-lg shadow-2xl mb-4 ${
+                type === 'success' ? 'bg-green-600' : 
+                type === 'error' ? 'bg-red-600' : 
+                'bg-amber-600'
+            } text-white font-baskerville`;
+            toast.textContent = message;
+            
+            document.getElementById('toastContainer').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        
+        // ========== LOADING OVERLAY ==========
+        function showLoading(text = 'Caricamento...') {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
         
         // ========== ELEMENTI DOM ==========
         const form = document.getElementById('registrationForm');
@@ -416,19 +547,14 @@
         const googleSpinner = document.getElementById('googleSpinner');
         
         // ========== TOGGLE PASSWORD VISIBILITY ==========
-        const togglePassword = document.getElementById('togglePassword');
-        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-        
-        togglePassword.addEventListener('click', function() {
+        document.getElementById('togglePassword').addEventListener('click', function() {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            this.setAttribute('data-tooltip', type === 'password' ? 'Mostra password' : 'Nascondi password');
         });
         
-        toggleConfirmPassword.addEventListener('click', function() {
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
             const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             confirmPasswordInput.setAttribute('type', type);
-            this.setAttribute('data-tooltip', type === 'password' ? 'Mostra password' : 'Nascondi password');
         });
         
         // ========== VALIDAZIONE EMAIL ==========
@@ -487,13 +613,11 @@
                 number: /[0-9]/.test(password)
             };
             
-            // Aggiorna indicatori requisiti
             updateRequirement('req-length', requirements.length);
             updateRequirement('req-uppercase', requirements.uppercase);
             updateRequirement('req-lowercase', requirements.lowercase);
             updateRequirement('req-number', requirements.number);
             
-            // Calcola forza
             if (requirements.length) strength++;
             if (requirements.uppercase && requirements.lowercase) strength++;
             if (requirements.number) strength++;
@@ -518,7 +642,6 @@
                 strengthText.className = "text-xs mt-1 text-green-400 font-baskerville";
             }
             
-            // Valida conferma password se già compilata
             if (confirmPasswordInput.value) {
                 validateConfirmPassword();
             }
@@ -599,7 +722,7 @@
                 
             } catch (error) {
                 console.error('Errore Google Sign-In:', error);
-                alert('❌ Errore: ' + error.message + '\n\nDevi prima configurare Google OAuth in Supabase.');
+                showToast('Google OAuth non ancora configurato. Usa email/password.', 'error');
                 
                 googleBtnText.textContent = 'Continua con Google';
                 googleSpinner.classList.add('hidden');
@@ -617,15 +740,16 @@
             const isPrivacyAccepted = document.getElementById('privacy').checked;
             
             if (!isEmailValid || !isConfirmPasswordValid || !isPasswordStrong) {
-                alert('⚠️ Correggi gli errori nel form prima di procedere');
+                showToast('Correggi gli errori nel form prima di procedere', 'error');
                 return;
             }
             
             if (!isPrivacyAccepted) {
-                alert('⚠️ Devi accettare i Termini di Servizio e la Privacy Policy');
+                showToast('Devi accettare i Termini di Servizio e la Privacy Policy', 'error');
                 return;
             }
             
+            showLoading('Creazione account...');
             submitBtnText.textContent = 'Creazione account...';
             submitSpinner.classList.remove('hidden');
             submitBtn.disabled = true;
@@ -648,11 +772,16 @@
                 
                 if (error) throw error;
                 
-                alert('✅ Benvenuto nel Viaggio Stoico!\n\nTi abbiamo inviato un\'email di conferma. Controlla la tua casella di posta (anche spam).');
-                window.location.href = 'index.html';
+                hideLoading();
+                showToast('✅ Benvenuto nel Viaggio Stoico! Controlla la tua email.', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
                 
             } catch (error) {
                 console.error('Errore registrazione:', error);
+                hideLoading();
                 
                 let errorMessage = 'Si è verificato un errore durante la registrazione.';
                 
@@ -664,7 +793,7 @@
                     errorMessage = error.message;
                 }
                 
-                alert('❌ ' + errorMessage);
+                showToast(errorMessage, 'error');
                 
                 submitBtnText.textContent = 'Accetta la Sfida';
                 submitSpinner.classList.add('hidden');
