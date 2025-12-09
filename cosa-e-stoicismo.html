@@ -49,7 +49,6 @@
             z-index: -1;
         }
         
-        /* MODIFICA: Disabilita parallax pesante su mobile */
         @media (min-width: 768px) {
             .parallax-zoom-container {
                 perspective: 1px;
@@ -153,7 +152,6 @@
             border-radius: 2px;
         }
 
-        /* MODIFICA 10: Pulsante Scroll to Top */
         #scrollTop {
             transition: opacity 0.3s ease;
         }
@@ -162,7 +160,6 @@
             pointer-events: none;
         }
         
-        /* Smooth scroll */
         html {
             scroll-behavior: smooth;
         }
@@ -173,7 +170,6 @@
     <section class="parallax-zoom-container relative text-white flex flex-col justify-between">
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
-        <!-- MODIFICA 8: Top Bar con navigazione e breadcrumb -->
         <div class="absolute top-8 left-4 right-4 md:left-8 md:right-8 z-20">
             <div class="flex justify-between items-center mb-4">
                 <a href="index.html" class="flex items-center gap-2 md:gap-3 animate-fadeIn hover:opacity-80 transition-opacity">
@@ -185,7 +181,6 @@
                     </span>
                 </a>
                 
-                <!-- MODIFICA 8: Menu navigazione desktop -->
                 <nav class="hidden lg:flex gap-6 text-white font-cinzel text-sm">
                     <a href="#origini" class="hover:text-amber-300 transition">Origini</a>
                     <a href="#filosofi" class="hover:text-amber-300 transition">Filosofi</a>
@@ -198,7 +193,6 @@
                 </a>
             </div>
             
-            <!-- MODIFICA 9: Breadcrumb -->
             <nav class="text-xs md:text-sm text-gray-300 font-baskerville hidden md:block">
                 <a href="index.html" class="hover:text-amber-300 transition">Home</a>
                 <span class="mx-2">/</span>
@@ -206,7 +200,6 @@
             </nav>
         </div>
         
-        <!-- MODIFICA 5: Titoli responsive ottimizzati -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10 mt-auto">
             <h1 class="text-4xl md:text-7xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide text-stroke-black">
                 Cos'è lo Stoicismo
@@ -231,7 +224,6 @@
         </div>
     </section>
 
-    <!-- MODIFICA 7: Gap ridotto su mobile -->
     <!-- Dalle Origini alla Roma Imperiale -->
     <section id="origini" class="py-20 sunset-gradient scroll-mt-20">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -240,16 +232,13 @@
             </h2>
             
             <div class="grid md:grid-cols-2 gap-6 md:gap-12 mb-12 md:mb-16">
-                <!-- Colonna Timeline -->
                 <div class="reveal">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-300 mb-6 md:mb-8">Il Viaggio attraverso i Secoli</h3>
                     
-                    <!-- MODIFICA 2B: Timeline responsive -->
                     <div class="timeline-line space-y-6 md:space-y-8">
                         <div class="relative">
                             <div>
                                 <div class="text-amber-200 font-bold mb-2 text-base md:text-lg font-cinzel">300 a.C. - Atene</div>
-                                <!-- MODIFICA 3: Contrasto migliorato text-slate-200 -->
                                 <p class="text-slate-200 leading-relaxed font-baskerville text-sm md:text-base">
                                     <strong class="text-amber-300">Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome "stoicismo". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana.
                                 </p>
@@ -276,7 +265,6 @@
                     </div>
                 </div>
                 
-                <!-- Colonna Contesto -->
                 <div class="reveal">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-300 mb-6 md:mb-8">Perché Nacque lo Stoicismo</h3>
                     
@@ -289,7 +277,6 @@
                         </p>
                     </div>
                     
-                    <!-- MODIFICA 2C: Citazioni non-italic più leggibili -->
                     <div class="quote-box">
                         <p class="text-amber-200 font-baskerville leading-relaxed text-sm md:text-base">
                             "Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta."
@@ -311,11 +298,10 @@
             </p>
             
             <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-                <!-- MODIFICA 1: Fix nomi immagini + MODIFICA 4: Lazy loading -->
-                <!-- Seneca -->
+                <!-- Seneca - FIX: Nome corretto URL-encoded -->
                 <div class="philosopher-card bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-400/50 rounded-2xl p-6 reveal">
                     <div class="flex justify-center mb-6">
-                        <img src="seneca-cose-stoicismo.jpg" 
+                        <img src="Seneca%20Cos'%C3%A8%20Lo%20Stoicismo.png" 
                              alt="Seneca" 
                              loading="lazy"
                              width="192"
@@ -324,11 +310,9 @@
                     </div>
                     <h3 class="text-2xl font-cinzel font-bold text-amber-200 text-center mb-2">Seneca</h3>
                     <p class="text-sm text-amber-300 text-center mb-4 font-cinzel">4 a.C. - 65 d.C.</p>
-                    <!-- MODIFICA 2A: Font aumentato a text-base su mobile -->
                     <p class="text-slate-200 leading-relaxed text-base md:text-sm mb-4 font-baskerville">
                         Filosofo, drammaturgo e consigliere dell'imperatore Nerone. Le sue <strong class="text-amber-300">Lettere a Lucilio</strong> sono una guida spirituale progressiva che accompagna il lettore verso la saggezza.
                     </p>
-                    <!-- MODIFICA 2B: Citazioni non-italic -->
                     <div class="bg-slate-900/50 rounded-lg p-3 border border-amber-400/20">
                         <p class="text-amber-200 font-baskerville text-base md:text-sm leading-relaxed">
                             "Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi."
@@ -336,10 +320,10 @@
                     </div>
                 </div>
 
-                <!-- Epitteto -->
+                <!-- Epitteto - FIX: Nome corretto URL-encoded -->
                 <div class="philosopher-card bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-400/50 rounded-2xl p-6 reveal">
                     <div class="flex justify-center mb-6">
-                        <img src="epitteto-cose-stoicismo.jpg" 
+                        <img src="Epitteto%20Cos'%C3%A8%20Lo%20Stoicismo.png" 
                              alt="Epitteto" 
                              loading="lazy"
                              width="192"
@@ -358,10 +342,10 @@
                     </div>
                 </div>
 
-                <!-- Marco Aurelio -->
+                <!-- Marco Aurelio - FIX: Nome corretto URL-encoded -->
                 <div class="philosopher-card bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-400/50 rounded-2xl p-6 reveal">
                     <div class="flex justify-center mb-6">
-                        <img src="marco-aurelio-cose-stoicismo.jpg" 
+                        <img src="Marco%20Aurelio%20Cos'%C3%A8%20Lo%20Stoicismo.png" 
                              alt="Marco Aurelio" 
                              loading="lazy"
                              width="192"
@@ -511,7 +495,6 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
-                <!-- Card Sinistra -->
                 <div class="reveal bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-400/40 rounded-2xl p-6 md:p-8">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-300 mb-4 md:mb-6">Gestione di Ansia e Stress</h3>
                     <p class="text-slate-200 leading-relaxed mb-4 font-baskerville text-sm md:text-base">
@@ -524,7 +507,6 @@
                     </div>
                 </div>
 
-                <!-- Card Destra -->
                 <div class="reveal bg-gradient-to-br from-slate-900 to-slate-950 border border-amber-400/40 rounded-2xl p-6 md:p-8">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-300 mb-4 md:mb-6">Performance e Resilienza</h3>
                     <p class="text-slate-200 leading-relaxed mb-4 font-baskerville text-sm md:text-base">
@@ -538,7 +520,6 @@
                 </div>
             </div>
 
-            <!-- Box Centrale Immagine Marco Aurelio -->
             <div class="reveal bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-amber-400/50 rounded-3xl p-6 md:p-12 mb-12 md:mb-16">
                 <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
                     <div>
@@ -578,7 +559,6 @@
                 </div>
             </div>
 
-            <!-- Sezione Pratica -->
             <div class="reveal bg-gradient-to-r from-amber-900/20 to-amber-800/20 border border-amber-400/40 rounded-2xl p-6 md:p-8">
                 <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 text-center mb-6 md:mb-8">
                     Come Praticare lo Stoicismo Oggi
@@ -639,9 +619,9 @@
             <p class="text-lg md:text-xl text-amber-200 mb-6 md:mb-8 leading-relaxed font-baskerville">
                 The Stoic Journey ti accompagna con sfide quotidiane personalizzate, riflessioni guidate dall'AI e una community di praticanti moderni.
             </p>
-            <!-- MODIFICA 6: Bottoni CTA responsive -->
+            <!-- FIX: Link a registrazione.html -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="index.html#signup" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 md:px-8 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-2xl font-cinzel">
+                <a href="registrazione.html" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-6 py-3 md:px-8 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-2xl font-cinzel">
                     Inizia Gratis Oggi
                 </a>
                 <a href="index.html" class="w-full sm:w-auto bg-white/10 backdrop-blur-sm text-white border-2 border-white/40 hover:bg-white/20 font-bold px-6 py-3 md:px-8 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 font-cinzel">
@@ -692,7 +672,7 @@
         </div>
     </footer>
 
-    <!-- MODIFICA 10: Pulsante "Torna su" -->
+    <!-- Pulsante "Torna su" -->
     <button id="scrollTop" 
             class="hidden fixed bottom-6 right-6 bg-amber-500 hover:bg-amber-600 text-slate-950 p-3 md:p-4 rounded-full shadow-lg z-50 transition-all duration-300">
         <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -718,7 +698,7 @@
             });
         }
 
-        // Reveal effect script
+        // Reveal effect + Scroll to top
         document.addEventListener("DOMContentLoaded", function() {
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
@@ -732,7 +712,6 @@
             window.addEventListener("scroll", revealOnScroll);
             revealOnScroll();
             
-            // MODIFICA 10: Script "Torna su"
             const scrollBtn = document.getElementById('scrollTop');
             window.addEventListener('scroll', () => {
                 if (window.pageYOffset > 500) {
