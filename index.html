@@ -104,13 +104,6 @@
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
-        .poster-frame {
-            width: 100%;
-            height: 700px;
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-        }
 
         /* Bordo nero per testo hero */
         .text-stroke-black {
@@ -206,21 +199,35 @@
             );
         }
 
-        /* Icone numerate per Come Funziona */
+        /* Icone numerate per Come Funziona - VERSIONE MOBILE COMPATTA */
         .step-number {
-            width: 70px;
-            height: 70px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             color: #0f172a;
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
-            margin: 0 auto 1.5rem auto;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+            margin: 0 auto 1rem auto;
+            flex-shrink: 0;
+        }
+
+        /* Desktop: numero più grande */
+        @media (min-width: 768px) {
+            .step-number {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .step-card {
+            transition: transform 0.3s ease;
         }
 
         .step-card:hover .step-number {
@@ -228,15 +235,13 @@
             box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
         }
 
-        .step-card {
-            transition: transform 0.3s ease;
+        @media (min-width: 768px) {
+            .step-card:hover {
+                transform: translateY(-8px);
+            }
         }
 
-        .step-card:hover {
-            transform: translateY(-8px);
-        }
-
-        /* Freccia decorativa tra step */
+        /* Freccia decorativa tra step - solo desktop */
         .arrow-connector {
             color: #f59e0b;
             font-size: 2.5rem;
@@ -247,6 +252,26 @@
         @keyframes pulse {
             0%, 100% { opacity: 0.4; }
             50% { opacity: 0.8; }
+        }
+
+        /* Layout compatto mobile per Come Funziona */
+        @media (max-width: 767px) {
+            .mobile-step {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                text-align: left;
+            }
+            
+            .mobile-step-content h3 {
+                font-size: 1.125rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .mobile-step-content p {
+                font-size: 0.875rem;
+                line-height: 1.5;
+            }
         }
     </style>
 </head>
@@ -300,27 +325,29 @@
         </div>
     </section>
 
-    <!-- NUOVA SEZIONE: Come Funziona -->
-    <section class="py-20 bg-gradient-to-b from-slate-50 to-slate-100">
+    <!-- SEZIONE: Come Funziona - VERSIONE MOBILE OTTIMIZZATA -->
+    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-6 text-slate-900">
+            <h2 class="text-3xl md:text-5xl font-cinzel font-bold text-center mb-4 md:mb-6 text-slate-900">
                 Come Funziona
             </h2>
-            <p class="text-lg text-center text-slate-600 mb-16 max-w-2xl mx-auto font-inter">
+            <p class="text-base md:text-lg text-center text-slate-600 mb-10 md:mb-16 max-w-2xl mx-auto font-inter">
                 Il tuo percorso di crescita stoica in tre semplici passi
             </p>
             
-            <!-- Grid 3 Colonne per Steps -->
-            <div class="grid md:grid-cols-3 gap-12 items-start">
+            <!-- Layout Mobile: Stack Compatto | Desktop: Grid 3 Colonne -->
+            <div class="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-12 md:items-start">
                 <!-- Step 1 -->
-                <div class="step-card reveal">
+                <div class="step-card reveal mobile-step md:block">
                     <div class="step-number font-cinzel">1</div>
-                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4 text-center">
-                        Scrivi la tua riflessione
-                    </h3>
-                    <p class="text-slate-600 text-center leading-relaxed font-inter">
-                        Ogni giorno dedica qualche minuto per scrivere liberamente i tuoi pensieri, sfide e preoccupazioni. Il tuo diario stoico personale ti ascolta senza giudizio.
-                    </p>
+                    <div class="mobile-step-content md:text-center">
+                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4">
+                            Scrivi riflessione
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed font-inter">
+                            Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Freccia decorativa (solo desktop) -->
@@ -329,14 +356,16 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="step-card reveal delay-300">
+                <div class="step-card reveal delay-300 mobile-step md:block">
                     <div class="step-number font-cinzel">2</div>
-                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4 text-center">
-                        Ricevi sfida personalizzata
-                    </h3>
-                    <p class="text-slate-600 text-center leading-relaxed font-inter">
-                        L'intelligenza artificiale analizza la tua riflessione e genera una micro-sfida stoica su misura, basata sui principi di Marco Aurelio, Epitteto e Seneca.
-                    </p>
+                    <div class="mobile-step-content md:text-center">
+                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4">
+                            Sfida personalizzata
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed font-inter">
+                            L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca.
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Freccia decorativa (solo desktop) -->
@@ -345,14 +374,16 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="step-card reveal delay-600">
+                <div class="step-card reveal delay-600 mobile-step md:block">
                     <div class="step-number font-cinzel">3</div>
-                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4 text-center">
-                        Traccia il progresso
-                    </h3>
-                    <p class="text-slate-600 text-center leading-relaxed font-inter">
-                        Monitora la tua evoluzione nel tempo. Visualizza pattern ricorrenti, conquiste raggiunte e la tua trasformazione interiore attraverso dashboard intuitive.
-                    </p>
+                    <div class="mobile-step-content md:text-center">
+                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4">
+                            Traccia progresso
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed font-inter">
+                            Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -586,4 +617,3 @@
     </script>
 </body>
 </html>
-
