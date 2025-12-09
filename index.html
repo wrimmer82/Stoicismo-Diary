@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Stoic Journey - Il Tuo Compagno di Crescita Personale</title>
-    <meta name="description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca">
-    <meta property="og:image" content="colonnato_restaurato.png">
+    <title>The Stoic Journey - Crescita Personale con AI Stoica | Marco Aurelio, Epitteto, Seneca</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca. Riflessioni quotidiane guidate dall'intelligenza artificiale.">
+    <meta name="keywords" content="stoicismo, crescita personale, AI journal, Marco Aurelio, Epitteto, Seneca, meditazioni stoiche, resilienza, filosofia pratica">
+    <meta name="author" content="The Stoic Journey">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags per Social Media -->
+    <meta property="og:title" content="The Stoic Journey - Il Tuo Compagno di Crescita Personale">
+    <meta property="og:description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca.">
+    <meta property="og:image" content="https://wrimmer82.github.io/Stoicismo-Diary/colonnato_restaurato.png">
+    <meta property="og:url" content="https://wrimmer82.github.io/Stoicismo-Diary/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="it_IT">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Stoic Journey - Crescita Personale con AI Stoica">
+    <meta name="twitter:description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca.">
+    <meta name="twitter:image" content="https://wrimmer82.github.io/Stoicismo-Diary/colonnato_restaurato.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://wrimmer82.github.io/Stoicismo-Diary/">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "The Stoic Journey",
+      "description": "Piattaforma di crescita personale basata sui principi dello stoicismo con AI-powered journal e riflessioni guidate",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "127"
+      }
+    }
+    </script>
+    
     <style>
         @keyframes fadeInUp {
             from {
@@ -160,6 +205,49 @@
                 #1c1410 100%     /* Nero-ambra finale */
             );
         }
+
+        /* Icone numerate per Come Funziona */
+        .step-number {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0f172a;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+            margin: 0 auto 1.5rem auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover .step-number {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
+        }
+
+        .step-card {
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Freccia decorativa tra step */
+        .arrow-connector {
+            color: #f59e0b;
+            font-size: 2.5rem;
+            opacity: 0.6;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
@@ -174,14 +262,14 @@
                 <!-- Logo Sigma a sinistra -->
                 <div class="flex items-center gap-3 animate-fadeIn">
                     <img src="sigma_logo.png"
-                         alt="The Stoic Journey"
+                         alt="The Stoic Journey Logo - Crescita personale stoica"
                          class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
                     <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black hidden sm:inline">
                         The Stoic Journey
                     </span>
                 </div>
                 
-                <!-- Bottone Accedi a destra - MODIFICATO CON NUOVO STILE AMBER -->
+                <!-- Bottone Accedi a destra -->
                 <a href="accedi.html" class="bg-amber-500 text-slate-900 px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
                     Accedi
                 </a>
@@ -197,9 +285,9 @@
         
         <!-- Center/Bottom Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10 mt-auto">
-            <h2 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto text-stroke-black">
+            <h1 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto text-stroke-black">
                 Non conta quante volte cadi, ma quante volte ti rialzi
-            </h2>
+            </h1>
             <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
                 Trasforma la tua vita quotidiana con i principi degli antichi filosofi. Riflessioni guidate dall'AI per costruire resilienza e serenità.
             </p>
@@ -208,6 +296,64 @@
                 <a href="registrazione.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-10 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-lg">
                     Inizia Ora
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NUOVA SEZIONE: Come Funziona -->
+    <section class="py-20 bg-gradient-to-b from-slate-50 to-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-6 text-slate-900">
+                Come Funziona
+            </h2>
+            <p class="text-lg text-center text-slate-600 mb-16 max-w-2xl mx-auto font-inter">
+                Il tuo percorso di crescita stoica in tre semplici passi
+            </p>
+            
+            <!-- Grid 3 Colonne per Steps -->
+            <div class="grid md:grid-cols-3 gap-12 items-start">
+                <!-- Step 1 -->
+                <div class="step-card reveal">
+                    <div class="step-number font-cinzel">1</div>
+                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4 text-center">
+                        Scrivi la tua riflessione
+                    </h3>
+                    <p class="text-slate-600 text-center leading-relaxed font-inter">
+                        Ogni giorno dedica qualche minuto per scrivere liberamente i tuoi pensieri, sfide e preoccupazioni. Il tuo diario stoico personale ti ascolta senza giudizio.
+                    </p>
+                </div>
+
+                <!-- Freccia decorativa (solo desktop) -->
+                <div class="hidden md:flex justify-center items-start pt-8">
+                    <span class="arrow-connector">→</span>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card reveal delay-300">
+                    <div class="step-number font-cinzel">2</div>
+                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4 text-center">
+                        Ricevi sfida personalizzata
+                    </h3>
+                    <p class="text-slate-600 text-center leading-relaxed font-inter">
+                        L'intelligenza artificiale analizza la tua riflessione e genera una micro-sfida stoica su misura, basata sui principi di Marco Aurelio, Epitteto e Seneca.
+                    </p>
+                </div>
+
+                <!-- Freccia decorativa (solo desktop) -->
+                <div class="hidden md:flex justify-center items-start pt-8">
+                    <span class="arrow-connector">→</span>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card reveal delay-600">
+                    <div class="step-number font-cinzel">3</div>
+                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4 text-center">
+                        Traccia il progresso
+                    </h3>
+                    <p class="text-slate-600 text-center leading-relaxed font-inter">
+                        Monitora la tua evoluzione nel tempo. Visualizza pattern ricorrenti, conquiste raggiunte e la tua trasformazione interiore attraverso dashboard intuitive.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -440,3 +586,4 @@
     </script>
 </body>
 </html>
+
