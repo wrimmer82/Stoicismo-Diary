@@ -11,7 +11,7 @@
     <meta name="author" content="The Stoic Journey">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph Meta Tags per Social Media -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="The Stoic Journey - Il Tuo Compagno di Crescita Personale">
     <meta property="og:description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca.">
     <meta property="og:image" content="https://wrimmer82.github.io/Stoicismo-Diary/colonnato_restaurato.png">
@@ -188,18 +188,18 @@
         /* Gradiente tramonto continuo */
         .sunset-gradient {
             background: linear-gradient(180deg, 
-                #1a0f1f 0%,      /* Viola scuro profondo */
-                #2d1b3d 15%,     /* Viola medio */
-                #4a2c4f 30%,     /* Viola-grigio */
-                #6b4a5a 45%,     /* Viola-rosato */
-                #8b5a4e 60%,     /* Arancio bruciato */
-                #a8754a 75%,     /* Ambra scuro */
-                #c49050 85%,     /* Oro antico */
-                #1c1410 100%     /* Nero-ambra finale */
+                #1a0f1f 0%,
+                #2d1b3d 15%,
+                #4a2c4f 30%,
+                #6b4a5a 45%,
+                #8b5a4e 60%,
+                #a8754a 75%,
+                #c49050 85%,
+                #1c1410 100%
             );
         }
 
-        /* Icone numerate per Come Funziona - VERSIONE MOBILE COMPATTA */
+        /* Icone numerate per Come Funziona */
         .step-number {
             width: 56px;
             height: 56px;
@@ -216,7 +216,6 @@
             flex-shrink: 0;
         }
 
-        /* Desktop: numero più grande */
         @media (min-width: 768px) {
             .step-number {
                 width: 70px;
@@ -241,7 +240,6 @@
             }
         }
 
-        /* Freccia decorativa tra step - solo desktop */
         .arrow-connector {
             color: #f59e0b;
             font-size: 2.5rem;
@@ -254,7 +252,6 @@
             50% { opacity: 0.8; }
         }
 
-        /* Layout compatto mobile per Come Funziona */
         @media (max-width: 767px) {
             .mobile-step {
                 display: flex;
@@ -274,7 +271,7 @@
             }
         }
 
-        /* FAQ Accordion - Ottimizzato Mobile */
+        /* FAQ Accordion - Compatto */
         .faq-item {
             border-bottom: 1px solid rgba(251, 191, 36, 0.2);
             transition: all 0.3s ease;
@@ -282,12 +279,12 @@
 
         .faq-question {
             cursor: pointer;
-            padding: 1.25rem 1rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-            min-height: 64px; /* Touch-friendly */
+            gap: 0.75rem;
+            min-height: 56px;
             transition: background-color 0.3s ease;
             -webkit-tap-highlight-color: transparent;
         }
@@ -301,12 +298,12 @@
         }
 
         .faq-icon {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
             transition: transform 0.3s ease;
             color: #f59e0b;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: bold;
         }
 
@@ -322,20 +319,68 @@
         }
 
         .faq-item.active .faq-answer {
-            max-height: 300px;
-            padding: 0 1rem 1.25rem 1rem;
+            max-height: 200px;
+            padding: 0 1rem 1rem 1rem;
         }
 
-        /* Desktop FAQ padding */
-        @media (min-width: 768px) {
-            .faq-question {
-                padding: 1.5rem 1.5rem;
+        /* Contact Form Styling - Mobile First */
+        .contact-form-input,
+        .contact-form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 0.9375rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            min-height: 48px; /* Touch-friendly */
+        }
+
+        .contact-form-input:focus,
+        .contact-form-textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .contact-form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .contact-form-button {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #0f172a;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            min-height: 48px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+        }
+
+        .contact-form-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+        }
+
+        .contact-form-button:active {
+            transform: translateY(0);
+        }
+
+        /* Layout 2 Colonne Desktop, Stack Mobile */
+        @media (max-width: 1023px) {
+            .faq-contact-grid {
+                display: block !important;
             }
-            .faq-answer {
-                padding: 0 1.5rem;
-            }
-            .faq-item.active .faq-answer {
-                padding: 0 1.5rem 1.5rem 1.5rem;
+            
+            .faq-contact-grid > div:first-child {
+                margin-bottom: 2.5rem;
             }
         }
     </style>
@@ -343,13 +388,10 @@
 <body class="bg-gray-50 font-inter">
     <!-- Hero Section con effetto zoom parallax -->
     <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
-        <!-- Background con effetto zoom -->
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
-        <!-- Top Bar: Logo Sinistra + Link Centro Assoluto + Accedi Destra -->
         <div class="absolute top-8 left-8 right-8 z-20">
             <div class="flex justify-between items-center">
-                <!-- Logo Sigma a sinistra -->
                 <div class="flex items-center gap-3 animate-fadeIn">
                     <img src="sigma_logo.png"
                          alt="The Stoic Journey Logo - Crescita personale stoica"
@@ -359,13 +401,11 @@
                     </span>
                 </div>
                 
-                <!-- Bottone Accedi a destra -->
                 <a href="accedi.html" class="bg-amber-500 text-slate-900 px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
                     Accedi
                 </a>
             </div>
             
-            <!-- Link Cos'è lo Stoicismo centrato in assoluto -->
             <div class="absolute left-1/2 top-0 transform -translate-x-1/2">
                 <a href="cosa-e-stoicismo.html" class="hidden md:block bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap">
                     Cos'è lo Stoicismo
@@ -373,7 +413,6 @@
             </div>
         </div>
         
-        <!-- Center/Bottom Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10 mt-auto">
             <h1 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto text-stroke-black">
                 Non conta quante volte cadi, ma quante volte ti rialzi
@@ -381,7 +420,6 @@
             <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
                 Trasforma la tua vita quotidiana con i principi degli antichi filosofi. Riflessioni guidate dall'AI per costruire resilienza e serenità.
             </p>
-            <!-- Bottone CTA Centrato -->
             <div class="flex justify-center animate-fadeInUp delay-600">
                 <a href="registrazione.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-10 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-lg">
                     Inizia Ora
@@ -390,7 +428,7 @@
         </div>
     </section>
 
-    <!-- SEZIONE: Come Funziona - VERSIONE MOBILE OTTIMIZZATA -->
+    <!-- SEZIONE: Come Funziona -->
     <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-5xl font-cinzel font-bold text-center mb-4 md:mb-6 text-slate-900">
@@ -400,9 +438,7 @@
                 Il tuo percorso di crescita stoica in tre semplici passi
             </p>
             
-            <!-- Layout Mobile: Stack Compatto | Desktop: Grid 3 Colonne -->
             <div class="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-12 md:items-start">
-                <!-- Step 1 -->
                 <div class="step-card reveal mobile-step md:block">
                     <div class="step-number font-cinzel">1</div>
                     <div class="mobile-step-content md:text-center">
@@ -415,12 +451,10 @@
                     </div>
                 </div>
 
-                <!-- Freccia decorativa (solo desktop) -->
                 <div class="hidden md:flex justify-center items-start pt-8">
                     <span class="arrow-connector">→</span>
                 </div>
 
-                <!-- Step 2 -->
                 <div class="step-card reveal delay-300 mobile-step md:block">
                     <div class="step-number font-cinzel">2</div>
                     <div class="mobile-step-content md:text-center">
@@ -433,12 +467,10 @@
                     </div>
                 </div>
 
-                <!-- Freccia decorativa (solo desktop) -->
                 <div class="hidden md:flex justify-center items-start pt-8">
                     <span class="arrow-connector">→</span>
                 </div>
 
-                <!-- Step 3 -->
                 <div class="step-card reveal delay-600 mobile-step md:block">
                     <div class="step-number font-cinzel">3</div>
                     <div class="mobile-step-content md:text-center">
@@ -566,7 +598,7 @@
         </div>
     </section>
 
-    <!-- Memento Mori Section con gradiente tramonto e Fade-in on Scroll -->
+    <!-- Memento Mori Section -->
     <section class="py-20 sunset-gradient">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide fade-in-scroll">
@@ -577,7 +609,6 @@
             </p>
             <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8 fade-in-scroll"></div>
             
-            <!-- Testo con font romano, più grande e colore che spicca -->
             <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide fade-in-scroll">
                 La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
             </p>
@@ -588,84 +619,133 @@
         </div>
     </section>
 
-    <!-- FAQ Section - Posizionata DOPO Memento Mori, PRIMA del Footer -->
+    <!-- FAQ + CONTACT FORM - Layout 2 Colonne Desktop, Stack Mobile -->
     <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-3 text-slate-900">
-                Domande Frequenti
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900">
+                Domande & Contatti
             </h2>
-            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter">
-                Le risposte alle tue curiosità sullo stoicismo digitale
+            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter text-sm md:text-base">
+                Trova risposte o scrivici direttamente
             </p>
 
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
-                <!-- FAQ 1 -->
-                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                    <div class="faq-question">
-                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
-                            Devo conoscere la filosofia stoica per iniziare?
-                        </h3>
-                        <span class="faq-icon">+</span>
+            <!-- Grid 2 Colonne: 60% FAQ + 40% Form -->
+            <div class="faq-contact-grid grid lg:grid-cols-[60%_40%] gap-8 lg:gap-10 items-start">
+                
+                <!-- COLONNA SINISTRA: FAQ Accordion -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
+                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                        <div class="faq-question">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                                Devo conoscere la filosofia stoica per iniziare?
+                            </h3>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                                No, ti guidiamo passo dopo passo. L'AI introduce i concetti stoici attraverso esercizi pratici applicati alla tua vita quotidiana.
+                            </p>
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
-                            No, ti guidiamo passo dopo passo. L'AI ti introduce ai concetti stoici attraverso esercizi pratici applicati alla tua vita quotidiana, senza bisogno di conoscenze pregresse.
-                        </p>
+
+                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                        <div class="faq-question">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                                Quanto tempo devo dedicare ogni giorno?
+                            </h3>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                                Bastano 5-10 minuti. Scrivi una riflessione e l'AI genera immediatamente la tua sfida personalizzata da applicare durante la giornata.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                        <div class="faq-question">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                                I miei dati personali sono al sicuro?
+                            </h3>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                                Assolutamente sì. Le tue riflessioni sono criptate end-to-end e mai condivise. L'AI elabora i contenuti in modo anonimo (GDPR compliant).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                        <div class="faq-question">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                                Posso provare gratuitamente prima di abbonarmi?
+                            </h3>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                                Sì, 7 giorni di prova gratuita con accesso completo. Nessuna carta richiesta per iniziare. Cancellazione immediata.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <!-- FAQ 2 -->
-                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                    <div class="faq-question">
-                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
-                            Quanto tempo devo dedicare ogni giorno?
-                        </h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
-                            Bastano 5-10 minuti al giorno. Scrivi una breve riflessione al mattino o alla sera, e l'AI genera immediatamente la tua sfida personalizzata da applicare durante la giornata.
-                        </p>
-                    </div>
+                <!-- COLONNA DESTRA: Contact Form -->
+                <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8 lg:sticky lg:top-8">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 text-center">
+                        CONTATTACI
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-6 text-center font-inter">
+                        Hai bisogno di aiuto? Scrivici!
+                    </p>
+                    
+                    <form action="#" method="POST" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Nome</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                required 
+                                class="contact-form-input"
+                                placeholder="Il tuo nome">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Email</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required 
+                                class="contact-form-input"
+                                placeholder="tua@email.com">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Messaggio</label>
+                            <textarea 
+                                id="message" 
+                                name="message" 
+                                required 
+                                rows="4"
+                                class="contact-form-textarea"
+                                placeholder="Come possiamo aiutarti?"></textarea>
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            class="contact-form-button font-inter">
+                            Invia Messaggio
+                        </button>
+                    </form>
+                    
+                    <p class="text-xs text-slate-500 mt-4 text-center font-inter">
+                        Risponderemo entro 24 ore
+                    </p>
                 </div>
 
-                <!-- FAQ 3 -->
-                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                    <div class="faq-question">
-                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
-                            I miei dati personali sono al sicuro?
-                        </h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
-                            Assolutamente sì. Le tue riflessioni sono criptate end-to-end e mai condivise. L'AI elabora i contenuti in modo anonimo seguendo rigorosi standard di privacy (GDPR compliant).
-                        </p>
-                    </div>
-                </div>
-
-                <!-- FAQ 4 -->
-                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                    <div class="faq-question">
-                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
-                            Posso provare gratuitamente prima di abbonarmi?
-                        </h3>
-                        <span class="faq-icon">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
-                            Sì, offriamo 7 giorni di prova gratuita con accesso completo a tutte le funzionalità. Nessuna carta di credito richiesta per iniziare. Cancellazione immediata in qualsiasi momento.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CTA dopo FAQ -->
-            <div class="text-center mt-12">
-                <p class="text-slate-600 mb-4 font-inter">Altre domande?</p>
-                <a href="#" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-lg hover:bg-slate-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
-                    Contattaci
-                </a>
             </div>
         </div>
     </section>
@@ -717,20 +797,16 @@
             const scrolled = window.pageYOffset;
             const parallaxBg = document.getElementById('parallaxBg');
             
-            // Calcola zoom e scala in base allo scroll
             const maxScroll = window.innerHeight;
             const scrollFraction = Math.min(scrolled / maxScroll, 1);
             
-            // Zoom progressivo: da scale(2) a scale(2.5) mentre scrolli
             const scaleValue = 2 + (scrollFraction * 0.5);
-            
-            // Movimento prospettico
             const translateZ = -1 - (scrollFraction * 0.3);
             
             parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
         });
 
-        // Reveal effect script per le card dei filosofi
+        // Reveal effect script
         document.addEventListener("DOMContentLoaded", function() {
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
@@ -762,19 +838,17 @@
                 fadeObserver.observe(element);
             });
 
-            // FAQ Accordion Toggle - Touch Friendly
+            // FAQ Accordion Toggle
             const faqItems = document.querySelectorAll('.faq-item');
             
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
                 
-                // Click handler
                 question.addEventListener('click', function(e) {
                     e.preventDefault();
                     toggleFAQ(item);
                 });
 
-                // Keyboard accessibility
                 question.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -787,7 +861,7 @@
                 const isActive = item.classList.contains('active');
                 const question = item.querySelector('.faq-question');
                 
-                // Chiudi tutti gli altri item (opzionale: rimuovi per permettere aperture multiple)
+                // Chiudi altri item
                 faqItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
@@ -795,7 +869,7 @@
                     }
                 });
                 
-                // Toggle item corrente
+                // Toggle corrente
                 if (isActive) {
                     item.classList.remove('active');
                     question.setAttribute('aria-expanded', 'false');
