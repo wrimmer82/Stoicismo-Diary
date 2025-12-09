@@ -273,6 +273,71 @@
                 line-height: 1.5;
             }
         }
+
+        /* FAQ Accordion - Ottimizzato Mobile */
+        .faq-item {
+            border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            cursor: pointer;
+            padding: 1.25rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            min-height: 64px; /* Touch-friendly */
+            transition: background-color 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(251, 191, 36, 0.05);
+        }
+
+        .faq-question:active {
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+            color: #f59e0b;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+            padding: 0 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 1rem 1.25rem 1rem;
+        }
+
+        /* Desktop FAQ padding */
+        @media (min-width: 768px) {
+            .faq-question {
+                padding: 1.5rem 1.5rem;
+            }
+            .faq-answer {
+                padding: 0 1.5rem;
+            }
+            .faq-item.active .faq-answer {
+                padding: 0 1.5rem 1.5rem 1.5rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
@@ -523,6 +588,88 @@
         </div>
     </section>
 
+    <!-- FAQ Section - Posizionata DOPO Memento Mori, PRIMA del Footer -->
+    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-3 text-slate-900">
+                Domande Frequenti
+            </h2>
+            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter">
+                Le risposte alle tue curiosità sullo stoicismo digitale
+            </p>
+
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
+                <!-- FAQ 1 -->
+                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                    <div class="faq-question">
+                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
+                            Devo conoscere la filosofia stoica per iniziare?
+                        </h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
+                            No, ti guidiamo passo dopo passo. L'AI ti introduce ai concetti stoici attraverso esercizi pratici applicati alla tua vita quotidiana, senza bisogno di conoscenze pregresse.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                    <div class="faq-question">
+                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
+                            Quanto tempo devo dedicare ogni giorno?
+                        </h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
+                            Bastano 5-10 minuti al giorno. Scrivi una breve riflessione al mattino o alla sera, e l'AI genera immediatamente la tua sfida personalizzata da applicare durante la giornata.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                    <div class="faq-question">
+                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
+                            I miei dati personali sono al sicuro?
+                        </h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
+                            Assolutamente sì. Le tue riflessioni sono criptate end-to-end e mai condivise. L'AI elabora i contenuti in modo anonimo seguendo rigorosi standard di privacy (GDPR compliant).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
+                    <div class="faq-question">
+                        <h3 class="text-base md:text-lg font-semibold text-slate-900 font-inter flex-1">
+                            Posso provare gratuitamente prima di abbonarmi?
+                        </h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-slate-700 leading-relaxed font-inter text-sm md:text-base">
+                            Sì, offriamo 7 giorni di prova gratuita con accesso completo a tutte le funzionalità. Nessuna carta di credito richiesta per iniziare. Cancellazione immediata in qualsiasi momento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA dopo FAQ -->
+            <div class="text-center mt-12">
+                <p class="text-slate-600 mb-4 font-inter">Altre domande?</p>
+                <a href="#" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-lg hover:bg-slate-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
+                    Contattaci
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -563,6 +710,7 @@
             </div>
         </div>
     </footer>
+
     <script>
         // Effetto zoom parallax su scroll
         window.addEventListener('scroll', function() {
@@ -613,6 +761,49 @@
             fadeElements.forEach(element => {
                 fadeObserver.observe(element);
             });
+
+            // FAQ Accordion Toggle - Touch Friendly
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                // Click handler
+                question.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    toggleFAQ(item);
+                });
+
+                // Keyboard accessibility
+                question.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleFAQ(item);
+                    }
+                });
+            });
+
+            function toggleFAQ(item) {
+                const isActive = item.classList.contains('active');
+                const question = item.querySelector('.faq-question');
+                
+                // Chiudi tutti gli altri item (opzionale: rimuovi per permettere aperture multiple)
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
+                // Toggle item corrente
+                if (isActive) {
+                    item.classList.remove('active');
+                    question.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            }
         });
     </script>
 </body>
