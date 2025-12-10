@@ -68,67 +68,67 @@
                     inset 0 0 100px rgba(139, 92, 46, 0.1);
             }
 
-            .pergamena-scroll-card::before {
-                content: '';
-                position: absolute;
-                top: 20px;
-                right: 40px;
-                width: 80px;
-                height: 120px;
-                background-image: url('pergamena-sfondo.png');
-                background-size: 200%;
-                background-position: 85% 15%;
-                filter: brightness(0.9) contrast(1.1);
-                pointer-events: none;
-                z-index: 1;
-            }
+            /* RIMOSSO ::before PER ELIMINARE DOPPIA IMMAGINE CALAMAIO */
 
             .pergamena-scroll-content {
                 position: relative;
                 z-index: 2;
-                color: #2d1810;
-                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+                color: #1a0f08;
             }
 
+            /* TITOLO PRINCIPALE - PIÙ SCURO */
             .pergamena-scroll-content h2 {
-                color: #8b5c2e;
+                color: #5a3a1f;
                 text-shadow: 
-                    1px 1px 0 rgba(255, 255, 255, 0.4),
-                    2px 2px 4px rgba(0, 0, 0, 0.3);
-            }
-
-            .pergamena-scroll-content .quote-text {
-                color: #3d2817;
-                font-style: italic;
-                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
-            }
-
-            .pergamena-scroll-content .quote-author {
-                color: #8b5c2e;
-                font-weight: 600;
-            }
-
-            .pergamena-scroll-content .section-title {
-                color: #7a4d28;
+                    1px 1px 0 rgba(255, 255, 255, 0.2),
+                    2px 2px 4px rgba(0, 0, 0, 0.4);
                 font-weight: 700;
             }
 
+            /* GIORNO DELL'ANNO - PIÙ SCURO */
+            .pergamena-scroll-content .day-year {
+                color: #4d3320;
+                font-weight: 600;
+            }
+
+            /* CITAZIONE - MOLTO PIÙ SCURA */
+            .pergamena-scroll-content .quote-text {
+                color: #1a0f08;
+                font-style: italic;
+                font-weight: 500;
+                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+            }
+
+            /* AUTORE CITAZIONE - PIÙ SCURO */
+            .pergamena-scroll-content .quote-author {
+                color: #5a3a1f;
+                font-weight: 700;
+            }
+
+            /* TITOLI SEZIONI - PIÙ SCURI */
+            .pergamena-scroll-content .section-title {
+                color: #5a3a1f;
+                font-weight: 700;
+            }
+
+            /* TESTO SEZIONI - PIÙ SCURO */
             .pergamena-scroll-content .section-text {
-                color: #2d1810;
+                color: #1a0f08;
                 line-height: 1.8;
+                font-weight: 500;
             }
 
             .pergamena-scroll-card .border-accent {
-                border-left: 3px solid #8b5c2e;
-                box-shadow: -2px 0 8px rgba(139, 92, 46, 0.2);
+                border-left: 3px solid #5a3a1f;
+                box-shadow: -2px 0 8px rgba(90, 58, 31, 0.3);
             }
 
             .pergamena-inner-box {
-                background: rgba(250, 245, 235, 0.5);
-                border: 2px solid rgba(139, 92, 46, 0.3);
+                background: rgba(250, 245, 235, 0.6);
+                border: 2px solid rgba(90, 58, 31, 0.4);
                 border-radius: 8px;
                 padding: 20px;
-                box-shadow: inset 0 2px 8px rgba(139, 92, 46, 0.1);
+                box-shadow: inset 0 2px 8px rgba(90, 58, 31, 0.15);
             }
         }
 
@@ -150,6 +150,10 @@
             }
 
             .pergamena-scroll-content h2 {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .day-year {
                 color: #fbbf24;
             }
 
@@ -577,7 +581,7 @@
                             <h2 class="text-2xl md:text-3xl font-cinzel font-bold mb-2">
                                 Contenuto Quotidiano
                             </h2>
-                            <p class="text-sm font-trajan opacity-80">
+                            <p class="text-sm font-trajan day-year">
                                 Giorno <span id="dayOfYear" class="font-semibold">...</span> dell'anno
                             </p>
                         </div>
@@ -884,24 +888,30 @@
         });
 
         // ======================
-        // CARICA DATI UTENTE
+        // CARICA DATI UTENTE - FIX DISPLAY NAME
         // ======================
         async function loadUserData(user) {
-            // Prova a caricare da tabella users
-            const { data, error } = await supabase
-                .from('users')
-                .select('name, email')
-                .eq('id', user.id)
-                .single();
-
             let userName = 'Stoico';
             
-            if (data && data.name) {
-                userName = data.name;
-            } else if (user.user_metadata && user.user_metadata.name) {
+            // PRIORITÀ 1: raw_user_meta_data.name (Display Name da registrazione)
+            if (user.user_metadata && user.user_metadata.name) {
                 userName = user.user_metadata.name;
-            } else if (user.email) {
-                userName = user.email.split('@')[0];
+            }
+            // PRIORITÀ 2: Tabella users custom
+            else {
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('name')
+                    .eq('id', user.id)
+                    .single();
+
+                if (data && data.name) {
+                    userName = data.name;
+                }
+                // PRIORITÀ 3: Email split
+                else if (user.email) {
+                    userName = user.email.split('@')[0];
+                }
             }
 
             document.getElementById('userName').textContent = userName;
@@ -944,7 +954,9 @@
                     .order('date', { ascending: false })
                     .limit(30);
 
-                if (error) throw error;
+                if (error) {
+                    console.warn('Tabella reflections non trovata o errore:', error.message);
+                }
 
                 // Calcola streak
                 let streak = 0;
@@ -1063,7 +1075,7 @@
                 charCount.textContent = textarea.value.length;
             });
 
-            // Save Button
+            // Save Button - FIX ERRORE SALVATAGGIO
             document.getElementById('saveBtn').addEventListener('click', async () => {
                 const text = textarea.value.trim();
                 if (!text) {
@@ -1071,28 +1083,44 @@
                     return;
                 }
 
-                // Salva su Supabase
-                const { data: { user } } = await supabase.auth.getUser();
-                
-                const { error } = await supabase
-                    .from('reflections')
-                    .insert({
-                        user_id: user.id,
-                        content: text,
-                        date: new Date().toISOString().split('T')[0],
-                        content_type: getDailyContentType()
-                    });
+                try {
+                    // Salva su Supabase
+                    const { data: { user } } = await supabase.auth.getUser();
+                    
+                    const { data, error } = await supabase
+                        .from('reflections')
+                        .insert({
+                            user_id: user.id,
+                            content: text,
+                            date: new Date().toISOString().split('T')[0],
+                            content_type: getDailyContentType()
+                        })
+                        .select();
 
-                if (error) {
-                    showToast('Errore nel salvare la riflessione', 'error');
-                    console.error(error);
-                } else {
+                    if (error) {
+                        // Gestione errore specifico
+                        if (error.code === '42P01') {
+                            showToast('Tabella reflections non trovata. Contatta il supporto.', 'error');
+                            console.error('ERRORE: Tabella reflections non esiste. Esegui SQL di creazione.');
+                        } else if (error.code === '23505') {
+                            showToast('Riflessione già salvata oggi', 'error');
+                        } else {
+                            showToast(`Errore: ${error.message}`, 'error');
+                        }
+                        console.error('Errore Supabase:', error);
+                        return;
+                    }
+
                     showToast('Riflessione salvata con successo', 'success');
                     textarea.value = '';
                     charCount.textContent = '0';
                     
                     // Ricarica progresso
                     loadProgressData(user.id);
+
+                } catch (error) {
+                    showToast('Errore di rete o configurazione', 'error');
+                    console.error('Errore catch:', error);
                 }
             });
 
