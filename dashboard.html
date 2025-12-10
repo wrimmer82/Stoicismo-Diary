@@ -25,7 +25,7 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* Sfondo Pergamena Fisso */
+        /* Sfondo Pergamena Fisso per body */
         body {
             background-image: url('pergamena-sfondo.jpg');
             background-size: cover;
@@ -47,6 +47,138 @@
             );
             z-index: -1;
             pointer-events: none;
+        }
+
+        /* Pergamena Card per Contenuto Quotidiano - SOLO DESKTOP */
+        @media (min-width: 768px) {
+            .pergamena-scroll-card {
+                position: relative;
+                background-image: url('pergamena-sfondo.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                min-height: 600px;
+                padding: 80px 100px 80px 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border: none;
+                box-shadow: 
+                    0 20px 60px rgba(0, 0, 0, 0.8),
+                    inset 0 0 100px rgba(139, 92, 46, 0.1);
+            }
+
+            .pergamena-scroll-card::before {
+                content: '';
+                position: absolute;
+                top: 20px;
+                right: 40px;
+                width: 80px;
+                height: 120px;
+                background-image: url('pergamena-sfondo.png');
+                background-size: 200%;
+                background-position: 85% 15%;
+                filter: brightness(0.9) contrast(1.1);
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .pergamena-scroll-content {
+                position: relative;
+                z-index: 2;
+                color: #2d1810;
+                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+            }
+
+            .pergamena-scroll-content h2 {
+                color: #8b5c2e;
+                text-shadow: 
+                    1px 1px 0 rgba(255, 255, 255, 0.4),
+                    2px 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            .pergamena-scroll-content .quote-text {
+                color: #3d2817;
+                font-style: italic;
+                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+            }
+
+            .pergamena-scroll-content .quote-author {
+                color: #8b5c2e;
+                font-weight: 600;
+            }
+
+            .pergamena-scroll-content .section-title {
+                color: #7a4d28;
+                font-weight: 700;
+            }
+
+            .pergamena-scroll-content .section-text {
+                color: #2d1810;
+                line-height: 1.8;
+            }
+
+            .pergamena-scroll-card .border-accent {
+                border-left: 3px solid #8b5c2e;
+                box-shadow: -2px 0 8px rgba(139, 92, 46, 0.2);
+            }
+
+            .pergamena-inner-box {
+                background: rgba(250, 245, 235, 0.5);
+                border: 2px solid rgba(139, 92, 46, 0.3);
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: inset 0 2px 8px rgba(139, 92, 46, 0.1);
+            }
+        }
+
+        /* Mobile: versione standard glass effect */
+        @media (max-width: 767px) {
+            .pergamena-scroll-card {
+                background: linear-gradient(
+                    135deg, 
+                    rgba(15, 23, 42, 0.95) 0%, 
+                    rgba(30, 41, 59, 0.92) 100%
+                );
+                backdrop-filter: blur(12px);
+                border: 2px solid rgba(251, 191, 36, 0.3);
+                border-radius: 1rem;
+                padding: 24px;
+                box-shadow: 
+                    0 10px 40px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(251, 191, 36, 0.1);
+            }
+
+            .pergamena-scroll-content h2 {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .quote-text {
+                color: #e2e8f0;
+            }
+
+            .pergamena-scroll-content .quote-author {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .section-title {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .section-text {
+                color: #cbd5e1;
+            }
+
+            .pergamena-scroll-card .border-accent {
+                border-left: 4px solid #fbbf24;
+            }
+
+            .pergamena-inner-box {
+                background: rgba(15, 23, 42, 0.6);
+                border: 1px solid rgba(251, 191, 36, 0.3);
+                border-radius: 8px;
+                padding: 16px;
+            }
         }
 
         /* Mobile Menu Overlay */
@@ -233,8 +365,8 @@
                 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        /* Bordo decorativo citazione */
-        .quote-border {
+        /* Bordo decorativo citazione - MOBILE */
+        .quote-border-mobile {
             border-left: 4px solid #fbbf24;
             border-image: linear-gradient(
                 to bottom,
@@ -289,36 +421,6 @@
             clip-path: polygon(50% 0%, 65% 30%, 90% 20%, 70% 50%, 85% 85%, 50% 70%, 15% 85%, 30% 50%, 10% 20%, 35% 30%);
             filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.4));
         }
-
-        .icon-calendar {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid currentColor;
-            border-radius: 3px;
-            position: relative;
-        }
-
-        .icon-calendar::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: 3px;
-            right: 3px;
-            height: 3px;
-            background: currentColor;
-            border-radius: 2px;
-        }
-
-        .icon-calendar::after {
-            content: '';
-            position: absolute;
-            top: 6px;
-            left: 3px;
-            right: 3px;
-            bottom: 3px;
-            border-top: 1px solid currentColor;
-        }
     </style>
 </head>
 <body class="font-inter text-slate-100 min-h-screen">
@@ -356,7 +458,7 @@
 
                     <!-- User Name + Logout -->
                     <div class="flex items-center gap-3">
-                        <span class="hidden md:inline text-sm text-slate-300">
+                        <span class="text-sm text-slate-300">
                             Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
                         </span>
                         <button id="logoutBtn" class="bg-slate-800/80 hover:bg-slate-700 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn backdrop-blur-sm">
@@ -468,62 +570,64 @@
             <!-- VIEW: OGGI (default) -->
             <div id="viewOggi" class="view-container">
                 
-                <!-- CONTENUTO QUOTIDIANO -->
-                <div class="gradient-border p-6 md:p-8 mb-6">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 ink-effect">
-                            Contenuto Quotidiano
-                        </h2>
-                        <p class="text-slate-400 text-sm font-trajan">
-                            Giorno <span id="dayOfYear" class="text-amber-400 font-semibold">...</span> dell'anno
-                        </p>
-                    </div>
-
-                    <!-- Loading Skeleton -->
-                    <div id="contentSkeleton" class="space-y-4">
-                        <div class="skeleton h-6 w-3/4 mx-auto"></div>
-                        <div class="skeleton h-4 w-full"></div>
-                        <div class="skeleton h-4 w-5/6"></div>
-                        <div class="skeleton h-32 w-full mt-6"></div>
-                    </div>
-
-                    <!-- Contenuto Reale -->
-                    <div id="dailyContent" class="hidden space-y-6">
-                        <!-- Citazione -->
-                        <div class="quote-border pl-4 py-2">
-                            <p class="text-lg md:text-xl font-trajan italic text-slate-200 leading-relaxed mb-3" id="quoteText">
-                                "..."
-                            </p>
-                            <p class="text-sm text-amber-400 font-semibold font-cinzel" id="quoteAuthor">
-                                — ...
+                <!-- CONTENUTO QUOTIDIANO - PERGAMENA COMPLETA DESKTOP / GLASS MOBILE -->
+                <div class="pergamena-scroll-card mb-6">
+                    <div class="pergamena-scroll-content">
+                        <div class="text-center mb-6">
+                            <h2 class="text-2xl md:text-3xl font-cinzel font-bold mb-2">
+                                Contenuto Quotidiano
+                            </h2>
+                            <p class="text-sm font-trajan opacity-80">
+                                Giorno <span id="dayOfYear" class="font-semibold">...</span> dell'anno
                             </p>
                         </div>
 
-                        <!-- Interpretazione -->
-                        <div class="pergamena-card rounded-lg p-4 md:p-6">
-                            <h3 class="flex items-center gap-2 text-lg font-bold text-amber-400 mb-3 font-cinzel">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                                </svg>
-                                <span>Interpretazione</span>
-                            </h3>
-                            <p class="text-slate-300 leading-relaxed font-inter text-sm md:text-base" id="interpretationText">
-                                ...
-                            </p>
+                        <!-- Loading Skeleton -->
+                        <div id="contentSkeleton" class="space-y-4">
+                            <div class="skeleton h-6 w-3/4 mx-auto"></div>
+                            <div class="skeleton h-4 w-full"></div>
+                            <div class="skeleton h-4 w-5/6"></div>
+                            <div class="skeleton h-32 w-full mt-6"></div>
                         </div>
 
-                        <!-- Micro-Sfida -->
-                        <div class="pergamena-card rounded-lg p-4 md:p-6 border-amber-500/40">
-                            <h3 class="flex items-center gap-2 text-lg font-bold text-amber-400 mb-3 font-cinzel">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10" stroke-width="2"/>
-                                    <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
-                                </svg>
-                                <span>Micro-Sfida di Oggi</span>
-                            </h3>
-                            <p class="text-slate-200 leading-relaxed font-inter text-sm md:text-base" id="challengeText">
-                                ...
-                            </p>
+                        <!-- Contenuto Reale -->
+                        <div id="dailyContent" class="hidden space-y-6">
+                            <!-- Citazione -->
+                            <div class="border-accent quote-border-mobile pl-4 py-2">
+                                <p class="text-lg md:text-xl font-trajan italic quote-text leading-relaxed mb-3" id="quoteText">
+                                    "..."
+                                </p>
+                                <p class="text-sm quote-author font-semibold font-cinzel" id="quoteAuthor">
+                                    — ...
+                                </p>
+                            </div>
+
+                            <!-- Interpretazione -->
+                            <div class="pergamena-inner-box">
+                                <h3 class="flex items-center gap-2 text-lg font-bold section-title mb-3 font-cinzel">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                    <span>Interpretazione</span>
+                                </h3>
+                                <p class="section-text leading-relaxed font-inter text-sm md:text-base" id="interpretationText">
+                                    ...
+                                </p>
+                            </div>
+
+                            <!-- Micro-Sfida -->
+                            <div class="pergamena-inner-box">
+                                <h3 class="flex items-center gap-2 text-lg font-bold section-title mb-3 font-cinzel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Micro-Sfida di Oggi</span>
+                                </h3>
+                                <p class="section-text leading-relaxed font-inter text-sm md:text-base" id="challengeText">
+                                    ...
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -783,15 +887,24 @@
         // CARICA DATI UTENTE
         // ======================
         async function loadUserData(user) {
+            // Prova a caricare da tabella users
             const { data, error } = await supabase
                 .from('users')
-                .select('name')
+                .select('name, email')
                 .eq('id', user.id)
                 .single();
 
-            if (data) {
-                document.getElementById('userName').textContent = data.name || 'Stoico';
+            let userName = 'Stoico';
+            
+            if (data && data.name) {
+                userName = data.name;
+            } else if (user.user_metadata && user.user_metadata.name) {
+                userName = user.user_metadata.name;
+            } else if (user.email) {
+                userName = user.email.split('@')[0];
             }
+
+            document.getElementById('userName').textContent = userName;
         }
 
         // ======================
@@ -1034,4 +1147,3 @@
     </script>
 </body>
 </html>
-
