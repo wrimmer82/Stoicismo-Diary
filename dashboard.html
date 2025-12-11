@@ -15,7 +15,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -25,63 +25,172 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* Sfondo Pergamena */
-        .pergamena-bg {
+        /* Sfondo Pergamena Fisso per body */
+        body {
             background-image: url('pergamena-sfondo.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             background-repeat: no-repeat;
         }
 
-        /* Testo Evidenziato con Hover - MIGLIORATO */
-        .highlighted-text {
-            color: #3b82f6;
-            font-weight: 700;
-            font-style: italic;
-            text-shadow: 
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000,
-                0 0 8px rgba(59, 130, 246, 0.8),
-                0 0 15px rgba(59, 130, 246, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.03em;
+        /* Overlay semi-trasparente per migliorare leggibilitÃ  */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(
+                180deg, 
+                rgba(15, 23, 42, 0.75) 0%,
+                rgba(15, 23, 42, 0.85) 50%,
+                rgba(15, 23, 42, 0.75) 100%
+            );
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .highlighted-text:hover {
-            color: #60a5fa;
-            text-shadow: 
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
-                0 0 12px rgba(96, 165, 250, 1),
-                0 0 20px rgba(96, 165, 250, 0.8),
-                0 0 30px rgba(96, 165, 250, 0.6);
-            transform: scale(1.02);
+        /* Pergamena Card per Contenuto Quotidiano - SOLO DESKTOP */
+        @media (min-width: 768px) {
+            .pergamena-scroll-card {
+                position: relative;
+                background-image: url('pergamena-sfondo.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                min-height: 600px;
+                padding: 80px 100px 80px 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border: none;
+                box-shadow: 
+                    0 20px 60px rgba(0, 0, 0, 0.8),
+                    inset 0 0 100px rgba(139, 92, 46, 0.1);
+            }
+
+            /* RIMOSSO ::before PER ELIMINARE DOPPIA IMMAGINE CALAMAIO */
+
+            .pergamena-scroll-content {
+                position: relative;
+                z-index: 2;
+                color: #1a0f08;
+            }
+
+            /* TITOLO PRINCIPALE - PIÃ™ SCURO */
+            .pergamena-scroll-content h2 {
+                color: #5a3a1f;
+                text-shadow: 
+                    1px 1px 0 rgba(255, 255, 255, 0.2),
+                    2px 2px 4px rgba(0, 0, 0, 0.4);
+                font-weight: 700;
+            }
+
+            /* GIORNO DELL'ANNO - PIÃ™ SCURO */
+            .pergamena-scroll-content .day-year {
+                color: #4d3320;
+                font-weight: 600;
+            }
+
+            /* CITAZIONE - MOLTO PIÃ™ SCURA */
+            .pergamena-scroll-content .quote-text {
+                color: #1a0f08;
+                font-style: italic;
+                font-weight: 500;
+                text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+            }
+
+            /* AUTORE CITAZIONE - PIÃ™ SCURO */
+            .pergamena-scroll-content .quote-author {
+                color: #5a3a1f;
+                font-weight: 700;
+            }
+
+            /* TITOLI SEZIONI - PIÃ™ SCURI */
+            .pergamena-scroll-content .section-title {
+                color: #5a3a1f;
+                font-weight: 700;
+            }
+
+            /* TESTO SEZIONI - PIÃ™ SCURO */
+            .pergamena-scroll-content .section-text {
+                color: #1a0f08;
+                line-height: 1.8;
+                font-weight: 500;
+            }
+
+            .pergamena-scroll-card .border-accent {
+                border-left: 3px solid #5a3a1f;
+                box-shadow: -2px 0 8px rgba(90, 58, 31, 0.3);
+            }
+
+            .pergamena-inner-box {
+                background: rgba(250, 245, 235, 0.6);
+                border: 2px solid rgba(90, 58, 31, 0.4);
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: inset 0 2px 8px rgba(90, 58, 31, 0.15);
+            }
         }
 
-        /* Titolo "Giorno XXX dell'anno" - Numeri Romani evidenziati */
-        .roman-number {
-            color: #3b82f6;
-            font-weight: 900;
-            font-size: 1.15em;
-            text-shadow: 
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000,
-                0 0 8px rgba(59, 130, 246, 0.9);
-            letter-spacing: 0.08em;
+        /* Mobile: versione standard glass effect */
+        @media (max-width: 767px) {
+            .pergamena-scroll-card {
+                background: linear-gradient(
+                    135deg, 
+                    rgba(15, 23, 42, 0.95) 0%, 
+                    rgba(30, 41, 59, 0.92) 100%
+                );
+                backdrop-filter: blur(12px);
+                border: 2px solid rgba(251, 191, 36, 0.3);
+                border-radius: 1rem;
+                padding: 24px;
+                box-shadow: 
+                    0 10px 40px rgba(0, 0, 0, 0.6),
+                    inset 0 1px 0 rgba(251, 191, 36, 0.1);
+            }
+
+            .pergamena-scroll-content h2 {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .day-year {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .quote-text {
+                color: #e2e8f0;
+            }
+
+            .pergamena-scroll-content .quote-author {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .section-title {
+                color: #fbbf24;
+            }
+
+            .pergamena-scroll-content .section-text {
+                color: #cbd5e1;
+            }
+
+            .pergamena-scroll-card .border-accent {
+                border-left: 4px solid #fbbf24;
+            }
+
+            .pergamena-inner-box {
+                background: rgba(15, 23, 42, 0.6);
+                border: 1px solid rgba(251, 191, 36, 0.3);
+                border-radius: 8px;
+                padding: 16px;
+            }
         }
 
         /* Mobile Menu Overlay */
         #mobileMenuOverlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
             z-index: 40;
             opacity: 0;
             visibility: hidden;
@@ -100,11 +209,14 @@
             left: 0;
             bottom: 0;
             width: 280px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(30, 41, 59, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            border-right: 2px solid rgba(251, 191, 36, 0.3);
             z-index: 50;
             transform: translateX(-100%);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
+            box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
         }
 
         #mobileSidebar.active {
@@ -113,27 +225,61 @@
 
         /* Textarea Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: rgba(241, 245, 249, 0.1);
             border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+            background: rgba(251, 191, 36, 0.4);
             border-radius: 10px;
+            border: 2px solid rgba(15, 23, 42, 0.3);
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            background: rgba(251, 191, 36, 0.6);
+        }
+
+        /* Card con Effetto Pergamena */
+        .pergamena-card {
+            background: linear-gradient(
+                135deg, 
+                rgba(15, 23, 42, 0.95) 0%, 
+                rgba(30, 41, 59, 0.92) 100%
+            );
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.6),
+                inset 0 1px 0 rgba(251, 191, 36, 0.1);
+            position: relative;
+        }
+
+        .pergamena-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(251, 191, 36, 0.02) 2px,
+                    rgba(251, 191, 36, 0.02) 4px
+                );
+            pointer-events: none;
+            opacity: 0.3;
         }
 
         /* Card Gradient Border */
         .gradient-border {
             position: relative;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.92) 100%);
+            backdrop-filter: blur(12px);
             border-radius: 1rem;
         }
 
@@ -143,7 +289,7 @@
             inset: 0;
             border-radius: 1rem;
             padding: 2px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -151,14 +297,20 @@
 
         /* Progress Bar Animation */
         .progress-bar {
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Skeleton Loading */
         .skeleton {
-            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background: linear-gradient(
+                90deg, 
+                rgba(226, 232, 240, 0.1) 25%, 
+                rgba(241, 245, 249, 0.2) 50%, 
+                rgba(226, 232, 240, 0.1) 75%
+            );
             background-size: 200% 100%;
             animation: loading 1.5s ease-in-out infinite;
+            border-radius: 0.5rem;
         }
 
         @keyframes loading {
@@ -169,10 +321,10 @@
         /* Pulse Animation for Streak */
         @keyframes pulse-glow {
             0%, 100% { 
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
             }
             50% { 
-                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+                box-shadow: 0 0 35px rgba(251, 191, 36, 0.7);
             }
         }
 
@@ -208,12 +360,77 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Effetto Inchiostro per Titoli */
+        .ink-effect {
+            text-shadow: 
+                0 0 10px rgba(251, 191, 36, 0.5),
+                0 0 20px rgba(251, 191, 36, 0.3),
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Bordo decorativo citazione - MOBILE */
+        .quote-border-mobile {
+            border-left: 4px solid #fbbf24;
+            border-image: linear-gradient(
+                to bottom,
+                transparent 0%,
+                #fbbf24 20%,
+                #fbbf24 80%,
+                transparent 100%
+            ) 1;
+            box-shadow: -3px 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        /* Textarea con stile pergamena */
+        .pergamena-textarea {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .pergamena-textarea:focus {
+            border-color: #fbbf24;
+            box-shadow: 
+                inset 0 2px 8px rgba(0, 0, 0, 0.4),
+                0 0 0 3px rgba(251, 191, 36, 0.15);
+        }
+
+        /* Header con sfondo semi-trasparente */
+        .header-glass {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 2px solid rgba(251, 191, 36, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Desktop Sidebar Glass Effect */
+        .sidebar-glass {
+            background: linear-gradient(
+                180deg, 
+                rgba(15, 23, 42, 0.95) 0%, 
+                rgba(30, 41, 59, 0.92) 100%
+            );
+            backdrop-filter: blur(16px);
+            border-right: 2px solid rgba(251, 191, 36, 0.2);
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Icon Styles */
+        .icon-flame {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(180deg, #f59e0b 0%, #dc2626 100%);
+            clip-path: polygon(50% 0%, 65% 30%, 90% 20%, 70% 50%, 85% 85%, 50% 70%, 15% 85%, 30% 50%, 10% 20%, 35% 30%);
+            filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.4));
+        }
     </style>
 </head>
-<body class="bg-slate-950 font-inter text-slate-100 min-h-screen">
+<body class="font-inter text-slate-100 min-h-screen">
 
     <!-- HEADER FISSO -->
-    <header class="sticky top-0 z-30 bg-slate-900 border-b border-amber-500/20 shadow-lg">
+    <header class="sticky top-0 z-30 header-glass">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
                 <!-- Logo + Menu Hamburger Mobile -->
@@ -227,8 +444,8 @@
                     
                     <!-- Logo -->
                     <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
-                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain drop-shadow-lg">
+                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide ink-effect">
                             The Stoic Journey
                         </span>
                     </div>
@@ -238,17 +455,17 @@
                 <div class="flex items-center gap-4 md:gap-6">
                     <!-- Streak Badge -->
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
-                        <span class="text-2xl">🔥</span>
+                        <span class="icon-flame"></span>
                         <span class="font-bold text-slate-900" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
 
                     <!-- User Name + Logout -->
                     <div class="flex items-center gap-3">
-                        <span class="hidden md:inline text-sm text-slate-300">
+                        <span class="text-sm text-slate-300">
                             Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
                         </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
+                        <button id="logoutBtn" class="bg-slate-800/80 hover:bg-slate-700 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn backdrop-blur-sm">
                             Esci
                         </button>
                     </div>
@@ -273,26 +490,40 @@
             <!-- Menu Items -->
             <nav class="space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <span class="text-xl">📅</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="8" y1="2" x2="8" y2="6" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+                    </svg>
                     <span>Oggi</span>
                 </a>
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <span class="text-xl">📚</span>
+                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800/60 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <span>Archivio</span>
                 </a>
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <span class="text-xl">⚙️</span>
+                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800/60 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3" stroke-width="2"/>
+                        <path d="M12 1v6m0 6v6M1 12h6m6 0h6" stroke-width="2" stroke-linecap="round"/>
+                        <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <span>Impostazioni</span>
                 </a>
-                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <span class="text-xl">💎</span>
+                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4 shadow-lg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                    </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
 
             <!-- Streak Mobile -->
-            <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
-                <div class="text-3xl mb-2">🔥</div>
+            <div class="mt-6 p-4 pergamena-card rounded-lg text-center">
+                <div class="icon-flame mx-auto mb-2" style="width: 32px; height: 32px;"></div>
                 <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
                 <div class="text-xs text-slate-400">giorni di streak</div>
             </div>
@@ -302,22 +533,36 @@
     <!-- LAYOUT PRINCIPALE -->
     <div class="flex">
         <!-- DESKTOP SIDEBAR (hidden on mobile) -->
-        <aside class="hidden md:block w-64 bg-slate-900 border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
+        <aside class="hidden md:block w-64 sidebar-glass min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <span class="text-xl">📅</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="8" y1="2" x2="8" y2="6" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+                    </svg>
                     <span>Oggi</span>
                 </a>
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <span class="text-xl">📚</span>
+                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800/40 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <span>Archivio</span>
                 </a>
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <span class="text-xl">⚙️</span>
+                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800/40 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3" stroke-width="2"/>
+                        <path d="M12 1v6m0 6v6M1 12h6m6 0h6" stroke-width="2" stroke-linecap="round"/>
+                        <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                     <span>Impostazioni</span>
                 </a>
-                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <span class="text-xl">💎</span>
+                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4 shadow-lg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                    </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
@@ -329,85 +574,101 @@
             <!-- VIEW: OGGI (default) -->
             <div id="viewOggi" class="view-container">
                 
-                <!-- CONTENUTO QUOTIDIANO -->
-                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">
-                            Contenuto Quotidiano
-                        </h2>
-                        <p class="text-slate-700 text-sm font-trajan" style="text-shadow: 0 0 3px rgba(255,255,255,0.8);">
-                            Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
-                        </p>
-                    </div>
-
-                    <!-- Loading Skeleton -->
-                    <div id="contentSkeleton" class="space-y-4">
-                        <div class="skeleton h-6 w-3/4 mx-auto rounded"></div>
-                        <div class="skeleton h-4 w-full rounded"></div>
-                        <div class="skeleton h-4 w-5/6 rounded"></div>
-                        <div class="skeleton h-32 w-full rounded mt-6"></div>
-                    </div>
-
-                    <!-- Contenuto Reale -->
-                    <div id="dailyContent" class="hidden space-y-6">
-                        <!-- Citazione -->
-                        <div class="border-l-4 border-amber-600 pl-4 py-2 bg-slate-50/90 rounded-r-lg">
-                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
-                                "..."
-                            </p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">
-                                — ...
+                <!-- CONTENUTO QUOTIDIANO - PERGAMENA COMPLETA DESKTOP / GLASS MOBILE -->
+                <div class="pergamena-scroll-card mb-6">
+                    <div class="pergamena-scroll-content">
+                        <div class="text-center mb-6">
+                            <h2 class="text-2xl md:text-3xl font-cinzel font-bold mb-2">
+                                Contenuto Quotidiano
+                            </h2>
+                            <p class="text-sm font-trajan day-year">
+                                Giorno <span id="dayOfYear" class="font-semibold">...</span> dell'anno
                             </p>
                         </div>
 
-                        <!-- Interpretazione -->
-                        <div class="bg-slate-50/90 rounded-lg p-4 md:p-6 border border-amber-600/30">
-                            <h3 class="flex items-center gap-2 text-lg font-bold text-amber-700 mb-3">
-                                <span>💡</span>
-                                <span class="font-cinzel uppercase tracking-wide">Interpretazione</span>
-                            </h3>
-                            <p class="text-slate-800 leading-relaxed font-trajan" id="interpretationText">
-                                ...
-                            </p>
+                        <!-- Loading Skeleton -->
+                        <div id="contentSkeleton" class="space-y-4">
+                            <div class="skeleton h-6 w-3/4 mx-auto"></div>
+                            <div class="skeleton h-4 w-full"></div>
+                            <div class="skeleton h-4 w-5/6"></div>
+                            <div class="skeleton h-32 w-full mt-6"></div>
                         </div>
 
-                        <!-- Micro-Sfida -->
-                        <div class="bg-gradient-to-br from-amber-100/95 to-orange-100/95 border-2 border-amber-600 rounded-lg p-4 md:p-6">
-                            <h3 class="flex items-center gap-2 text-lg font-bold text-amber-800 mb-3">
-                                <span>🎯</span>
-                                <span class="font-cinzel uppercase tracking-wide">Micro-Sfida di Oggi</span>
-                            </h3>
-                            <p class="text-slate-800 leading-relaxed font-trajan" id="challengeText">
-                                ...
-                            </p>
+                        <!-- Contenuto Reale -->
+                        <div id="dailyContent" class="hidden space-y-6">
+                            <!-- Citazione -->
+                            <div class="border-accent quote-border-mobile pl-4 py-2">
+                                <p class="text-lg md:text-xl font-trajan italic quote-text leading-relaxed mb-3" id="quoteText">
+                                    "..."
+                                </p>
+                                <p class="text-sm quote-author font-semibold font-cinzel" id="quoteAuthor">
+                                    â€” ...
+                                </p>
+                            </div>
+
+                            <!-- Interpretazione -->
+                            <div class="pergamena-inner-box">
+                                <h3 class="flex items-center gap-2 text-lg font-bold section-title mb-3 font-cinzel">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                    <span>Interpretazione</span>
+                                </h3>
+                                <p class="section-text leading-relaxed font-inter text-sm md:text-base" id="interpretationText">
+                                    ...
+                                </p>
+                            </div>
+
+                            <!-- Micro-Sfida -->
+                            <div class="pergamena-inner-box">
+                                <h3 class="flex items-center gap-2 text-lg font-bold section-title mb-3 font-cinzel">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10" stroke-width="2"/>
+                                        <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <span>Micro-Sfida di Oggi</span>
+                                </h3>
+                                <p class="section-text leading-relaxed font-inter text-sm md:text-base" id="challengeText">
+                                    ...
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- LE TUE RIFLESSIONI -->
-                <div class="bg-slate-900 rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
-                        📝 Le Tue Riflessioni di Oggi
+                <div class="pergamena-card rounded-lg p-6 md:p-8 mb-6">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 ink-effect flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Le Tue Riflessioni di Oggi</span>
                     </h3>
                     
                     <textarea 
                         id="reflectionTextarea"
                         maxlength="2000"
                         placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
-                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
+                        class="w-full pergamena-textarea text-slate-100 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none font-inter"
                     ></textarea>
                     
                     <div class="flex items-center justify-between mt-3">
-                        <span class="text-xs text-slate-500">
+                        <span class="text-xs text-slate-500 font-inter">
                             <span id="charCount">0</span>/2000 caratteri
                         </span>
                         <div class="flex gap-3">
-                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
-                                <span>📋</span>
+                            <button id="copyBtn" class="bg-slate-800/80 hover:bg-slate-700 border border-amber-500/30 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn backdrop-blur-sm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke-width="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-width="2"/>
+                                </svg>
                                 <span>Copia</span>
                             </button>
-                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
-                                <span>✅</span>
+                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn shadow-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 6L9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                                 <span>Salva</span>
                             </button>
                         </div>
@@ -415,33 +676,43 @@
                 </div>
 
                 <!-- IL TUO PROGRESSO -->
-                <div class="bg-slate-900 rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
-                        📊 Il Tuo Progresso
+                <div class="pergamena-card rounded-lg p-6 md:p-8">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 ink-effect flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <line x1="18" y1="20" x2="18" y2="10" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="12" y1="20" x2="12" y2="4" stroke-width="2" stroke-linecap="round"/>
+                            <line x1="6" y1="20" x2="6" y2="14" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>Il Tuo Progresso</span>
                     </h3>
                     
                     <!-- Mobile: Stack Verticale -->
                     <div class="space-y-4 md:hidden">
-                        <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-3xl mb-2">🔥</div>
+                        <div class="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 text-center border border-amber-500/20">
+                            <div class="icon-flame mx-auto mb-2" style="width: 32px; height: 32px;"></div>
                             <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
                             <div class="text-xs text-slate-400">giorni di streak</div>
                         </div>
-                        <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-3xl mb-2">📝</div>
+                        <div class="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 text-center border border-amber-500/20">
+                            <svg class="w-8 h-8 mx-auto mb-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                             <div class="text-2xl font-bold text-amber-400" id="progressReflections">0</div>
                             <div class="text-xs text-slate-400">riflessioni scritte</div>
                         </div>
-                        <div class="bg-slate-800 rounded-lg p-4">
+                        <div class="bg-slate-800/60 backdrop-blur-sm rounded-lg p-4 border border-amber-500/20">
                             <div class="flex items-center justify-between mb-2">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-2xl">✅</span>
+                                    <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path d="M20 6L9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                     <span class="text-sm text-slate-300">Sfide completate</span>
                                 </div>
                                 <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
                             </div>
-                            <div class="w-full bg-slate-700 rounded-full h-2">
-                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
+                            <div class="w-full bg-slate-700/60 rounded-full h-2">
+                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full shadow-lg" style="width: 0%"></div>
                             </div>
                             <div class="text-xs text-slate-500 text-right mt-1">
                                 <span id="progressPercentage">0%</span>
@@ -451,23 +722,28 @@
 
                     <!-- Desktop: 3 Colonne -->
                     <div class="hidden md:grid md:grid-cols-3 gap-6">
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-4xl mb-3">🔥</div>
+                        <div class="bg-slate-800/60 backdrop-blur-sm rounded-lg p-6 text-center border border-amber-500/20">
+                            <div class="icon-flame mx-auto mb-3" style="width: 40px; height: 40px;"></div>
                             <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
                             <div class="text-sm text-slate-400">giorni di streak</div>
                         </div>
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-4xl mb-3">📝</div>
+                        <div class="bg-slate-800/60 backdrop-blur-sm rounded-lg p-6 text-center border border-amber-500/20">
+                            <svg class="w-10 h-10 mx-auto mb-3 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                             <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
                             <div class="text-sm text-slate-400">riflessioni scritte</div>
                         </div>
-                        <div class="bg-slate-800 rounded-lg p-6">
-                            <div class="text-4xl text-center mb-3">✅</div>
+                        <div class="bg-slate-800/60 backdrop-blur-sm rounded-lg p-6 border border-amber-500/20">
+                            <svg class="w-10 h-10 mx-auto mb-3 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M20 6L9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                             <div class="text-center mb-3">
                                 <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
                             </div>
-                            <div class="w-full bg-slate-700 rounded-full h-3">
-                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
+                            <div class="w-full bg-slate-700/60 rounded-full h-3">
+                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full shadow-lg" style="width: 0%"></div>
                             </div>
                             <div class="text-xs text-slate-400 text-center mt-2">
                                 <span id="progressPercentageDesktop">0%</span> completato
@@ -480,11 +756,14 @@
 
             <!-- VIEW: ARCHIVIO -->
             <div id="viewArchivio" class="view-container hidden">
-                <div class="text-center py-20">
-                    <div class="text-6xl mb-4">📚</div>
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all">
+                <div class="pergamena-card rounded-lg p-8 md:p-12 text-center">
+                    <svg class="w-20 h-20 mx-auto mb-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4 ink-effect">Archivio Riflessioni</h2>
+                    <p class="text-slate-400 mb-8 font-inter">FunzionalitÃ  in sviluppo</p>
+                    <button onclick="document.querySelector('[data-view=oggi]').click()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all shadow-lg">
                         Torna alla Dashboard
                     </button>
                 </div>
@@ -492,11 +771,15 @@
 
             <!-- VIEW: IMPOSTAZIONI -->
             <div id="viewImpostazioni" class="view-container hidden">
-                <div class="text-center py-20">
-                    <div class="text-6xl mb-4">⚙️</div>
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all">
+                <div class="pergamena-card rounded-lg p-8 md:p-12 text-center">
+                    <svg class="w-20 h-20 mx-auto mb-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="3" stroke-width="2"/>
+                        <path d="M12 1v6m0 6v6M1 12h6m6 0h6" stroke-width="2" stroke-linecap="round"/>
+                        <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4 ink-effect">Impostazioni</h2>
+                    <p class="text-slate-400 mb-8 font-inter">FunzionalitÃ  in sviluppo</p>
+                    <button onclick="document.querySelector('[data-view=oggi]').click()" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all shadow-lg">
                         Torna alla Dashboard
                     </button>
                 </div>
@@ -504,11 +787,13 @@
 
             <!-- VIEW: PRO -->
             <div id="viewPro" class="view-container hidden">
-                <div class="text-center py-20">
-                    <div class="text-6xl mb-4">💎</div>
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
-                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
-                    <button class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-8 py-4 rounded-lg font-bold text-lg transition-all">
+                <div class="pergamena-card rounded-lg p-8 md:p-12 text-center">
+                    <svg class="w-20 h-20 mx-auto mb-4 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                    </svg>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4 ink-effect">Passa a PRO</h2>
+                    <p class="text-slate-400 mb-8 font-inter">Sblocca funzionalitÃ  premium</p>
+                    <button class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-8 py-4 rounded-lg font-bold text-lg transition-all shadow-xl">
                         Scopri i Vantaggi PRO
                     </button>
                 </div>
@@ -518,60 +803,48 @@
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
-        <p id="toastMessage" class="text-sm font-medium"></p>
+    <div id="toast" class="fixed bottom-6 right-6 pergamena-card px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm border-amber-500/40">
+        <p id="toastMessage" class="text-sm font-medium text-amber-400"></p>
     </div>
 
     <script>
         // ======================
         // CONFIGURAZIONE SUPABASE
         // ======================
-        const SUPABASE_URL = 'https://fayuadwpchhixafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hoaXhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // ======================
-        // FUNZIONE CONVERSIONE NUMERI ROMANI
-        // ======================
-        function arabicToRoman(num) {
-            const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-            const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
-            let roman = '';
-            for (let i = 0; i < val.length; i++) {
-                while (num >= val[i]) {
-                    roman += syms[i];
-                    num -= val[i];
-                }
-            }
-            return roman;
-        }
 
         // ======================
         // CONTENUTI QUOTIDIANI (4 TIPI - CICLO 4 GIORNI)
         // ======================
         const dailyContents = {
+            // TIPO 1: Dicotomia del Controllo (Epitteto)
             tipo1: {
                 quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
                 author: "Epitteto, Enchiridion",
                 interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
+                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale Ã¨ realmente vera?"
             },
+            // TIPO 2: Amor Fati (Marco Aurelio)
             tipo2: {
-                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
+                quote: "L'impedimento all'azione fa avanzare l'azione. CiÃ² che sta sulla via diventa la via.",
                 author: "Marco Aurelio, Meditazioni V.20",
                 interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
+                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti piÃ¹ forte o saggio? Trova un lato positivo inaspettato."
             },
+            // TIPO 3: Praemeditatio Malorum (Seneca)
             tipo3: {
                 quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
                 author: "Seneca, Lettere a Lucilio",
-                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
+                interpretation: "Immaginare il peggio non Ã¨ pessimismo, ma preparazione mentale che disattiva l'ansia.",
+                challenge: "Visualizza la tua paura piÃ¹ grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
             },
+            // TIPO 4: Memento Mori
             tipo4: {
-                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
+                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciÃ² che fai, dici e pensi.",
                 author: "Marco Aurelio, Meditazioni II.11",
-                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
+                interpretation: "La consapevolezza della mortalitÃ  non paralizza, ma libera energia per ciÃ² che conta davvero.",
                 challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
             }
         };
@@ -597,6 +870,7 @@
         // INIZIALIZZAZIONE
         // ======================
         document.addEventListener('DOMContentLoaded', async () => {
+            // Check autenticazione
             const { data: { user } } = await supabase.auth.getUser();
             
             if (!user) {
@@ -604,25 +878,43 @@
                 return;
             }
 
+            // Carica dati utente
             loadUserData(user);
             loadDailyContent();
             loadProgressData(user.id);
+
+            // Event Listeners
             setupEventListeners();
         });
 
         // ======================
-        // CARICA DATI UTENTE
+        // CARICA DATI UTENTE - FIX DISPLAY NAME
         // ======================
         async function loadUserData(user) {
-            const { data, error } = await supabase
-                .from('users')
-                .select('name')
-                .eq('id', user.id)
-                .single();
-
-            if (data) {
-                document.getElementById('userName').textContent = data.name || 'Stoico';
+            let userName = 'Stoico';
+            
+            // PRIORITÃ€ 1: raw_user_meta_data.name (Display Name da registrazione)
+            if (user.user_metadata && user.user_metadata.name) {
+                userName = user.user_metadata.name;
             }
+            // PRIORITÃ€ 2: Tabella users custom
+            else {
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('name')
+                    .eq('id', user.id)
+                    .single();
+
+                if (data && data.name) {
+                    userName = data.name;
+                }
+                // PRIORITÃ€ 3: Email split
+                else if (user.email) {
+                    userName = user.email.split('@')[0];
+                }
+            }
+
+            document.getElementById('userName').textContent = userName;
         }
 
         // ======================
@@ -630,48 +922,99 @@
         // ======================
         function loadDailyContent() {
             const dayOfYear = getDayOfYear();
-            const dayRoman = arabicToRoman(dayOfYear);
             const contentType = getDailyContentType();
             const content = dailyContents[contentType];
 
-            // Mostra giorno in numeri romani
-            document.getElementById('dayOfYear').textContent = dayRoman;
+            // Mostra giorno dell'anno
+            document.getElementById('dayOfYear').textContent = dayOfYear;
 
+            // Nascondi skeleton e mostra contenuto
             setTimeout(() => {
                 document.getElementById('contentSkeleton').classList.add('hidden');
                 document.getElementById('dailyContent').classList.remove('hidden');
 
+                // Popola contenuto
                 document.getElementById('quoteText').textContent = `"${content.quote}"`;
-                document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
+                document.getElementById('quoteAuthor').textContent = `â€” ${content.author}`;
                 document.getElementById('interpretationText').textContent = content.interpretation;
                 document.getElementById('challengeText').textContent = content.challenge;
-            }, 800);
+            }, 1000);
         }
 
         // ======================
         // CARICA DATI PROGRESSO
         // ======================
         async function loadProgressData(userId) {
-            const mockData = {
-                streak: 2,
-                totalReflections: 0,
-                completedChallenges: 0,
-                totalChallenges: 10
-            };
+            try {
+                // Query reali Supabase
+                const { data: reflections, error } = await supabase
+                    .from('reflections')
+                    .select('date')
+                    .eq('user_id', userId)
+                    .order('date', { ascending: false })
+                    .limit(30);
 
-            updateProgressUI(mockData);
+                if (error) {
+                    console.warn('Tabella reflections non trovata o errore:', error.message);
+                }
+
+                // Calcola streak
+                let streak = 0;
+                if (reflections && reflections.length > 0) {
+                    const today = new Date().toISOString().split('T')[0];
+                    let currentDate = new Date(today);
+                    
+                    for (const reflection of reflections) {
+                        const refDate = reflection.date;
+                        if (refDate === currentDate.toISOString().split('T')[0]) {
+                            streak++;
+                            currentDate.setDate(currentDate.getDate() - 1);
+                        } else {
+                            break;
+                        }
+                    }
+                }
+
+                const mockData = {
+                    streak: streak || 0,
+                    totalReflections: reflections?.length || 0,
+                    completedChallenges: 8,
+                    totalChallenges: 10
+                };
+
+                updateProgressUI(mockData);
+
+            } catch (error) {
+                console.error('Errore caricamento progresso:', error);
+                const mockData = {
+                    streak: 0,
+                    totalReflections: 0,
+                    completedChallenges: 0,
+                    totalChallenges: 10
+                };
+                updateProgressUI(mockData);
+            }
         }
 
         function updateProgressUI(data) {
-            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+            const percentage = data.totalChallenges > 0 
+                ? Math.round((data.completedChallenges / data.totalChallenges) * 100) 
+                : 0;
 
+            // Header
             document.getElementById('headerStreak').textContent = data.streak;
+
+            // Mobile Sidebar
             document.getElementById('mobileStreak').textContent = data.streak;
+
+            // Progress Section Mobile
             document.getElementById('progressStreak').textContent = data.streak;
             document.getElementById('progressReflections').textContent = data.totalReflections;
             document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
             document.getElementById('progressBar').style.width = `${percentage}%`;
             document.getElementById('progressPercentage').textContent = `${percentage}%`;
+
+            // Progress Section Desktop
             document.getElementById('progressStreakDesktop').textContent = data.streak;
             document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
             document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
@@ -683,6 +1026,7 @@
         // EVENT LISTENERS
         // ======================
         function setupEventListeners() {
+            // Mobile Menu Toggle
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
             const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
@@ -701,6 +1045,7 @@
                 mobileMenuOverlay.classList.remove('active');
             }
 
+            // Navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -708,14 +1053,21 @@
                     switchView(view);
                     closeMobileMenuFunc();
 
+                    // Update active state
                     document.querySelectorAll('.nav-link').forEach(l => {
                         l.classList.remove('bg-amber-500/20', 'text-amber-400', 'font-medium');
+                        if (!l.dataset.view || l.dataset.view === 'pro') return;
                         l.classList.add('text-slate-300');
                     });
-                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400', 'font-medium');
+                    
+                    if (e.currentTarget.dataset.view !== 'pro') {
+                        e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400', 'font-medium');
+                        e.currentTarget.classList.remove('text-slate-300');
+                    }
                 });
             });
 
+            // Textarea character count
             const textarea = document.getElementById('reflectionTextarea');
             const charCount = document.getElementById('charCount');
             
@@ -723,54 +1075,80 @@
                 charCount.textContent = textarea.value.length;
             });
 
+            // Save Button - FIX ERRORE SALVATAGGIO
             document.getElementById('saveBtn').addEventListener('click', async () => {
                 const text = textarea.value.trim();
                 if (!text) {
-                    showToast('Scrivi prima una riflessione!', 'error');
+                    showToast('Scrivi prima una riflessione', 'error');
                     return;
                 }
 
-                const { data: { user } } = await supabase.auth.getUser();
-                
-                const { error } = await supabase
-                    .from('reflections')
-                    .insert({
-                        user_id: user.id,
-                        content: text,
-                        date: new Date().toISOString().split('T')[0],
-                        content_type: getDailyContentType()
-                    });
+                try {
+                    // Salva su Supabase
+                    const { data: { user } } = await supabase.auth.getUser();
+                    
+                    const { data, error } = await supabase
+                        .from('reflections')
+                        .insert({
+                            user_id: user.id,
+                            content: text,
+                            date: new Date().toISOString().split('T')[0],
+                            content_type: getDailyContentType()
+                        })
+                        .select();
 
-                if (error) {
-                    showToast('Errore nel salvare la riflessione', 'error');
-                    console.error(error);
-                } else {
-                    showToast('✅ Riflessione salvata con successo!', 'success');
+                    if (error) {
+                        // Gestione errore specifico
+                        if (error.code === '42P01') {
+                            showToast('Tabella reflections non trovata. Contatta il supporto.', 'error');
+                            console.error('ERRORE: Tabella reflections non esiste. Esegui SQL di creazione.');
+                        } else if (error.code === '23505') {
+                            showToast('Riflessione giÃ  salvata oggi', 'error');
+                        } else {
+                            showToast(`Errore: ${error.message}`, 'error');
+                        }
+                        console.error('Errore Supabase:', error);
+                        return;
+                    }
+
+                    showToast('Riflessione salvata con successo', 'success');
                     textarea.value = '';
                     charCount.textContent = '0';
+                    
+                    // Ricarica progresso
+                    loadProgressData(user.id);
+
+                } catch (error) {
+                    showToast('Errore di rete o configurazione', 'error');
+                    console.error('Errore catch:', error);
                 }
             });
 
+            // Copy Button
             document.getElementById('copyBtn').addEventListener('click', () => {
                 const text = textarea.value;
                 if (!text) {
-                    showToast('Niente da copiare!', 'error');
+                    showToast('Niente da copiare', 'error');
                     return;
                 }
 
                 navigator.clipboard.writeText(text).then(() => {
-                    showToast('📋 Testo copiato negli appunti!', 'success');
+                    showToast('Testo copiato negli appunti', 'success');
                 }).catch(() => {
                     showToast('Errore nella copia', 'error');
                 });
             });
 
+            // Logout Button
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
             });
         }
 
+        // ======================
+        // SWITCH VIEW
+        // ======================
         function switchView(viewName) {
             document.querySelectorAll('.view-container').forEach(view => {
                 view.classList.add('hidden');
@@ -780,6 +1158,9 @@
             document.getElementById(viewId).classList.remove('hidden');
         }
 
+        // ======================
+        // TOAST NOTIFICATION
+        // ======================
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
@@ -789,7 +1170,7 @@
 
             setTimeout(() => {
                 toast.style.transform = 'translateY(8rem)';
-            }, 3000);
+            }, 3500);
         }
     </script>
 </body>
