@@ -21,15 +21,14 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* SFONDO PERGAMENA */
+        /* SFONDO PERGAMENA DA GITHUB */
         .pergamena-bg {
-            background-image: url('pergamena-sfondo.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
+            position: relative;
         }
 
-        /* TESTI EVIDENZIATI - MIGLIORATI */
+        /* TESTI EVIDENZIATI LEGGIBILI */
         .highlighted-text {
             color: #2563eb;
             font-weight: 900;
@@ -61,12 +60,11 @@
                 0 -4px 0 #000,
                 0 4px 0 #000,
                 0 0 15px rgba(59, 130, 246, 1),
-                0 0 25px rgba(59, 130, 246, 0.9),
-                0 0 35px rgba(59, 130, 246, 0.7);
+                0 0 25px rgba(59, 130, 246, 0.9);
             transform: scale(1.03);
         }
 
-        /* NUMERI ROMANI */
+        /* NUMERI ROMANI CON EVIDENZIAZIONE */
         .roman-number {
             color: #2563eb;
             font-weight: 900;
@@ -78,6 +76,32 @@
                 2px 2px 0 #000,
                 0 0 10px rgba(37, 99, 235, 1);
             letter-spacing: 0.1em;
+        }
+
+        /* TITOLI SEZIONI SU PERGAMENA */
+        .section-title-parchment {
+            color: #92400e;
+            text-shadow: 
+                1px 1px 0 rgba(255, 255, 255, 0.5),
+                -1px -1px 0 rgba(0, 0, 0, 0.3);
+            font-weight: 900;
+        }
+
+        /* CARD INTERPRETAZIONE/MICRO-SFIDA */
+        .parchment-card {
+            background: rgba(245, 222, 179, 0.95);
+            border: 2px solid rgba(146, 64, 14, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .parchment-card h3 {
+            color: #92400e;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        .parchment-card p {
+            color: #451a03;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
         #mobileMenuOverlay {
@@ -133,20 +157,7 @@
 
         .gradient-border {
             position: relative;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%);
             border-radius: 1rem;
-        }
-
-        .gradient-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 1rem;
-            padding: 2px;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
         }
 
         .progress-bar {
@@ -154,7 +165,7 @@
         }
 
         .skeleton {
-            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background: linear-gradient(90deg, rgba(245, 222, 179, 0.3) 25%, rgba(245, 222, 179, 0.5) 50%, rgba(245, 222, 179, 0.3) 75%);
             background-size: 200% 100%;
             animation: loading 1.5s ease-in-out infinite;
         }
@@ -301,12 +312,12 @@
             <div id="viewOggi" class="view-container">
                 
                 <!-- CONTENUTO QUOTIDIANO CON SFONDO PERGAMENA -->
-                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6">
+                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
                     <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">
+                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
                             Contenuto Quotidiano
                         </h2>
-                        <p class="text-slate-700 text-sm font-trajan font-bold" style="text-shadow: 0 0 5px rgba(255,255,255,0.9);">
+                        <p class="text-sm font-trajan font-bold" style="color: #f5dec3; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
                             Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
                         </p>
                     </div>
@@ -320,31 +331,31 @@
 
                     <div id="dailyContent" class="hidden space-y-6">
                         <!-- CITAZIONE -->
-                        <div class="border-l-4 border-amber-500 pl-4 py-2">
-                            <p class="text-xl md:text-2xl font-trajan italic text-slate-200 leading-relaxed mb-3 highlighted-text" id="quoteText">
+                        <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
+                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
                                 "..."
                             </p>
-                            <p class="text-sm text-amber-400 font-semibold highlighted-text" id="quoteAuthor">
+                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor" style="color: #fbbf24;">
                                 — ...
                             </p>
                         </div>
 
                         <!-- INTERPRETAZIONE -->
-                        <div class="bg-slate-800/50 rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold text-amber-400 mb-3 font-cinzel uppercase tracking-wide">
+                        <div class="parchment-card rounded-lg p-4 md:p-6">
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Interpretazione
                             </h3>
-                            <p class="text-slate-300 leading-relaxed font-trajan" id="interpretationText">
+                            <p class="leading-relaxed font-trajan" id="interpretationText">
                                 ...
                             </p>
                         </div>
 
                         <!-- MICRO-SFIDA -->
-                        <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold text-amber-400 mb-3 font-cinzel uppercase tracking-wide">
+                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Micro-Sfida di Oggi
                             </h3>
-                            <p class="text-slate-200 leading-relaxed font-trajan" id="challengeText">
+                            <p class="leading-relaxed font-trajan" id="challengeText">
                                 ...
                             </p>
                         </div>
@@ -385,7 +396,6 @@
                         Il Tuo Progresso
                     </h3>
                     
-                    <!-- Mobile: Stack Verticale -->
                     <div class="space-y-4 md:hidden">
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
                             <div class="text-3xl mb-2">🔥</div>
@@ -410,7 +420,6 @@
                         </div>
                     </div>
 
-                    <!-- Desktop: 3 Colonne -->
                     <div class="hidden md:grid md:grid-cols-3 gap-6">
                         <div class="bg-slate-800 rounded-lg p-6 text-center">
                             <div class="text-4xl mb-3">🔥</div>
@@ -437,36 +446,24 @@
 
             </div>
 
-            <!-- VIEW: ARCHIVIO -->
             <div id="viewArchivio" class="view-container hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
                     <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all">
-                        Torna alla Dashboard
-                    </button>
                 </div>
             </div>
 
-            <!-- VIEW: IMPOSTAZIONI -->
             <div id="viewImpostazioni" class="view-container hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
                     <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all">
-                        Torna alla Dashboard
-                    </button>
                 </div>
             </div>
 
-            <!-- VIEW: PRO -->
             <div id="viewPro" class="view-container hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
                     <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
-                    <button class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-8 py-4 rounded-lg font-bold text-lg transition-all">
-                        Scopri i Vantaggi PRO
-                    </button>
                 </div>
             </div>
 
@@ -540,12 +537,8 @@
             const { data: { user }, error } = await supabase.auth.getUser();
             
             if (!user || error) {
-                console.warn('Nessun utente loggato, usando dati mock per sviluppo');
-                const mockUser = {
-                    id: 'mock-user-id',
-                    email: 'demo@stoicjourney.com',
-                    user_metadata: { name: 'Stoico' }
-                };
+                console.warn('Nessun utente loggato, usando dati mock');
+                const mockUser = { id: 'mock-user-id', user_metadata: { name: 'Stoico' } };
                 loadUserData(mockUser);
                 loadDailyContent();
                 loadProgressData(mockUser.id);
@@ -565,17 +558,8 @@
                 return;
             }
 
-            const { data, error } = await supabase
-                .from('users')
-                .select('name')
-                .eq('id', user.id)
-                .single();
-
-            if (data) {
-                document.getElementById('userName').textContent = data.name || 'Stoico';
-            } else {
-                document.getElementById('userName').textContent = user.user_metadata?.name || 'Stoico';
-            }
+            const { data } = await supabase.from('users').select('name').eq('id', user.id).single();
+            document.getElementById('userName').textContent = data?.name || user.user_metadata?.name || 'Stoico';
         }
 
         function loadDailyContent() {
@@ -589,7 +573,6 @@
             setTimeout(() => {
                 document.getElementById('contentSkeleton').classList.add('hidden');
                 document.getElementById('dailyContent').classList.remove('hidden');
-
                 document.getElementById('quoteText').textContent = content.quote;
                 document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
                 document.getElementById('interpretationText').textContent = content.interpretation;
@@ -598,19 +581,12 @@
         }
 
         async function loadProgressData(userId) {
-            const mockData = {
-                streak: 2,
-                totalReflections: 0,
-                completedChallenges: 0,
-                totalChallenges: 10
-            };
-
+            const mockData = { streak: 2, totalReflections: 0, completedChallenges: 0, totalChallenges: 10 };
             updateProgressUI(mockData);
         }
 
         function updateProgressUI(data) {
             const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
-
             document.getElementById('headerStreak').textContent = data.streak;
             document.getElementById('mobileStreak').textContent = data.streak;
             document.getElementById('progressStreak').textContent = data.streak;
@@ -647,73 +623,55 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const view = e.currentTarget.dataset.view;
-                    switchView(view);
+                    switchView(e.currentTarget.dataset.view);
                     closeMobileMenuFunc();
-
                     document.querySelectorAll('.nav-link').forEach(l => {
-                        l.classList.remove('bg-amber-500/20', 'text-amber-400', 'font-medium');
-                        l.classList.add('text-slate-300');
+                        l.classList.remove('bg-amber-500/20', 'text-amber-400');
                     });
-                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400', 'font-medium');
+                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
                 });
             });
 
             const textarea = document.getElementById('reflectionTextarea');
-            const charCount = document.getElementById('charCount');
-            
             textarea.addEventListener('input', () => {
-                charCount.textContent = textarea.value.length;
+                document.getElementById('charCount').textContent = textarea.value.length;
             });
 
             document.getElementById('saveBtn').addEventListener('click', async () => {
                 const text = textarea.value.trim();
                 if (!text) {
-                    showToast('Scrivi prima una riflessione!', 'error');
+                    showToast('Scrivi prima una riflessione!');
                     return;
                 }
 
                 const { data: { user } } = await supabase.auth.getUser();
-                
                 if (!user || user.id === 'mock-user-id') {
-                    console.warn('Mock save - nessun DB');
-                    showToast('Riflessione salvata (modalità demo)!', 'success');
+                    showToast('Riflessione salvata (demo)!');
                     textarea.value = '';
-                    charCount.textContent = '0';
+                    document.getElementById('charCount').textContent = '0';
                     return;
                 }
 
-                const { error } = await supabase
-                    .from('reflections')
-                    .insert({
-                        user_id: user.id,
-                        content: text,
-                        date: new Date().toISOString().split('T')[0],
-                        content_type: getDailyContentType()
-                    });
+                const { error } = await supabase.from('reflections').insert({
+                    user_id: user.id,
+                    content: text,
+                    date: new Date().toISOString().split('T')[0],
+                    content_type: getDailyContentType()
+                });
 
                 if (error) {
-                    showToast('Errore nel salvare la riflessione', 'error');
-                    console.error(error);
+                    showToast('Errore nel salvare');
                 } else {
-                    showToast('Riflessione salvata con successo!', 'success');
+                    showToast('Riflessione salvata!');
                     textarea.value = '';
-                    charCount.textContent = '0';
+                    document.getElementById('charCount').textContent = '0';
                 }
             });
 
             document.getElementById('copyBtn').addEventListener('click', () => {
                 const text = textarea.value;
-                if (!text) {
-                    showToast('Niente da copiare!', 'error');
-                    return;
-                }
-
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('Testo copiato negli appunti!', 'success');
-                }).catch(() => {
-                    showToast('Errore nella copia', 'error');
-                });
+                if (!text) return showToast('Niente da copiare!');
+                navigator.clipboard.writeText(text).then(() => showToast('Copiato!'));
             });
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
@@ -723,24 +681,15 @@
         }
 
         function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(view => {
-                view.classList.add('hidden');
-            });
-
-            const viewId = `view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`;
-            document.getElementById(viewId).classList.remove('hidden');
+            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
         }
 
-        function showToast(message, type = 'success') {
+        function showToast(message) {
             const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            toastMessage.textContent = message;
+            document.getElementById('toastMessage').textContent = message;
             toast.style.transform = 'translateY(0)';
-
-            setTimeout(() => {
-                toast.style.transform = 'translateY(8rem)';
-            }, 3000);
+            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
         }
     </script>
 </body>
