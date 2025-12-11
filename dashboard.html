@@ -23,58 +23,46 @@
 
         /* SFONDO PERGAMENA DA GITHUB */
         .pergamena-bg {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
                         url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
             position: relative;
         }
 
-        /* TESTI EVIDENZIATI LEGGIBILI */
+        /* TESTI EVIDENZIATI - NERO CON CONTORNO GIALLO */
         .highlighted-text {
-            color: #2563eb;
+            color: #000000;
             font-weight: 900;
             font-style: italic;
+            -webkit-text-fill-color: #000000;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: #fbbf24;
             text-shadow: 
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
-                -3px 0 0 #000,
-                3px 0 0 #000,
-                0 -3px 0 #000,
-                0 3px 0 #000,
-                0 0 10px rgba(37, 99, 235, 0.9),
-                0 0 20px rgba(37, 99, 235, 0.7);
+                0 0 10px rgba(251, 191, 36, 0.8),
+                0 0 20px rgba(251, 191, 36, 0.6),
+                0 0 30px rgba(251, 191, 36, 0.4);
             transition: all 0.3s ease;
             letter-spacing: 0.04em;
         }
 
         .highlighted-text:hover {
-            color: #3b82f6;
+            -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-color: #fbbf24;
             text-shadow: 
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
-                -4px 0 0 #000,
-                4px 0 0 #000,
-                0 -4px 0 #000,
-                0 4px 0 #000,
-                0 0 15px rgba(59, 130, 246, 1),
-                0 0 25px rgba(59, 130, 246, 0.9);
-            transform: scale(1.03);
+                0 0 15px rgba(251, 191, 36, 1),
+                0 0 25px rgba(251, 191, 36, 0.9),
+                0 0 35px rgba(251, 191, 36, 0.7);
         }
 
-        /* NUMERI ROMANI CON EVIDENZIAZIONE */
+        /* NUMERI ROMANI - NERO CON CONTORNO GIALLO */
         .roman-number {
-            color: #2563eb;
+            color: #000000;
             font-weight: 900;
             font-size: 1.2em;
+            -webkit-text-fill-color: #000000;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: #fbbf24;
             text-shadow: 
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
-                0 0 10px rgba(37, 99, 235, 1);
+                0 0 10px rgba(251, 191, 36, 1);
             letter-spacing: 0.1em;
         }
 
@@ -102,6 +90,21 @@
         .parchment-card p {
             color: #451a03;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* SFONDO SFUMATO SUNSET GRADIENT - COME LANDING PAGE */
+        body {
+            background: linear-gradient(180deg, 
+                #0f172a 0%,
+                #1e293b 15%,
+                #334155 30%,
+                #475569 45%,
+                #64748b 60%,
+                #94a3b8 75%,
+                #cbd5e1 90%,
+                #1e293b 100%
+            );
+            min-height: 100vh;
         }
 
         #mobileMenuOverlay {
@@ -216,9 +219,9 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 font-inter text-slate-100 min-h-screen">
+<body class="font-inter text-slate-100">
 
-    <header class="sticky top-0 z-30 bg-slate-900 border-b border-amber-500/20 shadow-lg">
+    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
@@ -238,8 +241,7 @@
 
                 <div class="flex items-center gap-4 md:gap-6">
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
-                        <span class="text-2xl">🔥</span>
-                        <span class="font-bold text-slate-900" id="headerStreak">0</span>
+                        <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
 
@@ -268,21 +270,33 @@
 
             <nav class="space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
                     <span>Oggi</span>
                 </a>
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
                     <span>Archivio</span>
                 </a>
                 <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
                     <span>Impostazioni</span>
                 </a>
                 <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
 
             <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
-                <div class="text-3xl mb-2">🔥</div>
                 <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
                 <div class="text-xs text-slate-400">giorni di streak</div>
             </div>
@@ -290,18 +304,31 @@
     </aside>
 
     <div class="flex">
-        <aside class="hidden md:block w-64 bg-slate-900 border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
+        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
                     <span>Oggi</span>
                 </a>
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
                     <span>Archivio</span>
                 </a>
                 <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
                     <span>Impostazioni</span>
                 </a>
                 <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
@@ -363,7 +390,7 @@
                 </div>
 
                 <!-- LE TUE RIFLESSIONI -->
-                <div class="bg-slate-900 rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
+                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
                         Le Tue Riflessioni di Oggi
                     </h3>
@@ -391,14 +418,13 @@
                 </div>
 
                 <!-- IL TUO PROGRESSO -->
-                <div class="bg-slate-900 rounded-lg p-6 md:p-8 border border-amber-500/20">
+                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
                         Il Tuo Progresso
                     </h3>
                     
                     <div class="space-y-4 md:hidden">
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-3xl mb-2">🔥</div>
                             <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
                             <div class="text-xs text-slate-400">giorni di streak</div>
                         </div>
@@ -422,7 +448,6 @@
 
                     <div class="hidden md:grid md:grid-cols-3 gap-6">
                         <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-4xl mb-3">🔥</div>
                             <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
                             <div class="text-sm text-slate-400">giorni di streak</div>
                         </div>
