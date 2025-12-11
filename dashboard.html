@@ -28,49 +28,71 @@
             position: relative;
         }
 
-        /* TESTI EVIDENZIATI - GIALLO DENTRO CON BORDO NERO */
+        /* TESTI EVIDENZIATI - GIALLO BRILLANTE CON CONTORNO NERO MULTIPLO SPESSO */
         .highlighted-text {
-            color: #fbbf24;
+            color: #fde047;
             font-weight: 900;
             font-style: italic;
-            -webkit-text-fill-color: #fbbf24;
-            -webkit-text-stroke-width: 2px;
-            -webkit-text-stroke-color: #000000;
-            text-shadow: 
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
-                0 0 10px rgba(251, 191, 36, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.04em;
-        }
-
-        .highlighted-text:hover {
-            -webkit-text-stroke-width: 3px;
             text-shadow: 
                 -3px -3px 0 #000,
                 3px -3px 0 #000,
                 -3px 3px 0 #000,
                 3px 3px 0 #000,
-                0 0 15px rgba(251, 191, 36, 0.9),
-                0 0 25px rgba(251, 191, 36, 0.7);
-        }
-
-        /* NUMERI ROMANI - GIALLO DENTRO CON BORDO NERO */
-        .roman-number {
-            color: #fbbf24;
-            font-weight: 900;
-            font-size: 1.2em;
-            -webkit-text-fill-color: #fbbf24;
-            -webkit-text-stroke-width: 2px;
-            -webkit-text-stroke-color: #000000;
-            text-shadow: 
+                -4px 0 0 #000,
+                4px 0 0 #000,
+                0 -4px 0 #000,
+                0 4px 0 #000,
                 -2px -2px 0 #000,
                 2px -2px 0 #000,
                 -2px 2px 0 #000,
                 2px 2px 0 #000,
-                0 0 10px rgba(251, 191, 36, 1);
+                0 0 15px rgba(253, 224, 71, 1),
+                0 0 25px rgba(253, 224, 71, 0.8),
+                0 0 35px rgba(253, 224, 71, 0.6);
+            transition: all 0.3s ease;
+            letter-spacing: 0.04em;
+        }
+
+        .highlighted-text:hover {
+            color: #facc15;
+            text-shadow: 
+                -4px -4px 0 #000,
+                4px -4px 0 #000,
+                -4px 4px 0 #000,
+                4px 4px 0 #000,
+                -5px 0 0 #000,
+                5px 0 0 #000,
+                0 -5px 0 #000,
+                0 5px 0 #000,
+                -3px -3px 0 #000,
+                3px -3px 0 #000,
+                -3px 3px 0 #000,
+                3px 3px 0 #000,
+                0 0 20px rgba(250, 204, 21, 1),
+                0 0 30px rgba(250, 204, 21, 0.9),
+                0 0 40px rgba(250, 204, 21, 0.7);
+            transform: scale(1.02);
+        }
+
+        /* NUMERI ROMANI - GIALLO BRILLANTE CON CONTORNO NERO MULTIPLO SPESSO */
+        .roman-number {
+            color: #fde047;
+            font-weight: 900;
+            font-size: 1.2em;
+            text-shadow: 
+                -3px -3px 0 #000,
+                3px -3px 0 #000,
+                -3px 3px 0 #000,
+                3px 3px 0 #000,
+                -4px 0 0 #000,
+                4px 0 0 #000,
+                0 -4px 0 #000,
+                0 4px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                0 0 15px rgba(253, 224, 71, 1);
             letter-spacing: 0.1em;
         }
 
