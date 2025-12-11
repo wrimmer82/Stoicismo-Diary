@@ -28,40 +28,48 @@
             position: relative;
         }
 
-        /* TESTI EVIDENZIATI - NERO CON CONTORNO GIALLO */
+        /* TESTI EVIDENZIATI - GIALLO DENTRO CON BORDO NERO */
         .highlighted-text {
-            color: #000000;
+            color: #fbbf24;
             font-weight: 900;
             font-style: italic;
-            -webkit-text-fill-color: #000000;
+            -webkit-text-fill-color: #fbbf24;
             -webkit-text-stroke-width: 2px;
-            -webkit-text-stroke-color: #fbbf24;
+            -webkit-text-stroke-color: #000000;
             text-shadow: 
-                0 0 10px rgba(251, 191, 36, 0.8),
-                0 0 20px rgba(251, 191, 36, 0.6),
-                0 0 30px rgba(251, 191, 36, 0.4);
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                0 0 10px rgba(251, 191, 36, 0.6);
             transition: all 0.3s ease;
             letter-spacing: 0.04em;
         }
 
         .highlighted-text:hover {
             -webkit-text-stroke-width: 3px;
-            -webkit-text-stroke-color: #fbbf24;
             text-shadow: 
-                0 0 15px rgba(251, 191, 36, 1),
-                0 0 25px rgba(251, 191, 36, 0.9),
-                0 0 35px rgba(251, 191, 36, 0.7);
+                -3px -3px 0 #000,
+                3px -3px 0 #000,
+                -3px 3px 0 #000,
+                3px 3px 0 #000,
+                0 0 15px rgba(251, 191, 36, 0.9),
+                0 0 25px rgba(251, 191, 36, 0.7);
         }
 
-        /* NUMERI ROMANI - NERO CON CONTORNO GIALLO */
+        /* NUMERI ROMANI - GIALLO DENTRO CON BORDO NERO */
         .roman-number {
-            color: #000000;
+            color: #fbbf24;
             font-weight: 900;
             font-size: 1.2em;
-            -webkit-text-fill-color: #000000;
+            -webkit-text-fill-color: #fbbf24;
             -webkit-text-stroke-width: 2px;
-            -webkit-text-stroke-color: #fbbf24;
+            -webkit-text-stroke-color: #000000;
             text-shadow: 
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
                 0 0 10px rgba(251, 191, 36, 1);
             letter-spacing: 0.1em;
         }
@@ -92,19 +100,21 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
-        /* SFONDO SFUMATO SUNSET GRADIENT - COME LANDING PAGE */
+        /* SUNSET GRADIENT - IDENTICO LANDING PAGE */
         body {
             background: linear-gradient(180deg, 
-                #0f172a 0%,
-                #1e293b 15%,
-                #334155 30%,
-                #475569 45%,
-                #64748b 60%,
-                #94a3b8 75%,
-                #cbd5e1 90%,
-                #1e293b 100%
+                #1a0f1f 0%,
+                #2d1b3d 10%,
+                #4a2c4f 20%,
+                #6b4a5a 35%,
+                #8b5a4e 50%,
+                #a8754a 65%,
+                #c49050 80%,
+                #a8754a 90%,
+                #1c1410 100%
             );
             min-height: 100vh;
+            background-attachment: fixed;
         }
 
         #mobileMenuOverlay {
@@ -362,7 +372,7 @@
                             <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
                                 "..."
                             </p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor" style="color: #fbbf24;">
+                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">
                                 — ...
                             </p>
                         </div>
