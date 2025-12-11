@@ -12,7 +12,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
@@ -28,45 +28,54 @@
             background-repeat: no-repeat;
         }
 
+        /* TESTI EVIDENZIATI - GRASSETTO ULTRA PESANTE */
         .highlighted-text {
-            color: #3b82f6;
-            font-weight: 700;
+            color: #2563eb;
+            font-weight: 900;
             font-style: italic;
-            text-shadow: 
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000,
-                0 0 8px rgba(59, 130, 246, 0.8),
-                0 0 15px rgba(59, 130, 246, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.03em;
-        }
-
-        .highlighted-text:hover {
-            color: #60a5fa;
             text-shadow: 
                 -2px -2px 0 #000,
                 2px -2px 0 #000,
                 -2px 2px 0 #000,
                 2px 2px 0 #000,
-                0 0 12px rgba(96, 165, 250, 1),
-                0 0 20px rgba(96, 165, 250, 0.8),
-                0 0 30px rgba(96, 165, 250, 0.6);
-            transform: scale(1.02);
+                -3px 0 0 #000,
+                3px 0 0 #000,
+                0 -3px 0 #000,
+                0 3px 0 #000,
+                0 0 10px rgba(37, 99, 235, 0.9),
+                0 0 20px rgba(37, 99, 235, 0.7);
+            transition: all 0.3s ease;
+            letter-spacing: 0.04em;
+        }
+
+        .highlighted-text:hover {
+            color: #3b82f6;
+            text-shadow: 
+                -3px -3px 0 #000,
+                3px -3px 0 #000,
+                -3px 3px 0 #000,
+                3px 3px 0 #000,
+                -4px 0 0 #000,
+                4px 0 0 #000,
+                0 -4px 0 #000,
+                0 4px 0 #000,
+                0 0 15px rgba(59, 130, 246, 1),
+                0 0 25px rgba(59, 130, 246, 0.9),
+                0 0 35px rgba(59, 130, 246, 0.7);
+            transform: scale(1.03);
         }
 
         .roman-number {
-            color: #3b82f6;
+            color: #2563eb;
             font-weight: 900;
-            font-size: 1.15em;
+            font-size: 1.2em;
             text-shadow: 
-                -1px -1px 0 #000,
-                1px -1px 0 #000,
-                -1px 1px 0 #000,
-                1px 1px 0 #000,
-                0 0 8px rgba(59, 130, 246, 0.9);
-            letter-spacing: 0.08em;
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                2px 2px 0 #000,
+                0 0 10px rgba(37, 99, 235, 1);
+            letter-spacing: 0.1em;
         }
 
         #mobileMenuOverlay {
@@ -302,7 +311,7 @@
                         <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">
                             Contenuto Quotidiano
                         </h2>
-                        <p class="text-slate-700 text-sm font-trajan" style="text-shadow: 0 0 3px rgba(255,255,255,0.8);">
+                        <p class="text-slate-700 text-sm font-trajan font-bold" style="text-shadow: 0 0 5px rgba(255,255,255,0.9);">
                             Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
                         </p>
                     </div>
@@ -319,7 +328,7 @@
                             <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
                                 "..."
                             </p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">
+                            <p class="text-sm highlighted-text" id="quoteAuthor">
                                 — ...
                             </p>
                         </div>
@@ -329,7 +338,7 @@
                                 <span>💡</span>
                                 <span class="font-cinzel uppercase tracking-wide">Interpretazione</span>
                             </h3>
-                            <p class="text-slate-800 leading-relaxed font-trajan" id="interpretationText">
+                            <p class="text-slate-800 leading-relaxed font-trajan font-semibold" id="interpretationText">
                                 ...
                             </p>
                         </div>
@@ -339,7 +348,7 @@
                                 <span>🎯</span>
                                 <span class="font-cinzel uppercase tracking-wide">Micro-Sfida di Oggi</span>
                             </h3>
-                            <p class="text-slate-800 leading-relaxed font-trajan" id="challengeText">
+                            <p class="text-slate-800 leading-relaxed font-trajan font-semibold" id="challengeText">
                                 ...
                             </p>
                         </div>
@@ -535,11 +544,9 @@
             return `tipo${cycle}`;
         }
 
-        // ========== INIZIALIZZAZIONE SENZA LOOP ==========
         document.addEventListener('DOMContentLoaded', async () => {
             const { data: { user }, error } = await supabase.auth.getUser();
             
-            // Usa dati mock se non c'è utente (EVITA LOOP)
             if (!user || error) {
                 console.warn('Nessun utente loggato, usando dati mock per sviluppo');
                 const mockUser = {
@@ -554,7 +561,6 @@
                 return;
             }
 
-            // Utente autenticato
             loadUserData(user);
             loadDailyContent();
             loadProgressData(user.id);
@@ -562,7 +568,6 @@
         });
 
         async function loadUserData(user) {
-            // Se è mock user, usa dati locali
             if (user.id === 'mock-user-id') {
                 document.getElementById('userName').textContent = 'Stoico';
                 return;
@@ -593,7 +598,7 @@
                 document.getElementById('contentSkeleton').classList.add('hidden');
                 document.getElementById('dailyContent').classList.remove('hidden');
 
-                document.getElementById('quoteText').textContent = `"${content.quote}"`;
+                document.getElementById('quoteText').textContent = content.quote;
                 document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
                 document.getElementById('interpretationText').textContent = content.interpretation;
                 document.getElementById('challengeText').textContent = content.challenge;
@@ -678,7 +683,6 @@
 
                 const { data: { user } } = await supabase.auth.getUser();
                 
-                // Se mock user, salva in localStorage
                 if (!user || user.id === 'mock-user-id') {
                     console.warn('Mock save - nessun DB');
                     showToast('✅ Riflessione salvata (modalità demo)!', 'success');
