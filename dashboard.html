@@ -220,13 +220,16 @@
             scrollbar-width: none;
         }
 
-        /* Loading spinner */
-        .loading-spinner {
+        .loading-overlay {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
             z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .spinner {
@@ -245,10 +248,12 @@
 </head>
 <body class="font-inter text-slate-100">
 
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" class="loading-spinner">
+    <div id="loadingOverlay" class="loading-overlay">
         <div class="spinner"></div>
+        <p class="text-amber-400 font-cinzel">Caricamento...</p>
     </div>
+
+    <div id="mainContent" style="display: none;">
 
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -518,6 +523,8 @@
         </main>
     </div>
 
+    </div>
+
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
@@ -527,10 +534,29 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hoaXhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        let currentUser = null;
+
         // ========================================
-        // GESTIONE OAUTH CALLBACK (CORRETTA)
+        // INIT CON AUTH STATE LISTENER
         // ========================================
-        async function handleOAuthCallback() {
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 Inizializzazione dashboard...');
+
+            // Setup Auth State Listener PRIMA di tutto
+            supabase.auth.onAuthStateChange((event, session) => {
+                console.log('📡 Auth event:', event, session?.user?.email);
+
+                if (event === 'SIGNED_IN' && session) {
+                    console.log('✅ SIGNED_IN rilevato, carico dashboard...');
+                    currentUser = session.user;
+                    initDashboard(session.user);
+                } else if (event === 'SIGNED_OUT' || !session) {
+                    console.log('⚠️ SIGNED_OUT, redirect a login');
+                    redirectToLogin();
+                }
+            });
+
+            // Gestisci OAuth callback
             const hashParams = new URLSearchParams(window.location.hash.substring(1));
             const access_token = hashParams.get('access_token');
             const refresh_token = hashParams.get('refresh_token');
@@ -539,76 +565,74 @@
                 console.log('🔄 OAuth callback rilevato, imposto sessione...');
                 
                 try {
-                    const { data, error } = await supabase.auth.setSession({
-                        access_token: access_token,
-                        refresh_token: refresh_token
+                    const { error } = await supabase.auth.setSession({
+                        access_token,
+                        refresh_token
                     });
 
                     if (error) throw error;
 
-                    if (data.session) {
-                        console.log('✅ Sessione OAuth salvata!', data.session.user.email);
-                        
-                        // ASPETTA che la sessione sia persistita
-                        await new Promise(resolve => setTimeout(resolve, 500));
-                        
-                        // Pulisci URL
-                        window.history.replaceState({}, document.title, window.location.pathname);
-                        
-                        return true; // Sessione OK
-                    }
+                    // Pulisci URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    
+                    // onAuthStateChange gestirà il resto
                 } catch (error) {
                     console.error('❌ Errore setSession:', error);
-                    return false;
+                    redirectToLogin();
+                }
+            } else {
+                // Verifica sessione esistente
+                const { data: { session } } = await supabase.auth.getSession();
+                
+                if (session) {
+                    console.log('✅ Sessione esistente trovata');
+                    currentUser = session.user;
+                    initDashboard(session.user);
+                } else {
+                    console.warn('⚠️ Nessuna sessione, redirect login');
+                    redirectToLogin();
                 }
             }
-            
-            return null; // Nessun callback OAuth
+        });
+
+        // ========================================
+        // INIT DASHBOARD
+        // ========================================
+        async function initDashboard(user) {
+            console.log('🎨 Inizializzazione UI per utente:', user.email);
+
+            // Nascondi loader, mostra content
+            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+
+            // Aggiorna UI
+            updateUserGreeting(user);
+            loadDailyContent();
+            await loadProgressData(user.id);
+            setupEventListeners();
+
+            console.log('✅ Dashboard pronta!');
         }
 
         // ========================================
-        // RECUPERO UTENTE CORRENTE
+        // REDIRECT LOGIN
         // ========================================
-        async function getCurrentUser() {
-            try {
-                const { data: { user }, error } = await supabase.auth.getUser();
-
-                if (error) {
-                    console.error('❌ Errore getUser:', error);
-                    return null;
-                }
-
-                if (!user) {
-                    console.warn('⚠️ Nessun utente loggato');
-                    return null;
-                }
-
-                console.log('✅ Utente autenticato:', user.email, user.id);
-
-                // Estrai nome da user_metadata
-                let userName = user.email.split('@')[0]; // Fallback
-
-                if (user.user_metadata?.full_name) {
-                    userName = user.user_metadata.full_name;
-                } else if (user.user_metadata?.name) {
-                    userName = user.user_metadata.name;
-                }
-
-                return {
-                    id: user.id,
-                    email: user.email,
-                    name: userName
-                };
-            } catch (error) {
-                console.error('❌ Errore getCurrentUser:', error);
-                return null;
-            }
+        function redirectToLogin() {
+            setTimeout(() => {
+                window.location.href = 'accedi.html';
+            }, 1000);
         }
 
         // ========================================
         // SALVATAGGIO RIFLESSIONE
         // ========================================
         async function saveReflection() {
+            if (!currentUser) {
+                showToast('Devi essere loggato!');
+                redirectToLogin();
+                return;
+            }
+
             const textarea = document.getElementById('reflectionTextarea');
             const content = textarea.value.trim();
 
@@ -617,22 +641,12 @@
                 return;
             }
 
-            const user = await getCurrentUser();
-
-            if (!user) {
-                showToast('Devi essere loggato per salvare!');
-                setTimeout(() => {
-                    window.location.href = 'accedi.html';
-                }, 2000);
-                return;
-            }
-
-            console.log('💾 Salvataggio riflessione per:', user.email);
+            console.log('💾 Salvataggio riflessione...');
 
             const { data, error } = await supabase
                 .from('reflections')
                 .insert({
-                    user_id: user.id,
+                    user_id: currentUser.id,
                     content: content,
                     date: new Date().toISOString().split('T')[0],
                     content_type: getDailyContentType()
@@ -640,26 +654,24 @@
                 .select();
 
             if (error) {
-                console.error('❌ Errore salvataggio:', error);
+                console.error('❌ Errore:', error);
                 showToast('Errore: ' + error.message);
                 return;
             }
 
-            console.log('✅ Riflessione salvata!', data);
+            console.log('✅ Salvata!', data);
             showToast('✅ Riflessione salvata!');
 
             textarea.value = '';
             document.getElementById('charCount').textContent = '0';
 
-            loadProgressData(user.id);
+            loadProgressData(currentUser.id);
         }
 
         // ========================================
         // CARICAMENTO PROGRESSO
         // ========================================
         async function loadProgressData(userId) {
-            console.log('📊 Caricamento progresso...');
-
             const { count: totalReflections } = await supabase
                 .from('reflections')
                 .select('*', { count: 'exact', head: true })
@@ -692,7 +704,7 @@
             }
 
             updateProgressUI({
-                streak: streak,
+                streak,
                 totalReflections: totalReflections || 0,
                 completedChallenges: Math.min(totalReflections || 0, 10),
                 totalChallenges: 10
@@ -719,9 +731,16 @@
             document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
         }
 
-        async function updateUserGreeting() {
-            const user = await getCurrentUser();
-            document.getElementById('userName').textContent = user ? user.name : 'Visitatore';
+        function updateUserGreeting(user) {
+            let userName = user.email.split('@')[0];
+
+            if (user.user_metadata?.full_name) {
+                userName = user.user_metadata.full_name;
+            } else if (user.user_metadata?.name) {
+                userName = user.user_metadata.name;
+            }
+
+            document.getElementById('userName').textContent = userName;
         }
 
         // ========================================
@@ -863,52 +882,6 @@
                 window.location.href = 'index.html';
             });
         }
-
-        // ========================================
-        // INIT APP (CON FLUSSO CORRETTO)
-        // ========================================
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 Init dashboard...');
-            
-            const spinner = document.getElementById('loadingSpinner');
-            
-            try {
-                // 1. PRIMA: Gestisci OAuth callback
-                const oauthHandled = await handleOAuthCallback();
-                
-                // 2. POI: Verifica utente
-                const user = await getCurrentUser();
-                
-                if (!user) {
-                    console.warn('⚠️ Utente non loggato');
-                    showToast('Devi effettuare il login');
-                    setTimeout(() => {
-                        window.location.href = 'accedi.html';
-                    }, 1500);
-                    return;
-                }
-                
-                // 3. NASCOND SPINNER
-                spinner.style.display = 'none';
-                
-                // 4. CARICA DASHBOARD
-                console.log('✅ Utente autenticato, carico dashboard...');
-                await updateUserGreeting();
-                loadDailyContent();
-                await loadProgressData(user.id);
-                setupEventListeners();
-                
-                console.log('✅ Dashboard pronta!');
-                
-            } catch (error) {
-                console.error('❌ Errore init:', error);
-                spinner.style.display = 'none';
-                showToast('Errore di caricamento');
-                setTimeout(() => {
-                    window.location.href = 'accedi.html';
-                }, 2000);
-            }
-        });
     </script>
 </body>
 </html>
