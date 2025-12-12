@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - The Stoic Journey</title>
     
-    <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana">
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
     <meta name="robots" content="noindex, nofollow">
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Supabase Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
@@ -21,114 +25,7 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        .pergamena-bg {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
-            position: relative;
-        }
-
-        .highlighted-text {
-            color: #fde047;
-            font-weight: 900;
-            font-style: italic;
-            text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                -4px 0 0 #000, 4px 0 0 #000,
-                0 -4px 0 #000, 0 4px 0 #000,
-                -2px -2px 0 #000, 2px -2px 0 #000,
-                -2px 2px 0 #000, 2px 2px 0 #000,
-                0 0 15px rgba(253, 224, 71, 1),
-                0 0 25px rgba(253, 224, 71, 0.8),
-                0 0 35px rgba(253, 224, 71, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.04em;
-        }
-
-        .roman-number {
-            color: #fde047;
-            font-weight: 900;
-            font-size: 1.2em;
-            text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                -4px 0 0 #000, 4px 0 0 #000,
-                0 -4px 0 #000, 0 4px 0 #000,
-                0 0 15px rgba(253, 224, 71, 1);
-            letter-spacing: 0.1em;
-        }
-
-        .section-title-parchment {
-            color: #92400e;
-            text-shadow: 
-                1px 1px 0 rgba(255, 255, 255, 0.5),
-                -1px -1px 0 rgba(0, 0, 0, 0.3);
-            font-weight: 900;
-        }
-
-        .parchment-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 2px solid rgba(146, 64, 14, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        body {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
-                #c49050 80%, #a8754a 90%, #1c1410 100%
-            );
-            min-height: 100vh;
-            background-attachment: fixed;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
-        .progress-bar { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-
-        .skeleton {
-            background: linear-gradient(90deg, rgba(245, 222, 179, 0.3) 25%, rgba(245, 222, 179, 0.5) 50%, rgba(245, 222, 179, 0.3) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s ease-in-out infinite;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
-        }
-
-        .streak-glow { animation: pulse-glow 2s ease-in-out infinite; }
-
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.95);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(251, 191, 36, 0.3);
-            border-top-color: #fbbf24;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
+        /* Mobile Menu Overlay */
         #mobileMenuOverlay {
             position: fixed;
             inset: 0;
@@ -140,8 +37,12 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        #mobileMenuOverlay.active { opacity: 1; visibility: visible; }
+        #mobileMenuOverlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
+        /* Mobile Sidebar Slide-in */
         #mobileSidebar {
             position: fixed;
             top: 0;
@@ -153,52 +54,150 @@
             transform: translateX(-100%);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
+        }
+
+        #mobileSidebar.active {
+            transform: translateX(0);
+        }
+
+        /* Textarea Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Card Gradient Border */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-radius: 1rem;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            padding: 2px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        /* Progress Bar Animation */
+        .progress-bar {
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Pulse Animation for Streak */
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            }
+        }
+
+        .streak-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 767px) {
+            .mobile-textarea {
+                height: 120px;
+                font-size: 16px; /* Prevent iOS zoom */
+            }
+            
+            .mobile-btn {
+                min-height: 48px;
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .desktop-textarea {
+                height: 200px;
+            }
+        }
+
+        /* Hide scrollbar for mobile sidebar */
+        #mobileSidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        #mobileSidebar {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
-        #mobileSidebar::-webkit-scrollbar { display: none; }
-        #mobileSidebar.active { transform: translateX(0); }
     </style>
 </head>
-<body class="font-inter text-slate-100">
+<body class="bg-slate-950 font-inter text-slate-100 min-h-screen">
 
-    <div id="loadingOverlay" class="loading-overlay">
-        <div class="spinner"></div>
-        <p class="text-amber-400 font-cinzel">Caricamento...</p>
-    </div>
-
-    <div id="mainContent" style="display: none;">
-
-    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
+    <!-- HEADER FISSO -->
+    <header class="sticky top-0 z-30 bg-slate-900 border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
+                <!-- Logo + Menu Hamburger Mobile -->
                 <div class="flex items-center gap-4">
-                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors">
+                    <!-- Hamburger Button (Mobile Only) -->
+                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors" aria-label="Apri menu">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                     
+                    <!-- Logo -->
                     <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="Logo" class="h-10 w-10 object-contain">
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
                         <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">
                             The Stoic Journey
                         </span>
                     </div>
                 </div>
 
+                <!-- Streak + User Info -->
                 <div class="flex items-center gap-4 md:gap-6">
+                    <!-- Streak Badge -->
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
-                        <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
+                        <span class="text-2xl">🔥</span>
+                        <span class="font-bold text-slate-900" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
 
+                    <!-- User Name + Logout -->
                     <div class="flex items-center gap-3">
                         <span class="hidden md:inline text-sm text-slate-300">
                             Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
                         </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium">
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
                             Esci
                         </button>
                     </div>
@@ -207,70 +206,90 @@
         </div>
     </header>
 
+    <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenuOverlay"></div>
 
+    <!-- MOBILE SIDEBAR -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
-            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors">
+            <!-- Close Button -->
+            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
+            <!-- Menu Items -->
             <nav class="space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
+                    <span class="text-xl">📅</span>
                     <span>Oggi</span>
                 </a>
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
+                    <span class="text-xl">📚</span>
                     <span>Archivio</span>
+                </a>
+                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <span class="text-xl">⚙️</span>
+                    <span>Impostazioni</span>
+                </a>
+                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <span class="text-xl">💎</span>
+                    <span>Passa a PRO</span>
                 </a>
             </nav>
 
+            <!-- Streak Mobile -->
             <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
+                <div class="text-3xl mb-2">🔥</div>
                 <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
                 <div class="text-xs text-slate-400">giorni di streak</div>
             </div>
         </div>
     </aside>
 
+    <!-- LAYOUT PRINCIPALE -->
     <div class="flex">
-        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
+        <!-- DESKTOP SIDEBAR (hidden on mobile) -->
+        <aside class="hidden md:block w-64 bg-slate-900 border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
-                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
+                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                    <span class="text-xl">📅</span>
                     <span>Oggi</span>
                 </a>
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
+                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <span class="text-xl">📚</span>
                     <span>Archivio</span>
+                </a>
+                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <span class="text-xl">⚙️</span>
+                    <span>Impostazioni</span>
+                </a>
+                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <span class="text-xl">💎</span>
+                    <span>Passa a PRO</span>
                 </a>
             </nav>
         </aside>
 
+        <!-- AREA CONTENUTO PRINCIPALE -->
         <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
             
+            <!-- VIEW: OGGI (default) -->
             <div id="viewOggi" class="view-container">
                 
-                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
+                <!-- CONTENUTO QUOTIDIANO -->
+                <div class="gradient-border p-6 md:p-8 mb-6">
                     <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
+                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2">
                             Contenuto Quotidiano
                         </h2>
-                        <p class="text-sm font-trajan font-bold" style="color: #f5dec3; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                            Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
+                        <p class="text-slate-400 text-sm">
+                            Giorno <span id="dayOfYear">...</span> dell'anno
                         </p>
                     </div>
 
+                    <!-- Loading Skeleton -->
                     <div id="contentSkeleton" class="space-y-4">
                         <div class="skeleton h-6 w-3/4 mx-auto rounded"></div>
                         <div class="skeleton h-4 w-full rounded"></div>
@@ -278,33 +297,53 @@
                         <div class="skeleton h-32 w-full rounded mt-6"></div>
                     </div>
 
+                    <!-- Contenuto Reale -->
                     <div id="dailyContent" class="hidden space-y-6">
-                        <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
-                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">"..."</p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">— ...</p>
+                        <!-- Citazione -->
+                        <div class="border-l-4 border-amber-500 pl-4 py-2">
+                            <p class="text-xl md:text-2xl font-trajan italic text-slate-200 leading-relaxed mb-3" id="quoteText">
+                                "..."
+                            </p>
+                            <p class="text-sm text-amber-400 font-semibold" id="quoteAuthor">
+                                — ...
+                            </p>
                         </div>
 
-                        <div class="parchment-card rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
-                            <p class="leading-relaxed font-trajan" id="interpretationText">...</p>
+                        <!-- Interpretazione -->
+                        <div class="bg-slate-800/50 rounded-lg p-4 md:p-6">
+                            <h3 class="flex items-center gap-2 text-lg font-bold text-amber-400 mb-3">
+                                <span>💡</span>
+                                <span>Interpretazione</span>
+                            </h3>
+                            <p class="text-slate-300 leading-relaxed" id="interpretationText">
+                                ...
+                            </p>
                         </div>
 
-                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
-                            <p class="leading-relaxed font-trajan" id="challengeText">...</p>
+                        <!-- Micro-Sfida -->
+                        <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/30 rounded-lg p-4 md:p-6">
+                            <h3 class="flex items-center gap-2 text-lg font-bold text-amber-400 mb-3">
+                                <span>🎯</span>
+                                <span>Micro-Sfida di Oggi</span>
+                            </h3>
+                            <p class="text-slate-200 leading-relaxed" id="challengeText">
+                                ...
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">Le Tue Riflessioni di Oggi</h3>
+                <!-- LE TUE RIFLESSIONI -->
+                <div class="bg-slate-900 rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4">
+                        📝 Le Tue Riflessioni di Oggi
+                    </h3>
                     
                     <textarea 
                         id="reflectionTextarea"
                         maxlength="2000"
                         placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
-                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all outline-none"
-                        style="height: 150px;"
+                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
                     ></textarea>
                     
                     <div class="flex items-center justify-between mt-3">
@@ -312,31 +351,75 @@
                             <span id="charCount">0</span>/2000 caratteri
                         </span>
                         <div class="flex gap-3">
-                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium">Copia</button>
-                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold">Salva</button>
+                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
+                                <span>📋</span>
+                                <span>Copia</span>
+                            </button>
+                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
+                                <span>✅</span>
+                                <span>Salva</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">Il Tuo Progresso</h3>
+                <!-- IL TUO PROGRESSO -->
+                <div class="bg-slate-900 rounded-lg p-6 md:p-8 border border-amber-500/20">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6">
+                        📊 Il Tuo Progresso
+                    </h3>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Mobile: Stack Verticale -->
+                    <div class="space-y-4 md:hidden">
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
+                            <div class="text-3xl mb-2">🔥</div>
                             <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
                             <div class="text-xs text-slate-400">giorni di streak</div>
                         </div>
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
+                            <div class="text-3xl mb-2">📝</div>
                             <div class="text-2xl font-bold text-amber-400" id="progressReflections">0</div>
                             <div class="text-xs text-slate-400">riflessioni scritte</div>
                         </div>
                         <div class="bg-slate-800 rounded-lg p-4">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-slate-300">Completate</span>
-                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/10</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-2xl">✅</span>
+                                    <span class="text-sm text-slate-300">Sfide completate</span>
+                                </div>
+                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
                             </div>
                             <div class="w-full bg-slate-700 rounded-full h-2">
                                 <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500 text-right mt-1">
+                                <span id="progressPercentage">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desktop: 3 Colonne -->
+                    <div class="hidden md:grid md:grid-cols-3 gap-6">
+                        <div class="bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="text-4xl mb-3">🔥</div>
+                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
+                            <div class="text-sm text-slate-400">giorni di streak</div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="text-4xl mb-3">📝</div>
+                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
+                            <div class="text-sm text-slate-400">riflessioni scritte</div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-6">
+                            <div class="text-4xl text-center mb-3">✅</div>
+                            <div class="text-center mb-3">
+                                <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-3">
+                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="text-xs text-slate-400 text-center mt-2">
+                                <span id="progressPercentageDesktop">0%</span> completato
                             </div>
                         </div>
                     </div>
@@ -344,303 +427,333 @@
 
             </div>
 
+            <!-- VIEW: ARCHIVIO -->
             <div id="viewArchivio" class="view-container hidden">
                 <div class="text-center py-20">
+                    <div class="text-6xl mb-4">📚</div>
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400">Funzionalità in sviluppo</p>
+                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all">
+                        Torna alla Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW: IMPOSTAZIONI -->
+            <div id="viewImpostazioni" class="view-container hidden">
+                <div class="text-center py-20">
+                    <div class="text-6xl mb-4">⚙️</div>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
+                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-6 py-3 rounded-lg font-semibold transition-all">
+                        Torna alla Dashboard
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW: PRO -->
+            <div id="viewPro" class="view-container hidden">
+                <div class="text-center py-20">
+                    <div class="text-6xl mb-4">💎</div>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
+                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
+                    <button class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-8 py-4 rounded-lg font-bold text-lg transition-all">
+                        Scopri i Vantaggi PRO
+                    </button>
                 </div>
             </div>
 
         </main>
     </div>
 
-    </div>
-
+    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://fayuadwpchhixafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hoaXhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
+        // ======================
+        // CONFIGURAZIONE SUPABASE
+        // ======================
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // SOSTITUISCI CON LA TUA URL
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY'; // SOSTITUISCI CON LA TUA KEY
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let currentUser = null;
-
-        // ========================================
-        // INIT - SOLUZIONE DEFINITIVA
-        // ========================================
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 Dashboard init');
-
-            // STEP 1: Gestisci OAuth hash IMMEDIATAMENTE
-            if (window.location.hash && window.location.hash.includes('access_token')) {
-                console.log('✅ OAuth hash rilevato');
-                
-                const hashParams = new URLSearchParams(window.location.hash.substring(1));
-                const access_token = hashParams.get('access_token');
-                const refresh_token = hashParams.get('refresh_token');
-
-                if (access_token && refresh_token) {
-                    const { error } = await supabase.auth.setSession({ access_token, refresh_token });
-                    
-                    if (error) {
-                        console.error('❌ setSession:', error);
-                    } else {
-                        console.log('✅ Sessione salvata');
-                    }
-                    
-                    // Pulisci URL
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
+        // ======================
+        // CONTENUTI QUOTIDIANI (4 TIPI - CICLO 4 GIORNI)
+        // ======================
+        const dailyContents = {
+            // TIPO 1: Dicotomia del Controllo (Epitteto)
+            tipo1: {
+                quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
+                author: "Epitteto, Enchiridion",
+                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
+                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
+            },
+            // TIPO 2: Amor Fati (Marco Aurelio)
+            tipo2: {
+                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
+                author: "Marco Aurelio, Meditazioni V.20",
+                interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
+                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedirti renderti più forte o saggio? Trova un lato positivo inaspettato."
+            },
+            // TIPO 3: Praemeditatio Malorum (Seneca)
+            tipo3: {
+                quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
+                author: "Seneca, Lettere a Lucilio",
+                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
+                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
+            },
+            // TIPO 4: Memento Mori
+            tipo4: {
+                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
+                author: "Marco Aurelio, Meditazioni II.11",
+                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
+                challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
             }
+        };
 
-            // STEP 2: Usa getUser() (NON getSession)
-            const { data: { user }, error } = await supabase.auth.getUser();
-
-            if (error || !user) {
-                console.warn('⚠️ Nessun utente, redirect login');
-                setTimeout(() => window.location.href = 'accedi.html', 1000);
-                return;
-            }
-
-            console.log('✅ Utente loggato:', user.email);
-            currentUser = user;
-
-            // STEP 3: Init dashboard
-            await initDashboard(user);
-        });
-
-        // ========================================
-        // INIT DASHBOARD
-        // ========================================
-        async function initDashboard(user) {
-            document.getElementById('loadingOverlay').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-
-            updateUserGreeting(user);
-            loadDailyContent();
-            await loadProgressData(user.id);
-            setupEventListeners();
-
-            console.log('✅ Dashboard pronta');
+        // ======================
+        // CALCOLO TIPO GIORNALIERO
+        // ======================
+        function getDayOfYear() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
         }
 
-        // ========================================
-        // SALVATAGGIO
-        // ========================================
-        async function saveReflection() {
-            if (!currentUser) {
-                showToast('Devi essere loggato!');
+        function getDailyContentType() {
+            const dayNum = getDayOfYear();
+            const cycle = (dayNum % 4) + 1; // 1, 2, 3, 4
+            return `tipo${cycle}`;
+        }
+
+        // ======================
+        // INIZIALIZZAZIONE
+        // ======================
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check autenticazione
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if (!user) {
                 window.location.href = 'accedi.html';
                 return;
             }
 
-            const content = document.getElementById('reflectionTextarea').value.trim();
-            if (!content) {
-                showToast('Scrivi prima una riflessione!');
-                return;
+            // Carica dati utente
+            loadUserData(user);
+            loadDailyContent();
+            loadProgressData(user.id);
+
+            // Event Listeners
+            setupEventListeners();
+        });
+
+        // ======================
+        // CARICA DATI UTENTE
+        // ======================
+        async function loadUserData(user) {
+            const { data, error } = await supabase
+                .from('users')
+                .select('name')
+                .eq('id', user.id)
+                .single();
+
+            if (data) {
+                document.getElementById('userName').textContent = data.name || 'Stoico';
             }
-
-            const { error } = await supabase
-                .from('reflections')
-                .insert({
-                    user_id: currentUser.id,
-                    content,
-                    date: new Date().toISOString().split('T')[0],
-                    content_type: getDailyContentType()
-                });
-
-            if (error) {
-                console.error('❌', error);
-                showToast('Errore: ' + error.message);
-                return;
-            }
-
-            showToast('✅ Riflessione salvata!');
-            document.getElementById('reflectionTextarea').value = '';
-            document.getElementById('charCount').textContent = '0';
-            loadProgressData(currentUser.id);
         }
 
-        // ========================================
-        // PROGRESSO
-        // ========================================
-        async function loadProgressData(userId) {
-            const { count } = await supabase
-                .from('reflections')
-                .select('*', { count: 'exact', head: true })
-                .eq('user_id', userId);
-
-            const { data: reflections } = await supabase
-                .from('reflections')
-                .select('date')
-                .eq('user_id', userId)
-                .order('date', { ascending: false })
-                .limit(365);
-
-            let streak = 0;
-            if (reflections?.length) {
-                const today = new Date().toISOString().split('T')[0];
-                const dates = reflections.map(r => r.date).sort().reverse();
-                let currentDate = new Date(today);
-                
-                for (let date of dates) {
-                    const reflDate = new Date(date);
-                    const diff = Math.floor((currentDate - reflDate) / (1000 * 60 * 60 * 24));
-                    if (diff === 0 || diff === 1) {
-                        streak++;
-                        currentDate = reflDate;
-                    } else break;
-                }
-            }
-
-            const total = count || 0;
-            const completed = Math.min(total, 10);
-            const percentage = Math.round((completed / 10) * 100);
-
-            document.getElementById('headerStreak').textContent = streak;
-            document.getElementById('mobileStreak').textContent = streak;
-            document.getElementById('progressStreak').textContent = streak;
-            document.getElementById('progressReflections').textContent = total;
-            document.getElementById('progressChallenges').textContent = `${completed}/10`;
-            document.getElementById('progressBar').style.width = `${percentage}%`;
-        }
-
-        function updateUserGreeting(user) {
-            const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
-            document.getElementById('userName').textContent = name;
-        }
-
-        // ========================================
-        // UTILITY
-        // ========================================
-        function arabicToRoman(num) {
-            const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-            const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
-            let roman = '';
-            for (let i = 0; i < val.length; i++) {
-                while (num >= val[i]) {
-                    roman += syms[i];
-                    num -= val[i];
-                }
-            }
-            return roman;
-        }
-
-        function getDayOfYear() {
-            const now = new Date();
-            const start = new Date(now.getFullYear(), 0, 0);
-            return Math.floor((now - start) / (1000 * 60 * 60 * 24));
-        }
-
-        function getDailyContentType() {
-            return `tipo${(getDayOfYear() % 4) + 1}`;
-        }
-
-        const dailyContents = {
-            tipo1: {
-                quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
-                author: "Epitteto, Enchiridion",
-                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi.",
-                challenge: "Identifica una situazione stressante. Scrivi il fatto separato dall'interpretazione."
-            },
-            tipo2: {
-                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
-                author: "Marco Aurelio, Meditazioni V.20",
-                interpretation: "Gli ostacoli sono maestri che trasformano il tuo percorso.",
-                challenge: "Pensa a un ostacolo. Come ti rende più forte?"
-            },
-            tipo3: {
-                quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
-                author: "Seneca, Lettere a Lucilio",
-                interpretation: "Immaginare il peggio è preparazione, non pessimismo.",
-                challenge: "Visualizza la tua paura. Sopravviveresti? Come?"
-            },
-            tipo4: {
-                quote: "Potresti lasciare la vita ora. Lascia che questo determini ciò che fai.",
-                author: "Marco Aurelio, Meditazioni II.11",
-                interpretation: "La mortalità libera energia per ciò che conta.",
-                challenge: "Se oggi fosse l'ultimo giorno, cosa faresti diversamente?"
-            }
-        };
-
+        // ======================
+        // CARICA CONTENUTO QUOTIDIANO
+        // ======================
         function loadDailyContent() {
-            const content = dailyContents[getDailyContentType()];
-            document.getElementById('dayOfYear').textContent = arabicToRoman(getDayOfYear());
+            const dayOfYear = getDayOfYear();
+            const contentType = getDailyContentType();
+            const content = dailyContents[contentType];
 
+            // Mostra giorno dell'anno
+            document.getElementById('dayOfYear').textContent = dayOfYear;
+
+            // Nascondi skeleton e mostra contenuto
             setTimeout(() => {
                 document.getElementById('contentSkeleton').classList.add('hidden');
                 document.getElementById('dailyContent').classList.remove('hidden');
-                document.getElementById('quoteText').textContent = content.quote;
+
+                // Popola contenuto
+                document.getElementById('quoteText').textContent = `"${content.quote}"`;
                 document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
                 document.getElementById('interpretationText').textContent = content.interpretation;
                 document.getElementById('challengeText').textContent = content.challenge;
             }, 800);
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = msg;
-            toast.style.transform = 'translateY(0)';
-            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
+        // ======================
+        // CARICA DATI PROGRESSO
+        // ======================
+        async function loadProgressData(userId) {
+            // Simula dati (sostituire con query Supabase reali)
+            const mockData = {
+                streak: 7,
+                totalReflections: 12,
+                completedChallenges: 8,
+                totalChallenges: 10
+            };
+
+            updateProgressUI(mockData);
         }
 
-        function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-            document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
+        function updateProgressUI(data) {
+            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+
+            // Header
+            document.getElementById('headerStreak').textContent = data.streak;
+
+            // Mobile Sidebar
+            document.getElementById('mobileStreak').textContent = data.streak;
+
+            // Progress Section Mobile
+            document.getElementById('progressStreak').textContent = data.streak;
+            document.getElementById('progressReflections').textContent = data.totalReflections;
+            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressPercentage').textContent = `${percentage}%`;
+
+            // Progress Section Desktop
+            document.getElementById('progressStreakDesktop').textContent = data.streak;
+            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
+            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
+            document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
         }
 
-        // ========================================
-        // EVENTI
-        // ========================================
+        // ======================
+        // EVENT LISTENERS
+        // ======================
         function setupEventListeners() {
+            // Mobile Menu Toggle
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
             const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
             const mobileSidebar = document.getElementById('mobileSidebar');
 
-            mobileMenuBtn?.addEventListener('click', () => {
+            mobileMenuBtn.addEventListener('click', () => {
                 mobileSidebar.classList.add('active');
                 mobileMenuOverlay.classList.add('active');
             });
 
-            closeMobileMenu?.addEventListener('click', () => {
+            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
+
+            function closeMobileMenuFunc() {
                 mobileSidebar.classList.remove('active');
                 mobileMenuOverlay.classList.remove('active');
-            });
+            }
 
-            mobileMenuOverlay?.addEventListener('click', () => {
-                mobileSidebar.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-            });
-
+            // Navigation
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchView(e.currentTarget.dataset.view);
-                    mobileSidebar.classList.remove('active');
-                    mobileMenuOverlay.classList.remove('active');
+                    const view = e.currentTarget.dataset.view;
+                    switchView(view);
+                    closeMobileMenuFunc();
+
+                    // Update active state
+                    document.querySelectorAll('.nav-link').forEach(l => {
+                        l.classList.remove('bg-amber-500/20', 'text-amber-400', 'font-medium');
+                        l.classList.add('text-slate-300');
+                    });
+                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400', 'font-medium');
                 });
             });
 
+            // Textarea character count
             const textarea = document.getElementById('reflectionTextarea');
+            const charCount = document.getElementById('charCount');
+            
             textarea.addEventListener('input', () => {
-                document.getElementById('charCount').textContent = textarea.value.length;
+                charCount.textContent = textarea.value.length;
             });
 
-            document.getElementById('saveBtn').addEventListener('click', saveReflection);
+            // Save Button
+            document.getElementById('saveBtn').addEventListener('click', async () => {
+                const text = textarea.value.trim();
+                if (!text) {
+                    showToast('Scrivi prima una riflessione!', 'error');
+                    return;
+                }
 
+                // Salva su Supabase
+                const { data: { user } } = await supabase.auth.getUser();
+                
+                const { error } = await supabase
+                    .from('reflections')
+                    .insert({
+                        user_id: user.id,
+                        content: text,
+                        date: new Date().toISOString().split('T')[0],
+                        content_type: getDailyContentType()
+                    });
+
+                if (error) {
+                    showToast('Errore nel salvare la riflessione', 'error');
+                    console.error(error);
+                } else {
+                    showToast('✅ Riflessione salvata con successo!', 'success');
+                    textarea.value = '';
+                    charCount.textContent = '0';
+                }
+            });
+
+            // Copy Button
             document.getElementById('copyBtn').addEventListener('click', () => {
                 const text = textarea.value;
-                if (!text) return showToast('Niente da copiare!');
-                navigator.clipboard.writeText(text).then(() => showToast('Copiato!'));
+                if (!text) {
+                    showToast('Niente da copiare!', 'error');
+                    return;
+                }
+
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('📋 Testo copiato negli appunti!', 'success');
+                }).catch(() => {
+                    showToast('Errore nella copia', 'error');
+                });
             });
 
+            // Logout Button
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
             });
+        }
+
+        // ======================
+        // SWITCH VIEW
+        // ======================
+        function switchView(viewName) {
+            document.querySelectorAll('.view-container').forEach(view => {
+                view.classList.add('hidden');
+            });
+
+            const viewId = `view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`;
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        // ======================
+        // TOAST NOTIFICATION
+        // ======================
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.style.transform = 'translateY(0)';
+
+            setTimeout(() => {
+                toast.style.transform = 'translateY(8rem)';
+            }, 3000);
         }
     </script>
 </body>
