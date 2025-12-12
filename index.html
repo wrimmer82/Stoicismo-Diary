@@ -334,7 +334,7 @@
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
-            min-height: 48px; /* Touch-friendly */
+            min-height: 48px;
         }
 
         .contact-form-input:focus,
@@ -401,6 +401,7 @@
                     </span>
                 </div>
                 
+                <!-- CORRETTO: Link ad accedi.html -->
                 <a href="accedi.html" class="bg-amber-500 text-slate-900 px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
                     Accedi
                 </a>
@@ -420,6 +421,7 @@
             <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
                 Trasforma la tua vita quotidiana con i principi degli antichi filosofi. Riflessioni guidate dall'AI per costruire resilienza e serenità.
             </p>
+            <!-- CORRETTO: Link a registrazione.html invece di # -->
             <div class="flex justify-center animate-fadeInUp delay-600">
                 <a href="registrazione.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-10 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-lg">
                     Inizia Ora
@@ -619,7 +621,7 @@
         </div>
     </section>
 
-    <!-- FAQ + CONTACT FORM - Layout 2 Colonne Desktop, Stack Mobile -->
+    <!-- FAQ + CONTACT FORM -->
     <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900">
@@ -629,7 +631,6 @@
                 Trova risposte o scrivici direttamente
             </p>
 
-            <!-- Grid 2 Colonne: 60% FAQ + 40% Form -->
             <div class="faq-contact-grid grid lg:grid-cols-[60%_40%] gap-8 lg:gap-10 items-start">
                 
                 <!-- COLONNA SINISTRA: FAQ Accordion -->
@@ -820,7 +821,6 @@
             window.addEventListener("scroll", revealOnScroll);
             revealOnScroll();
 
-            // IntersectionObserver per Memento Mori fade-in
             const fadeElements = document.querySelectorAll('.fade-in-scroll');
             
             const fadeObserver = new IntersectionObserver((entries) => {
@@ -861,7 +861,6 @@
                 const isActive = item.classList.contains('active');
                 const question = item.querySelector('.faq-question');
                 
-                // Chiudi altri item
                 faqItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
@@ -869,7 +868,6 @@
                     }
                 });
                 
-                // Toggle corrente
                 if (isActive) {
                     item.classList.remove('active');
                     question.setAttribute('aria-expanded', 'false');
