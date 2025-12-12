@@ -535,63 +535,57 @@
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let currentUser = null;
+        let isInitialized = false; // FLAG ANTI-LOOP
 
         // ========================================
-        // INIT CON AUTH STATE LISTENER
+        // INIT
         // ========================================
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 Inizializzazione dashboard...');
+            console.log('🚀 Init dashboard...');
 
-            // Setup Auth State Listener PRIMA di tutto
-            supabase.auth.onAuthStateChange((event, session) => {
-                console.log('📡 Auth event:', event, session?.user?.email);
-
-                if (event === 'SIGNED_IN' && session) {
-                    console.log('✅ SIGNED_IN rilevato, carico dashboard...');
-                    currentUser = session.user;
-                    initDashboard(session.user);
-                } else if (event === 'SIGNED_OUT' || !session) {
-                    console.log('⚠️ SIGNED_OUT, redirect a login');
-                    redirectToLogin();
-                }
-            });
-
-            // Gestisci OAuth callback
+            // Gestisci OAuth callback PRIMA
             const hashParams = new URLSearchParams(window.location.hash.substring(1));
             const access_token = hashParams.get('access_token');
             const refresh_token = hashParams.get('refresh_token');
 
             if (access_token && refresh_token) {
-                console.log('🔄 OAuth callback rilevato, imposto sessione...');
+                console.log('🔄 OAuth callback rilevato...');
                 
                 try {
-                    const { error } = await supabase.auth.setSession({
+                    const { data, error } = await supabase.auth.setSession({
                         access_token,
                         refresh_token
                     });
 
                     if (error) throw error;
 
-                    // Pulisci URL
+                    console.log('✅ Sessione OAuth impostata');
                     window.history.replaceState({}, document.title, window.location.pathname);
                     
-                    // onAuthStateChange gestirà il resto
+                    // Inizializza con user dalla sessione
+                    if (data.session?.user) {
+                        currentUser = data.session.user;
+                        await initDashboard(data.session.user);
+                    }
+                    
+                    return;
                 } catch (error) {
                     console.error('❌ Errore setSession:', error);
                     redirectToLogin();
+                    return;
                 }
+            }
+
+            // Altrimenti verifica sessione esistente
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (session?.user) {
+                console.log('✅ Sessione esistente trovata');
+                currentUser = session.user;
+                await initDashboard(session.user);
             } else {
-                // Verifica sessione esistente
-                const { data: { session } } = await supabase.auth.getSession();
-                
-                if (session) {
-                    console.log('✅ Sessione esistente trovata');
-                    currentUser = session.user;
-                    initDashboard(session.user);
-                } else {
-                    console.warn('⚠️ Nessuna sessione, redirect login');
-                    redirectToLogin();
-                }
+                console.warn('⚠️ Nessuna sessione');
+                redirectToLogin();
             }
         });
 
@@ -599,13 +593,19 @@
         // INIT DASHBOARD
         // ========================================
         async function initDashboard(user) {
-            console.log('🎨 Inizializzazione UI per utente:', user.email);
+            if (isInitialized) {
+                console.log('⏭️ Dashboard già inizializzata, skip');
+                return;
+            }
 
-            // Nascondi loader, mostra content
+            isInitialized = true;
+            console.log('🎨 Inizializzazione UI per:', user.email);
+
+            // Nascondi loader
             document.getElementById('loadingOverlay').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
 
-            // Aggiorna UI
+            // Carica UI
             updateUserGreeting(user);
             loadDailyContent();
             await loadProgressData(user.id);
@@ -618,9 +618,10 @@
         // REDIRECT LOGIN
         // ========================================
         function redirectToLogin() {
+            showToast('Devi effettuare il login');
             setTimeout(() => {
                 window.location.href = 'accedi.html';
-            }, 1000);
+            }, 1500);
         }
 
         // ========================================
@@ -641,7 +642,7 @@
                 return;
             }
 
-            console.log('💾 Salvataggio riflessione...');
+            console.log('💾 Salvataggio...');
 
             const { data, error } = await supabase
                 .from('reflections')
@@ -669,7 +670,7 @@
         }
 
         // ========================================
-        // CARICAMENTO PROGRESSO
+        // PROGRESSO
         // ========================================
         async function loadProgressData(userId) {
             const { count: totalReflections } = await supabase
@@ -711,9 +712,6 @@
             });
         }
 
-        // ========================================
-        // AGGIORNAMENTO UI
-        // ========================================
         function updateProgressUI(data) {
             const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
             
