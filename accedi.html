@@ -32,12 +32,16 @@
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-amber-500/20 shadow-2xl p-8">
             
+            <!-- Header con Logo Cliccabile -->
             <div class="text-center mb-8">
-                <img src="sigma_logo.png" alt="Logo" class="h-16 w-16 mx-auto mb-4">
+                <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
+                </a>
                 <h1 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">The Stoic Journey</h1>
                 <p class="text-slate-400">Accedi per continuare il tuo percorso stoico</p>
             </div>
 
+            <!-- Google Login Button -->
             <button 
                 id="googleLoginBtn"
                 class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6"
@@ -51,6 +55,7 @@
                 Continua con Google
             </button>
 
+            <!-- Divider -->
             <div class="relative mb-6">
                 <div class="absolute inset-0 flex items-center">
                     <div class="w-full border-t border-slate-700"></div>
@@ -60,6 +65,7 @@
                 </div>
             </div>
 
+            <!-- Form Login Email/Password -->
             <form id="loginForm" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-2">Email</label>
@@ -68,6 +74,7 @@
                         id="emailInput"
                         required
                         placeholder="stoico@esempio.com"
+                        autocomplete="email"
                         class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 outline-none transition-all"
                     >
                 </div>
@@ -79,15 +86,18 @@
                         id="passwordInput"
                         required
                         placeholder="Inserisci la tua password"
+                        autocomplete="current-password"
                         class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 outline-none transition-all"
                     >
                 </div>
 
+                <!-- Remember Me Checkbox -->
                 <div class="flex items-center">
                     <input type="checkbox" id="rememberMe" class="mr-2">
                     <label for="rememberMe" class="text-sm text-slate-400">Ricordami su questo dispositivo</label>
                 </div>
 
+                <!-- Submit Button -->
                 <button 
                     type="submit"
                     class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all"
@@ -96,30 +106,36 @@
                 </button>
             </form>
 
+            <!-- Password Dimenticata - TODO: Implementare pagina reset -->
             <div class="mt-6 text-center">
                 <a href="#" class="text-amber-400 hover:underline text-sm">Password dimenticata?</a>
+                <!-- TODO: Creare pagina password-reset.html -->
             </div>
 
+            <!-- Link Registrazione - CORRETTO -->
             <div class="mt-4 text-center text-sm text-slate-500">
-                Non hai ancora un account? <a href="#" class="text-amber-400 hover:underline">Registrati</a>
+                Non hai ancora un account? <a href="registrazione.html" class="text-amber-400 hover:underline">Registrati</a>
             </div>
 
+            <!-- Privacy Footer -->
             <div class="mt-6 text-center text-xs text-slate-600">
                 Continuando accetti i nostri <a href="#" class="text-amber-400 hover:underline">Termini</a> e la <a href="#" class="text-amber-400 hover:underline">Privacy Policy</a>
             </div>
         </div>
     </div>
 
+    <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
     <script>
+        // ========== CONFIGURAZIONE SUPABASE ==========
         const SUPABASE_URL = 'https://fayuadwpchhixafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hoaXhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Verifica se utente già loggato
+        // ========== VERIFICA SESSIONE ESISTENTE ==========
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('🔍 Verifica sessione esistente...');
             
@@ -131,7 +147,7 @@
             }
         });
 
-        // Login Google
+        // ========== LOGIN GOOGLE OAUTH ==========
         document.getElementById('googleLoginBtn').addEventListener('click', async () => {
             console.log('🔐 [GOOGLE] Avvio login Google OAuth...');
             
@@ -150,7 +166,7 @@
             }
         });
 
-        // Login Email/Password
+        // ========== LOGIN EMAIL/PASSWORD ==========
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -178,6 +194,7 @@
             }, 1000);
         });
 
+        // ========== TOAST NOTIFICATION FUNCTION ==========
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toastMessage').textContent = message;
