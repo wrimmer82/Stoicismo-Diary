@@ -151,22 +151,15 @@
         const submitSpinner = document.getElementById('submitSpinner');
 
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🔍 Verifica sessione esistente...');
-            
             const { data: { session }, error } = await supabase.auth.getSession();
             
             if (session && !error) {
-                console.log('✅ Utente già loggato, redirect dashboard');
                 window.location.href = 'dashboard.html';
                 return;
             }
-
-            console.log('❌ Nessuna sessione attiva');
         });
 
         googleLoginBtn.addEventListener('click', async () => {
-            console.log('🔐 [GOOGLE] Avvio login Google OAuth...');
-            
             googleBtnText.textContent = 'Reindirizzamento...';
             googleSpinner.classList.remove('hidden');
             googleLoginBtn.disabled = true;
@@ -174,23 +167,15 @@
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${window.location.origin}/Stoicismo-Diary/dashboard.html`,
-                    queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent'
-                    }
+                    redirectTo: `${window.location.origin}/Stoicismo-Diary/dashboard.html`
                 }
             });
 
             if (error) {
-                console.error('❌ [ERROR] Login Google:', error);
                 showToast('Errore durante il login con Google: ' + error.message);
-                
                 googleBtnText.textContent = 'Continua con Google';
                 googleSpinner.classList.add('hidden');
                 googleLoginBtn.disabled = false;
-            } else {
-                console.log('✅ [REDIRECT] Redirect a Google OAuth in corso...');
             }
         });
 
@@ -205,8 +190,6 @@
                 return;
             }
 
-            console.log('🔐 [EMAIL] Tentativo login con email:', email);
-
             submitBtnText.textContent = 'Accesso...';
             submitSpinner.classList.remove('hidden');
             submitBtn.disabled = true;
@@ -217,8 +200,6 @@
             });
 
             if (error) {
-                console.error('❌ [ERROR] Login email:', error);
-                
                 let errorMessage = 'Email o password errati';
                 if (error.message.includes('Invalid login credentials')) {
                     errorMessage = 'Email o password non corretti';
@@ -229,16 +210,13 @@
                 }
                 
                 showToast(errorMessage);
-                
                 submitBtnText.textContent = 'Accedi';
                 submitSpinner.classList.add('hidden');
                 submitBtn.disabled = false;
                 return;
             }
 
-            console.log('✅ [SUCCESS] Login riuscito:', data.user.email);
             showToast('Login riuscito! Reindirizzamento...');
-            
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 1000);
@@ -252,18 +230,11 @@
         }
 
         supabase.auth.onAuthStateChange((event, session) => {
-            console.log('🔄 Auth state changed:', event);
-            
             if (event === 'SIGNED_IN' && session) {
-                console.log('✅ Login completato, redirect a dashboard');
                 showToast('Login riuscito!');
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1000);
-            }
-            
-            if (event === 'SIGNED_OUT') {
-                console.log('👋 Logout completato');
             }
         });
     </script>
