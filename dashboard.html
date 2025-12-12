@@ -21,31 +21,23 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* SFONDO PERGAMENA DA GITHUB */
         .pergamena-bg {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
                         url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
             position: relative;
         }
 
-        /* TESTI EVIDENZIATI - GIALLO BRILLANTE CON CONTORNO NERO MULTIPLO SPESSO */
         .highlighted-text {
             color: #fde047;
             font-weight: 900;
             font-style: italic;
             text-shadow: 
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
-                -4px 0 0 #000,
-                4px 0 0 #000,
-                0 -4px 0 #000,
-                0 4px 0 #000,
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
                 0 0 15px rgba(253, 224, 71, 1),
                 0 0 25px rgba(253, 224, 71, 0.8),
                 0 0 35px rgba(253, 224, 71, 0.6);
@@ -56,47 +48,33 @@
         .highlighted-text:hover {
             color: #facc15;
             text-shadow: 
-                -4px -4px 0 #000,
-                4px -4px 0 #000,
-                -4px 4px 0 #000,
-                4px 4px 0 #000,
-                -5px 0 0 #000,
-                5px 0 0 #000,
-                0 -5px 0 #000,
-                0 5px 0 #000,
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
+                -4px -4px 0 #000, 4px -4px 0 #000,
+                -4px 4px 0 #000, 4px 4px 0 #000,
+                -5px 0 0 #000, 5px 0 0 #000,
+                0 -5px 0 #000, 0 5px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
                 0 0 20px rgba(250, 204, 21, 1),
                 0 0 30px rgba(250, 204, 21, 0.9),
                 0 0 40px rgba(250, 204, 21, 0.7);
             transform: scale(1.02);
         }
 
-        /* NUMERI ROMANI - GIALLO BRILLANTE CON CONTORNO NERO MULTIPLO SPESSO */
         .roman-number {
             color: #fde047;
             font-weight: 900;
             font-size: 1.2em;
             text-shadow: 
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
-                -4px 0 0 #000,
-                4px 0 0 #000,
-                0 -4px 0 #000,
-                0 4px 0 #000,
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
                 0 0 15px rgba(253, 224, 71, 1);
             letter-spacing: 0.1em;
         }
 
-        /* TITOLI SEZIONI SU PERGAMENA */
         .section-title-parchment {
             color: #92400e;
             text-shadow: 
@@ -105,7 +83,6 @@
             font-weight: 900;
         }
 
-        /* CARD INTERPRETAZIONE/MICRO-SFIDA */
         .parchment-card {
             background: rgba(245, 222, 179, 0.95);
             border: 2px solid rgba(146, 64, 14, 0.4);
@@ -122,18 +99,11 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
-        /* SUNSET GRADIENT - IDENTICO LANDING PAGE */
         body {
             background: linear-gradient(180deg, 
-                #1a0f1f 0%,
-                #2d1b3d 10%,
-                #4a2c4f 20%,
-                #6b4a5a 35%,
-                #8b5a4e 50%,
-                #a8754a 65%,
-                #c49050 80%,
-                #a8754a 90%,
-                #1c1410 100%
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
+                #c49050 80%, #a8754a 90%, #1c1410 100%
             );
             min-height: 100vh;
             background-attachment: fixed;
@@ -166,6 +136,12 @@
             transform: translateX(-100%);
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #mobileSidebar::-webkit-scrollbar {
+            display: none;
         }
 
         #mobileSidebar.active {
@@ -239,15 +215,6 @@
             .desktop-textarea {
                 height: 200px;
             }
-        }
-
-        #mobileSidebar::-webkit-scrollbar {
-            display: none;
-        }
-
-        #mobileSidebar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
         }
     </style>
 </head>
@@ -370,7 +337,6 @@
             
             <div id="viewOggi" class="view-container">
                 
-                <!-- CONTENUTO QUOTIDIANO CON SFONDO PERGAMENA -->
                 <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
                     <div class="text-center mb-6">
                         <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
@@ -389,7 +355,6 @@
                     </div>
 
                     <div id="dailyContent" class="hidden space-y-6">
-                        <!-- CITAZIONE -->
                         <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
                             <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
                                 "..."
@@ -399,7 +364,6 @@
                             </p>
                         </div>
 
-                        <!-- INTERPRETAZIONE -->
                         <div class="parchment-card rounded-lg p-4 md:p-6">
                             <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Interpretazione
@@ -409,7 +373,6 @@
                             </p>
                         </div>
 
-                        <!-- MICRO-SFIDA -->
                         <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
                             <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Micro-Sfida di Oggi
@@ -421,7 +384,6 @@
                     </div>
                 </div>
 
-                <!-- LE TUE RIFLESSIONI -->
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
                         Le Tue Riflessioni di Oggi
@@ -449,7 +411,6 @@
                     </div>
                 </div>
 
-                <!-- IL TUO PROGRESSO -->
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
                         Il Tuo Progresso
@@ -590,33 +551,38 @@
             return `tipo${cycle}`;
         }
 
+        // ✅ CORREZIONE 1: Verifica autenticazione REALE e redirect se non loggato
         document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { user }, error } = await supabase.auth.getUser();
+            console.log('🔍 Verifico autenticazione...');
             
-            if (!user || error) {
-                console.warn('Nessun utente loggato, usando dati mock');
-                const mockUser = { id: 'mock-user-id', user_metadata: { name: 'Stoico' } };
-                loadUserData(mockUser);
-                loadDailyContent();
-                loadProgressData(mockUser.id);
-                setupEventListeners();
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (!session || error) {
+                console.warn('❌ Nessuna sessione attiva, redirect a registrazione');
+                window.location.href = 'registrazione.html';
                 return;
             }
+
+            const user = session.user;
+            console.log('✅ Utente autenticato:', user.id);
+            console.log('📧 Email:', user.email);
+            console.log('👤 Metadata:', user.user_metadata);
 
             loadUserData(user);
             loadDailyContent();
-            loadProgressData(user.id);
+            await loadProgressData(user.id);
             setupEventListeners();
         });
 
-        async function loadUserData(user) {
-            if (user.id === 'mock-user-id') {
-                document.getElementById('userName').textContent = 'Stoico';
-                return;
-            }
-
-            const { data } = await supabase.from('users').select('name').eq('id', user.id).single();
-            document.getElementById('userName').textContent = data?.name || user.user_metadata?.name || 'Stoico';
+        // ✅ CORREZIONE 2: Carica nome REALE da user_metadata o email
+        function loadUserData(user) {
+            const displayName = user.user_metadata?.full_name || 
+                                user.user_metadata?.name || 
+                                user.email?.split('@')[0] || 
+                                'Stoico';
+            
+            console.log('👤 Nome visualizzato:', displayName);
+            document.getElementById('userName').textContent = displayName;
         }
 
         function loadDailyContent() {
@@ -637,13 +603,81 @@
             }, 800);
         }
 
+        // ✅ CORREZIONE 3: Carica progresso REALE da Supabase
         async function loadProgressData(userId) {
-            const mockData = { streak: 2, totalReflections: 0, completedChallenges: 0, totalChallenges: 10 };
-            updateProgressUI(mockData);
+            console.log('📊 Carico progresso reale per user:', userId);
+            
+            try {
+                // Query riflessioni utente
+                const { data: reflections, error: reflError } = await supabase
+                    .from('reflections')
+                    .select('date, created_at')
+                    .eq('user_id', userId)
+                    .order('date', { ascending: false });
+
+                if (reflError) {
+                    console.error('❌ Errore caricamento riflessioni:', reflError);
+                    updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+                    return;
+                }
+
+                console.log('✅ Riflessioni caricate:', reflections?.length || 0);
+
+                // Calcola streak da date riflessioni
+                const streak = calculateStreak(reflections || []);
+                const totalReflections = reflections?.length || 0;
+
+                updateProgressUI({
+                    streak,
+                    totalReflections,
+                    completedChallenges: totalReflections,
+                    totalChallenges: 365
+                });
+
+            } catch (error) {
+                console.error('❌ Errore generale:', error);
+                updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+            }
+        }
+
+        // Calcola streak da array di riflessioni
+        function calculateStreak(reflections) {
+            if (!reflections || reflections.length === 0) return 0;
+
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+            
+            // Estrai date uniche ordinate
+            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+            
+            // Se non ha scritto oggi O ieri, streak = 0
+            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
+                return 0;
+            }
+
+            let streak = 0;
+            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+
+            for (const dateStr of uniqueDates) {
+                const refDate = new Date(dateStr);
+                const expectedDate = new Date(currentDate);
+                expectedDate.setHours(0, 0, 0, 0);
+                refDate.setHours(0, 0, 0, 0);
+
+                if (refDate.getTime() === expectedDate.getTime()) {
+                    streak++;
+                    currentDate = new Date(currentDate.getTime() - 86400000); // giorno precedente
+                } else {
+                    break;
+                }
+            }
+
+            return streak;
         }
 
         function updateProgressUI(data) {
             const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+            
             document.getElementById('headerStreak').textContent = data.streak;
             document.getElementById('mobileStreak').textContent = data.streak;
             document.getElementById('progressStreak').textContent = data.streak;
@@ -651,6 +685,7 @@
             document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
             document.getElementById('progressBar').style.width = `${percentage}%`;
             document.getElementById('progressPercentage').textContent = `${percentage}%`;
+            
             document.getElementById('progressStreakDesktop').textContent = data.streak;
             document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
             document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
@@ -694,6 +729,7 @@
                 document.getElementById('charCount').textContent = textarea.value.length;
             });
 
+            // ✅ CORREZIONE 4: Salva REALMENTE su Supabase
             document.getElementById('saveBtn').addEventListener('click', async () => {
                 const text = textarea.value.trim();
                 if (!text) {
@@ -701,27 +737,33 @@
                     return;
                 }
 
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user || user.id === 'mock-user-id') {
-                    showToast('Riflessione salvata (demo)!');
-                    textarea.value = '';
-                    document.getElementById('charCount').textContent = '0';
+                console.log('💾 Salvataggio riflessione...');
+
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    showToast('Errore: non autenticato');
+                    window.location.href = 'registrazione.html';
                     return;
                 }
 
-                const { error } = await supabase.from('reflections').insert({
-                    user_id: user.id,
+                const { data, error } = await supabase.from('reflections').insert({
+                    user_id: session.user.id,
                     content: text,
                     date: new Date().toISOString().split('T')[0],
                     content_type: getDailyContentType()
                 });
 
                 if (error) {
-                    showToast('Errore nel salvare');
+                    console.error('❌ Errore salvataggio:', error);
+                    showToast('Errore nel salvare: ' + error.message);
                 } else {
-                    showToast('Riflessione salvata!');
+                    console.log('✅ Riflessione salvata!');
+                    showToast('✅ Riflessione salvata!');
                     textarea.value = '';
                     document.getElementById('charCount').textContent = '0';
+                    
+                    // Ricarica progresso
+                    await loadProgressData(session.user.id);
                 }
             });
 
@@ -732,6 +774,7 @@
             });
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
+                console.log('👋 Logout...');
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
             });
