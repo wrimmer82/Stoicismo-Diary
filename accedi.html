@@ -41,12 +41,21 @@
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
         }
 
         .shake {
-            animation: shake 0.5s;
+            animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading-pulse {
+            animation: pulse 1.5s ease-in-out infinite;
         }
 
         .input-error {
@@ -59,6 +68,12 @@
             box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
         }
 
+        .input-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #1e293b !important;
+        }
+
         .password-toggle {
             cursor: pointer;
             user-select: none;
@@ -67,6 +82,10 @@
 
         .password-toggle:hover {
             transform: scale(1.1);
+        }
+
+        .password-toggle:active {
+            transform: scale(0.95);
         }
 
         .error-message {
@@ -82,6 +101,18 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        /* Loading overlay sul form */
+        .form-loading::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(2px);
+            border-radius: 0.5rem;
+            pointer-events: none;
+            z-index: 10;
         }
     </style>
 </head>
@@ -101,7 +132,7 @@
             <!-- Google Login Button -->
             <button 
                 id="googleLoginBtn"
-                class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6"
+                class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 <svg class="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -124,7 +155,7 @@
             </div>
 
             <!-- Form Login Email/Password -->
-            <form id="loginForm" class="space-y-4">
+            <form id="loginForm" class="space-y-4 relative">
                 <!-- Email -->
                 <div>
                     <label class="block text-sm font-medium mb-2">Email</label>
@@ -254,7 +285,7 @@
         emailInput.addEventListener('input', () => {
             emailError.classList.add('hidden');
             emailSuccess.classList.add('hidden');
-            emailInput.classList.remove('input-error', 'input-success');
+            emailInput.classList.remove('input-error', 'input-success', 'shake');
         });
 
         emailInput.addEventListener('blur', () => {
@@ -264,18 +295,16 @@
             if (!email) {
                 emailError.textContent = "L'email è obbligatoria";
                 emailError.classList.remove('hidden');
-                emailInput.classList.add('input-error');
-                emailInput.classList.add('shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 500);
+                emailInput.classList.add('input-error', 'shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 600);
                 return;
             }
 
             if (!emailRegex.test(email)) {
                 emailError.textContent = "Inserisci un'email valida";
                 emailError.classList.remove('hidden');
-                emailInput.classList.add('input-error');
-                emailInput.classList.add('shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 500);
+                emailInput.classList.add('input-error', 'shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 600);
                 return;
             }
 
@@ -285,11 +314,44 @@
             emailInput.classList.add('input-success');
         });
 
+        // ========== HELPER: SET LOADING STATE ==========
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                // Disabilita tutti gli input
+                emailInput.disabled = true;
+                passwordInput.disabled = true;
+                submitBtn.disabled = true;
+                googleLoginBtn.disabled = true;
+                togglePassword.disabled = true;
+                
+                // Aggiungi classe disabled agli input
+                emailInput.classList.add('input-disabled', 'loading-pulse');
+                passwordInput.classList.add('input-disabled', 'loading-pulse');
+                
+                // Aggiungi overlay al form
+                loginForm.classList.add('form-loading');
+            } else {
+                // Riabilita tutti gli input
+                emailInput.disabled = false;
+                passwordInput.disabled = false;
+                submitBtn.disabled = false;
+                googleLoginBtn.disabled = false;
+                togglePassword.disabled = false;
+                
+                // Rimuovi classe disabled
+                emailInput.classList.remove('input-disabled', 'loading-pulse');
+                passwordInput.classList.remove('input-disabled', 'loading-pulse');
+                
+                // Rimuovi overlay
+                loginForm.classList.remove('form-loading');
+            }
+        }
+
         // ========== LOGIN GOOGLE OAUTH ==========
         googleLoginBtn.addEventListener('click', async () => {
             googleBtnText.textContent = 'Reindirizzamento...';
             googleSpinner.classList.remove('hidden');
-            googleLoginBtn.disabled = true;
+            setLoadingState(true);
             
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
@@ -302,7 +364,7 @@
                 showToast('Errore durante il login con Google: ' + error.message);
                 googleBtnText.textContent = 'Continua con Google';
                 googleSpinner.classList.add('hidden');
-                googleLoginBtn.disabled = false;
+                setLoadingState(false);
             }
         });
 
@@ -316,8 +378,8 @@
             // Reset errori
             emailError.classList.add('hidden');
             passwordError.classList.add('hidden');
-            emailInput.classList.remove('input-error');
-            passwordInput.classList.remove('input-error');
+            emailInput.classList.remove('input-error', 'shake');
+            passwordInput.classList.remove('input-error', 'shake');
 
             // Validazione
             let hasError = false;
@@ -325,16 +387,16 @@
             if (!email) {
                 emailError.textContent = "Inserisci la tua email";
                 emailError.classList.remove('hidden');
-                emailInput.classList.add('input-error');
+                emailInput.classList.add('input-error', 'shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 600);
                 hasError = true;
             }
 
             if (!password) {
                 passwordError.textContent = "Inserisci la tua password";
                 passwordError.classList.remove('hidden');
-                passwordInput.classList.add('input-error');
-                passwordInput.classList.add('shake');
-                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+                passwordInput.classList.add('input-error', 'shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 600);
                 hasError = true;
             }
 
@@ -343,12 +405,10 @@
                 return;
             }
 
-            // Mostra loading
-            submitBtnText.textContent = 'Accesso...';
+            // Attiva loading state
+            submitBtnText.textContent = 'Accesso in corso...';
             submitSpinner.classList.remove('hidden');
-            submitBtn.disabled = true;
-            emailInput.disabled = true;
-            passwordInput.disabled = true;
+            setLoadingState(true);
 
             const { data, error } = await supabase.auth.signInWithPassword({
                 email,
@@ -362,27 +422,32 @@
                 
                 if (error.message.includes('Invalid login credentials')) {
                     errorMessage = 'Email o password non corretti';
-                    passwordInput.classList.add('input-error');
-                    passwordInput.classList.add('shake');
-                    setTimeout(() => passwordInput.classList.remove('shake'), 500);
+                    emailInput.classList.add('input-error', 'shake');
+                    passwordInput.classList.add('input-error', 'shake');
+                    setTimeout(() => {
+                        emailInput.classList.remove('shake');
+                        passwordInput.classList.remove('shake');
+                    }, 600);
                 } else if (error.message.includes('Email not confirmed')) {
                     errorMessage = 'Conferma prima la tua email';
+                    emailInput.classList.add('input-error', 'shake');
+                    setTimeout(() => emailInput.classList.remove('shake'), 600);
                 } else {
                     errorMessage = error.message;
                 }
                 
                 showToast(errorMessage);
                 
-                // Reset button
+                // Reset loading state
                 submitBtnText.textContent = 'Accedi';
                 submitSpinner.classList.add('hidden');
-                submitBtn.disabled = false;
-                emailInput.disabled = false;
-                passwordInput.disabled = false;
+                setLoadingState(false);
                 return;
             }
 
-            showToast('Login riuscito! Reindirizzamento...');
+            showToast('✅ Login riuscito! Reindirizzamento...');
+            
+            // Mantieni loading state durante redirect
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 1000);
@@ -393,13 +458,14 @@
             const toast = document.getElementById('toast');
             document.getElementById('toastMessage').textContent = message;
             toast.style.transform = 'translateY(0)';
-            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
+            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3500);
         }
 
         // ========== GESTIONE CALLBACK OAUTH ==========
         supabase.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_IN' && session) {
-                showToast('Login riuscito!');
+                showToast('✅ Login riuscito!');
+                setLoadingState(true);
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 1000);
