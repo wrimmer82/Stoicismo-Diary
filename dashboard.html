@@ -21,31 +21,23 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* SFONDO PERGAMENA DA GITHUB */
         .pergamena-bg {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
                         url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
             position: relative;
         }
 
-        /* TESTI EVIDENZIATI - GIALLO BRILLANTE CON CONTORNO NERO MULTIPLO SPESSO */
         .highlighted-text {
             color: #fde047;
             font-weight: 900;
             font-style: italic;
             text-shadow: 
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
-                -4px 0 0 #000,
-                4px 0 0 #000,
-                0 -4px 0 #000,
-                0 4px 0 #000,
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
                 0 0 15px rgba(253, 224, 71, 1),
                 0 0 25px rgba(253, 224, 71, 0.8),
                 0 0 35px rgba(253, 224, 71, 0.6);
@@ -56,47 +48,33 @@
         .highlighted-text:hover {
             color: #facc15;
             text-shadow: 
-                -4px -4px 0 #000,
-                4px -4px 0 #000,
-                -4px 4px 0 #000,
-                4px 4px 0 #000,
-                -5px 0 0 #000,
-                5px 0 0 #000,
-                0 -5px 0 #000,
-                0 5px 0 #000,
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
+                -4px -4px 0 #000, 4px -4px 0 #000,
+                -4px 4px 0 #000, 4px 4px 0 #000,
+                -5px 0 0 #000, 5px 0 0 #000,
+                0 -5px 0 #000, 0 5px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
                 0 0 20px rgba(250, 204, 21, 1),
                 0 0 30px rgba(250, 204, 21, 0.9),
                 0 0 40px rgba(250, 204, 21, 0.7);
             transform: scale(1.02);
         }
 
-        /* NUMERI ROMANI - GIALLO BRILLANTE CON CONTORNO NERO MULTIPLO SPESSO */
         .roman-number {
             color: #fde047;
             font-weight: 900;
             font-size: 1.2em;
             text-shadow: 
-                -3px -3px 0 #000,
-                3px -3px 0 #000,
-                -3px 3px 0 #000,
-                3px 3px 0 #000,
-                -4px 0 0 #000,
-                4px 0 0 #000,
-                0 -4px 0 #000,
-                0 4px 0 #000,
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
                 0 0 15px rgba(253, 224, 71, 1);
             letter-spacing: 0.1em;
         }
 
-        /* TITOLI SEZIONI SU PERGAMENA */
         .section-title-parchment {
             color: #92400e;
             text-shadow: 
@@ -105,7 +83,6 @@
             font-weight: 900;
         }
 
-        /* CARD INTERPRETAZIONE/MICRO-SFIDA */
         .parchment-card {
             background: rgba(245, 222, 179, 0.95);
             border: 2px solid rgba(146, 64, 14, 0.4);
@@ -122,18 +99,11 @@
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
 
-        /* SUNSET GRADIENT - IDENTICO LANDING PAGE */
         body {
             background: linear-gradient(180deg, 
-                #1a0f1f 0%,
-                #2d1b3d 10%,
-                #4a2c4f 20%,
-                #6b4a5a 35%,
-                #8b5a4e 50%,
-                #a8754a 65%,
-                #c49050 80%,
-                #a8754a 90%,
-                #1c1410 100%
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
+                #c49050 80%, #a8754a 90%, #1c1410 100%
             );
             min-height: 100vh;
             background-attachment: fixed;
@@ -370,7 +340,6 @@
             
             <div id="viewOggi" class="view-container">
                 
-                <!-- CONTENUTO QUOTIDIANO CON SFONDO PERGAMENA -->
                 <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
                     <div class="text-center mb-6">
                         <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
@@ -389,7 +358,6 @@
                     </div>
 
                     <div id="dailyContent" class="hidden space-y-6">
-                        <!-- CITAZIONE -->
                         <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
                             <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
                                 "..."
@@ -399,7 +367,6 @@
                             </p>
                         </div>
 
-                        <!-- INTERPRETAZIONE -->
                         <div class="parchment-card rounded-lg p-4 md:p-6">
                             <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Interpretazione
@@ -409,7 +376,6 @@
                             </p>
                         </div>
 
-                        <!-- MICRO-SFIDA -->
                         <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
                             <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Micro-Sfida di Oggi
@@ -421,7 +387,6 @@
                     </div>
                 </div>
 
-                <!-- LE TUE RIFLESSIONI -->
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
                         Le Tue Riflessioni di Oggi
@@ -449,7 +414,6 @@
                     </div>
                 </div>
 
-                <!-- IL TUO PROGRESSO -->
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
                     <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
                         Il Tuo Progresso
@@ -536,6 +500,221 @@
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hoaXhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        // ========================================
+        // GESTIONE OAUTH CALLBACK
+        // ========================================
+        async function handleOAuthCallback() {
+            const hashParams = new URLSearchParams(window.location.hash.substring(1));
+            const access_token = hashParams.get('access_token');
+            const refresh_token = hashParams.get('refresh_token');
+
+            if (access_token && refresh_token) {
+                console.log('🔄 Rilevato OAuth callback, salvo sessione...');
+                
+                const { data, error } = await supabase.auth.setSession({
+                    access_token: access_token,
+                    refresh_token: refresh_token
+                });
+
+                if (error) {
+                    console.error('❌ Errore setSession:', error);
+                    showToast('Errore durante il login');
+                    return;
+                }
+
+                if (data.session) {
+                    console.log('✅ Sessione OAuth salvata!', data.session.user.email);
+                    // Pulisci URL dai parametri OAuth
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            }
+        }
+
+        // ========================================
+        // RECUPERO UTENTE CORRENTE
+        // ========================================
+        async function getCurrentUser() {
+            const { data: { user }, error } = await supabase.auth.getUser();
+
+            if (error) {
+                console.error('❌ Errore getUser:', error);
+                return null;
+            }
+
+            if (!user) {
+                console.warn('⚠️ Nessun utente loggato');
+                return null;
+            }
+
+            console.log('✅ Utente loggato:', user.email, user.id);
+
+            // Recupera nome da user_metadata (Google OAuth) o profiles table
+            let userName = user.email.split('@')[0]; // Fallback
+
+            if (user.user_metadata?.full_name) {
+                userName = user.user_metadata.full_name;
+            } else if (user.user_metadata?.name) {
+                userName = user.user_metadata.name;
+            }
+
+            // Prova a recuperare da profiles table (se esiste)
+            const { data: profile } = await supabase
+                .from('profiles')
+                .select('name')
+                .eq('id', user.id)
+                .single();
+
+            if (profile?.name) {
+                userName = profile.name;
+            }
+
+            return {
+                id: user.id,
+                email: user.email,
+                name: userName
+            };
+        }
+
+        // ========================================
+        // SALVATAGGIO RIFLESSIONE REALE
+        // ========================================
+        async function saveReflection() {
+            const textarea = document.getElementById('reflectionTextarea');
+            const content = textarea.value.trim();
+
+            if (!content) {
+                showToast('Scrivi prima una riflessione!');
+                return;
+            }
+
+            const user = await getCurrentUser();
+
+            if (!user) {
+                showToast('Devi essere loggato per salvare!');
+                setTimeout(() => {
+                    window.location.href = 'accedi.html';
+                }, 2000);
+                return;
+            }
+
+            console.log('💾 Salvataggio riflessione per utente:', user.email);
+
+            const { data, error } = await supabase
+                .from('reflections')
+                .insert({
+                    user_id: user.id,
+                    content: content,
+                    date: new Date().toISOString().split('T')[0],
+                    content_type: getDailyContentType()
+                })
+                .select();
+
+            if (error) {
+                console.error('❌ Errore salvataggio riflessione:', error);
+                showToast('Errore nel salvataggio: ' + error.message);
+                return;
+            }
+
+            console.log('✅ Riflessione salvata con successo!', data);
+            showToast('✅ Riflessione salvata con successo!');
+
+            textarea.value = '';
+            document.getElementById('charCount').textContent = '0';
+
+            // Ricarica progresso
+            loadProgressData(user.id);
+        }
+
+        // ========================================
+        // CARICAMENTO PROGRESSO REALE
+        // ========================================
+        async function loadProgressData(userId) {
+            console.log('📊 Caricamento progresso per utente:', userId);
+
+            // Conta riflessioni totali
+            const { count: totalReflections, error: reflError } = await supabase
+                .from('reflections')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', userId);
+
+            if (reflError) {
+                console.error('❌ Errore conteggio riflessioni:', reflError);
+            }
+
+            // Calcola streak (giorni consecutivi con almeno 1 riflessione)
+            const { data: reflections, error: streakError } = await supabase
+                .from('reflections')
+                .select('date')
+                .eq('user_id', userId)
+                .order('date', { ascending: false })
+                .limit(365);
+
+            let streak = 0;
+            if (!streakError && reflections && reflections.length > 0) {
+                const today = new Date().toISOString().split('T')[0];
+                const dates = reflections.map(r => r.date).sort().reverse();
+                
+                let currentDate = new Date(today);
+                for (let date of dates) {
+                    const reflDate = new Date(date);
+                    const diff = Math.floor((currentDate - reflDate) / (1000 * 60 * 60 * 24));
+                    
+                    if (diff === 0 || diff === 1) {
+                        streak++;
+                        currentDate = reflDate;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            const progressData = {
+                streak: streak,
+                totalReflections: totalReflections || 0,
+                completedChallenges: Math.min(totalReflections || 0, 10),
+                totalChallenges: 10
+            };
+
+            console.log('✅ Progresso caricato:', progressData);
+            updateProgressUI(progressData);
+        }
+
+        // ========================================
+        // AGGIORNAMENTO UI PROGRESSO
+        // ========================================
+        function updateProgressUI(data) {
+            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+            
+            document.getElementById('headerStreak').textContent = data.streak;
+            document.getElementById('mobileStreak').textContent = data.streak;
+            document.getElementById('progressStreak').textContent = data.streak;
+            document.getElementById('progressReflections').textContent = data.totalReflections;
+            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressPercentage').textContent = `${percentage}%`;
+            document.getElementById('progressStreakDesktop').textContent = data.streak;
+            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
+            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
+            document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
+        }
+
+        // ========================================
+        // AGGIORNAMENTO SALUTO UTENTE
+        // ========================================
+        async function updateUserGreeting() {
+            const user = await getCurrentUser();
+
+            if (user) {
+                document.getElementById('userName').textContent = user.name;
+            } else {
+                document.getElementById('userName').textContent = 'Visitatore';
+            }
+        }
+
+        // ========================================
+        // UTILITY FUNCTIONS
+        // ========================================
         function arabicToRoman(num) {
             const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
             const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
@@ -547,6 +726,20 @@
                 }
             }
             return roman;
+        }
+
+        function getDayOfYear() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+
+        function getDailyContentType() {
+            const dayNum = getDayOfYear();
+            const cycle = (dayNum % 4) + 1;
+            return `tipo${cycle}`;
         }
 
         const dailyContents = {
@@ -576,49 +769,6 @@
             }
         };
 
-        function getDayOfYear() {
-            const now = new Date();
-            const start = new Date(now.getFullYear(), 0, 0);
-            const diff = now - start;
-            const oneDay = 1000 * 60 * 60 * 24;
-            return Math.floor(diff / oneDay);
-        }
-
-        function getDailyContentType() {
-            const dayNum = getDayOfYear();
-            const cycle = (dayNum % 4) + 1;
-            return `tipo${cycle}`;
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { user }, error } = await supabase.auth.getUser();
-            
-            if (!user || error) {
-                console.warn('Nessun utente loggato, usando dati mock');
-                const mockUser = { id: 'mock-user-id', user_metadata: { name: 'Stoico' } };
-                loadUserData(mockUser);
-                loadDailyContent();
-                loadProgressData(mockUser.id);
-                setupEventListeners();
-                return;
-            }
-
-            loadUserData(user);
-            loadDailyContent();
-            loadProgressData(user.id);
-            setupEventListeners();
-        });
-
-        async function loadUserData(user) {
-            if (user.id === 'mock-user-id') {
-                document.getElementById('userName').textContent = 'Stoico';
-                return;
-            }
-
-            const { data } = await supabase.from('users').select('name').eq('id', user.id).single();
-            document.getElementById('userName').textContent = data?.name || user.user_metadata?.name || 'Stoico';
-        }
-
         function loadDailyContent() {
             const dayOfYear = getDayOfYear();
             const dayRoman = arabicToRoman(dayOfYear);
@@ -637,27 +787,21 @@
             }, 800);
         }
 
-        async function loadProgressData(userId) {
-            const mockData = { streak: 2, totalReflections: 0, completedChallenges: 0, totalChallenges: 10 };
-            updateProgressUI(mockData);
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.style.transform = 'translateY(0)';
+            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
         }
 
-        function updateProgressUI(data) {
-            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
-            document.getElementById('headerStreak').textContent = data.streak;
-            document.getElementById('mobileStreak').textContent = data.streak;
-            document.getElementById('progressStreak').textContent = data.streak;
-            document.getElementById('progressReflections').textContent = data.totalReflections;
-            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBar').style.width = `${percentage}%`;
-            document.getElementById('progressPercentage').textContent = `${percentage}%`;
-            document.getElementById('progressStreakDesktop').textContent = data.streak;
-            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
-            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
-            document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
+        function switchView(viewName) {
+            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
         }
 
+        // ========================================
+        // SETUP EVENT LISTENERS
+        // ========================================
         function setupEventListeners() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
@@ -694,36 +838,7 @@
                 document.getElementById('charCount').textContent = textarea.value.length;
             });
 
-            document.getElementById('saveBtn').addEventListener('click', async () => {
-                const text = textarea.value.trim();
-                if (!text) {
-                    showToast('Scrivi prima una riflessione!');
-                    return;
-                }
-
-                const { data: { user } } = await supabase.auth.getUser();
-                if (!user || user.id === 'mock-user-id') {
-                    showToast('Riflessione salvata (demo)!');
-                    textarea.value = '';
-                    document.getElementById('charCount').textContent = '0';
-                    return;
-                }
-
-                const { error } = await supabase.from('reflections').insert({
-                    user_id: user.id,
-                    content: text,
-                    date: new Date().toISOString().split('T')[0],
-                    content_type: getDailyContentType()
-                });
-
-                if (error) {
-                    showToast('Errore nel salvare');
-                } else {
-                    showToast('Riflessione salvata!');
-                    textarea.value = '';
-                    document.getElementById('charCount').textContent = '0';
-                }
-            });
+            document.getElementById('saveBtn').addEventListener('click', saveReflection);
 
             document.getElementById('copyBtn').addEventListener('click', () => {
                 const text = textarea.value;
@@ -737,17 +852,41 @@
             });
         }
 
-        function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-            document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = message;
-            toast.style.transform = 'translateY(0)';
-            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
-        }
+        // ========================================
+        // INIT APP
+        // ========================================
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 Inizializzazione dashboard...');
+            
+            // 1. Gestisci callback OAuth
+            await handleOAuthCallback();
+            
+            // 2. Recupera utente corrente
+            const user = await getCurrentUser();
+            
+            if (!user) {
+                console.warn('⚠️ Utente non loggato, redirect a login...');
+                showToast('Devi effettuare il login');
+                setTimeout(() => {
+                    window.location.href = 'accedi.html';
+                }, 2000);
+                return;
+            }
+            
+            // 3. Aggiorna UI con dati utente
+            await updateUserGreeting();
+            
+            // 4. Carica contenuto quotidiano
+            loadDailyContent();
+            
+            // 5. Carica progresso utente
+            await loadProgressData(user.id);
+            
+            // 6. Setup event listeners
+            setupEventListeners();
+            
+            console.log('✅ Dashboard inizializzata con successo!');
+        });
     </script>
 </body>
 </html>
