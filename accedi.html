@@ -45,7 +45,6 @@
     <div class="min-h-screen flex items-center justify-center p-4">
         <div class="max-w-md w-full bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-amber-500/20 shadow-2xl p-8">
             
-            <!-- Header con Logo Cliccabile -->
             <div class="text-center mb-8">
                 <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
                     <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
@@ -54,7 +53,6 @@
                 <p class="text-slate-400">Accedi per continuare il tuo percorso stoico</p>
             </div>
 
-            <!-- Google Login Button -->
             <button 
                 id="googleLoginBtn"
                 class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6"
@@ -69,7 +67,6 @@
                 <div id="googleSpinner" class="spinner hidden"></div>
             </button>
 
-            <!-- Divider -->
             <div class="relative mb-6">
                 <div class="absolute inset-0 flex items-center">
                     <div class="w-full border-t border-slate-700"></div>
@@ -79,7 +76,6 @@
                 </div>
             </div>
 
-            <!-- Form Login Email/Password -->
             <form id="loginForm" class="space-y-4">
                 <div>
                     <label class="block text-sm font-medium mb-2">Email</label>
@@ -105,13 +101,11 @@
                     >
                 </div>
 
-                <!-- Remember Me Checkbox -->
                 <div class="flex items-center">
                     <input type="checkbox" id="rememberMe" class="mr-2">
                     <label for="rememberMe" class="text-sm text-slate-400">Ricordami su questo dispositivo</label>
                 </div>
 
-                <!-- Submit Button -->
                 <button 
                     type="submit"
                     id="submitBtn"
@@ -122,36 +116,30 @@
                 </button>
             </form>
 
-            <!-- Password Dimenticata -->
             <div class="mt-6 text-center">
                 <a href="#" class="text-amber-400 hover:underline text-sm">Password dimenticata?</a>
             </div>
 
-            <!-- Link Registrazione -->
             <div class="mt-4 text-center text-sm text-slate-500">
                 Non hai ancora un account? <a href="registrazione.html" class="text-amber-400 hover:underline">Registrati</a>
             </div>
 
-            <!-- Privacy Footer -->
             <div class="mt-6 text-center text-xs text-slate-600">
                 Continuando accetti i nostri <a href="#" class="text-amber-400 hover:underline">Termini</a> e la <a href="#" class="text-amber-400 hover:underline">Privacy Policy</a>
             </div>
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
     <script>
-        // ========== CONFIGURAZIONE SUPABASE ==========
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // ========== ELEMENTI DOM ==========
         const googleLoginBtn = document.getElementById('googleLoginBtn');
         const googleBtnText = document.getElementById('googleBtnText');
         const googleSpinner = document.getElementById('googleSpinner');
@@ -162,7 +150,6 @@
         const submitBtnText = document.getElementById('submitBtnText');
         const submitSpinner = document.getElementById('submitSpinner');
 
-        // ========== VERIFICA SESSIONE ESISTENTE ==========
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('🔍 Verifica sessione esistente...');
             
@@ -177,11 +164,9 @@
             console.log('❌ Nessuna sessione attiva');
         });
 
-        // ========== LOGIN GOOGLE OAUTH ==========
         googleLoginBtn.addEventListener('click', async () => {
             console.log('🔐 [GOOGLE] Avvio login Google OAuth...');
             
-            // Mostra spinner
             googleBtnText.textContent = 'Reindirizzamento...';
             googleSpinner.classList.remove('hidden');
             googleLoginBtn.disabled = true;
@@ -201,7 +186,6 @@
                 console.error('❌ [ERROR] Login Google:', error);
                 showToast('Errore durante il login con Google: ' + error.message);
                 
-                // Reset button
                 googleBtnText.textContent = 'Continua con Google';
                 googleSpinner.classList.add('hidden');
                 googleLoginBtn.disabled = false;
@@ -210,7 +194,6 @@
             }
         });
 
-        // ========== LOGIN EMAIL/PASSWORD ==========
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -224,7 +207,6 @@
 
             console.log('🔐 [EMAIL] Tentativo login con email:', email);
 
-            // Mostra spinner
             submitBtnText.textContent = 'Accesso...';
             submitSpinner.classList.remove('hidden');
             submitBtn.disabled = true;
@@ -248,7 +230,6 @@
                 
                 showToast(errorMessage);
                 
-                // Reset button
                 submitBtnText.textContent = 'Accedi';
                 submitSpinner.classList.add('hidden');
                 submitBtn.disabled = false;
@@ -263,7 +244,6 @@
             }, 1000);
         });
 
-        // ========== TOAST NOTIFICATION ==========
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toastMessage').textContent = message;
@@ -271,8 +251,6 @@
             setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
         }
 
-        // ========== GESTIONE CALLBACK OAUTH ==========
-        // Gestisce il ritorno da Google OAuth
         supabase.auth.onAuthStateChange((event, session) => {
             console.log('🔄 Auth state changed:', event);
             
