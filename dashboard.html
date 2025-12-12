@@ -493,8 +493,9 @@
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://fayuadwpchhixafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hoaXhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
+        // ========== CONFIGURAZIONE SUPABASE ==========
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1OTg4MTksImV4cCI6MjA0OTE3NDgxOX0.xfmk-kGpDo3FVcLEr6rIk1YZBB01qmFaNO_dq_Nm0KU';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         function arabicToRoman(num) {
@@ -551,30 +552,36 @@
             return `tipo${cycle}`;
         }
 
-        // ✅ CORREZIONE 1: Verifica autenticazione REALE e redirect se non loggato
+        // ✅ CORREZIONE PRINCIPALE: Verifica autenticazione e redirect corretto
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🔍 Verifico autenticazione...');
+            console.log('🔍 Dashboard: Verifico autenticazione...');
             
-            const { data: { session }, error } = await supabase.auth.getSession();
-            
-            if (!session || error) {
-                console.warn('❌ Nessuna sessione attiva, redirect a registrazione');
-                window.location.href = 'registrazione.html';
-                return;
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
+                
+                if (!session || error) {
+                    console.warn('❌ Nessuna sessione attiva, redirect a login');
+                    // ✅ FIX: Redirect ad ACCEDI, non REGISTRAZIONE
+                    window.location.href = 'accedi.html';
+                    return;
+                }
+
+                const user = session.user;
+                console.log('✅ Utente autenticato:', user.id);
+                console.log('📧 Email:', user.email);
+                console.log('👤 Provider:', user.app_metadata?.provider);
+
+                loadUserData(user);
+                loadDailyContent();
+                await loadProgressData(user.id);
+                setupEventListeners();
+                
+            } catch (error) {
+                console.error('❌ Errore verifica sessione:', error);
+                window.location.href = 'accedi.html';
             }
-
-            const user = session.user;
-            console.log('✅ Utente autenticato:', user.id);
-            console.log('📧 Email:', user.email);
-            console.log('👤 Metadata:', user.user_metadata);
-
-            loadUserData(user);
-            loadDailyContent();
-            await loadProgressData(user.id);
-            setupEventListeners();
         });
 
-        // ✅ CORREZIONE 2: Carica nome REALE da user_metadata o email
         function loadUserData(user) {
             const displayName = user.user_metadata?.full_name || 
                                 user.user_metadata?.name || 
@@ -603,12 +610,10 @@
             }, 800);
         }
 
-        // ✅ CORREZIONE 3: Carica progresso REALE da Supabase
         async function loadProgressData(userId) {
-            console.log('📊 Carico progresso reale per user:', userId);
+            console.log('📊 Carico progresso per user:', userId);
             
             try {
-                // Query riflessioni utente
                 const { data: reflections, error: reflError } = await supabase
                     .from('reflections')
                     .select('date, created_at')
@@ -623,7 +628,6 @@
 
                 console.log('✅ Riflessioni caricate:', reflections?.length || 0);
 
-                // Calcola streak da date riflessioni
                 const streak = calculateStreak(reflections || []);
                 const totalReflections = reflections?.length || 0;
 
@@ -640,17 +644,14 @@
             }
         }
 
-        // Calcola streak da array di riflessioni
         function calculateStreak(reflections) {
             if (!reflections || reflections.length === 0) return 0;
 
             const today = new Date().toISOString().split('T')[0];
             const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
             
-            // Estrai date uniche ordinate
             const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
             
-            // Se non ha scritto oggi O ieri, streak = 0
             if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
                 return 0;
             }
@@ -666,7 +667,7 @@
 
                 if (refDate.getTime() === expectedDate.getTime()) {
                     streak++;
-                    currentDate = new Date(currentDate.getTime() - 86400000); // giorno precedente
+                    currentDate = new Date(currentDate.getTime() - 86400000);
                 } else {
                     break;
                 }
@@ -729,7 +730,6 @@
                 document.getElementById('charCount').textContent = textarea.value.length;
             });
 
-            // ✅ CORREZIONE 4: Salva REALMENTE su Supabase
             document.getElementById('saveBtn').addEventListener('click', async () => {
                 const text = textarea.value.trim();
                 if (!text) {
@@ -742,7 +742,7 @@
                 const { data: { session } } = await supabase.auth.getSession();
                 if (!session) {
                     showToast('Errore: non autenticato');
-                    window.location.href = 'registrazione.html';
+                    window.location.href = 'accedi.html';
                     return;
                 }
 
@@ -762,7 +762,6 @@
                     textarea.value = '';
                     document.getElementById('charCount').textContent = '0';
                     
-                    // Ricarica progresso
                     await loadProgressData(session.user.id);
                 }
             });
