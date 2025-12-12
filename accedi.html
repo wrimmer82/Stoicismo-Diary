@@ -10,10 +10,11 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
         
         body {
@@ -57,6 +58,18 @@
         .loading-pulse {
             animation: pulse 1.5s ease-in-out infinite;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
 
         .input-error {
             border-color: #ef4444 !important;
@@ -103,7 +116,6 @@
             }
         }
 
-        /* Loading overlay sul form */
         .form-loading::after {
             content: '';
             position: absolute;
@@ -114,126 +126,225 @@
             pointer-events: none;
             z-index: 10;
         }
+
+        .philosopher-circle {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .philosopher-circle img {
+            transition: all 0.3s ease;
+        }
+
+        .philosopher-circle:hover img {
+            transform: scale(1.1);
+            border-color: #fbbf24 !important;
+        }
+
+        .philosopher-circle p {
+            transition: opacity 0.3s ease;
+        }
+
+        /* MOBILE: Nascondi filosofi */
+        @media (max-width: 768px) {
+            .philosopher-section {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body class="font-inter text-slate-100">
 
-    <div class="min-h-screen flex items-center justify-center p-4">
-        <div class="max-w-md w-full bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-amber-500/20 shadow-2xl p-8">
+    <section class="min-h-screen flex items-center justify-center py-8 md:py-12 px-4">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
             
-            <div class="text-center mb-8">
-                <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
-                    <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
+            <!-- LEFT: Filosofi + Citazione (3 col) - SOLO DESKTOP -->
+            <div class="philosopher-section md:col-span-3 text-center md:text-left animate-fadeIn">
+                
+                <!-- Logo e Link Home -->
+                <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-10 w-10 md:h-12 md:w-12 object-contain drop-shadow-2xl">
+                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white">
+                        The Stoic Journey
+                    </span>
                 </a>
-                <h1 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">The Stoic Journey</h1>
-                <p class="text-slate-400">Accedi per continuare il tuo percorso stoico</p>
-            </div>
-
-            <!-- Google Login Button -->
-            <button 
-                id="googleLoginBtn"
-                class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-                <svg class="w-5 h-5" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-                <span id="googleBtnText">Continua con Google</span>
-                <div id="googleSpinner" class="spinner hidden"></div>
-            </button>
-
-            <!-- Divider -->
-            <div class="relative mb-6">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-slate-700"></div>
+                
+                <!-- Citazione Rotativa -->
+                <div class="mb-6 md:mb-8 animate-fadeIn delay-200">
+                    <h1 id="rotatingQuote" class="text-3xl md:text-5xl lg:text-6xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
+                        "La felicità della tua vita dipende dalla qualità dei tuoi pensieri"
+                    </h1>
+                    <p id="rotatingAuthor" class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
+                        — Marco Aurelio
+                    </p>
                 </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-slate-900 text-slate-500">oppure con email</span>
-                </div>
-            </div>
-
-            <!-- Form Login Email/Password -->
-            <form id="loginForm" class="space-y-4 relative">
-                <!-- Email -->
-                <div>
-                    <label class="block text-sm font-medium mb-2">Email</label>
-                    <input 
-                        type="email" 
-                        id="emailInput"
-                        required
-                        placeholder="stoico@esempio.com"
-                        autocomplete="email"
-                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 outline-none transition-all"
-                    >
-                    <p id="emailError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
-                    <p id="emailSuccess" class="text-green-400 text-sm mt-1 hidden error-message">✓ Email valida</p>
-                </div>
-
-                <!-- Password -->
-                <div>
-                    <label class="block text-sm font-medium mb-2">Password</label>
-                    <div class="relative">
-                        <input 
-                            type="password" 
-                            id="passwordInput"
-                            required
-                            placeholder="Inserisci la tua password"
-                            autocomplete="current-password"
-                            class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 pr-12 outline-none transition-all"
-                        >
-                        <button 
-                            type="button" 
-                            id="togglePassword"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
-                            aria-label="Mostra/Nascondi password"
-                        >
-                            <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                            </svg>
-                            <svg id="eyeSlashIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                            </svg>
-                        </button>
+                
+                <!-- Immagini 3 Filosofi - Layout Anelli Olimpici -->
+                <div class="philosopher-images flex justify-center md:justify-start animate-fadeIn delay-400">
+                    <div class="relative w-full max-w-2xl mx-auto md:mx-0">
+                        <!-- Riga superiore: Marco Aurelio + Epitteto -->
+                        <div class="flex justify-center gap-6 md:gap-8 mb-[-80px] md:mb-[-110px]">
+                            <!-- Marco Aurelio -->
+                            <div class="philosopher-circle group">
+                                <img src="marco_aurelio_3d.jpg" 
+                                     alt="Marco Aurelio" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
+                            </div>
+                            
+                            <!-- Epitteto -->
+                            <div class="philosopher-circle group">
+                                <img src="Epitteto_3d.png" 
+                                     alt="Epitteto" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Riga inferiore: Zenone -->
+                        <div class="flex justify-center">
+                            <div class="philosopher-circle group">
+                                <img src="Zenone_di_Cinzio_3d.png" 
+                                     alt="Zenone di Cinzio" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl relative z-10">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Zenone di Cinzio</p>
+                            </div>
+                        </div>
                     </div>
-                    <p id="passwordError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
                 </div>
+            </div>
+            
+            <!-- RIGHT: Form Login (2 col) -->
+            <div class="md:col-span-2 animate-fadeIn">
+                <div class="max-w-md w-full bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-amber-500/20 shadow-2xl p-8">
+                    
+                    <!-- Logo Mobile Only -->
+                    <div class="md:hidden text-center mb-8">
+                        <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+                            <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
+                        </a>
+                        <h1 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">The Stoic Journey</h1>
+                        <p class="text-slate-400">Accedi per continuare il tuo percorso stoico</p>
+                    </div>
 
-                <!-- Remember Me Checkbox -->
-                <div class="flex items-center">
-                    <input type="checkbox" id="rememberMe" class="mr-2 w-4 h-4 bg-slate-800 border-slate-700 rounded">
-                    <label for="rememberMe" class="text-sm text-slate-400">Ricordami su questo dispositivo</label>
+                    <!-- Title Desktop Only -->
+                    <div class="hidden md:block text-center mb-8">
+                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 mb-2">
+                            Bentornato, Stoico
+                        </h2>
+                        <p class="text-sm md:text-base text-slate-300 font-baskerville">
+                            Continua il tuo viaggio di saggezza
+                        </p>
+                    </div>
+
+                    <!-- Google Login Button -->
+                    <button 
+                        id="googleLoginBtn"
+                        class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span id="googleBtnText">Continua con Google</span>
+                        <div id="googleSpinner" class="spinner hidden"></div>
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-700"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-slate-900 text-slate-500 font-baskerville">oppure con email</span>
+                        </div>
+                    </div>
+
+                    <!-- Form Login Email/Password -->
+                    <form id="loginForm" class="space-y-4 relative">
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input 
+                                type="email" 
+                                id="emailInput"
+                                required
+                                placeholder="stoico@esempio.com"
+                                autocomplete="email"
+                                class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 outline-none transition-all"
+                            >
+                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
+                            <p id="emailSuccess" class="text-green-400 text-sm mt-1 hidden error-message">✓ Email valida</p>
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Password</label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="passwordInput"
+                                    required
+                                    placeholder="Inserisci la tua password"
+                                    autocomplete="current-password"
+                                    class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 pr-12 outline-none transition-all"
+                                >
+                                <button 
+                                    type="button" 
+                                    id="togglePassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
+                                    aria-label="Mostra/Nascondi password"
+                                >
+                                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    <svg id="eyeSlashIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p id="passwordError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
+                        </div>
+
+                        <!-- Remember Me Checkbox -->
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rememberMe" class="mr-2 w-4 h-4 bg-slate-800 border-slate-700 rounded">
+                            <label for="rememberMe" class="text-sm text-slate-400">Ricordami su questo dispositivo</label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            id="submitBtn"
+                            class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span id="submitBtnText">Accedi</span>
+                            <div id="submitSpinner" class="spinner hidden"></div>
+                        </button>
+                    </form>
+
+                    <!-- Password Dimenticata -->
+                    <div class="mt-6 text-center">
+                        <a href="#" class="text-amber-400 hover:underline text-sm">Password dimenticata?</a>
+                    </div>
+
+                    <!-- Link Registrazione -->
+                    <div class="mt-4 text-center text-sm text-slate-500">
+                        Non hai ancora un account? <a href="registrazione.html" class="text-amber-400 hover:underline">Registrati</a>
+                    </div>
+
+                    <!-- Privacy Footer -->
+                    <div class="mt-6 text-center text-xs text-slate-600">
+                        Continuando accetti i nostri <a href="#" class="text-amber-400 hover:underline">Termini</a> e la <a href="#" class="text-amber-400 hover:underline">Privacy Policy</a>
+                    </div>
                 </div>
-
-                <!-- Submit Button -->
-                <button 
-                    type="submit"
-                    id="submitBtn"
-                    class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <span id="submitBtnText">Accedi</span>
-                    <div id="submitSpinner" class="spinner hidden"></div>
-                </button>
-            </form>
-
-            <!-- Password Dimenticata -->
-            <div class="mt-6 text-center">
-                <a href="#" class="text-amber-400 hover:underline text-sm">Password dimenticata?</a>
             </div>
-
-            <!-- Link Registrazione -->
-            <div class="mt-4 text-center text-sm text-slate-500">
-                Non hai ancora un account? <a href="registrazione.html" class="text-amber-400 hover:underline">Registrati</a>
-            </div>
-
-            <!-- Privacy Footer -->
-            <div class="mt-6 text-center text-xs text-slate-600">
-                Continuando accetti i nostri <a href="#" class="text-amber-400 hover:underline">Termini</a> e la <a href="#" class="text-amber-400 hover:underline">Privacy Policy</a>
-            </div>
+            
         </div>
-    </div>
+    </section>
 
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50">
@@ -261,6 +372,57 @@
         const togglePassword = document.getElementById('togglePassword');
         const eyeIcon = document.getElementById('eyeIcon');
         const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+        // ========== CITAZIONI ROTANTI ==========
+        const quotes = [
+            {
+                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "Non è ciò che ti accade, ma come reagisci che conta",
+                author: "Epitteto"
+            },
+            {
+                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
+                author: "Zenone di Cizio"
+            },
+            {
+                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
+                author: "Marco Aurelio"
+            }
+        ];
+
+        let currentQuoteIndex = 0;
+
+        function rotateQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            const quote = quotes[currentQuoteIndex];
+            
+            const quoteEl = document.getElementById('rotatingQuote');
+            const authorEl = document.getElementById('rotatingAuthor');
+            
+            if (quoteEl && authorEl) {
+                quoteEl.style.opacity = '0';
+                authorEl.style.opacity = '0';
+                
+                setTimeout(() => {
+                    quoteEl.textContent = `"${quote.text}"`;
+                    authorEl.textContent = `— ${quote.author}`;
+                    
+                    quoteEl.style.transition = 'opacity 0.5s';
+                    authorEl.style.transition = 'opacity 0.5s';
+                    quoteEl.style.opacity = '1';
+                    authorEl.style.opacity = '1';
+                }, 500);
+            }
+        }
+
+        setInterval(rotateQuote, 8000);
 
         // ========== VERIFICA SESSIONE ESISTENTE ==========
         document.addEventListener('DOMContentLoaded', async () => {
@@ -317,32 +479,26 @@
         // ========== HELPER: SET LOADING STATE ==========
         function setLoadingState(isLoading) {
             if (isLoading) {
-                // Disabilita tutti gli input
                 emailInput.disabled = true;
                 passwordInput.disabled = true;
                 submitBtn.disabled = true;
                 googleLoginBtn.disabled = true;
                 togglePassword.disabled = true;
                 
-                // Aggiungi classe disabled agli input
                 emailInput.classList.add('input-disabled', 'loading-pulse');
                 passwordInput.classList.add('input-disabled', 'loading-pulse');
                 
-                // Aggiungi overlay al form
                 loginForm.classList.add('form-loading');
             } else {
-                // Riabilita tutti gli input
                 emailInput.disabled = false;
                 passwordInput.disabled = false;
                 submitBtn.disabled = false;
                 googleLoginBtn.disabled = false;
                 togglePassword.disabled = false;
                 
-                // Rimuovi classe disabled
                 emailInput.classList.remove('input-disabled', 'loading-pulse');
                 passwordInput.classList.remove('input-disabled', 'loading-pulse');
                 
-                // Rimuovi overlay
                 loginForm.classList.remove('form-loading');
             }
         }
@@ -375,13 +531,11 @@
             const email = emailInput.value.trim();
             const password = passwordInput.value;
 
-            // Reset errori
             emailError.classList.add('hidden');
             passwordError.classList.add('hidden');
             emailInput.classList.remove('input-error', 'shake');
             passwordInput.classList.remove('input-error', 'shake');
 
-            // Validazione
             let hasError = false;
 
             if (!email) {
@@ -405,7 +559,6 @@
                 return;
             }
 
-            // Attiva loading state
             submitBtnText.textContent = 'Accesso in corso...';
             submitSpinner.classList.remove('hidden');
             setLoadingState(true);
@@ -416,8 +569,6 @@
             });
 
             if (error) {
-                console.error('❌ Login error:', error);
-                
                 let errorMessage = 'Credenziali non valide';
                 
                 if (error.message.includes('Invalid login credentials')) {
@@ -432,13 +583,9 @@
                     errorMessage = 'Conferma prima la tua email';
                     emailInput.classList.add('input-error', 'shake');
                     setTimeout(() => emailInput.classList.remove('shake'), 600);
-                } else {
-                    errorMessage = error.message;
                 }
                 
                 showToast(errorMessage);
-                
-                // Reset loading state
                 submitBtnText.textContent = 'Accedi';
                 submitSpinner.classList.add('hidden');
                 setLoadingState(false);
@@ -446,8 +593,6 @@
             }
 
             showToast('✅ Login riuscito! Reindirizzamento...');
-            
-            // Mantieni loading state durante redirect
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 1000);
