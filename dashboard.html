@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - The Stoic Journey</title>
     
-    <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
+    <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana">
     <meta name="robots" content="noindex, nofollow">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -45,21 +45,6 @@
             letter-spacing: 0.04em;
         }
 
-        .highlighted-text:hover {
-            color: #facc15;
-            text-shadow: 
-                -4px -4px 0 #000, 4px -4px 0 #000,
-                -4px 4px 0 #000, 4px 4px 0 #000,
-                -5px 0 0 #000, 5px 0 0 #000,
-                0 -5px 0 #000, 0 5px 0 #000,
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                0 0 20px rgba(250, 204, 21, 1),
-                0 0 30px rgba(250, 204, 21, 0.9),
-                0 0 40px rgba(250, 204, 21, 0.7);
-            transform: scale(1.02);
-        }
-
         .roman-number {
             color: #fde047;
             font-weight: 900;
@@ -69,8 +54,6 @@
                 -3px 3px 0 #000, 3px 3px 0 #000,
                 -4px 0 0 #000, 4px 0 0 #000,
                 0 -4px 0 #000, 0 4px 0 #000,
-                -2px -2px 0 #000, 2px -2px 0 #000,
-                -2px 2px 0 #000, 2px 2px 0 #000,
                 0 0 15px rgba(253, 224, 71, 1);
             letter-spacing: 0.1em;
         }
@@ -89,16 +72,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .parchment-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
-
-        .parchment-card p {
-            color: #451a03;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-        }
-
         body {
             background: linear-gradient(180deg, 
                 #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
@@ -109,65 +82,11 @@
             background-attachment: fixed;
         }
 
-        #mobileMenuOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-        #mobileMenuOverlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #mobileSidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-        }
-
-        #mobileSidebar.active {
-            transform: translateX(0);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        .gradient-border {
-            position: relative;
-            border-radius: 1rem;
-        }
-
-        .progress-bar {
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        .progress-bar { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
         .skeleton {
             background: linear-gradient(90deg, rgba(245, 222, 179, 0.3) 25%, rgba(245, 222, 179, 0.5) 50%, rgba(245, 222, 179, 0.3) 75%);
@@ -181,44 +100,11 @@
         }
 
         @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
-            }
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
         }
 
-        .streak-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        @media (max-width: 767px) {
-            .mobile-textarea {
-                height: 120px;
-                font-size: 16px;
-            }
-            
-            .mobile-btn {
-                min-height: 48px;
-                font-size: 16px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .desktop-textarea {
-                height: 200px;
-            }
-        }
-
-        #mobileSidebar::-webkit-scrollbar {
-            display: none;
-        }
-
-        #mobileSidebar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .streak-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
         .loading-overlay {
             position: fixed;
@@ -241,9 +127,38 @@
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        #mobileMenuOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
+
+        #mobileMenuOverlay.active { opacity: 1; visibility: visible; }
+
+        #mobileSidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            z-index: 50;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #mobileSidebar::-webkit-scrollbar { display: none; }
+        #mobileSidebar.active { transform: translateX(0); }
     </style>
 </head>
 <body class="font-inter text-slate-100">
@@ -259,14 +174,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
-                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors" aria-label="Apri menu">
+                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
                     
                     <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
+                        <img src="sigma_logo.png" alt="Logo" class="h-10 w-10 object-contain">
                         <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">
                             The Stoic Journey
                         </span>
@@ -283,7 +198,7 @@
                         <span class="hidden md:inline text-sm text-slate-300">
                             Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
                         </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium">
                             Esci
                         </button>
                     </div>
@@ -296,7 +211,7 @@
 
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
-            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
+            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
@@ -315,19 +230,6 @@
                     </svg>
                     <span>Archivio</span>
                 </a>
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
-                </a>
-                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span>Passa a PRO</span>
-                </a>
             </nav>
 
             <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
@@ -340,30 +242,17 @@
     <div class="flex">
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
-                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                     <span>Oggi</span>
                 </a>
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
                     <span>Archivio</span>
-                </a>
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
-                </a>
-                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span>Passa a PRO</span>
                 </a>
             </nav>
         </aside>
@@ -391,44 +280,31 @@
 
                     <div id="dailyContent" class="hidden space-y-6">
                         <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
-                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
-                                "..."
-                            </p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">
-                                — ...
-                            </p>
+                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">"..."</p>
+                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">— ...</p>
                         </div>
 
                         <div class="parchment-card rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
-                                Interpretazione
-                            </h3>
-                            <p class="leading-relaxed font-trajan" id="interpretationText">
-                                ...
-                            </p>
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
+                            <p class="leading-relaxed font-trajan" id="interpretationText">...</p>
                         </div>
 
                         <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
-                                Micro-Sfida di Oggi
-                            </h3>
-                            <p class="leading-relaxed font-trajan" id="challengeText">
-                                ...
-                            </p>
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
+                            <p class="leading-relaxed font-trajan" id="challengeText">...</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
-                        Le Tue Riflessioni di Oggi
-                    </h3>
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">Le Tue Riflessioni di Oggi</h3>
                     
                     <textarea 
                         id="reflectionTextarea"
                         maxlength="2000"
                         placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
-                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
+                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all outline-none"
+                        style="height: 150px;"
                     ></textarea>
                     
                     <div class="flex items-center justify-between mt-3">
@@ -436,62 +312,31 @@
                             <span id="charCount">0</span>/2000 caratteri
                         </span>
                         <div class="flex gap-3">
-                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
-                                <span>Copia</span>
-                            </button>
-                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
-                                <span>Salva</span>
-                            </button>
+                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium">Copia</button>
+                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold">Salva</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
-                        Il Tuo Progresso
-                    </h3>
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">Il Tuo Progresso</h3>
                     
-                    <div class="space-y-4 md:hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
                             <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
                             <div class="text-xs text-slate-400">giorni di streak</div>
                         </div>
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-2xl font-bold text-amber-400 mb-1" id="progressReflections">0</div>
+                            <div class="text-2xl font-bold text-amber-400" id="progressReflections">0</div>
                             <div class="text-xs text-slate-400">riflessioni scritte</div>
                         </div>
                         <div class="bg-slate-800 rounded-lg p-4">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-slate-300">Sfide completate</span>
-                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
+                                <span class="text-sm text-slate-300">Completate</span>
+                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/10</span>
                             </div>
                             <div class="w-full bg-slate-700 rounded-full h-2">
                                 <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
-                            </div>
-                            <div class="text-xs text-slate-500 text-right mt-1">
-                                <span id="progressPercentage">0%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="hidden md:grid md:grid-cols-3 gap-6">
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
-                            <div class="text-sm text-slate-400">giorni di streak</div>
-                        </div>
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
-                            <div class="text-sm text-slate-400">riflessioni scritte</div>
-                        </div>
-                        <div class="bg-slate-800 rounded-lg p-6">
-                            <div class="text-center mb-3">
-                                <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
-                            </div>
-                            <div class="w-full bg-slate-700 rounded-full h-3">
-                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
-                            </div>
-                            <div class="text-xs text-slate-400 text-center mt-2">
-                                <span id="progressPercentageDesktop">0%</span> completato
                             </div>
                         </div>
                     </div>
@@ -502,21 +347,7 @@
             <div id="viewArchivio" class="view-container hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                </div>
-            </div>
-
-            <div id="viewImpostazioni" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                </div>
-            </div>
-
-            <div id="viewPro" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
-                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
+                    <p class="text-slate-400">Funzionalità in sviluppo</p>
                 </div>
             </div>
 
@@ -537,148 +368,98 @@
         let currentUser = null;
 
         // ========================================
-        // INIT
+        // INIT - SOLUZIONE DEFINITIVA
         // ========================================
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 [INIT] Dashboard init');
-            console.log('📍 [URL] Current URL:', window.location.href);
-            console.log('🔗 [HASH] URL Hash:', window.location.hash);
+            console.log('🚀 Dashboard init');
 
-            // Gestisci OAuth callback
-            const hashParams = new URLSearchParams(window.location.hash.substring(1));
-            const access_token = hashParams.get('access_token');
-            const refresh_token = hashParams.get('refresh_token');
-
-            console.log('🔑 [TOKEN] Access token presente?', !!access_token);
-
-            if (access_token && refresh_token) {
-                console.log('✅ [OAUTH] OAuth callback rilevato');
+            // STEP 1: Gestisci OAuth hash IMMEDIATAMENTE
+            if (window.location.hash && window.location.hash.includes('access_token')) {
+                console.log('✅ OAuth hash rilevato');
                 
-                try {
-                    const { data, error } = await supabase.auth.setSession({
-                        access_token,
-                        refresh_token
-                    });
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                const access_token = hashParams.get('access_token');
+                const refresh_token = hashParams.get('refresh_token');
 
+                if (access_token && refresh_token) {
+                    const { error } = await supabase.auth.setSession({ access_token, refresh_token });
+                    
                     if (error) {
-                        console.error('❌ [ERROR] setSession:', error);
-                        throw error;
-                    }
-
-                    console.log('✅ [SESSION] Sessione OAuth salvata:', data.session?.user?.email);
-                    
-                    // PULISCI URL
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                    console.log('🧹 [CLEANUP] URL pulito');
-                    
-                    // Inizializza dashboard
-                    if (data.session?.user) {
-                        currentUser = data.session.user;
-                        await initDashboard(currentUser);
+                        console.error('❌ setSession:', error);
                     } else {
-                        console.error('❌ [ERROR] Sessione senza utente');
-                        redirectToLogin();
+                        console.log('✅ Sessione salvata');
                     }
                     
-                    return;
-                } catch (error) {
-                    console.error('❌ [FATAL] Errore setSession:', error);
-                    redirectToLogin();
-                    return;
+                    // Pulisci URL
+                    window.history.replaceState({}, document.title, window.location.pathname);
                 }
             }
 
-            console.log('🔍 [CHECK] Nessun OAuth callback, verifica sessione esistente');
+            // STEP 2: Usa getUser() (NON getSession)
+            const { data: { user }, error } = await supabase.auth.getUser();
 
-            // Verifica sessione esistente
-            const { data: { session }, error } = await supabase.auth.getSession();
-            
-            console.log('📊 [SESSION] Sessione esistente?', !!session);
-            if (error) console.error('❌ [ERROR] getSession:', error);
-
-            if (session?.user) {
-                console.log('✅ [USER] Utente trovato:', session.user.email);
-                currentUser = session.user;
-                await initDashboard(currentUser);
-            } else {
-                console.warn('⚠️ [REDIRECT] Nessuna sessione, redirect a login');
-                redirectToLogin();
+            if (error || !user) {
+                console.warn('⚠️ Nessun utente, redirect login');
+                setTimeout(() => window.location.href = 'accedi.html', 1000);
+                return;
             }
+
+            console.log('✅ Utente loggato:', user.email);
+            currentUser = user;
+
+            // STEP 3: Init dashboard
+            await initDashboard(user);
         });
 
         // ========================================
         // INIT DASHBOARD
         // ========================================
         async function initDashboard(user) {
-            console.log('🎨 [UI] Inizializzazione dashboard per:', user.email);
-
-            // Nascondi loader
             document.getElementById('loadingOverlay').style.display = 'none';
             document.getElementById('mainContent').style.display = 'block';
 
-            // Carica UI
             updateUserGreeting(user);
             loadDailyContent();
             await loadProgressData(user.id);
             setupEventListeners();
 
-            console.log('✅ [READY] Dashboard pronta!');
+            console.log('✅ Dashboard pronta');
         }
 
         // ========================================
-        // REDIRECT LOGIN
-        // ========================================
-        function redirectToLogin() {
-            console.log('🔄 [REDIRECT] Redirect a pagina login tra 1.5s');
-            showToast('Devi effettuare il login');
-            setTimeout(() => {
-                window.location.href = 'accedi.html';
-            }, 1500);
-        }
-
-        // ========================================
-        // SALVATAGGIO RIFLESSIONE
+        // SALVATAGGIO
         // ========================================
         async function saveReflection() {
             if (!currentUser) {
-                console.warn('⚠️ [AUTH] Utente non loggato');
                 showToast('Devi essere loggato!');
-                redirectToLogin();
+                window.location.href = 'accedi.html';
                 return;
             }
 
-            const textarea = document.getElementById('reflectionTextarea');
-            const content = textarea.value.trim();
-
+            const content = document.getElementById('reflectionTextarea').value.trim();
             if (!content) {
                 showToast('Scrivi prima una riflessione!');
                 return;
             }
 
-            console.log('💾 [SAVE] Salvataggio riflessione...');
-
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from('reflections')
                 .insert({
                     user_id: currentUser.id,
-                    content: content,
+                    content,
                     date: new Date().toISOString().split('T')[0],
                     content_type: getDailyContentType()
-                })
-                .select();
+                });
 
             if (error) {
-                console.error('❌ [ERROR] Salvataggio:', error);
+                console.error('❌', error);
                 showToast('Errore: ' + error.message);
                 return;
             }
 
-            console.log('✅ [SAVED] Riflessione salvata!', data);
             showToast('✅ Riflessione salvata!');
-
-            textarea.value = '';
+            document.getElementById('reflectionTextarea').value = '';
             document.getElementById('charCount').textContent = '0';
-
             loadProgressData(currentUser.id);
         }
 
@@ -686,9 +467,7 @@
         // PROGRESSO
         // ========================================
         async function loadProgressData(userId) {
-            console.log('📊 [PROGRESS] Caricamento progresso...');
-
-            const { count: totalReflections } = await supabase
+            const { count } = await supabase
                 .from('reflections')
                 .select('*', { count: 'exact', head: true })
                 .eq('user_id', userId);
@@ -701,62 +480,36 @@
                 .limit(365);
 
             let streak = 0;
-            if (reflections && reflections.length > 0) {
+            if (reflections?.length) {
                 const today = new Date().toISOString().split('T')[0];
                 const dates = reflections.map(r => r.date).sort().reverse();
-                
                 let currentDate = new Date(today);
+                
                 for (let date of dates) {
                     const reflDate = new Date(date);
                     const diff = Math.floor((currentDate - reflDate) / (1000 * 60 * 60 * 24));
-                    
                     if (diff === 0 || diff === 1) {
                         streak++;
                         currentDate = reflDate;
-                    } else {
-                        break;
-                    }
+                    } else break;
                 }
             }
 
-            console.log('✅ [STATS] Streak:', streak, '| Totale riflessioni:', totalReflections);
+            const total = count || 0;
+            const completed = Math.min(total, 10);
+            const percentage = Math.round((completed / 10) * 100);
 
-            updateProgressUI({
-                streak,
-                totalReflections: totalReflections || 0,
-                completedChallenges: Math.min(totalReflections || 0, 10),
-                totalChallenges: 10
-            });
-        }
-
-        function updateProgressUI(data) {
-            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
-            
-            document.getElementById('headerStreak').textContent = data.streak;
-            document.getElementById('mobileStreak').textContent = data.streak;
-            document.getElementById('progressStreak').textContent = data.streak;
-            document.getElementById('progressReflections').textContent = data.totalReflections;
-            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('headerStreak').textContent = streak;
+            document.getElementById('mobileStreak').textContent = streak;
+            document.getElementById('progressStreak').textContent = streak;
+            document.getElementById('progressReflections').textContent = total;
+            document.getElementById('progressChallenges').textContent = `${completed}/10`;
             document.getElementById('progressBar').style.width = `${percentage}%`;
-            document.getElementById('progressPercentage').textContent = `${percentage}%`;
-            document.getElementById('progressStreakDesktop').textContent = data.streak;
-            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
-            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
-            document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
         }
 
         function updateUserGreeting(user) {
-            let userName = user.email.split('@')[0];
-
-            if (user.user_metadata?.full_name) {
-                userName = user.user_metadata.full_name;
-            } else if (user.user_metadata?.name) {
-                userName = user.user_metadata.name;
-            }
-
-            console.log('👤 [USER] Nome utente:', userName);
-            document.getElementById('userName').textContent = userName;
+            const name = user.user_metadata?.full_name || user.user_metadata?.name || user.email.split('@')[0];
+            document.getElementById('userName').textContent = name;
         }
 
         // ========================================
@@ -778,51 +531,43 @@
         function getDayOfYear() {
             const now = new Date();
             const start = new Date(now.getFullYear(), 0, 0);
-            const diff = now - start;
-            const oneDay = 1000 * 60 * 60 * 24;
-            return Math.floor(diff / oneDay);
+            return Math.floor((now - start) / (1000 * 60 * 60 * 24));
         }
 
         function getDailyContentType() {
-            const dayNum = getDayOfYear();
-            const cycle = (dayNum % 4) + 1;
-            return `tipo${cycle}`;
+            return `tipo${(getDayOfYear() % 4) + 1}`;
         }
 
         const dailyContents = {
             tipo1: {
                 quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
                 author: "Epitteto, Enchiridion",
-                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
+                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi.",
+                challenge: "Identifica una situazione stressante. Scrivi il fatto separato dall'interpretazione."
             },
             tipo2: {
                 quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
                 author: "Marco Aurelio, Meditazioni V.20",
-                interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
+                interpretation: "Gli ostacoli sono maestri che trasformano il tuo percorso.",
+                challenge: "Pensa a un ostacolo. Come ti rende più forte?"
             },
             tipo3: {
                 quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
                 author: "Seneca, Lettere a Lucilio",
-                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
+                interpretation: "Immaginare il peggio è preparazione, non pessimismo.",
+                challenge: "Visualizza la tua paura. Sopravviveresti? Come?"
             },
             tipo4: {
-                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
+                quote: "Potresti lasciare la vita ora. Lascia che questo determini ciò che fai.",
                 author: "Marco Aurelio, Meditazioni II.11",
-                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
-                challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
+                interpretation: "La mortalità libera energia per ciò che conta.",
+                challenge: "Se oggi fosse l'ultimo giorno, cosa faresti diversamente?"
             }
         };
 
         function loadDailyContent() {
-            const dayOfYear = getDayOfYear();
-            const dayRoman = arabicToRoman(dayOfYear);
-            const contentType = getDailyContentType();
-            const content = dailyContents[contentType];
-
-            document.getElementById('dayOfYear').textContent = dayRoman;
+            const content = dailyContents[getDailyContentType()];
+            document.getElementById('dayOfYear').textContent = arabicToRoman(getDayOfYear());
 
             setTimeout(() => {
                 document.getElementById('contentSkeleton').classList.add('hidden');
@@ -834,9 +579,9 @@
             }, 800);
         }
 
-        function showToast(message) {
+        function showToast(msg) {
             const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = message;
+            document.getElementById('toastMessage').textContent = msg;
             toast.style.transform = 'translateY(0)';
             setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
         }
@@ -847,7 +592,7 @@
         }
 
         // ========================================
-        // EVENT LISTENERS
+        // EVENTI
         // ========================================
         function setupEventListeners() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -855,28 +600,27 @@
             const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
             const mobileSidebar = document.getElementById('mobileSidebar');
 
-            mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn?.addEventListener('click', () => {
                 mobileSidebar.classList.add('active');
                 mobileMenuOverlay.classList.add('active');
             });
 
-            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-
-            function closeMobileMenuFunc() {
+            closeMobileMenu?.addEventListener('click', () => {
                 mobileSidebar.classList.remove('active');
                 mobileMenuOverlay.classList.remove('active');
-            }
+            });
+
+            mobileMenuOverlay?.addEventListener('click', () => {
+                mobileSidebar.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+            });
 
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     switchView(e.currentTarget.dataset.view);
-                    closeMobileMenuFunc();
-                    document.querySelectorAll('.nav-link').forEach(l => {
-                        l.classList.remove('bg-amber-500/20', 'text-amber-400');
-                    });
-                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
+                    mobileSidebar.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
                 });
             });
 
@@ -894,7 +638,6 @@
             });
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('🚪 [LOGOUT] Logout utente');
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
             });
