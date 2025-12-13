@@ -649,9 +649,7 @@
                 
                 if (!session || error) {
                     console.warn('⚠️ Nessuna sessione attiva, redirect a login');
-                    if (window.location.pathname.includes('dashboard')) {
-                        window.location.href = 'accedi.html';
-                    }
+                    window.location.href = 'accedi.html';
                     return;
                 }
 
@@ -669,9 +667,7 @@
 
             } catch (error) {
                 console.error('❌ Errore verifica sessione:', error);
-                if (window.location.pathname.includes('dashboard')) {
-                    window.location.href = 'accedi.html';
-                }
+                window.location.href = 'accedi.html';
             }
         });
 
@@ -1028,9 +1024,7 @@
                 const { data: { session } } = await supabase.auth.getSession();
                 if (!session) {
                     showToast('Errore: non autenticato');
-                    if (window.location.pathname.includes('dashboard')) {
-                        window.location.href = 'accedi.html';
-                    }
+                    window.location.href = 'accedi.html';
                     return;
                 }
 
