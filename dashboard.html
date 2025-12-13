@@ -187,12 +187,8 @@
         }
 
         @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
-            }
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
         }
 
         .streak-glow {
@@ -204,7 +200,6 @@
                 height: 120px;
                 font-size: 16px;
             }
-            
             .mobile-btn {
                 min-height: 48px;
                 font-size: 16px;
@@ -215,6 +210,38 @@
             .desktop-textarea {
                 height: 200px;
             }
+        }
+
+        .archive-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .archive-card:hover {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(251, 191, 36, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pagination-btn {
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .filter-select {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #f1f5f9;
+        }
+
+        .filter-select:focus {
+            border-color: rgba(251, 191, 36, 0.6);
+            outline: none;
         }
     </style>
 </head>
@@ -335,6 +362,7 @@
 
         <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
             
+            <!-- VIEW OGGI -->
             <div id="viewOggi" class="view-container">
                 
                 <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
@@ -356,38 +384,24 @@
 
                     <div id="dailyContent" class="hidden space-y-6">
                         <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
-                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
-                                "..."
-                            </p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">
-                                — ...
-                            </p>
+                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">"..."</p>
+                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">— ...</p>
                         </div>
 
                         <div class="parchment-card rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
-                                Interpretazione
-                            </h3>
-                            <p class="leading-relaxed font-trajan" id="interpretationText">
-                                ...
-                            </p>
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
+                            <p class="leading-relaxed font-trajan" id="interpretationText">...</p>
                         </div>
 
                         <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
-                                Micro-Sfida di Oggi
-                            </h3>
-                            <p class="leading-relaxed font-trajan" id="challengeText">
-                                ...
-                            </p>
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
+                            <p class="leading-relaxed font-trajan" id="challengeText">...</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
-                        Le Tue Riflessioni di Oggi
-                    </h3>
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">Le Tue Riflessioni di Oggi</h3>
                     
                     <textarea 
                         id="reflectionTextarea"
@@ -412,9 +426,7 @@
                 </div>
 
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
-                        Il Tuo Progresso
-                    </h3>
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">Il Tuo Progresso</h3>
                     
                     <div class="space-y-4 md:hidden">
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
@@ -434,7 +446,7 @@
                                 <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
                             </div>
                             <div class="text-xs text-slate-500 text-right mt-1">
-                                <span id="progressPercentage">0%</span>
+                                <span id="progressPercentage">0</span>%
                             </div>
                         </div>
                     </div>
@@ -456,7 +468,7 @@
                                 <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
                             </div>
                             <div class="text-xs text-slate-400 text-center mt-2">
-                                <span id="progressPercentageDesktop">0%</span> completato
+                                <span id="progressPercentageDesktop">0</span>% completato
                             </div>
                         </div>
                     </div>
@@ -464,13 +476,84 @@
 
             </div>
 
+            <!-- VIEW ARCHIVIO -->
             <div id="viewArchivio" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                <div class="mb-6">
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">📦 Archivio Riflessioni</h2>
+                    <p class="text-slate-400">Tutte le tue riflessioni passate</p>
+                </div>
+
+                <!-- Filtri -->
+                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-4 md:p-6 mb-6 border border-amber-500/20">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Mese</label>
+                            <select id="filterMonth" class="w-full filter-select rounded-lg px-4 py-2">
+                                <option value="">Tutti i mesi</option>
+                                <option value="1">Gennaio</option>
+                                <option value="2">Febbraio</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Aprile</option>
+                                <option value="5">Maggio</option>
+                                <option value="6">Giugno</option>
+                                <option value="7">Luglio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Settembre</option>
+                                <option value="10">Ottobre</option>
+                                <option value="11">Novembre</option>
+                                <option value="12">Dicembre</option>
+                            </select>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Anno</label>
+                            <select id="filterYear" class="w-full filter-select rounded-lg px-4 py-2">
+                                <option value="">Tutti gli anni</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button id="applyFilters" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold px-6 py-2 rounded-lg transition-all whitespace-nowrap">
+                                Applica Filtri
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Skeleton -->
+                <div id="archiveSkeleton" class="space-y-4">
+                    <div class="skeleton h-32 w-full rounded-lg"></div>
+                    <div class="skeleton h-32 w-full rounded-lg"></div>
+                    <div class="skeleton h-32 w-full rounded-lg"></div>
+                </div>
+
+                <!-- Lista Riflessioni -->
+                <div id="archiveList" class="hidden space-y-4 mb-6">
+                    <!-- Le card verranno inserite qui dinamicamente -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="archiveEmpty" class="hidden text-center py-20">
+                    <svg class="w-24 h-24 mx-auto text-slate-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="text-xl font-cinzel font-bold text-slate-400 mb-2">Nessuna riflessione trovata</h3>
+                    <p class="text-slate-500">Inizia a scrivere le tue riflessioni quotidiane!</p>
+                </div>
+
+                <!-- Paginazione -->
+                <div id="archivePagination" class="hidden flex items-center justify-between bg-slate-900/95 backdrop-blur-sm rounded-lg p-4 border border-amber-500/20">
+                    <button id="prevPage" class="pagination-btn bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all font-medium disabled:hover:bg-slate-800">
+                        ← Precedente
+                    </button>
+                    <span class="text-slate-300 text-sm">
+                        Pagina <span id="currentPage">1</span> di <span id="totalPages">1</span>
+                    </span>
+                    <button id="nextPage" class="pagination-btn bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all font-medium disabled:hover:bg-slate-800">
+                        Successivo →
+                    </button>
                 </div>
             </div>
 
+            <!-- VIEW IMPOSTAZIONI -->
             <div id="viewImpostazioni" class="view-container hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
@@ -478,6 +561,7 @@
                 </div>
             </div>
 
+            <!-- VIEW PRO -->
             <div id="viewPro" class="view-container hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
@@ -493,9 +577,15 @@
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+        const SUPABASE_URL = 'https://fayuadwpchhrixafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0.Dc4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentUserId = null;
+        let currentPage = 1;
+        const itemsPerPage = 15;
+        let totalReflections = 0;
+        let filteredReflections = [];
 
         function arabicToRoman(num) {
             const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
@@ -552,27 +642,29 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🔍 Dashboard: Verifico autenticazione...');
+            console.log('📱 Dashboard - Verifico autenticazione...');
             
             try {
                 const { data: { session }, error } = await supabase.auth.getSession();
                 
                 if (!session || error) {
-                    console.warn('❌ Nessuna sessione attiva, redirect a login');
+                    console.warn('⚠️ Nessuna sessione attiva, redirect a login');
                     window.location.href = 'accedi.html';
                     return;
                 }
 
                 const user = session.user;
+                currentUserId = user.id;
                 console.log('✅ Utente autenticato:', user.id);
                 console.log('📧 Email:', user.email);
-                console.log('👤 Provider:', user.app_metadata?.provider);
+                console.log('🔐 Provider:', user.app_metadata?.provider);
 
                 loadUserData(user);
                 loadDailyContent();
                 await loadProgressData(user.id);
+                populateYearFilter();
                 setupEventListeners();
-                
+
             } catch (error) {
                 console.error('❌ Errore verifica sessione:', error);
                 window.location.href = 'accedi.html';
@@ -581,10 +673,9 @@
 
         function loadUserData(user) {
             const displayName = user.user_metadata?.full_name || 
-                                user.user_metadata?.name || 
-                                user.email?.split('@')[0] || 
-                                'Stoico';
-            
+                               user.user_metadata?.name || 
+                               user.email?.split('@')[0] || 
+                               'Stoico';
             console.log('👤 Nome visualizzato:', displayName);
             document.getElementById('userName').textContent = displayName;
         }
@@ -619,13 +710,18 @@
 
                 if (reflError) {
                     console.error('❌ Errore caricamento riflessioni:', reflError);
-                    updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+                    updateProgressUI({
+                        streak: 0,
+                        totalReflections: 0,
+                        completedChallenges: 0,
+                        totalChallenges: 365
+                    });
                     return;
                 }
 
                 console.log('✅ Riflessioni caricate:', reflections?.length || 0);
 
-                const streak = calculateStreak(reflections || []);
+                const streak = calculateStreak(reflections);
                 const totalReflections = reflections?.length || 0;
 
                 updateProgressUI({
@@ -637,7 +733,12 @@
 
             } catch (error) {
                 console.error('❌ Errore generale:', error);
-                updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+                updateProgressUI({
+                    streak: 0,
+                    totalReflections: 0,
+                    completedChallenges: 0,
+                    totalChallenges: 365
+                });
             }
         }
 
@@ -646,9 +747,9 @@
 
             const today = new Date().toISOString().split('T')[0];
             const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-            
+
             const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-            
+
             if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
                 return 0;
             }
@@ -659,6 +760,7 @@
             for (const dateStr of uniqueDates) {
                 const refDate = new Date(dateStr);
                 const expectedDate = new Date(currentDate);
+                
                 expectedDate.setHours(0, 0, 0, 0);
                 refDate.setHours(0, 0, 0, 0);
 
@@ -675,21 +777,197 @@
 
         function updateProgressUI(data) {
             const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
-            
+
             document.getElementById('headerStreak').textContent = data.streak;
             document.getElementById('mobileStreak').textContent = data.streak;
             document.getElementById('progressStreak').textContent = data.streak;
             document.getElementById('progressReflections').textContent = data.totalReflections;
             document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
             document.getElementById('progressBar').style.width = `${percentage}%`;
-            document.getElementById('progressPercentage').textContent = `${percentage}%`;
-            
+            document.getElementById('progressPercentage').textContent = percentage;
+
             document.getElementById('progressStreakDesktop').textContent = data.streak;
             document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
             document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
             document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
-            document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
+            document.getElementById('progressPercentageDesktop').textContent = percentage;
         }
+
+        // ========================================
+        // ARCHIVIO - NUOVE FUNZIONI
+        // ========================================
+
+        function populateYearFilter() {
+            const yearSelect = document.getElementById('filterYear');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 5; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+
+        async function loadArchive() {
+            console.log('📦 Caricamento archivio...');
+            
+            if (!currentUserId) {
+                console.error('❌ User ID non disponibile');
+                return;
+            }
+
+            document.getElementById('archiveSkeleton').classList.remove('hidden');
+            document.getElementById('archiveList').classList.add('hidden');
+            document.getElementById('archiveEmpty').classList.add('hidden');
+            document.getElementById('archivePagination').classList.add('hidden');
+
+            try {
+                let query = supabase
+                    .from('reflections')
+                    .select('*', { count: 'exact' })
+                    .eq('user_id', currentUserId)
+                    .order('date', { ascending: false });
+
+                const filterMonth = document.getElementById('filterMonth').value;
+                const filterYear = document.getElementById('filterYear').value;
+
+                if (filterYear) {
+                    const startDate = `${filterYear}-01-01`;
+                    const endDate = `${filterYear}-12-31`;
+                    query = query.gte('date', startDate).lte('date', endDate);
+                }
+
+                if (filterMonth && filterYear) {
+                    const startDate = `${filterYear}-${filterMonth.padStart(2, '0')}-01`;
+                    const lastDay = new Date(filterYear, filterMonth, 0).getDate();
+                    const endDate = `${filterYear}-${filterMonth.padStart(2, '0')}-${lastDay}`;
+                    query = query.gte('date', startDate).lte('date', endDate);
+                }
+
+                const { data: reflections, count, error } = await query;
+
+                document.getElementById('archiveSkeleton').classList.add('hidden');
+
+                if (error) {
+                    console.error('❌ Errore caricamento archivio:', error);
+                    showToast('Errore nel caricamento archivio');
+                    document.getElementById('archiveEmpty').classList.remove('hidden');
+                    return;
+                }
+
+                console.log('✅ Riflessioni caricate:', reflections.length);
+
+                if (!reflections || reflections.length === 0) {
+                    document.getElementById('archiveEmpty').classList.remove('hidden');
+                    return;
+                }
+
+                filteredReflections = reflections;
+                totalReflections = count;
+                currentPage = 1;
+
+                renderArchivePage();
+
+            } catch (error) {
+                console.error('❌ Errore generale archivio:', error);
+                document.getElementById('archiveSkeleton').classList.add('hidden');
+                document.getElementById('archiveEmpty').classList.remove('hidden');
+            }
+        }
+
+        function renderArchivePage() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageReflections = filteredReflections.slice(start, end);
+
+            const archiveList = document.getElementById('archiveList');
+            archiveList.innerHTML = '';
+
+            pageReflections.forEach(reflection => {
+                const card = createReflectionCard(reflection);
+                archiveList.appendChild(card);
+            });
+
+            document.getElementById('archiveList').classList.remove('hidden');
+
+            // Aggiorna paginazione
+            const totalPages = Math.ceil(filteredReflections.length / itemsPerPage);
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+
+            if (totalPages > 1) {
+                document.getElementById('archivePagination').classList.remove('hidden');
+            } else {
+                document.getElementById('archivePagination').classList.add('hidden');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function createReflectionCard(reflection) {
+            const card = document.createElement('div');
+            card.className = 'archive-card rounded-lg p-4 md:p-6';
+
+            const date = new Date(reflection.date);
+            const formattedDate = date.toLocaleDateString('it-IT', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const truncatedContent = reflection.content.length > 200 
+                ? reflection.content.substring(0, 200) + '...' 
+                : reflection.content;
+
+            card.innerHTML = `
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <h4 class="text-lg font-cinzel font-bold text-amber-400 capitalize">${formattedDate}</h4>
+                        <p class="text-xs text-slate-500 mt-1">Tipo: ${reflection.content_type || 'Non specificato'}</p>
+                    </div>
+                    <button class="text-slate-400 hover:text-amber-400 transition-colors" onclick="toggleReflectionContent(this)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="reflection-preview">
+                    <p class="text-slate-300 text-sm leading-relaxed">${truncatedContent}</p>
+                </div>
+                <div class="reflection-full hidden">
+                    <p class="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">${reflection.content}</p>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function toggleReflectionContent(button) {
+            const card = button.closest('.archive-card');
+            const preview = card.querySelector('.reflection-preview');
+            const full = card.querySelector('.reflection-full');
+            const icon = button.querySelector('svg');
+
+            if (full.classList.contains('hidden')) {
+                preview.classList.add('hidden');
+                full.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                preview.classList.remove('hidden');
+                full.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // ========================================
+        // EVENT LISTENERS
+        // ========================================
 
         function setupEventListeners() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -713,12 +991,19 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchView(e.currentTarget.dataset.view);
+                    const view = e.currentTarget.dataset.view;
+                    switchView(view);
                     closeMobileMenuFunc();
+
                     document.querySelectorAll('.nav-link').forEach(l => {
                         l.classList.remove('bg-amber-500/20', 'text-amber-400');
                     });
                     e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
+
+                    // Carica archivio quando si clicca sulla voce
+                    if (view === 'archivio') {
+                        loadArchive();
+                    }
                 });
             });
 
@@ -758,7 +1043,6 @@
                     showToast('✅ Riflessione salvata!');
                     textarea.value = '';
                     document.getElementById('charCount').textContent = '0';
-                    
                     await loadProgressData(session.user.id);
                 }
             });
@@ -766,13 +1050,34 @@
             document.getElementById('copyBtn').addEventListener('click', () => {
                 const text = textarea.value;
                 if (!text) return showToast('Niente da copiare!');
-                navigator.clipboard.writeText(text).then(() => showToast('Copiato!'));
+                navigator.clipboard.writeText(text).then(() => showToast('✅ Copiato!'));
             });
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('👋 Logout...');
+                console.log('🚪 Logout...');
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
+            });
+
+            // Archivio - Eventi
+            document.getElementById('applyFilters').addEventListener('click', () => {
+                console.log('🔍 Applico filtri archivio');
+                loadArchive();
+            });
+
+            document.getElementById('prevPage').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderArchivePage();
+                }
+            });
+
+            document.getElementById('nextPage').addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredReflections.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderArchivePage();
+                }
             });
         }
 
