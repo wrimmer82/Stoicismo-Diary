@@ -2,862 +2,1096 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - The Stoic Journey</title>
     
-    <!-- SEO Meta Tags -->
-    <title>Registrazione - The Stoic Journey | Inizia il Tuo Percorso Stoico</title>
-    <meta name="description" content="Unisciti a migliaia di praticanti dello stoicismo. Crea il tuo account gratuito e inizia il viaggio di crescita personale guidato dalla filosofia antica.">
-    <meta name="keywords" content="stoicismo, registrazione, meditazione, crescita personale, filosofia">
+    <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
+    <meta name="robots" content="noindex, nofollow">
     
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Registrazione - The Stoic Journey">
-    <meta property="og:description" content="Unisciti al viaggio stoico. Registrazione gratuita.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://wrimmer82.github.io/Stoicismo-Diary/registrazione.html">
-    
-    <!-- Scripts & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .animate-fadeIn {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-        .animate-slideDown {
-            animation: slideDown 0.3s ease-out forwards;
-        }
-        .animate-slideUp {
-            animation: slideUp 0.3s ease-out forwards;
-        }
-        .delay-200 { animation-delay: 0.2s; opacity: 0; }
-        .delay-400 { animation-delay: 0.4s; opacity: 0; }
-        .delay-600 { animation-delay: 0.6s; opacity: 0; }
-        .shake { animation: shake 0.5s; }
-        
-        .spinner {
-            border: 3px solid rgba(251, 191, 36, 0.3);
-            border-top-color: #fbbf24;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 0.8s linear infinite;
-        }
-        
         .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-baskerville { font-family: 'Libre Baskerville', serif; }
+        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
-        
-        .sunset-gradient {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%,
-                #2d1b3d 15%,
-                #4a2c4f 30%,
-                #6b4a5a 45%,
-                #8b5a4e 60%,
-                #a8754a 75%,
-                #c49050 85%,
-                #1c1410 100%
-            );
+
+        .pergamena-bg {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
+            position: relative;
         }
-        
-        .input-focus:focus {
-            border-color: rgba(251, 191, 36, 0.8);
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
-            transform: scale(1.01);
-        }
-        
-        .input-error {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-        }
-        
-        .input-success {
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-        }
-        
-        .password-strength {
-            height: 4px;
-            border-radius: 2px;
+
+        .highlighted-text {
+            color: #fde047;
+            font-weight: 900;
+            font-style: italic;
+            text-shadow: 
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
+                0 0 15px rgba(253, 224, 71, 1),
+                0 0 25px rgba(253, 224, 71, 0.8),
+                0 0 35px rgba(253, 224, 71, 0.6);
             transition: all 0.3s ease;
+            letter-spacing: 0.04em;
         }
-        
-        .strength-weak { width: 33%; background: #ef4444; }
-        .strength-medium { width: 66%; background: #f59e0b; }
-        .strength-strong { width: 100%; background: #10b981; }
-        
-        .password-toggle {
-            cursor: pointer;
-            user-select: none;
+
+        .highlighted-text:hover {
+            color: #facc15;
+            text-shadow: 
+                -4px -4px 0 #000, 4px -4px 0 #000,
+                -4px 4px 0 #000, 4px 4px 0 #000,
+                -5px 0 0 #000, 5px 0 0 #000,
+                0 -5px 0 #000, 0 5px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                0 0 20px rgba(250, 204, 21, 1),
+                0 0 30px rgba(250, 204, 21, 0.9),
+                0 0 40px rgba(250, 204, 21, 0.7);
+            transform: scale(1.02);
         }
-        
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            max-width: 400px;
-            z-index: 9999;
+
+        .roman-number {
+            color: #fde047;
+            font-weight: 900;
+            font-size: 1.2em;
+            text-shadow: 
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
+                0 0 15px rgba(253, 224, 71, 1);
+            letter-spacing: 0.1em;
         }
-        
-        /* Loading Overlay */
-        .loading-overlay {
+
+        .section-title-parchment {
+            color: #92400e;
+            text-shadow: 
+                1px 1px 0 rgba(255, 255, 255, 0.5),
+                -1px -1px 0 rgba(0, 0, 0, 0.3);
+            font-weight: 900;
+        }
+
+        .parchment-card {
+            background: rgba(245, 222, 179, 0.95);
+            border: 2px solid rgba(146, 64, 14, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .parchment-card h3 {
+            color: #92400e;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        .parchment-card p {
+            color: #451a03;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        body {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
+                #c49050 80%, #a8754a 90%, #1c1410 100%
+            );
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        #mobileMenuOverlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9998;
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        
-        /* Philosopher circles hover effect */
-        .philosopher-circle {
+
+        #mobileMenuOverlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #mobileSidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            z-index: 50;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #mobileSidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        #mobileSidebar.active {
+            transform: translateX(0);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .gradient-border {
             position: relative;
-            cursor: pointer;
+            border-radius: 1rem;
         }
-        
-        .philosopher-circle img {
-            position: relative;
+
+        .progress-bar {
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        /* MOBILE OPTIMIZATIONS */
-        @media (max-width: 768px) {
-            .philosopher-images {
-                display: none !important; /* Nascondi immagini su mobile */
+
+        .skeleton {
+            background: linear-gradient(90deg, rgba(245, 222, 179, 0.3) 25%, rgba(245, 222, 179, 0.5) 50%, rgba(245, 222, 179, 0.3) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
+        }
+
+        .streak-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 767px) {
+            .mobile-textarea {
+                height: 120px;
+                font-size: 16px;
             }
-            .quote-section h1 {
-                font-size: 1.875rem !important; /* 30px invece di 60px */
-                line-height: 2.25rem !important;
+            .mobile-btn {
+                min-height: 48px;
+                font-size: 16px;
             }
-            .quote-section p {
-                font-size: 1rem !important; /* 16px invece di 24px */
+        }
+
+        @media (min-width: 768px) {
+            .desktop-textarea {
+                height: 200px;
             }
-            .form-container {
-                padding: 1.5rem !important; /* Riduci padding */
-            }
-            .form-spacing {
-                gap: 1rem !important; /* Riduci spacing tra campi */
-            }
+        }
+
+        .archive-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .archive-card:hover {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(251, 191, 36, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .pagination-btn {
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .filter-select {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            color: #f1f5f9;
+        }
+
+        .filter-select:focus {
+            border-color: rgba(251, 191, 36, 0.6);
+            outline: none;
         }
     </style>
 </head>
-<body class="bg-gray-50 font-inter">
-    
-    <!-- Loading Overlay (nascosto di default) -->
-    <div id="loadingOverlay" class="loading-overlay hidden">
-        <div class="text-center">
-            <div class="spinner mx-auto mb-4" style="width: 48px; height: 48px; border-width: 4px;"></div>
-            <p class="text-white font-cinzel text-lg" id="loadingText">Creazione account...</p>
-        </div>
-    </div>
-    
-    <!-- Toast Container -->
-    <div id="toastContainer" class="toast"></div>
-    
-    <!-- Main Section -->
-    <section class="min-h-screen sunset-gradient flex items-center justify-center py-8 md:py-12 px-4">
-        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
-            
-            <!-- Left: Filosofi + Citazione (3 col) -->
-            <div class="md:col-span-3 text-center md:text-left animate-fadeIn">
-                <!-- Logo e Link Home -->
-                <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
-                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-10 w-10 md:h-12 md:w-12 object-contain drop-shadow-2xl">
-                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white">
-                        The Stoic Journey
-                    </span>
-                </a>
-                
-                <!-- Citazione Rotativa -->
-                <div class="mb-6 md:mb-8 animate-fadeIn delay-200 quote-section">
-                    <h1 id="rotatingQuote" class="text-3xl md:text-6xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
-                        "Non conta quante volte cadi, ma quante volte ti rialzi"
-                    </h1>
-                    <p id="rotatingAuthor" class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
-                        — Marco Aurelio
-                    </p>
-                </div>
-                
-                <!-- Immagini 3 Filosofi - Layout Anelli Olimpici PIÙ GRANDI (SOLO DESKTOP) -->
-                <div class="philosopher-images flex justify-center md:justify-start animate-fadeIn delay-400">
-                    <div class="relative w-full max-w-2xl mx-auto md:mx-0">
-                        <!-- Riga superiore: Marco Aurelio + Epitteto -->
-                        <div class="flex justify-center gap-6 md:gap-8 mb-[-80px] md:mb-[-110px]">
-                            <!-- Marco Aurelio (sinistra) - PIÙ GRANDE -->
-                            <div class="philosopher-circle group">
-                                <img src="marco_aurelio_3d.jpg" 
-                                     alt="Marco Aurelio" 
-                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
-                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
-                            </div>
-                            
-                            <!-- Epitteto (destra) - PIÙ GRANDE -->
-                            <div class="philosopher-circle group">
-                                <img src="Epitteto_3d.png" 
-                                     alt="Epitteto" 
-                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
-                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Riga inferiore: Zenone (centro) - PIÙ GRANDE -->
-                        <div class="flex justify-center">
-                            <div class="philosopher-circle group">
-                                <img src="Zenone_di_Cinzio_3d.png" 
-                                     alt="Zenone di Cinzio" 
-                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400 relative z-10">
-                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Zenone di Cinzio</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Right: Form Registrazione (2 col) -->
-            <div class="md:col-span-2 animate-fadeIn delay-600">
-                <div class="form-container bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-6 md:p-10 backdrop-blur-sm shadow-2xl">
-                    
-                    <!-- Header Form -->
-                    <div class="text-center mb-6 md:mb-8">
-                        <h2 class="text-2xl md:text-4xl font-cinzel font-bold text-amber-300 mb-2 md:mb-3">
-                            Inizia il Tuo Viaggio
-                        </h2>
-                        <p class="text-sm md:text-base text-slate-300 font-baskerville">
-                            Unisciti a migliaia di praticanti moderni dello stoicismo
-                        </p>
-                    </div>
-                    
-                    <!-- Google Sign-In Button -->
-                    <button 
-                        id="googleSignInBtn"
-                        type="button"
-                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 md:py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-4 md:mb-6 border-2 border-gray-200">
-                        <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24">
-                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+<body class="font-inter text-slate-100">
+
+    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors" aria-label="Apri menu">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
-                        <span id="googleBtnText" class="font-cinzel text-sm md:text-base">Continua con Google</span>
-                        <div id="googleSpinner" class="spinner hidden"></div>
                     </button>
                     
-                    <!-- Divider -->
-                    <div class="relative my-4 md:my-6">
-                        <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-slate-700"></div>
-                        </div>
-                        <div class="relative flex justify-center text-xs md:text-sm">
-                            <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville">oppure con email</span>
-                        </div>
+                    <div class="flex items-center gap-3">
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
+                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">
+                            The Stoic Journey
+                        </span>
                     </div>
-                    
-                    <!-- Form Email/Password -->
-                    <form id="registrationForm" class="form-spacing space-y-4 md:space-y-5" novalidate>
-                        
-                        <!-- Nome Completo -->
-                        <div>
-                            <label for="nome" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Nome completo
-                                <span class="text-slate-500 font-normal text-xs ml-1">(opzionale)</span>
-                            </label>
-                            <input 
-                                type="text" 
-                                id="nome" 
-                                placeholder="es. Marco Aurelio"
-                                autocomplete="name"
-                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                            <p class="text-slate-400 text-xs mt-1 font-baskerville">Ti chiameremo così nelle email</p>
-                        </div>
-                        
-                        <!-- Email -->
-                        <div>
-                            <label for="email" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Email *
-                            </label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                required
-                                placeholder="stoico@esempio.com"
-                                autocomplete="email"
-                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                            <p id="emailError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
-                            <p id="emailSuccess" class="text-green-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Email valida</p>
-                        </div>
-                        
-                        <!-- Password -->
-                        <div>
-                            <label for="password" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Password *
-                            </label>
-                            <div class="relative">
-                                <input 
-                                    type="password" 
-                                    id="password" 
-                                    required
-                                    placeholder="Minimo 8 caratteri"
-                                    autocomplete="new-password"
-                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                                <button 
-                                    type="button" 
-                                    id="togglePassword"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
-                                    <svg id="eyeIcon" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            
-                            <!-- Password Strength Indicator -->
-                            <div class="mt-2">
-                                <div class="bg-slate-800 h-1 rounded-full overflow-hidden">
-                                    <div id="strengthBar" class="password-strength"></div>
-                                </div>
-                                <p id="strengthText" class="text-xs mt-1 font-baskerville"></p>
-                            </div>
-                            
-                            <!-- Password Requirements -->
-                            <div id="passwordRequirements" class="mt-2 md:mt-3 space-y-1 text-xs font-baskerville hidden">
-                                <p class="text-slate-400 font-semibold mb-1">La password deve contenere:</p>
-                                <div class="flex items-center gap-2" id="req-length">
-                                    <span class="text-slate-500">○</span>
-                                    <span class="text-slate-400">Almeno 8 caratteri</span>
-                                </div>
-                                <div class="flex items-center gap-2" id="req-uppercase">
-                                    <span class="text-slate-500">○</span>
-                                    <span class="text-slate-400">Una lettera maiuscola</span>
-                                </div>
-                                <div class="flex items-center gap-2" id="req-lowercase">
-                                    <span class="text-slate-500">○</span>
-                                    <span class="text-slate-400">Una lettera minuscola</span>
-                                </div>
-                                <div class="flex items-center gap-2" id="req-number">
-                                    <span class="text-slate-500">○</span>
-                                    <span class="text-slate-400">Un numero</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Conferma Password -->
-                        <div>
-                            <label for="confirmPassword" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
-                                Conferma password *
-                            </label>
-                            <div class="relative">
-                                <input 
-                                    type="password" 
-                                    id="confirmPassword" 
-                                    required
-                                    placeholder="Ripeti la password"
-                                    autocomplete="new-password"
-                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
-                                <button 
-                                    type="button" 
-                                    id="toggleConfirmPassword"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
-                                    <svg id="eyeIconConfirm" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                            <p id="confirmPasswordError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
-                            <p id="confirmPasswordSuccess" class="text-green-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown">✓ Le password coincidono</p>
-                        </div>
-                        
-                        <!-- Privacy Checkbox -->
-                        <div class="flex items-start gap-2 md:gap-3 pt-2">
-                            <input 
-                                type="checkbox" 
-                                id="privacy" 
-                                required
-                                class="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
-                            <label for="privacy" class="text-xs md:text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
-                                Accetto i <a href="#" class="text-amber-300 underline hover:text-amber-200">Termini di Servizio</a> e la <a href="#" class="text-amber-300 underline hover:text-amber-200">Privacy Policy</a>
-                            </label>
-                        </div>
-                        
-                        <!-- Newsletter Checkbox -->
-                        <div class="flex items-start gap-2 md:gap-3">
-                            <input 
-                                type="checkbox" 
-                                id="newsletter" 
-                                checked
-                                class="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
-                            <label for="newsletter" class="text-xs md:text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
-                                Voglio ricevere riflessioni stoiche settimanali via email
-                            </label>
-                        </div>
-                        
-                        <!-- Submit Button -->
-                        <button 
-                            type="submit"
-                            id="submitBtn"
-                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
-                            <span id="submitBtnText">Accetta la Sfida</span>
-                            <div id="submitSpinner" class="spinner hidden"></div>
+                </div>
+
+                <div class="flex items-center gap-4 md:gap-6">
+                    <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
+                        <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
+                        <span class="text-xs text-slate-900 font-medium">giorni</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                        <span class="hidden md:inline text-sm text-slate-300">
+                            Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
+                        </span>
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
+                            Esci
                         </button>
-                        
-                    </form>
-                    
-                    <!-- Login Link -->
-                    <div class="mt-4 md:mt-6 text-center">
-                        <p class="text-xs md:text-sm text-slate-400 font-baskerville">
-                            Hai già un account? 
-                            <a href="accedi.html" class="text-amber-300 underline hover:text-amber-200 font-semibold">
-                                Accedi qui
-                            </a>
-                        </p>
                     </div>
-                    
-                    <!-- Trust Badges -->
-                    <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-slate-700">
-                        <div class="flex flex-wrap justify-center gap-3 md:gap-4 text-xs text-slate-400 font-baskerville">
-                            <span class="flex items-center gap-1">
-                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                </svg>
-                                Gratis per sempre
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                </svg>
-                                Nessuna carta richiesta
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                                </svg>
-                                Cancellazione istantanea
-                            </span>
-                        </div>
-                        
-                        <!-- Security Badge -->
-                        <div class="mt-3 md:mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
-                            <svg class="w-3 h-3 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
-                            I tuoi dati sono protetti e crittografati
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
-            
         </div>
-    </section>
+    </header>
+
+    <div id="mobileMenuOverlay"></div>
+
+    <aside id="mobileSidebar" class="md:hidden">
+        <div class="p-6">
+            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+
+            <nav class="space-y-2">
+                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Oggi</span>
+                </a>
+                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
+                    <span>Archivio</span>
+                </a>
+                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>Impostazioni</span>
+                </a>
+                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span>Passa a PRO</span>
+                </a>
+            </nav>
+
+            <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
+                <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
+                <div class="text-xs text-slate-400">giorni di streak</div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex">
+        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
+            <nav class="p-6 space-y-2">
+                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Oggi</span>
+                </a>
+                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
+                    <span>Archivio</span>
+                </a>
+                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>Impostazioni</span>
+                </a>
+                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span>Passa a PRO</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+            
+            <!-- VIEW OGGI -->
+            <div id="viewOggi" class="view-container">
+                
+                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
+                            Contenuto Quotidiano
+                        </h2>
+                        <p class="text-sm font-trajan font-bold" style="color: #f5dec3; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
+                            Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
+                        </p>
+                    </div>
+
+                    <div id="contentSkeleton" class="space-y-4">
+                        <div class="skeleton h-6 w-3/4 mx-auto rounded"></div>
+                        <div class="skeleton h-4 w-full rounded"></div>
+                        <div class="skeleton h-4 w-5/6 rounded"></div>
+                        <div class="skeleton h-32 w-full rounded mt-6"></div>
+                    </div>
+
+                    <div id="dailyContent" class="hidden space-y-6">
+                        <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
+                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">"..."</p>
+                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">— ...</p>
+                        </div>
+
+                        <div class="parchment-card rounded-lg p-4 md:p-6">
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
+                            <p class="leading-relaxed font-trajan" id="interpretationText">...</p>
+                        </div>
+
+                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
+                            <p class="leading-relaxed font-trajan" id="challengeText">...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">Le Tue Riflessioni di Oggi</h3>
+                    
+                    <textarea 
+                        id="reflectionTextarea"
+                        maxlength="2000"
+                        placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
+                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
+                    ></textarea>
+                    
+                    <div class="flex items-center justify-between mt-3">
+                        <span class="text-xs text-slate-500">
+                            <span id="charCount">0</span>/2000 caratteri
+                        </span>
+                        <div class="flex gap-3">
+                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
+                                <span>Copia</span>
+                            </button>
+                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
+                                <span>Salva</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">Il Tuo Progresso</h3>
+                    
+                    <div class="space-y-4 md:hidden">
+                        <div class="bg-slate-800 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
+                            <div class="text-xs text-slate-400">giorni di streak</div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-amber-400 mb-1" id="progressReflections">0</div>
+                            <div class="text-xs text-slate-400">riflessioni scritte</div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-slate-300">Sfide completate</span>
+                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-2">
+                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500 text-right mt-1">
+                                <span id="progressPercentage">0</span>%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hidden md:grid md:grid-cols-3 gap-6">
+                        <div class="bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
+                            <div class="text-sm text-slate-400">giorni di streak</div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-6 text-center">
+                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
+                            <div class="text-sm text-slate-400">riflessioni scritte</div>
+                        </div>
+                        <div class="bg-slate-800 rounded-lg p-6">
+                            <div class="text-center mb-3">
+                                <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
+                            </div>
+                            <div class="w-full bg-slate-700 rounded-full h-3">
+                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <div class="text-xs text-slate-400 text-center mt-2">
+                                <span id="progressPercentageDesktop">0</span>% completato
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW ARCHIVIO -->
+            <div id="viewArchivio" class="view-container hidden">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">📦 Archivio Riflessioni</h2>
+                    <p class="text-slate-400">Tutte le tue riflessioni passate</p>
+                </div>
+
+                <!-- Filtri -->
+                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-4 md:p-6 mb-6 border border-amber-500/20">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Mese</label>
+                            <select id="filterMonth" class="w-full filter-select rounded-lg px-4 py-2">
+                                <option value="">Tutti i mesi</option>
+                                <option value="1">Gennaio</option>
+                                <option value="2">Febbraio</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Aprile</option>
+                                <option value="5">Maggio</option>
+                                <option value="6">Giugno</option>
+                                <option value="7">Luglio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Settembre</option>
+                                <option value="10">Ottobre</option>
+                                <option value="11">Novembre</option>
+                                <option value="12">Dicembre</option>
+                            </select>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-slate-300 mb-2">Anno</label>
+                            <select id="filterYear" class="w-full filter-select rounded-lg px-4 py-2">
+                                <option value="">Tutti gli anni</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button id="applyFilters" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold px-6 py-2 rounded-lg transition-all whitespace-nowrap">
+                                Applica Filtri
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading Skeleton -->
+                <div id="archiveSkeleton" class="space-y-4">
+                    <div class="skeleton h-32 w-full rounded-lg"></div>
+                    <div class="skeleton h-32 w-full rounded-lg"></div>
+                    <div class="skeleton h-32 w-full rounded-lg"></div>
+                </div>
+
+                <!-- Lista Riflessioni -->
+                <div id="archiveList" class="hidden space-y-4 mb-6">
+                    <!-- Le card verranno inserite qui dinamicamente -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="archiveEmpty" class="hidden text-center py-20">
+                    <svg class="w-24 h-24 mx-auto text-slate-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="text-xl font-cinzel font-bold text-slate-400 mb-2">Nessuna riflessione trovata</h3>
+                    <p class="text-slate-500">Inizia a scrivere le tue riflessioni quotidiane!</p>
+                </div>
+
+                <!-- Paginazione -->
+                <div id="archivePagination" class="hidden flex items-center justify-between bg-slate-900/95 backdrop-blur-sm rounded-lg p-4 border border-amber-500/20">
+                    <button id="prevPage" class="pagination-btn bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all font-medium disabled:hover:bg-slate-800">
+                        ← Precedente
+                    </button>
+                    <span class="text-slate-300 text-sm">
+                        Pagina <span id="currentPage">1</span> di <span id="totalPages">1</span>
+                    </span>
+                    <button id="nextPage" class="pagination-btn bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all font-medium disabled:hover:bg-slate-800">
+                        Successivo →
+                    </button>
+                </div>
+            </div>
+
+            <!-- VIEW IMPOSTAZIONI -->
+            <div id="viewImpostazioni" class="view-container hidden">
+                <div class="text-center py-20">
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
+                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                </div>
+            </div>
+
+            <!-- VIEW PRO -->
+            <div id="viewPro" class="view-container hidden">
+                <div class="text-center py-20">
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
+                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+        <p id="toastMessage" class="text-sm font-medium"></p>
+    </div>
 
     <script>
-        // ========== CONFIGURAZIONE SUPABASE ==========
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-        
+        const SUPABASE_URL = 'https://fayuadwpchhrixafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0.Dc4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // ========== CITAZIONI ROTANTI ==========
-        const quotes = [
-            {
-                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
-                author: "Marco Aurelio"
-            },
-            {
-                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
-                author: "Marco Aurelio"
-            },
-            {
-                text: "Non è ciò che ti accade, ma come reagisci che conta",
-                author: "Epitteto"
-            },
-            {
-                text: "Abbiamo due orecchie e una bocca per ascoltare più di quanto parliamo",
-                author: "Zenone di Cizio"
-            },
-            {
-                text: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
-                author: "Epitteto"
-            },
-            {
-                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
-                author: "Zenone di Cizio"
-            },
-            {
-                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
-                author: "Marco Aurelio"
-            }
-        ];
-        
-        let currentQuoteIndex = 0;
-        
-        function rotateQuote() {
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-            const quote = quotes[currentQuoteIndex];
-            
-            const quoteEl = document.getElementById('rotatingQuote');
-            const authorEl = document.getElementById('rotatingAuthor');
-            
-            // Fade out
-            quoteEl.style.opacity = '0';
-            authorEl.style.opacity = '0';
-            
-            setTimeout(() => {
-                quoteEl.textContent = `"${quote.text}"`;
-                authorEl.textContent = `— ${quote.author}`;
-                
-                // Fade in
-                quoteEl.style.transition = 'opacity 0.5s';
-                authorEl.style.transition = 'opacity 0.5s';
-                quoteEl.style.opacity = '1';
-                authorEl.style.opacity = '1';
-            }, 500);
-        }
-        
-        // Ruota citazione ogni 8 secondi
-        setInterval(rotateQuote, 8000);
-        
-        // ========== TOAST NOTIFICATIONS ==========
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = `animate-slideUp p-4 rounded-lg shadow-2xl mb-4 ${
-                type === 'success' ? 'bg-green-600' : 
-                type === 'error' ? 'bg-red-600' : 
-                'bg-amber-600'
-            } text-white font-baskerville`;
-            toast.textContent = message;
-            
-            document.getElementById('toastContainer').appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, 5000);
-        }
-        
-        // ========== LOADING OVERLAY ==========
-        function showLoading(text = 'Caricamento...') {
-            document.getElementById('loadingText').textContent = text;
-            document.getElementById('loadingOverlay').classList.remove('hidden');
-        }
-        
-        function hideLoading() {
-            document.getElementById('loadingOverlay').classList.add('hidden');
-        }
-        
-        // ========== ELEMENTI DOM ==========
-        const form = document.getElementById('registrationForm');
-        const emailInput = document.getElementById('email');
-        const emailError = document.getElementById('emailError');
-        const emailSuccess = document.getElementById('emailSuccess');
-        const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('confirmPassword');
-        const confirmPasswordError = document.getElementById('confirmPasswordError');
-        const confirmPasswordSuccess = document.getElementById('confirmPasswordSuccess');
-        const strengthBar = document.getElementById('strengthBar');
-        const strengthText = document.getElementById('strengthText');
-        const passwordRequirements = document.getElementById('passwordRequirements');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitBtnText = document.getElementById('submitBtnText');
-        const submitSpinner = document.getElementById('submitSpinner');
-        const googleSignInBtn = document.getElementById('googleSignInBtn');
-        const googleBtnText = document.getElementById('googleBtnText');
-        const googleSpinner = document.getElementById('googleSpinner');
-        
-        // ========== TOGGLE PASSWORD VISIBILITY ==========
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-        });
-        
-        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
-            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            confirmPasswordInput.setAttribute('type', type);
-        });
-        
-        // ========== VALIDAZIONE EMAIL ==========
-        emailInput.addEventListener('blur', validateEmail);
-        emailInput.addEventListener('input', function() {
-            emailError.classList.add('hidden');
-            emailSuccess.classList.add('hidden');
-            emailInput.classList.remove('input-error', 'input-success');
-        });
-        
-        function validateEmail() {
-            const email = emailInput.value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
-            if (!email) {
-                emailError.textContent = "L'email è obbligatoria";
-                emailError.classList.remove('hidden');
-                emailSuccess.classList.add('hidden');
-                emailInput.classList.add('input-error');
-                emailInput.classList.remove('input-success');
-                emailInput.classList.add('shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 500);
-                return false;
-            }
-            
-            if (!emailRegex.test(email)) {
-                emailError.textContent = "Anche Epitteto avrebbe verificato questa email";
-                emailError.classList.remove('hidden');
-                emailSuccess.classList.add('hidden');
-                emailInput.classList.add('input-error');
-                emailInput.classList.remove('input-success');
-                emailInput.classList.add('shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 500);
-                return false;
-            }
-            
-            emailError.classList.add('hidden');
-            emailSuccess.classList.remove('hidden');
-            emailInput.classList.remove('input-error');
-            emailInput.classList.add('input-success');
-            return true;
-        }
-        
-        // ========== PASSWORD STRENGTH ==========
-        passwordInput.addEventListener('focus', function() {
-            passwordRequirements.classList.remove('hidden');
-        });
-        
-        passwordInput.addEventListener('input', function() {
-            const password = this.value;
-            let strength = 0;
-            const requirements = {
-                length: password.length >= 8,
-                uppercase: /[A-Z]/.test(password),
-                lowercase: /[a-z]/.test(password),
-                number: /[0-9]/.test(password)
-            };
-            
-            updateRequirement('req-length', requirements.length);
-            updateRequirement('req-uppercase', requirements.uppercase);
-            updateRequirement('req-lowercase', requirements.lowercase);
-            updateRequirement('req-number', requirements.number);
-            
-            if (requirements.length) strength++;
-            if (requirements.uppercase && requirements.lowercase) strength++;
-            if (requirements.number) strength++;
-            if (/[^a-zA-Z0-9]/.test(password)) strength++;
-            
-            strengthBar.className = 'password-strength';
-            
-            if (password.length === 0) {
-                strengthBar.style.width = '0';
-                strengthText.textContent = '';
-            } else if (strength <= 1) {
-                strengthBar.classList.add('strength-weak');
-                strengthText.textContent = "Schiavo delle password deboli";
-                strengthText.className = "text-xs mt-1 text-red-400 font-baskerville";
-            } else if (strength <= 2) {
-                strengthBar.classList.add('strength-medium');
-                strengthText.textContent = "Sulla via della sicurezza";
-                strengthText.className = "text-xs mt-1 text-amber-400 font-baskerville";
-            } else {
-                strengthBar.classList.add('strength-strong');
-                strengthText.textContent = "Imperatore della sicurezza";
-                strengthText.className = "text-xs mt-1 text-green-400 font-baskerville";
-            }
-            
-            if (confirmPasswordInput.value) {
-                validateConfirmPassword();
-            }
-        });
-        
-        function updateRequirement(id, met) {
-            const element = document.getElementById(id);
-            const icon = element.querySelector('span:first-child');
-            const text = element.querySelector('span:last-child');
-            
-            if (met) {
-                icon.textContent = '✓';
-                icon.className = 'text-green-500';
-                text.className = 'text-green-400';
-            } else {
-                icon.textContent = '○';
-                icon.className = 'text-slate-500';
-                text.className = 'text-slate-400';
-            }
-        }
-        
-        // ========== CONFERMA PASSWORD ==========
-        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
-        confirmPasswordInput.addEventListener('input', function() {
-            confirmPasswordError.classList.add('hidden');
-            confirmPasswordSuccess.classList.add('hidden');
-            confirmPasswordInput.classList.remove('input-error', 'input-success');
-        });
-        
-        function validateConfirmPassword() {
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-            
-            if (!confirmPassword) {
-                confirmPasswordError.textContent = "Conferma la tua password";
-                confirmPasswordError.classList.remove('hidden');
-                confirmPasswordSuccess.classList.add('hidden');
-                confirmPasswordInput.classList.add('input-error');
-                confirmPasswordInput.classList.remove('input-success');
-                confirmPasswordInput.classList.add('shake');
-                setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
-                return false;
-            }
-            
-            if (password !== confirmPassword) {
-                confirmPasswordError.textContent = "Le password non coincidono";
-                confirmPasswordError.classList.remove('hidden');
-                confirmPasswordSuccess.classList.add('hidden');
-                confirmPasswordInput.classList.add('input-error');
-                confirmPasswordInput.classList.remove('input-success');
-                confirmPasswordInput.classList.add('shake');
-                setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
-                return false;
-            }
-            
-            confirmPasswordError.classList.add('hidden');
-            confirmPasswordSuccess.classList.remove('hidden');
-            confirmPasswordInput.classList.remove('input-error');
-            confirmPasswordInput.classList.add('input-success');
-            return true;
-        }
-        
-        // ========== GOOGLE SIGN-IN ==========
-        googleSignInBtn.addEventListener('click', async function() {
-            googleBtnText.textContent = 'Reindirizzamento...';
-            googleSpinner.classList.remove('hidden');
-            googleSignInBtn.disabled = true;
-            
-            try {
-                const { data, error } = await supabase.auth.signInWithOAuth({
-                    provider: 'google',
-                    options: {
-                        redirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
-                    }
-                });
-                
-                if (error) throw error;
-                
-            } catch (error) {
-                console.error('Errore Google Sign-In:', error);
-                showToast('Google OAuth non ancora configurato. Usa email/password.', 'error');
-                
-                googleBtnText.textContent = 'Continua con Google';
-                googleSpinner.classList.add('hidden');
-                googleSignInBtn.disabled = false;
-            }
-        });
-        
-        // ========== FORM SUBMIT ==========
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const isEmailValid = validateEmail();
-            const isConfirmPasswordValid = validateConfirmPassword();
-            const isPasswordStrong = passwordInput.value.length >= 8;
-            const isPrivacyAccepted = document.getElementById('privacy').checked;
-            
-            if (!isEmailValid || !isConfirmPasswordValid || !isPasswordStrong) {
-                showToast('Correggi gli errori nel form prima di procedere', 'error');
-                return;
-            }
-            
-            if (!isPrivacyAccepted) {
-                showToast('Devi accettare i Termini di Servizio e la Privacy Policy', 'error');
-                return;
-            }
-            
-            showLoading('Creazione account...');
-            submitBtnText.textContent = 'Creazione account...';
-            submitSpinner.classList.remove('hidden');
-            submitBtn.disabled = true;
-            
-            try {
-                const email = emailInput.value;
-                const password = passwordInput.value;
-                const nome = document.getElementById('nome').value;
-                
-                const { data, error } = await supabase.auth.signUp({
-                    email: email,
-                    password: password,
-                    options: {
-                        data: {
-                            full_name: nome || null,
-                        },
-                        emailRedirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
-                    }
-                });
-                
-                if (error) throw error;
-                
-                hideLoading();
-                showToast('✅ Benvenuto nel Viaggio Stoico! Controlla la tua email.', 'success');
-                
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-                
-            } catch (error) {
-                console.error('Errore registrazione:', error);
-                hideLoading();
-                
-                let errorMessage = 'Si è verificato un errore durante la registrazione.';
-                
-                if (error.message.includes('already registered')) {
-                    errorMessage = 'Questa email è già registrata. Prova ad accedere.';
-                } else if (error.message.includes('password')) {
-                    errorMessage = 'Password troppo debole. Usa almeno 8 caratteri.';
-                } else {
-                    errorMessage = error.message;
+
+        let currentUserId = null;
+        let currentPage = 1;
+        const itemsPerPage = 15;
+        let totalReflections = 0;
+        let filteredReflections = [];
+
+        function arabicToRoman(num) {
+            const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+            const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+            let roman = '';
+            for (let i = 0; i < val.length; i++) {
+                while (num >= val[i]) {
+                    roman += syms[i];
+                    num -= val[i];
                 }
+            }
+            return roman;
+        }
+
+        const dailyContents = {
+            tipo1: {
+                quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
+                author: "Epitteto, Enchiridion",
+                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
+                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
+            },
+            tipo2: {
+                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
+                author: "Marco Aurelio, Meditazioni V.20",
+                interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
+                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
+            },
+            tipo3: {
+                quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
+                author: "Seneca, Lettere a Lucilio",
+                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
+                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
+            },
+            tipo4: {
+                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
+                author: "Marco Aurelio, Meditazioni II.11",
+                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
+                challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
+            }
+        };
+
+        function getDayOfYear() {
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const diff = now - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+
+        function getDailyContentType() {
+            const dayNum = getDayOfYear();
+            const cycle = (dayNum % 4) + 1;
+            return `tipo${cycle}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('📱 Dashboard - Verifico autenticazione...');
+            
+            try {
+                const { data: { session }, error } = await supabase.auth.getSession();
                 
-                showToast(errorMessage, 'error');
+                if (!session || error) {
+                    console.warn('⚠️ Nessuna sessione attiva, redirect a login');
+                    window.location.href = 'accedi.html';
+                    return;
+                }
+
+                const user = session.user;
+                currentUserId = user.id;
+                console.log('✅ Utente autenticato:', user.id);
+                console.log('📧 Email:', user.email);
+                console.log('🔐 Provider:', user.app_metadata?.provider);
+
+                loadUserData(user);
+                loadDailyContent();
+                await loadProgressData(user.id);
+                populateYearFilter();
+                setupEventListeners();
+
+            } catch (error) {
+                console.error('❌ Errore verifica sessione:', error);
+                window.location.href = 'accedi.html';
+            }
+        });
+
+        function loadUserData(user) {
+            const displayName = user.user_metadata?.full_name || 
+                               user.user_metadata?.name || 
+                               user.email?.split('@')[0] || 
+                               'Stoico';
+            console.log('👤 Nome visualizzato:', displayName);
+            document.getElementById('userName').textContent = displayName;
+        }
+
+        function loadDailyContent() {
+            const dayOfYear = getDayOfYear();
+            const dayRoman = arabicToRoman(dayOfYear);
+            const contentType = getDailyContentType();
+            const content = dailyContents[contentType];
+
+            document.getElementById('dayOfYear').textContent = dayRoman;
+
+            setTimeout(() => {
+                document.getElementById('contentSkeleton').classList.add('hidden');
+                document.getElementById('dailyContent').classList.remove('hidden');
+                document.getElementById('quoteText').textContent = content.quote;
+                document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
+                document.getElementById('interpretationText').textContent = content.interpretation;
+                document.getElementById('challengeText').textContent = content.challenge;
+            }, 800);
+        }
+
+        async function loadProgressData(userId) {
+            console.log('📊 Carico progresso per user:', userId);
+            
+            try {
+                const { data: reflections, error: reflError } = await supabase
+                    .from('reflections')
+                    .select('date, created_at')
+                    .eq('user_id', userId)
+                    .order('date', { ascending: false });
+
+                if (reflError) {
+                    console.error('❌ Errore caricamento riflessioni:', reflError);
+                    updateProgressUI({
+                        streak: 0,
+                        totalReflections: 0,
+                        completedChallenges: 0,
+                        totalChallenges: 365
+                    });
+                    return;
+                }
+
+                console.log('✅ Riflessioni caricate:', reflections?.length || 0);
+
+                const streak = calculateStreak(reflections);
+                const totalReflections = reflections?.length || 0;
+
+                updateProgressUI({
+                    streak,
+                    totalReflections,
+                    completedChallenges: totalReflections,
+                    totalChallenges: 365
+                });
+
+            } catch (error) {
+                console.error('❌ Errore generale:', error);
+                updateProgressUI({
+                    streak: 0,
+                    totalReflections: 0,
+                    completedChallenges: 0,
+                    totalChallenges: 365
+                });
+            }
+        }
+
+        function calculateStreak(reflections) {
+            if (!reflections || reflections.length === 0) return 0;
+
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+
+            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
+                return 0;
+            }
+
+            let streak = 0;
+            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+
+            for (const dateStr of uniqueDates) {
+                const refDate = new Date(dateStr);
+                const expectedDate = new Date(currentDate);
                 
-                submitBtnText.textContent = 'Accetta la Sfida';
-                submitSpinner.classList.add('hidden');
-                submitBtn.disabled = false;
+                expectedDate.setHours(0, 0, 0, 0);
+                refDate.setHours(0, 0, 0, 0);
+
+                if (refDate.getTime() === expectedDate.getTime()) {
+                    streak++;
+                    currentDate = new Date(currentDate.getTime() - 86400000);
+                } else {
+                    break;
+                }
             }
-        });
-        
-        // ========== CONTROLLO SESSIONE ESISTENTE ==========
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                window.location.href = 'dashboard.html';
+
+            return streak;
+        }
+
+        function updateProgressUI(data) {
+            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+
+            document.getElementById('headerStreak').textContent = data.streak;
+            document.getElementById('mobileStreak').textContent = data.streak;
+            document.getElementById('progressStreak').textContent = data.streak;
+            document.getElementById('progressReflections').textContent = data.totalReflections;
+            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressPercentage').textContent = percentage;
+
+            document.getElementById('progressStreakDesktop').textContent = data.streak;
+            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
+            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
+            document.getElementById('progressPercentageDesktop').textContent = percentage;
+        }
+
+        // ========================================
+        // ARCHIVIO - NUOVE FUNZIONI
+        // ========================================
+
+        function populateYearFilter() {
+            const yearSelect = document.getElementById('filterYear');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 5; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
             }
-        });
-        
-        supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_IN' && session) {
-                window.location.href = 'dashboard.html';
+        }
+
+        async function loadArchive() {
+            console.log('📦 Caricamento archivio...');
+            
+            if (!currentUserId) {
+                console.error('❌ User ID non disponibile');
+                return;
             }
-        });
+
+            document.getElementById('archiveSkeleton').classList.remove('hidden');
+            document.getElementById('archiveList').classList.add('hidden');
+            document.getElementById('archiveEmpty').classList.add('hidden');
+            document.getElementById('archivePagination').classList.add('hidden');
+
+            try {
+                let query = supabase
+                    .from('reflections')
+                    .select('*', { count: 'exact' })
+                    .eq('user_id', currentUserId)
+                    .order('date', { ascending: false });
+
+                const filterMonth = document.getElementById('filterMonth').value;
+                const filterYear = document.getElementById('filterYear').value;
+
+                if (filterYear) {
+                    const startDate = `${filterYear}-01-01`;
+                    const endDate = `${filterYear}-12-31`;
+                    query = query.gte('date', startDate).lte('date', endDate);
+                }
+
+                if (filterMonth && filterYear) {
+                    const startDate = `${filterYear}-${filterMonth.padStart(2, '0')}-01`;
+                    const lastDay = new Date(filterYear, filterMonth, 0).getDate();
+                    const endDate = `${filterYear}-${filterMonth.padStart(2, '0')}-${lastDay}`;
+                    query = query.gte('date', startDate).lte('date', endDate);
+                }
+
+                const { data: reflections, count, error } = await query;
+
+                document.getElementById('archiveSkeleton').classList.add('hidden');
+
+                if (error) {
+                    console.error('❌ Errore caricamento archivio:', error);
+                    showToast('Errore nel caricamento archivio');
+                    document.getElementById('archiveEmpty').classList.remove('hidden');
+                    return;
+                }
+
+                console.log('✅ Riflessioni caricate:', reflections.length);
+
+                if (!reflections || reflections.length === 0) {
+                    document.getElementById('archiveEmpty').classList.remove('hidden');
+                    return;
+                }
+
+                filteredReflections = reflections;
+                totalReflections = count;
+                currentPage = 1;
+
+                renderArchivePage();
+
+            } catch (error) {
+                console.error('❌ Errore generale archivio:', error);
+                document.getElementById('archiveSkeleton').classList.add('hidden');
+                document.getElementById('archiveEmpty').classList.remove('hidden');
+            }
+        }
+
+        function renderArchivePage() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageReflections = filteredReflections.slice(start, end);
+
+            const archiveList = document.getElementById('archiveList');
+            archiveList.innerHTML = '';
+
+            pageReflections.forEach(reflection => {
+                const card = createReflectionCard(reflection);
+                archiveList.appendChild(card);
+            });
+
+            document.getElementById('archiveList').classList.remove('hidden');
+
+            // Aggiorna paginazione
+            const totalPages = Math.ceil(filteredReflections.length / itemsPerPage);
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages;
+
+            if (totalPages > 1) {
+                document.getElementById('archivePagination').classList.remove('hidden');
+            } else {
+                document.getElementById('archivePagination').classList.add('hidden');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function createReflectionCard(reflection) {
+            const card = document.createElement('div');
+            card.className = 'archive-card rounded-lg p-4 md:p-6';
+
+            const date = new Date(reflection.date);
+            const formattedDate = date.toLocaleDateString('it-IT', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const truncatedContent = reflection.content.length > 200 
+                ? reflection.content.substring(0, 200) + '...' 
+                : reflection.content;
+
+            card.innerHTML = `
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <h4 class="text-lg font-cinzel font-bold text-amber-400 capitalize">${formattedDate}</h4>
+                        <p class="text-xs text-slate-500 mt-1">Tipo: ${reflection.content_type || 'Non specificato'}</p>
+                    </div>
+                    <button class="text-slate-400 hover:text-amber-400 transition-colors" onclick="toggleReflectionContent(this)">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="reflection-preview">
+                    <p class="text-slate-300 text-sm leading-relaxed">${truncatedContent}</p>
+                </div>
+                <div class="reflection-full hidden">
+                    <p class="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">${reflection.content}</p>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function toggleReflectionContent(button) {
+            const card = button.closest('.archive-card');
+            const preview = card.querySelector('.reflection-preview');
+            const full = card.querySelector('.reflection-full');
+            const icon = button.querySelector('svg');
+
+            if (full.classList.contains('hidden')) {
+                preview.classList.add('hidden');
+                full.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                preview.classList.remove('hidden');
+                full.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // ========================================
+        // EVENT LISTENERS
+        // ========================================
+
+        function setupEventListeners() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const mobileSidebar = document.getElementById('mobileSidebar');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileSidebar.classList.add('active');
+                mobileMenuOverlay.classList.add('active');
+            });
+
+            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
+
+            function closeMobileMenuFunc() {
+                mobileSidebar.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+            }
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const view = e.currentTarget.dataset.view;
+                    switchView(view);
+                    closeMobileMenuFunc();
+
+                    document.querySelectorAll('.nav-link').forEach(l => {
+                        l.classList.remove('bg-amber-500/20', 'text-amber-400');
+                    });
+                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
+
+                    // Carica archivio quando si clicca sulla voce
+                    if (view === 'archivio') {
+                        loadArchive();
+                    }
+                });
+            });
+
+            const textarea = document.getElementById('reflectionTextarea');
+            textarea.addEventListener('input', () => {
+                document.getElementById('charCount').textContent = textarea.value.length;
+            });
+
+            document.getElementById('saveBtn').addEventListener('click', async () => {
+                const text = textarea.value.trim();
+                if (!text) {
+                    showToast('Scrivi prima una riflessione!');
+                    return;
+                }
+
+                console.log('💾 Salvataggio riflessione...');
+
+                const { data: { session } } = await supabase.auth.getSession();
+                if (!session) {
+                    showToast('Errore: non autenticato');
+                    window.location.href = 'accedi.html';
+                    return;
+                }
+
+                const { data, error } = await supabase.from('reflections').insert({
+                    user_id: session.user.id,
+                    content: text,
+                    date: new Date().toISOString().split('T')[0],
+                    content_type: getDailyContentType()
+                });
+
+                if (error) {
+                    console.error('❌ Errore salvataggio:', error);
+                    showToast('Errore nel salvare: ' + error.message);
+                } else {
+                    console.log('✅ Riflessione salvata!');
+                    showToast('✅ Riflessione salvata!');
+                    textarea.value = '';
+                    document.getElementById('charCount').textContent = '0';
+                    await loadProgressData(session.user.id);
+                }
+            });
+
+            document.getElementById('copyBtn').addEventListener('click', () => {
+                const text = textarea.value;
+                if (!text) return showToast('Niente da copiare!');
+                navigator.clipboard.writeText(text).then(() => showToast('✅ Copiato!'));
+            });
+
+            document.getElementById('logoutBtn').addEventListener('click', async () => {
+                console.log('🚪 Logout...');
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+            });
+
+            // Archivio - Eventi
+            document.getElementById('applyFilters').addEventListener('click', () => {
+                console.log('🔍 Applico filtri archivio');
+                loadArchive();
+            });
+
+            document.getElementById('prevPage').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderArchivePage();
+                }
+            });
+
+            document.getElementById('nextPage').addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredReflections.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderArchivePage();
+                }
+            });
+        }
+
+        function switchView(viewName) {
+            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.style.transform = 'translateY(0)';
+            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
+        }
     </script>
 </body>
 </html>
