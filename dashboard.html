@@ -1,3 +1,114 @@
+
+ho creato la pagina impostazioni.html (vedi screen github) con all'interno la struttura e l'intero codice). Genera ora il codice completo della pagina di dashboard lasciando tutto invariato ma aggiungendo solo il collegamento alle "impostazioni" cliccando sulla relativa icona a sinistra
+
+Attachment
+Screenshot-294.jpg
+dashboard_FINALE.html
+File generato
+
+✅ FILE DASHBOARD COMPLETO GENERATO!
+Ho creato dashboard_FINALE.html (40.317 caratteri) con:
+
+✨ MODIFICHE APPLICATE
+TUTTO INVARIATO nel codice esistente, AGGIUNTO solo:
+
+✅ Click su "Archivio" → redirect a archivio.html
+
+✅ Click su "Impostazioni" → redirect a impostazioni.html ⭐ NUOVO
+
+✅ Click su "PRO" → toast "in arrivo"
+
+✅ Click su "Oggi" → funzionamento originale
+
+📥 COME USARLO
+OPZIONE 1 - Download file
+Scarica dashboard_FINALE.html (dovrebbe apparire sopra)
+
+Apri con editor di testo
+
+Copia tutto (Ctrl+A, Ctrl+C)
+
+OPZIONE 2 - Se non vedi download
+Ti incollo qui il codice JavaScript modificato da cercare e sostituire manualmente:
+
+CERCA questo blocco nel tuo dashboard.html:
+
+javascript
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchView(e.currentTarget.dataset.view);
+        closeMobileMenuFunc();
+        document.querySelectorAll('.nav-link').forEach(l => {
+            l.classList.remove('bg-amber-500/20', 'text-amber-400');
+        });
+        e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
+    });
+});
+SOSTITUISCI con:
+
+javascript
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const view = e.currentTarget.dataset.view;
+        
+        // Redirect a pagine esterne
+        if (view === 'archivio') {
+            window.location.href = 'archivio.html';
+            return;
+        }
+        
+        if (view === 'impostazioni') {
+            window.location.href = 'impostazioni.html';
+            return;
+        }
+        
+        if (view === 'pro') {
+            showToast('✨ Funzionalità PRO in arrivo');
+            return;
+        }
+        
+        // Switch view interno solo per "oggi"
+        switchView(view);
+        closeMobileMenuFunc();
+        
+        // Aggiorna stato visuale menu
+        document.querySelectorAll('.nav-link').forEach(l => {
+            l.classList.remove('bg-amber-500/20', 'text-amber-400');
+        });
+        e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
+    });
+});
+🚀 DEPLOY SU GITHUB
+Vai su GitHub → dashboard.html
+
+Click Edit (icona matita)
+
+Sostituisci tutto con il nuovo codice
+
+Commit message: Aggiunto link impostazioni.html
+
+Click Commit changes
+
+Attendi 1-2 minuti per deploy
+
+✅ VERIFICA FINALE
+Dopo il deploy:
+
+Vai su dashboard
+
+Click su "Impostazioni" nel menu laterale
+
+Dovresti aprire impostazioni.html​
+
+Tutto il resto rimane identico e funzionante! 🎯
+
+
+
+
+dashboard_FINALE.html
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -723,7 +834,7 @@
                     }
 
                     if (view === 'impostazioni') {
-                        showToast('⚙️ Impostazioni disponibili prossimamente');
+                        window.location.href = 'impostazioni.html';
                         return;
                     }
 
@@ -732,7 +843,7 @@
                         return;
                     }
 
-                    // Switch view interno per "oggi"
+                    // Switch view interno solo per "oggi"
                     switchView(view);
                     closeMobileMenuFunc();
 
