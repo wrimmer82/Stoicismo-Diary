@@ -32,18 +32,29 @@
         }
         
         /* Card pergamena identica a impostazioni */
-        .reflection-card {
+        .reflection-card, .stats-card, .filters-card {
             background: linear-gradient(145deg, #f5e6d3 0%, #e8d4b8 100%);
             border: 2px solid #d4a574;
             border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
             transition: transform 0.2s, box-shadow 0.2s;
-            font-family: 'EB Garamond', serif;
         }
         
         .reflection-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+        }
+        
+        /* Titoli sezioni stile impostazioni */
+        .section-header {
+            font-family: 'Cinzel', serif;
+            color: #92400e;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
         
         /* Bottoni arancioni come "Salva Profilo" */
@@ -119,6 +130,10 @@
                 width: 1.25rem;
                 height: 1.25rem;
             }
+            
+            .section-header {
+                font-size: 1.25rem;
+            }
         }
     </style>
 </head>
@@ -138,10 +153,9 @@
     </header>
 
     <div class="flex flex-col md:flex-row">
-        <!-- SIDEBAR - Font identici a dashboard/impostazioni -->
+        <!-- SIDEBAR -->
         <aside class="sidebar md:w-64 bg-slate-800 bg-opacity-90 p-2 md:p-4">
             <nav class="flex md:flex-col gap-1 md:gap-2">
-                <!-- Oggi -->
                 <a href="dashboard.html" class="sidebar-link text-slate-200">
                     <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -149,7 +163,6 @@
                     <span>Oggi</span>
                 </a>
                 
-                <!-- Archivio - ATTIVO -->
                 <a href="archivio.html" class="sidebar-link active">
                     <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
@@ -157,7 +170,6 @@
                     <span>Archivio</span>
                 </a>
                 
-                <!-- Impostazioni -->
                 <a href="impostazioni.html" class="sidebar-link text-slate-200">
                     <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -166,7 +178,6 @@
                     <span>Impostazioni</span>
                 </a>
                 
-                <!-- Passa a PRO -->
                 <a href="#" class="sidebar-link text-slate-200 bg-orange-600 bg-opacity-20 hover:bg-opacity-30">
                     <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
@@ -177,111 +188,120 @@
         </aside>
 
         <main class="main-content flex-1 p-3 md:p-6">
-            <!-- FILTRI RIDOTTI -->
-            <div class="bg-white bg-opacity-90 rounded-lg p-2 md:p-3 mb-3 md:mb-4 shadow-md">
-                <div class="flex items-center gap-2 mb-2">
-                    <svg class="w-4 h-4 text-slate-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="Cerca nelle riflessioni..."
-                        class="flex-1 px-2 py-1 md:px-3 md:py-1.5 border rounded focus:ring-2 focus:ring-amber-400 text-xs md:text-sm"
-                    >
+            <!-- Container centrale con max-width come impostazioni -->
+            <div class="max-w-5xl mx-auto">
+                
+                <!-- FILTRI RIDOTTI -->
+                <div class="filters-card p-4 md:p-5 mb-4 md:mb-6">
+                    <h2 class="section-header text-lg md:text-xl">
+                        🔍 Filtri e Ricerca
+                    </h2>
+                    
+                    <div class="flex items-center gap-2 mb-3">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Cerca nelle riflessioni..."
+                            class="flex-1 px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base"
+                        >
+                        <button 
+                            id="toggleFilters" 
+                            class="bg-slate-600 hover:bg-slate-700 text-white px-3 py-2 md:px-4 md:py-2.5 rounded-lg text-sm md:text-base font-semibold"
+                        >
+                            Filtri
+                        </button>
+                    </div>
+                    
+                    <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+                        <input 
+                            type="date" 
+                            id="dateFrom" 
+                            class="px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base"
+                        >
+                        
+                        <input 
+                            type="date" 
+                            id="dateTo" 
+                            class="px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base"
+                        >
+                        
+                        <select 
+                            id="contentTypeFilter" 
+                            class="px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base"
+                        >
+                            <option value="">Tutti i tipi</option>
+                            <option value="tipo1">Tipo 1</option>
+                            <option value="tipo2">Tipo 2</option>
+                            <option value="tipo3">Tipo 3</option>
+                            <option value="tipo4">Tipo 4</option>
+                        </select>
+                    </div>
+                    
                     <button 
-                        id="toggleFilters" 
-                        class="bg-slate-600 hover:bg-slate-700 text-white px-2 py-1 md:px-3 md:py-1.5 rounded text-xs md:text-sm"
+                        id="applyFilters" 
+                        class="hidden mt-3 w-full btn-orange px-5 py-2.5 rounded-lg text-sm md:text-base"
                     >
-                        Filtri
+                        💾 Applica Filtri
                     </button>
                 </div>
-                
-                <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-2 mt-2">
-                    <input 
-                        type="date" 
-                        id="dateFrom" 
-                        class="px-2 py-1 md:px-3 md:py-1.5 border rounded focus:ring-2 focus:ring-amber-400 text-xs md:text-sm"
-                    >
-                    
-                    <input 
-                        type="date" 
-                        id="dateTo" 
-                        class="px-2 py-1 md:px-3 md:py-1.5 border rounded focus:ring-2 focus:ring-amber-400 text-xs md:text-sm"
-                    >
-                    
-                    <select 
-                        id="contentTypeFilter" 
-                        class="px-2 py-1 md:px-3 md:py-1.5 border rounded focus:ring-2 focus:ring-amber-400 text-xs md:text-sm"
-                    >
-                        <option value="">Tutti i tipi</option>
-                        <option value="tipo1">Tipo 1</option>
-                        <option value="tipo2">Tipo 2</option>
-                        <option value="tipo3">Tipo 3</option>
-                        <option value="tipo4">Tipo 4</option>
-                    </select>
-                </div>
-                
-                <button 
-                    id="applyFilters" 
-                    class="hidden mt-2 w-full btn-orange px-4 py-1.5 rounded text-xs md:text-sm"
-                >
-                    Applica
-                </button>
-            </div>
 
-            <!-- STATISTICHE -->
-            <div id="statsSection" class="bg-white bg-opacity-95 rounded-lg p-3 md:p-4 mb-3 md:mb-4 shadow-lg">
-                <div class="grid grid-cols-2 gap-3 md:gap-4 text-center">
-                    <div>
-                        <p class="text-3xl md:text-4xl font-bold text-amber-600 roman-number" id="totalReflections">0</p>
-                        <p class="text-sm md:text-base text-slate-600">Riflessioni Totali</p>
-                    </div>
-                    <div>
-                        <p class="text-base md:text-lg font-bold text-slate-800" id="dateRange">-</p>
-                        <p class="text-sm md:text-base text-slate-600">Periodo</p>
+                <!-- STATISTICHE -->
+                <div class="stats-card p-5 md:p-6 mb-4 md:mb-6">
+                    <h2 class="section-header text-lg md:text-xl">
+                        📊 Statistiche
+                    </h2>
+                    
+                    <div class="grid grid-cols-2 gap-4 md:gap-6">
+                        <div class="text-center">
+                            <p class="text-4xl md:text-5xl font-bold text-amber-700 roman-number mb-2" id="totalReflections">0</p>
+                            <p class="text-sm md:text-base text-slate-700 font-semibold">Riflessioni Totali</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-base md:text-lg font-bold text-slate-800 mb-2" id="dateRange" style="font-family: 'EB Garamond', serif;">-</p>
+                            <p class="text-sm md:text-base text-slate-700 font-semibold">Periodo</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- LISTA RIFLESSIONI -->
-            <div id="reflectionsContainer" class="space-y-3 md:space-y-4">
-            </div>
+                <!-- LISTA RIFLESSIONI -->
+                <div id="reflectionsContainer" class="space-y-4 md:space-y-5">
+                </div>
 
-            <!-- PAGINAZIONE -->
-            <div id="paginationControls" class="mt-4 md:mt-6 flex justify-center items-center gap-2 md:gap-4 flex-wrap">
-                <button id="prevPage" class="bg-slate-600 hover:bg-slate-700 text-white px-3 py-2 md:px-4 md:py-2 rounded disabled:opacity-50 text-sm md:text-base">
-                    ← Prec
-                </button>
-                <span id="pageInfo" class="text-white font-semibold text-sm md:text-base">Pag 1 di 1</span>
-                <button id="nextPage" class="bg-slate-600 hover:bg-slate-700 text-white px-3 py-2 md:px-4 md:py-2 rounded disabled:opacity-50 text-sm md:text-base">
-                    Succ →
-                </button>
+                <!-- PAGINAZIONE -->
+                <div id="paginationControls" class="mt-6 md:mt-8 flex justify-center items-center gap-3 md:gap-4 flex-wrap">
+                    <button id="prevPage" class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold">
+                        ← Precedente
+                    </button>
+                    <span id="pageInfo" class="text-white font-bold text-sm md:text-base px-4 py-2 bg-slate-800 bg-opacity-70 rounded-lg">Pag 1 di 1</span>
+                    <button id="nextPage" class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold">
+                        Successiva →
+                    </button>
+                </div>
             </div>
         </main>
     </div>
 
     <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-lg p-4 md:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4" style="font-family: 'Cinzel', serif; color: #92400e;">Modifica Riflessione</h3>
+        <div class="bg-white rounded-xl p-5 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <h3 class="section-header text-xl md:text-2xl mb-4">✏️ Modifica Riflessione</h3>
             <textarea 
                 id="editTextarea" 
-                class="w-full h-48 md:h-64 p-3 md:p-4 border rounded focus:ring-2 focus:ring-amber-400 text-sm md:text-base"
-                placeholder="Modifica il testo..."
+                class="w-full h-56 md:h-72 p-4 md:p-5 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base"
+                placeholder="Modifica il testo della tua riflessione..."
                 style="font-family: 'EB Garamond', serif;"
             ></textarea>
-            <div class="mt-3 md:mt-4 flex gap-2 md:gap-4">
-                <button id="saveEditBtn" class="flex-1 btn-orange px-4 py-2 rounded text-sm md:text-base">
-                    💾 Salva
+            <div class="mt-5 flex gap-3 md:gap-4">
+                <button id="saveEditBtn" class="flex-1 btn-orange px-6 py-3 rounded-lg text-sm md:text-base font-semibold">
+                    💾 Salva Modifiche
                 </button>
-                <button id="cancelEditBtn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white px-4 py-2 rounded text-sm md:text-base">
-                    Annulla
+                <button id="cancelEditBtn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg text-sm md:text-base font-semibold">
+                    ✖ Annulla
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="hidden fixed bottom-20 md:bottom-4 right-4 left-4 md:left-auto bg-slate-800 text-white px-4 py-3 rounded-lg shadow-lg z-50 text-sm md:text-base text-center md:text-left">
+    <div id="toast" class="hidden fixed bottom-20 md:bottom-6 right-4 left-4 md:left-auto md:right-6 bg-slate-900 text-white px-5 py-3.5 rounded-lg shadow-2xl z-50 text-sm md:text-base text-center md:text-left font-semibold">
         <p id="toastMessage"></p>
     </div>
 
@@ -343,8 +363,9 @@
             
             if (filteredReflections.length === 0) {
                 container.innerHTML = `
-                    <div class="bg-white bg-opacity-95 rounded-lg p-6 md:p-8 text-center">
-                        <p class="text-lg md:text-xl text-slate-600">Nessuna riflessione trovata</p>
+                    <div class="stats-card p-8 md:p-12 text-center">
+                        <p class="text-lg md:text-xl text-slate-600 font-semibold">Nessuna riflessione trovata</p>
+                        <p class="text-sm md:text-base text-slate-500 mt-2">Inizia a scrivere le tue riflessioni quotidiane!</p>
                     </div>
                 `;
                 updatePaginationControls(0);
@@ -363,31 +384,31 @@
             const dayOfYear = getDayOfYear(reflection.date);
             const dayRoman = arabicToRoman(dayOfYear);
             const dateFormatted = formatDate(reflection.date);
-            const contentPreview = truncateText(reflection.content, 180);
+            const contentPreview = truncateText(reflection.content, 200);
             
             return `
-                <div class="reflection-card p-4 md:p-6" data-id="${reflection.id}">
-                    <div class="flex flex-wrap justify-between items-start mb-3 gap-2">
-                        <div class="flex items-center gap-2">
-                            <span class="roman-number text-xl md:text-2xl font-bold text-amber-700">${dayRoman}</span>
-                            <span class="text-sm md:text-base text-slate-700">${dateFormatted}</span>
+                <div class="reflection-card p-5 md:p-7" data-id="${reflection.id}">
+                    <div class="flex flex-wrap justify-between items-start mb-4 gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="roman-number text-2xl md:text-3xl font-bold text-amber-700">${dayRoman}</span>
+                            <span class="text-sm md:text-base text-slate-700 font-semibold">${dateFormatted}</span>
                         </div>
                     </div>
                     
-                    <div class="mb-3 md:mb-4">
-                        <p class="text-slate-800 text-sm md:text-base leading-relaxed" style="font-family: 'EB Garamond', serif;">${contentPreview}</p>
+                    <div class="mb-4 md:mb-5">
+                        <p class="text-slate-800 text-base md:text-lg leading-relaxed" style="font-family: 'EB Garamond', serif;">${contentPreview}</p>
                     </div>
                     
-                    <div class="flex gap-2">
+                    <div class="flex gap-3">
                         <button 
                             onclick="editReflection('${reflection.id}')" 
-                            class="btn-orange px-3 py-2 md:px-4 md:py-2 rounded text-xs md:text-sm"
+                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-semibold"
                         >
                             ✏️ Modifica
                         </button>
                         <button 
                             onclick="deleteReflection('${reflection.id}')" 
-                            class="btn-orange px-3 py-2 md:px-4 md:py-2 rounded text-xs md:text-sm"
+                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-semibold"
                         >
                             🗑️ Elimina
                         </button>
@@ -407,11 +428,11 @@
                     .eq('user_id', currentUser.id);
                 
                 if (error) throw error;
-                showToast('Riflessione eliminata!');
+                showToast('✓ Riflessione eliminata con successo!');
                 await loadReflections();
             } catch (error) {
                 console.error('Errore:', error);
-                showToast('Errore durante eliminazione');
+                showToast('✗ Errore durante l\'eliminazione');
             }
         }
 
@@ -433,7 +454,7 @@
                 textarea.dataset.reflectionId = reflectionId;
             } catch (error) {
                 console.error('Errore:', error);
-                showToast('Errore caricamento riflessione');
+                showToast('✗ Errore nel caricamento della riflessione');
             }
         }
 
@@ -443,7 +464,7 @@
             const newContent = textarea.value.trim();
             
             if (!newContent) {
-                showToast('Il contenuto non può essere vuoto');
+                showToast('⚠ Il contenuto non può essere vuoto');
                 return;
             }
             
@@ -456,12 +477,12 @@
                 
                 if (error) throw error;
                 
-                showToast('Riflessione aggiornata!');
+                showToast('✓ Riflessione aggiornata con successo!');
                 closeEditModal();
                 await loadReflections();
             } catch (error) {
                 console.error('Errore:', error);
-                showToast('Errore durante salvataggio');
+                showToast('✗ Errore durante il salvataggio');
             }
         }
 
@@ -490,7 +511,7 @@
             if (currentPage > 1) {
                 currentPage--;
                 renderReflections();
-                window.scrollTo(0, 0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
@@ -499,7 +520,7 @@
             if (currentPage < totalPages) {
                 currentPage++;
                 renderReflections();
-                window.scrollTo(0, 0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
@@ -555,7 +576,7 @@
             const toastMessage = document.getElementById('toastMessage');
             toastMessage.textContent = message;
             toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3000);
+            setTimeout(() => toast.classList.add('hidden'), 3500);
         }
 
         function closeEditModal() {
