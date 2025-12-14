@@ -713,8 +713,30 @@
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    switchView(e.currentTarget.dataset.view);
+
+                    const view = e.currentTarget.dataset.view;
+
+                    // Redirect a pagine esterne
+                    if (view === 'archivio') {
+                        window.location.href = 'archivio.html';
+                        return;
+                    }
+
+                    if (view === 'impostazioni') {
+                        showToast('⚙️ Impostazioni disponibili prossimamente');
+                        return;
+                    }
+
+                    if (view === 'pro') {
+                        showToast('✨ Funzionalità PRO in arrivo');
+                        return;
+                    }
+
+                    // Switch view interno per "oggi"
+                    switchView(view);
                     closeMobileMenuFunc();
+
+                    // Aggiorna stato visuale menu
                     document.querySelectorAll('.nav-link').forEach(l => {
                         l.classList.remove('bg-amber-500/20', 'text-amber-400');
                     });
