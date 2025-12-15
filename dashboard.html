@@ -510,10 +510,22 @@
             return roman;
         }
 
-        // Contenuti caricati da Supabase tabella sfide_quotidiane
+        
 
-
-        function getDayOfYear() {
+        
+        // ✅ CONTENUTO DI FALLBACK (per oggi 15 dicembre = giorno 350)
+        const fallbackContent = {
+            350: {
+                data: "15 dicembre",
+                citazione: "Comportati sempre come se fossi a un banchetto: aspetta il tuo turno con pazienza",
+                autore: "Epitteto",
+                opera: "Enchiridion, 15",
+                tema: "presenza mentale",
+                interpretazione: "La vita richiede pazienza e rispetto del momento giusto. Forzare le cose o pretendere immediatezza è maleducazione esistenziale. Attendere con grazia il proprio turno è segno di maturità e fiducia nel processo.",
+                microsfida: "Quando oggi vuoi forzare qualcosa o accelerare impaziente, fermati. Pratica l'attesa paziente come a un banchetto elegante."
+            }
+        };
+function getDayOfYear() {
             const now = new Date();
             const start = new Date(now.getFullYear(), 0, 0);
             const diff = now - start;
@@ -565,61 +577,80 @@
             const dayOfYear = getDayOfYear();
             const dayRoman = arabicToRoman(dayOfYear);
 
-            // Aggiorna subito il numero romano
+            console.log('📅 Giorno dell\'anno:', dayOfYear);
+
+            // Aggiorna numero romano immediatamente
             document.getElementById('dayOfYear').textContent = dayRoman;
 
-            try {
-                console.log('🔍 Caricamento sfida per giorno:', dayOfYear);
+            let content = null;
 
-                // ✅ QUERY SUPABASE - usa 'giorno' come filtro
-                const { data: dailyChallenge, error } = await supabase
+            // ✅ TENTATIVO 1: Prova a caricare da Supabase
+            try {
+                console.log('🔍 Tentativo caricamento da Supabase...');
+
+                const { data, error } = await supabase
                     .from('sfide_quotidiane')
                     .select('*')
                     .eq('giorno', dayOfYear)
                     .single();
 
                 if (error) {
-                    console.error('❌ Errore Supabase:', error);
-
-                    // Fallback: mostra contenuto di esempio
-                    setTimeout(() => {
-                        document.getElementById('contentSkeleton').classList.add('hidden');
-                        document.getElementById('dailyContent').classList.remove('hidden');
-                        document.getElementById('quoteText').textContent = 'Errore nel caricamento della sfida quotidiana.';
-                        document.getElementById('quoteAuthor').textContent = 'Ricarica la pagina';
-                        document.getElementById('interpretationText').textContent = 'Si è verificato un errore nel caricamento dei contenuti da Supabase.';
-                        document.getElementById('challengeText').textContent = 'Prova a ricaricare la pagina o controlla la connessione.';
-                    }, 500);
-                    return;
+                    console.warn('⚠️ Errore Supabase:', error.message);
+                    console.log('📝 Codice errore:', error.code);
+                    throw error;
                 }
 
-                console.log('✅ Sfida caricata:', dailyChallenge);
-
-                // Mostra contenuto dopo animazione
-                setTimeout(() => {
-                    document.getElementById('contentSkeleton').classList.add('hidden');
-                    document.getElementById('dailyContent').classList.remove('hidden');
-
-                    // Popola i campi
-                    document.getElementById('quoteText').textContent = dailyChallenge.citazione || 'Citazione non disponibile';
-                    document.getElementById('quoteAuthor').textContent = `${dailyChallenge.autore || 'Autore'} — ${dailyChallenge.opera || 'Opera'}`;
-                    document.getElementById('interpretationText').textContent = dailyChallenge.interpretazione || 'Interpretazione non disponibile';
-                    document.getElementById('challengeText').textContent = dailyChallenge.microsfida || 'Micro-sfida non disponibile';
-                }, 800);
-
+                if (data) {
+                    console.log('✅ Contenuto caricato da Supabase');
+                    content = {
+                        citazione: data.citazione,
+                        autore: data.autore,
+                        opera: data.opera,
+                        interpretazione: data.interpretazione,
+                        microsfida: data.microsfida
+                    };
+                }
             } catch (error) {
-                console.error('❌ Errore generale:', error);
-
-                // Mostra errore visivamente
-                setTimeout(() => {
-                    document.getElementById('contentSkeleton').classList.add('hidden');
-                    document.getElementById('dailyContent').classList.remove('hidden');
-                    document.getElementById('quoteText').textContent = 'Errore di connessione';
-                    document.getElementById('quoteAuthor').textContent = 'Verifica Supabase';
-                    document.getElementById('interpretationText').textContent = error.message || 'Errore sconosciuto';
-                    document.getElementById('challengeText').textContent = 'Controlla la console del browser (F12) per maggiori dettagli.';
-                }, 500);
+                console.warn('❌ Supabase non disponibile, uso fallback');
             }
+
+            // ✅ TENTATIVO 2: Se Supabase fallisce, usa fallback
+            if (!content && fallbackContent[dayOfYear]) {
+                console.log('📦 Uso contenuto fallback per giorno', dayOfYear);
+                const fb = fallbackContent[dayOfYear];
+                content = {
+                    citazione: fb.citazione,
+                    autore: fb.autore,
+                    opera: fb.opera,
+                    interpretazione: fb.interpretazione,
+                    microsfida: fb.microsfida
+                };
+            }
+
+            // ✅ TENTATIVO 3: Ultimo fallback generico
+            if (!content) {
+                console.error('❌ Nessun contenuto disponibile');
+                content = {
+                    citazione: 'La sfida di oggi non è ancora disponibile.',
+                    autore: 'The Stoic Journey',
+                    opera: 'Dashboard',
+                    interpretazione: 'Stiamo caricando i contenuti. Ricarica la pagina tra qualche istante.',
+                    microsfida: 'Pratica la pazienza stoica mentre risolviamo il problema tecnico.'
+                };
+            }
+
+            // 🎨 MOSTRA CONTENUTO
+            setTimeout(() => {
+                document.getElementById('contentSkeleton').classList.add('hidden');
+                document.getElementById('dailyContent').classList.remove('hidden');
+
+                document.getElementById('quoteText').textContent = content.citazione;
+                document.getElementById('quoteAuthor').textContent = `${content.autore} — ${content.opera}`;
+                document.getElementById('interpretationText').textContent = content.interpretazione;
+                document.getElementById('challengeText').textContent = content.microsfida;
+
+                console.log('✅ Contenuto visualizzato');
+            }, 800);
         }
 
         async function loadProgressData(userId) {
