@@ -510,7 +510,7 @@
             return roman;
         }
 
-        // Contenuti caricati da Supabase (tabella sfide_quotidiane)
+        // Contenuti caricati da Supabase tabella sfide_quotidiane
 
 
         function getDayOfYear() {
@@ -565,10 +565,13 @@
             const dayOfYear = getDayOfYear();
             const dayRoman = arabicToRoman(dayOfYear);
 
+            // Aggiorna subito il numero romano
             document.getElementById('dayOfYear').textContent = dayRoman;
 
             try {
-                // ✅ LEGGO DA SUPABASE TABELLA sfide_quotidiane
+                console.log('🔍 Caricamento sfida per giorno:', dayOfYear);
+
+                // ✅ QUERY SUPABASE - usa 'giorno' come filtro
                 const { data: dailyChallenge, error } = await supabase
                     .from('sfide_quotidiane')
                     .select('*')
@@ -576,28 +579,46 @@
                     .single();
 
                 if (error) {
-                    console.error('Errore caricamento sfida:', error);
-                    showToast('Errore nel caricamento della sfida quotidiana');
+                    console.error('❌ Errore Supabase:', error);
+
+                    // Fallback: mostra contenuto di esempio
+                    setTimeout(() => {
+                        document.getElementById('contentSkeleton').classList.add('hidden');
+                        document.getElementById('dailyContent').classList.remove('hidden');
+                        document.getElementById('quoteText').textContent = 'Errore nel caricamento della sfida quotidiana.';
+                        document.getElementById('quoteAuthor').textContent = 'Ricarica la pagina';
+                        document.getElementById('interpretationText').textContent = 'Si è verificato un errore nel caricamento dei contenuti da Supabase.';
+                        document.getElementById('challengeText').textContent = 'Prova a ricaricare la pagina o controlla la connessione.';
+                    }, 500);
                     return;
                 }
 
-                console.log('✅ Sfida del giorno caricata:', dailyChallenge);
+                console.log('✅ Sfida caricata:', dailyChallenge);
 
-                // Nascondo skeleton e mostro contenuto
+                // Mostra contenuto dopo animazione
                 setTimeout(() => {
                     document.getElementById('contentSkeleton').classList.add('hidden');
                     document.getElementById('dailyContent').classList.remove('hidden');
 
-                    // Popolo i campi con i dati da Supabase
-                    document.getElementById('quoteText').textContent = dailyChallenge.citazione;
-                    document.getElementById('quoteAuthor').textContent = `${dailyChallenge.autore} — ${dailyChallenge.opera}`;
-                    document.getElementById('interpretationText').textContent = dailyChallenge.interpretazione;
-                    document.getElementById('challengeText').textContent = dailyChallenge.microsfida;
+                    // Popola i campi
+                    document.getElementById('quoteText').textContent = dailyChallenge.citazione || 'Citazione non disponibile';
+                    document.getElementById('quoteAuthor').textContent = `${dailyChallenge.autore || 'Autore'} — ${dailyChallenge.opera || 'Opera'}`;
+                    document.getElementById('interpretationText').textContent = dailyChallenge.interpretazione || 'Interpretazione non disponibile';
+                    document.getElementById('challengeText').textContent = dailyChallenge.microsfida || 'Micro-sfida non disponibile';
                 }, 800);
 
             } catch (error) {
-                console.error('Errore generale:', error);
-                showToast('Errore nel caricamento dei contenuti');
+                console.error('❌ Errore generale:', error);
+
+                // Mostra errore visivamente
+                setTimeout(() => {
+                    document.getElementById('contentSkeleton').classList.add('hidden');
+                    document.getElementById('dailyContent').classList.remove('hidden');
+                    document.getElementById('quoteText').textContent = 'Errore di connessione';
+                    document.getElementById('quoteAuthor').textContent = 'Verifica Supabase';
+                    document.getElementById('interpretationText').textContent = error.message || 'Errore sconosciuto';
+                    document.getElementById('challengeText').textContent = 'Controlla la console del browser (F12) per maggiori dettagli.';
+                }, 500);
             }
         }
 
@@ -762,8 +783,7 @@
                 const { data, error } = await supabase.from('reflections').insert({
                     user_id: session.user.id,
                     content: text,
-                    date: new Date().toISOString().split('T')[0],
-                    content_type: getDailyContentType()
+                    date: new Date().toISOString().split('T')[0]content_type: getDailyContentType()
                 });
 
                 if (error) {
