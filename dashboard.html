@@ -568,7 +568,7 @@
                 console.log('📧 Email:', user.email);
                 console.log('👤 Provider:', user.app_metadata?.provider);
 
-                loadUserData(user);
+                await loadUserData(user);
                 loadDailyContent();
                 await loadProgressData(user.id);
                 setupEventListeners();
@@ -579,12 +579,17 @@
             }
         });
 
-        function loadUserData(user) {
-            const displayName = user.user_metadata?.full_name || 
-                                user.user_metadata?.name || 
-                                user.email?.split('@')[0] || 
+        async function loadUserData(user) {
+            // ✅ FORZA REFRESH METADATA AGGIORNATI
+            const { data: { user: freshUser }, error } = await supabase.auth.getUser();
+
+            const currentUser = freshUser || user;
+
+            const displayName = currentUser.user_metadata?.full_name || 
+                                currentUser.user_metadata?.name || 
+                                currentUser.email?.split('@')[0] || 
                                 'Stoico';
-            
+
             console.log('👤 Nome visualizzato:', displayName);
             document.getElementById('userName').textContent = displayName;
         }
