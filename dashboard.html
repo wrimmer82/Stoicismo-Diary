@@ -355,25 +355,35 @@
                     </div>
 
                     <div id="dailyContent" class="hidden space-y-6">
-                        <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
-                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">
-                                "..."
-                            </p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">
-                                — ...
-                            </p>
-                        </div>
+  <!-- Box Citazione -->
+  <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
+    <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="citazione-testo">Caricamento citazione...</p>
+    <p class="text-sm font-semibold highlighted-text" id="citazione-autore">— Autore</p>
+  </div>
 
-                        <div class="parchment-card rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
-                                Interpretazione
-                            </h3>
-                            <p class="leading-relaxed font-trajan" id="interpretationText">
-                                ...
-                            </p>
-                        </div>
+  <!-- Badge Tema e Difficoltà -->
+  <div class="flex gap-3 flex-wrap">
+    <span id="tema-badge" class="inline-block bg-amber-600/90 text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
+      tema
+    </span>
+    <span id="difficolta-badge" class="inline-block bg-slate-700/90 text-amber-400 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
+      <!-- difficoltà -->
+    </span>
+  </div>
 
-                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
+  <!-- Box Interpretazione -->
+  <div class="parchment-card rounded-lg p-4 md:p-6">
+    <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">💡 Interpretazione</h3>
+    <p class="leading-relaxed font-trajan" id="interpretazione-testo">Caricamento interpretazione...</p>
+  </div>
+
+  <!-- Box Micro-Sfida -->
+  <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95)">
+    <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">🎯 Micro-Sfida di Oggi</h3>
+    <p class="leading-relaxed font-trajan" id="micro-sfida-testo">Caricamento micro-sfida...</p>
+  </div>
+</div>
+     <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
                             <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">
                                 Micro-Sfida di Oggi
                             </h3>
@@ -552,32 +562,32 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🔍 Dashboard: Verifico autenticazione...');
-            
-            try {
-                const { data: { session }, error } = await supabase.auth.getSession();
-                
-                if (!session || error) {
-                    console.warn('❌ Nessuna sessione attiva, redirect a login');
-                    window.location.href = 'accedi.html';
-                    return;
-                }
-
-                const user = session.user;
-                console.log('✅ Utente autenticato:', user.id);
-                console.log('📧 Email:', user.email);
-                console.log('👤 Provider:', user.app_metadata?.provider);
-
-                loadUserData(user);
-                loadDailyContent();
-                await loadProgressData(user.id);
-                setupEventListeners();
-                
-            } catch (error) {
-                console.error('❌ Errore verifica sessione:', error);
-                window.location.href = 'accedi.html';
-            }
-        });
+  console.log('Dashboard: Verifico autenticazione...');
+  
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (!session || error) {
+      console.warn('Nessuna sessione attiva, redirect a login');
+      window.location.href = 'accedi.html';
+      return;
+    }
+    
+    const user = session.user;
+    console.log('Utente autenticato:', user.id);
+    console.log('Email:', user.email);
+    console.log('Provider:', user.app_metadata?.provider);
+    
+    loadUserData(user);
+    await loadDailyContent();              // ← AGGIUNTO "await" QUI
+    await loadProgressData(user.id);
+    setupEventListeners();
+    
+  } catch (error) {
+    console.error('Errore verifica sessione:', error);
+    window.location.href = 'accedi.html';
+  }
+});
 
         function loadUserData(user) {
             const displayName = user.user_metadata?.full_name || 
@@ -589,23 +599,72 @@
             document.getElementById('userName').textContent = displayName;
         }
 
-        function loadDailyContent() {
-            const dayOfYear = getDayOfYear();
-            const dayRoman = arabicToRoman(dayOfYear);
-            const contentType = getDailyContentType();
-            const content = dailyContents[contentType];
-
-            document.getElementById('dayOfYear').textContent = dayRoman;
-
-            setTimeout(() => {
-                document.getElementById('contentSkeleton').classList.add('hidden');
-                document.getElementById('dailyContent').classList.remove('hidden');
-                document.getElementById('quoteText').textContent = content.quote;
-                document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
-                document.getElementById('interpretationText').textContent = content.interpretation;
-                document.getElementById('challengeText').textContent = content.challenge;
-            }, 800);
+        async function loadDailyContent() {
+  const dayOfYear = getDayOfYear();
+  const dayRoman = arabicToRoman(dayOfYear);
+  
+  document.getElementById('dayOfYear').textContent = dayRoman;
+  
+  console.log('🔍 Carico sfida per giorno:', dayOfYear);
+  
+  try {
+    // Query a Supabase
+    const { data, error } = await supabase
+      .from('sfide_quotidiane')
+      .select('*')
+      .eq('giorno', dayOfYear)
+      .single();
+    
+    if (error) {
+      console.error('❌ Errore caricamento sfida:', error);
+      // Fallback: usa contenuto statico
+      useFallbackContent();
+      return;
+    }
+    
+    if (data) {
+      console.log('✅ Sfida caricata da Supabase:', data);
+      
+      setTimeout(() => {
+        document.getElementById('contentSkeleton').classList.add('hidden');
+        document.getElementById('dailyContent').classList.remove('hidden');
+        
+        // Popola con dati da Supabase
+        document.getElementById('citazione-testo').textContent = `"${data.citazione}"`;
+        document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
+        document.getElementById('tema-badge').textContent = data.tema;
+        document.getElementById('interpretazione-testo').textContent = data.interpretazione;
+        document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
+        
+        // Badge difficoltà (opzionale)
+        if (data.difficolta) {
+          document.getElementById('difficolta-badge').textContent = data.difficolta;
+          document.getElementById('difficolta-badge').style.display = 'inline-block';
         }
+      }, 800);
+    }
+  } catch (err) {
+    console.error('❌ Errore imprevisto:', err);
+    useFallbackContent();
+  }
+}
+
+// Funzione fallback se Supabase fallisce
+function useFallbackContent() {
+  const contentType = getDailyContentType();
+  const content = dailyContents[contentType];
+  
+  setTimeout(() => {
+    document.getElementById('contentSkeleton').classList.add('hidden');
+    document.getElementById('dailyContent').classList.remove('hidden');
+    
+    document.getElementById('citazione-testo').textContent = content.quote;
+    document.getElementById('citazione-autore').textContent = content.author;
+    document.getElementById('interpretazione-testo').textContent = content.interpretation;
+    document.getElementById('micro-sfida-testo').textContent = content.challenge;
+    document.getElementById('tema-badge').textContent = 'Stoicismo';
+  }, 800);
+}
 
         async function loadProgressData(userId) {
             console.log('📊 Carico progresso per user:', userId);
@@ -810,5 +869,125 @@
             setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
         }
     </script>
+    <!-- Libreria Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Codice per caricare contenuto quotidiano -->
+<script>
+  // Configurazione Supabase
+  const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+  
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // Funzione che calcola il giorno dell'anno (1-366)
+  function getGiornoAnno() {
+    const oggi = new Date();
+    const inizioAnno = new Date(oggi.getFullYear(), 0, 1);
+    const differenzaMs = oggi - inizioAnno;
+    const unGiornoMs = 1000 * 60 * 60 * 24;
+    const giornoAnno = Math.floor(differenzaMs / unGiornoMs) + 1;
+    
+    console.log('📅 Giorno dell\'anno calcolato:', giornoAnno);
+    return giornoAnno;
+  }
+
+  // Funzione principale: carica la sfida del giorno da Supabase
+  async function caricaSfidaDelGiorno() {
+    try {
+      const giornoAnno = getGiornoAnno();
+      
+      console.log('🔍 Cerco sfida per giorno:', giornoAnno);
+
+      // Query a Supabase
+      const { data, error } = await supabase
+        .from('sfide_quotidiane')
+        .select('*')
+        .eq('giorno', giornoAnno)
+        .single(); // Prendi una sola riga
+
+      if (error) {
+        console.error('❌ Errore caricamento sfida:', error);
+        mostrarErrore();
+        return;
+      }
+
+      if (data) {
+        console.log('✅ Sfida caricata con successo:', data);
+        mostraContenuto(data);
+      } else {
+        console.warn('⚠️ Nessuna sfida trovata per questo giorno');
+        mostrarErrore();
+      }
+    } catch (err) {
+      console.error('❌ Errore imprevisto:', err);
+      mostrarErrore();
+    }
+  }
+
+  // Funzione che mostra il contenuto nella pagina
+  function mostraContenuto(data) {
+    // Citazione
+    const citazioneTesto = document.getElementById('citazione-testo');
+    if (citazioneTesto) {
+      citazioneTesto.innerText = `"${data.citazione}"`;
+    }
+
+    // Autore e opera
+    const citazioneAutore = document.getElementById('citazione-autore');
+    if (citazioneAutore) {
+      citazioneAutore.innerText = `— ${data.autore}, ${data.opera}`;
+    }
+
+    // Tema
+    const temaBadge = document.getElementById('tema-badge');
+    if (temaBadge) {
+      temaBadge.innerText = data.tema;
+    }
+
+    // Interpretazione
+    const interpretazioneTesto = document.getElementById('interpretazione-testo');
+    if (interpretazioneTesto && data.interpretazione) {
+      interpretazioneTesto.innerText = data.interpretazione;
+    }
+
+    // Micro-sfida
+    const microSfidaTesto = document.getElementById('micro-sfida-testo');
+    if (microSfidaTesto && data.micro_sfida) {
+      microSfidaTesto.innerText = data.micro_sfida;
+    }
+
+    // Difficoltà (opzionale)
+    const difficoltaBadge = document.getElementById('difficolta-badge');
+    if (difficoltaBadge && data.difficolta) {
+      difficoltaBadge.innerText = data.difficolta;
+    }
+
+    // Nascondi eventuali messaggi di caricamento
+    const loadingMsg = document.getElementById('loading-message');
+    if (loadingMsg) {
+      loadingMsg.style.display = 'none';
+    }
+  }
+
+  // Funzione per mostrare errore
+  function mostrarErrore() {
+    const citazioneTesto = document.getElementById('citazione-testo');
+    if (citazioneTesto) {
+      citazioneTesto.innerText = 'Si è verificato un errore nel caricamento del contenuto quotidiano.';
+    }
+    
+    const loadingMsg = document.getElementById('loading-message');
+    if (loadingMsg) {
+      loadingMsg.style.display = 'none';
+    }
+  }
+
+  // Esegui quando la pagina è caricata
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Dashboard caricata, inizio caricamento sfida...');
+    caricaSfidaDelGiorno();
+  });
+</script>
 </body>
 </html>
