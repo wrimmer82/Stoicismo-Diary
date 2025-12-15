@@ -510,32 +510,8 @@
             return roman;
         }
 
-        const dailyContents = {
-            tipo1: {
-                quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
-                author: "Epitteto, Enchiridion",
-                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
-            },
-            tipo2: {
-                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
-                author: "Marco Aurelio, Meditazioni V.20",
-                interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
-            },
-            tipo3: {
-                quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
-                author: "Seneca, Lettere a Lucilio",
-                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
-            },
-            tipo4: {
-                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
-                author: "Marco Aurelio, Meditazioni II.11",
-                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
-                challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
-            }
-        };
+        // Contenuti caricati da Supabase (tabella sfide_quotidiane)
+
 
         function getDayOfYear() {
             const now = new Date();
@@ -545,11 +521,7 @@
             return Math.floor(diff / oneDay);
         }
 
-        function getDailyContentType() {
-            const dayNum = getDayOfYear();
-            const cycle = (dayNum % 4) + 1;
-            return `tipo${cycle}`;
-        }
+                }
 
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('🔍 Dashboard: Verifico autenticazione...');
@@ -568,8 +540,8 @@
                 console.log('📧 Email:', user.email);
                 console.log('👤 Provider:', user.app_metadata?.provider);
 
-                await loadUserData(user);
-                loadDailyContent();
+                loadUserData(user);
+                await loadDailyContent();
                 await loadProgressData(user.id);
                 setupEventListeners();
                 
@@ -579,37 +551,54 @@
             }
         });
 
-        async function loadUserData(user) {
-            // ✅ FORZA REFRESH METADATA AGGIORNATI
-            const { data: { user: freshUser }, error } = await supabase.auth.getUser();
-
-            const currentUser = freshUser || user;
-
-            const displayName = currentUser.user_metadata?.full_name || 
-                                currentUser.user_metadata?.name || 
-                                currentUser.email?.split('@')[0] || 
+        function loadUserData(user) {
+            const displayName = user.user_metadata?.full_name || 
+                                user.user_metadata?.name || 
+                                user.email?.split('@')[0] || 
                                 'Stoico';
-
+            
             console.log('👤 Nome visualizzato:', displayName);
             document.getElementById('userName').textContent = displayName;
         }
 
-        function loadDailyContent() {
+        async function await loadDailyContent() {
             const dayOfYear = getDayOfYear();
             const dayRoman = arabicToRoman(dayOfYear);
-            const contentType = getDailyContentType();
-            const content = dailyContents[contentType];
 
             document.getElementById('dayOfYear').textContent = dayRoman;
 
-            setTimeout(() => {
-                document.getElementById('contentSkeleton').classList.add('hidden');
-                document.getElementById('dailyContent').classList.remove('hidden');
-                document.getElementById('quoteText').textContent = content.quote;
-                document.getElementById('quoteAuthor').textContent = `— ${content.author}`;
-                document.getElementById('interpretationText').textContent = content.interpretation;
-                document.getElementById('challengeText').textContent = content.challenge;
-            }, 800);
+            try {
+                // ✅ LEGGO DA SUPABASE TABELLA sfide_quotidiane
+                const { data: dailyChallenge, error } = await supabase
+                    .from('sfide_quotidiane')
+                    .select('*')
+                    .eq('giorno', dayOfYear)
+                    .single();
+
+                if (error) {
+                    console.error('Errore caricamento sfida:', error);
+                    showToast('Errore nel caricamento della sfida quotidiana');
+                    return;
+                }
+
+                console.log('✅ Sfida del giorno caricata:', dailyChallenge);
+
+                // Nascondo skeleton e mostro contenuto
+                setTimeout(() => {
+                    document.getElementById('contentSkeleton').classList.add('hidden');
+                    document.getElementById('dailyContent').classList.remove('hidden');
+
+                    // Popolo i campi con i dati da Supabase
+                    document.getElementById('quoteText').textContent = dailyChallenge.citazione;
+                    document.getElementById('quoteAuthor').textContent = `${dailyChallenge.autore} — ${dailyChallenge.opera}`;
+                    document.getElementById('interpretationText').textContent = dailyChallenge.interpretazione;
+                    document.getElementById('challengeText').textContent = dailyChallenge.microsfida;
+                }, 800);
+
+            } catch (error) {
+                console.error('Errore generale:', error);
+                showToast('Errore nel caricamento dei contenuti');
+            }
         }
 
         async function loadProgressData(userId) {
@@ -721,13 +710,14 @@
 
                     const view = e.currentTarget.dataset.view;
 
+                    // Redirect a pagine esterne
                     if (view === 'archivio') {
                         window.location.href = 'archivio.html';
                         return;
                     }
 
                     if (view === 'impostazioni') {
-                        window.location.href = 'impostazioni.html';
+                        showToast('⚙️ Impostazioni disponibili prossimamente');
                         return;
                     }
 
@@ -736,9 +726,11 @@
                         return;
                     }
 
+                    // Switch view interno per "oggi"
                     switchView(view);
                     closeMobileMenuFunc();
 
+                    // Aggiorna stato visuale menu
                     document.querySelectorAll('.nav-link').forEach(l => {
                         l.classList.remove('bg-amber-500/20', 'text-amber-400');
                     });
