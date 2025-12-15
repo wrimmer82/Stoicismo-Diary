@@ -3,880 +3,921 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Stoic Journey - Crescita Personale con AI Stoica | Marco Aurelio, Epitteto, Seneca</title>
+    <title>The Stoic Journey - Crescita Personale Attraverso lo Stoicismo</title>
+    <meta name="description" content="365 giorni di saggezza stoica. Trasforma la tua vita attraverso la filosofia di Marco Aurelio, Epitteto e Seneca.">
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca. Riflessioni quotidiane guidate dall'intelligenza artificiale.">
-    <meta name="keywords" content="stoicismo, crescita personale, AI journal, Marco Aurelio, Epitteto, Seneca, meditazioni stoiche, resilienza, filosofia pratica">
-    <meta name="author" content="The Stoic Journey">
-    <meta name="robots" content="index, follow">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="The Stoic Journey - Il Tuo Compagno di Crescita Personale">
-    <meta property="og:description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca.">
-    <meta property="og:image" content="https://wrimmer82.github.io/Stoicismo-Diary/colonnato_restaurato.png">
-    <meta property="og:url" content="https://wrimmer82.github.io/Stoicismo-Diary/">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="it_IT">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="The Stoic Journey - Crescita Personale con AI Stoica">
-    <meta name="twitter:description" content="Trasforma la tua vita con lo stoicismo. AI-powered journal per crescita personale basata su Marco Aurelio, Epitteto e Seneca.">
-    <meta name="twitter:image" content="https://wrimmer82.github.io/Stoicismo-Diary/colonnato_restaurato.png">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://wrimmer82.github.io/Stoicismo-Diary/">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- Structured Data Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "The Stoic Journey",
-      "description": "Piattaforma di crescita personale basata sui principi dello stoicismo con AI-powered journal e riflessioni guidate",
-      "applicationCategory": "LifestyleApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "127"
-      }
-    }
-    </script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D4AF37;
+            --background: #FFF8DC;
+            --text-dark: #2C1810;
+            --text-light: #6B4423;
+            --card-bg: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .animate-fadeInUp {
-            animation: fadeInUp 1s ease-out forwards;
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, var(--background) 0%, #F5E6D3 100%);
+            color: var(--text-dark);
+            line-height: 1.7;
         }
-        .animate-fadeIn {
-            animation: fadeIn 1.5s ease-out forwards;
-        }
-        .delay-300 { animation-delay: 0.3s; opacity: 0; }
-        .delay-600 { animation-delay: 0.6s; opacity: 0; }
-        .delay-900 { animation-delay: 0.9s; opacity: 0; }
-        
-        /* Parallax con effetto zoom prospettico */
-        .parallax-zoom-container {
-            position: relative;
-            height: 100vh;
-            overflow: hidden;
-            perspective: 1px;
-            transform-style: preserve-3d;
-        }
-        
-        .parallax-zoom-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+
+        .navbar {
+            background: rgba(139, 69, 19, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
             width: 100%;
-            height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('colonnato_restaurato.png') center/cover no-repeat;
-            transform: translateZ(-1px) scale(2);
-            z-index: -1;
-            transition: transform 0.1s ease-out;
-        }
-        
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-
-        /* Bordo nero per testo hero */
-        .text-stroke-black {
-            text-shadow: 
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                2px 2px 0 #000,
-                -3px 0 0 #000,
-                3px 0 0 #000,
-                0 -3px 0 #000,
-                0 3px 0 #000,
-                -2px -2px 4px rgba(0,0,0,0.8),
-                2px 2px 8px rgba(0,0,0,0.6);
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
         }
 
-        /* Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.95s cubic-bezier(0.23, 1, 0.32, 1);
-            will-change: transform, opacity;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: none;
-        }
-
-        /* Effetto rotazione 3D per card filosofi */
-        .card-3d {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        
-        .card-3d:hover {
-            transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02);
-        }
-        
-        .card-3d::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 1.5rem;
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .card-3d:hover::before {
-            opacity: 1;
-        }
-
-        /* Fade-in on scroll per Memento Mori */
-        .fade-in-scroll {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-        }
-        .fade-in-scroll.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Effetto 3D per titolo sezione */
-        .text-3d {
-            text-shadow: 
-                1px 1px 0 #c49050,
-                2px 2px 0 #b8834a,
-                3px 3px 0 #ac7644,
-                4px 4px 0 #a0693e,
-                5px 5px 0 #945c38,
-                6px 6px 0 #884f32,
-                7px 7px 0 #7c422c,
-                8px 8px 15px rgba(0, 0, 0, 0.6);
-            transform: perspective(500px) rotateX(5deg);
-            letter-spacing: 0.05em;
-        }
-
-        /* Gradiente tramonto continuo */
-        .sunset-gradient {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%,
-                #2d1b3d 15%,
-                #4a2c4f 30%,
-                #6b4a5a 45%,
-                #8b5a4e 60%,
-                #a8754a 75%,
-                #c49050 85%,
-                #1c1410 100%
-            );
-        }
-
-        /* Icone numerate per Come Funziona */
-        .step-number {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #0f172a;
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
-            margin: 0 auto 1rem auto;
-            flex-shrink: 0;
-        }
-
-        @media (min-width: 768px) {
-            .step-number {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-            }
-        }
-
-        .step-card {
-            transition: transform 0.3s ease;
-        }
-
-        .step-card:hover .step-number {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
-        }
-
-        @media (min-width: 768px) {
-            .step-card:hover {
-                transform: translateY(-8px);
-            }
-        }
-
-        .arrow-connector {
-            color: #f59e0b;
-            font-size: 2.5rem;
-            opacity: 0.6;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-
-        @media (max-width: 767px) {
-            .mobile-step {
-                display: flex;
-                align-items: flex-start;
-                gap: 1rem;
-                text-align: left;
-            }
-            
-            .mobile-step-content h3 {
-                font-size: 1.125rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .mobile-step-content p {
-                font-size: 0.875rem;
-                line-height: 1.5;
-            }
-        }
-
-        /* FAQ Accordion - Compatto */
-        .faq-item {
-            border-bottom: 1px solid rgba(251, 191, 36, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .faq-question {
-            cursor: pointer;
-            padding: 1rem;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 0.75rem;
-            min-height: 56px;
-            transition: background-color 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
+            padding: 0 20px;
         }
 
-        .faq-question:hover {
-            background-color: rgba(251, 191, 36, 0.05);
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
         }
 
-        .faq-question:active {
-            background-color: rgba(251, 191, 36, 0.1);
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
         }
 
-        .faq-icon {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-            color: #f59e0b;
-            font-size: 1.25rem;
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 150px 20px 80px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #6B3410 100%);
+            color: white;
+            margin-top: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background: #B8941D;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+        }
+
+        .pillars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pillar-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .pillar-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .pillar-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .daily-challenge {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            margin-bottom: 40px;
+            border-top: 5px solid var(--secondary-color);
+        }
+
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .challenge-day {
+            font-size: 1.2em;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .challenge-title {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .quote {
+            font-size: 1.4em;
+            font-style: italic;
+            color: var(--text-dark);
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 25px;
+            margin: 30px 0;
+            line-height: 1.8;
+        }
+
+        .quote-author {
+            text-align: right;
+            color: var(--text-light);
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .theme-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            margin: 20px 0;
             font-weight: bold;
         }
 
-        .faq-item.active .faq-icon {
-            transform: rotate(45deg);
+        .interpretation {
+            background: #F5F5F5;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+            line-height: 1.8;
+        }
+
+        .interpretation h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .micro-challenge {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #6B3410 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .micro-challenge h4 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 1em;
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            font-size: 1.5em;
+            color: var(--text-light);
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #c62828;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .testimonials {
+            background: var(--card-bg);
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .testimonial-card {
+            background: #F5F5F5;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .testimonial-author {
+            color: var(--text-light);
+            font-weight: bold;
+        }
+
+        .pricing-section {
+            background: var(--card-bg);
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--secondary-color);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .price {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .pricing-features li:before {
+            content: "✓ ";
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .faq-section {
+            background: var(--card-bg);
+            padding: 60px 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .faq-item {
+            background: #F5F5F5;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+            background: #E8E8E8;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
-            padding: 0 1rem;
+            margin-top: 15px;
+            display: none;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
         .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding: 0 1rem 1rem 1rem;
+            display: block;
         }
 
-        /* Contact Form Styling - Mobile First */
-        .contact-form-input,
-        .contact-form-textarea {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.5rem;
-            font-size: 0.9375rem;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            min-height: 48px;
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #6B3410 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px var(--shadow);
         }
 
-        .contact-form-input:focus,
-        .contact-form-textarea:focus {
-            outline: none;
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 30px auto 0;
+            gap: 10px;
         }
 
-        .contact-form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .contact-form-button {
-            width: 100%;
-            padding: 0.875rem 1.5rem;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #0f172a;
-            font-weight: 600;
-            border-radius: 0.5rem;
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
             border: none;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .newsletter-form button {
+            padding: 15px 30px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            min-height: 48px;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+            transition: all 0.3s;
         }
 
-        .contact-form-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35);
+        .newsletter-form button:hover {
+            background: #B8941D;
         }
 
-        .contact-form-button:active {
-            transform: translateY(0);
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            margin-top: 60px;
+            border-top: 2px solid var(--secondary-color);
         }
 
-        /* Layout 2 Colonne Desktop, Stack Mobile */
-        @media (max-width: 1023px) {
-            .faq-contact-grid {
-                display: block !important;
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2em;
             }
-            
-            .faq-contact-grid > div:first-child {
-                margin-bottom: 2.5rem;
+
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .pillars-container,
+            .features-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .daily-challenge {
+                padding: 30px 20px;
+            }
+
+            .quote {
+                font-size: 1.2em;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
             }
         }
     </style>
 </head>
-<body class="bg-gray-50 font-inter">
-    <!-- Hero Section con effetto zoom parallax -->
-    <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
-        <div class="parallax-zoom-bg" id="parallaxBg"></div>
-        
-        <div class="absolute top-8 left-8 right-8 z-20">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3 animate-fadeIn">
-                    <img src="sigma_logo.png"
-                         alt="The Stoic Journey Logo - Crescita personale stoica"
-                         class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
-                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black hidden sm:inline">
-                        The Stoic Journey
-                    </span>
-                </div>
-                
-                <!-- CORRETTO: Link ad accedi.html -->
-                <a href="accedi.html" class="bg-amber-500 text-slate-900 px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
-                    Accedi
-                </a>
-            </div>
-            
-            <div class="absolute left-1/2 top-0 transform -translate-x-1/2">
-                <a href="cosa-e-stoicismo.html" class="hidden md:block bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap">
-                    Cos'è lo Stoicismo
-                </a>
-            </div>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">🏛️ The Stoic Journey</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#pillars">Pilastri</a></li>
+                <li><a href="#challenge">Sfida Oggi</a></li>
+                <li><a href="#pricing">Prezzi</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
         </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pb-20 relative z-10 mt-auto">
-            <h1 class="text-5xl md:text-6xl font-cinzel font-bold mb-6 animate-fadeInUp tracking-wide max-w-4xl mx-auto text-stroke-black">
-                Non conta quante volte cadi, ma quante volte ti rialzi
-            </h1>
-            <p class="text-xl mb-8 max-w-2xl mx-auto font-inter animate-fadeInUp delay-300">
-                Trasforma la tua vita quotidiana con i principi degli antichi filosofi. Riflessioni guidate dall'AI per costruire resilienza e serenità.
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container">
+        <section id="home" class="hero" data-aos="fade-up">
+            <h1>🏛️ The Stoic Journey</h1>
+            <p class="subtitle">365 giorni di crescita attraverso la saggezza stoica</p>
+            <p style="font-size: 1.2em; margin: 20px 0;">
+                Trasforma la tua vita con le filosofie di Marco Aurelio, Epitteto e Seneca
             </p>
-            <!-- CORRETTO: Link a registrazione.html invece di # -->
-            <div class="flex justify-center animate-fadeInUp delay-600">
-                <a href="registrazione.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-10 py-4 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-lg">
-                    Inizia Ora
-                </a>
-            </div>
-        </div>
-    </section>
+            <a href="#challenge" class="cta-button">Inizia il Viaggio</a>
+        </section>
 
-    <!-- SEZIONE: Come Funziona -->
-    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-5xl font-cinzel font-bold text-center mb-4 md:mb-6 text-slate-900">
-                Come Funziona
-            </h2>
-            <p class="text-base md:text-lg text-center text-slate-600 mb-10 md:mb-16 max-w-2xl mx-auto font-inter">
-                Il tuo percorso di crescita stoica in tre semplici passi
-            </p>
-            
-            <div class="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-12 md:items-start">
-                <div class="step-card reveal mobile-step md:block">
-                    <div class="step-number font-cinzel">1</div>
-                    <div class="mobile-step-content md:text-center">
-                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4">
-                            Scrivi riflessione
-                        </h3>
-                        <p class="text-slate-600 leading-relaxed font-inter">
-                            Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale.
-                        </p>
-                    </div>
+        <!-- Pillars Section -->
+        <section id="pillars" class="section">
+            <h2 class="section-title" data-aos="fade-up">I Quattro Pilastri dello Stoicismo</h2>
+            <div class="pillars-container">
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pillar-icon">🎯</div>
+                    <h3>Dicotomia del Controllo</h3>
+                    <p>Distingui ciò che puoi controllare da ciò che non puoi. Concentra la tua energia solo su ciò che dipende da te: pensieri, azioni e valori.</p>
                 </div>
-
-                <div class="hidden md:flex justify-center items-start pt-8">
-                    <span class="arrow-connector">→</span>
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pillar-icon">⚡</div>
+                    <h3>Virtù & Carattere</h3>
+                    <p>La vera felicità nasce dallo sviluppo del carattere attraverso le quattro virtù cardinali: saggezza, coraggio, giustizia e temperanza.</p>
                 </div>
-
-                <div class="step-card reveal delay-300 mobile-step md:block">
-                    <div class="step-number font-cinzel">2</div>
-                    <div class="mobile-step-content md:text-center">
-                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4">
-                            Sfida personalizzata
-                        </h3>
-                        <p class="text-slate-600 leading-relaxed font-inter">
-                            L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca.
-                        </p>
-                    </div>
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pillar-icon">💀</div>
+                    <h3>Memento Mori</h3>
+                    <p>Ricorda che sei mortale. La consapevolezza della morte dà valore e urgenza alla vita presente, eliminando le preoccupazioni futili.</p>
                 </div>
-
-                <div class="hidden md:flex justify-center items-start pt-8">
-                    <span class="arrow-connector">→</span>
-                </div>
-
-                <div class="step-card reveal delay-600 mobile-step md:block">
-                    <div class="step-number font-cinzel">3</div>
-                    <div class="mobile-step-content md:text-center">
-                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4">
-                            Traccia progresso
-                        </h3>
-                        <p class="text-slate-600 leading-relaxed font-inter">
-                            Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern.
-                        </p>
-                    </div>
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="pillar-icon">❤️</div>
+                    <h3>Amor Fati</h3>
+                    <p>Ama il tuo destino. Accetta e abbraccia tutto ciò che ti accade come necessario e perfetto per la tua crescita personale.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section con gradiente tramonto -->
-    <section class="py-20 sunset-gradient">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d">
-               I Pilastri della Crescita Stoica
-           </h2>
-          <div class="grid md:grid-cols-3 gap-10">
-            <!-- MARCO AURELIO -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
-              <div class="relative mb-6 z-10">
-                <div class="absolute inset-0 translate-y-6">
-                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
-                </div>
-                <img src="busto_1_spalle.png"
-                     alt="Marco Aurelio - Filosofo stoico imperatore romano"
-                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
-              </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
-                Marco Aurelio
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
-                Impedimentum Via Est
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
-                Il cammino attraverso gli ostacoli
-              </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
-                «Quod obstat viae, via fit.»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
-                "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
-                Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
-                Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
-              </p>
+        <!-- Daily Challenge Section -->
+        <section id="challenge" class="section">
+            <h2 class="section-title" data-aos="fade-up">Sfida Stoica del Giorno</h2>
+            <div id="daily-challenge-container" class="loading" data-aos="fade-up">
+                Caricamento della sfida quotidiana...
             </div>
+        </section>
 
-            <!-- EPITTETO -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
-              <div class="relative mb-6 z-10">
-                <div class="absolute inset-0 translate-y-6">
-                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+        <!-- Features Section -->
+        <section class="section">
+            <h2 class="section-title" data-aos="fade-up">Cosa Include The Stoic Journey</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">📚</div>
+                    <h3>365 Sfide Quotidiane</h3>
+                    <p>Una nuova sfida stoica ogni giorno per un anno intero di crescita personale continua.</p>
                 </div>
-                <img src="busto_2_semplice.png"
-                     alt="Epitteto - Filosofo stoico maestro della dicotomia del controllo"
-                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
-              </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
-                Epitteto
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
-                In Nostra Potestate
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
-                La dicotomia del controllo
-              </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
-                «En tois eph' hemin kai en tois ouk eph' hemin»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
-                La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
-                Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
-                L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
-              </p>
-            </div>
-
-            <!-- SENECA -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
-              <div class="relative mb-6 z-10">
-                <div class="absolute inset-0 translate-y-6">
-                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Micro-Sfide Pratiche</h3>
+                    <p>Azioni concrete da completare in 5-10 minuti per applicare la filosofia nella vita quotidiana.</p>
                 </div>
-                <img src="busto_3_semplice.png"
-                     alt="Seneca - Filosofo stoico maestro della praemeditatio malorum"
-                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
-              </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
-                Seneca
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
-                Praemeditatio Malorum
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
-                Prepararsi al peggio per vivere meglio
-              </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
-                «Qui omnia timet, nihil cogitat»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
-                La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
-                Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
-                L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
-              </p>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">📖</div>
+                    <h3>Citazioni Autentiche</h3>
+                    <p>Frasi originali dai grandi filosofi stoici con riferimenti precisi alle opere.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">💡</div>
+                    <h3>Interpretazioni Moderne</h3>
+                    <p>Spiegazioni chiare su come applicare la saggezza antica al mondo contemporaneo.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">📊</div>
+                    <h3>Tracciamento Progressi</h3>
+                    <p>Monitora il tuo percorso e celebra i risultati raggiunti nel tuo viaggio stoico.</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">🌟</div>
+                    <h3>Difficoltà Graduali</h3>
+                    <p>Sfide di livello facile, medio e difficile per adattarsi alla tua esperienza.</p>
+                </div>
             </div>
-        </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Memento Mori Section -->
-    <section class="py-20 sunset-gradient">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide fade-in-scroll">
-                MEMENTO MORI
-            </h3>
-            <p class="text-xl md:text-2xl text-yellow-500/90 font-cinzel italic mb-8 leading-relaxed fade-in-scroll">
-                "Ricordati che devi morire"
-            </p>
-            <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8 fade-in-scroll"></div>
-            
-            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide fade-in-scroll">
-                La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
-            </p>
-            
-            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide fade-in-scroll">
-                Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero.
-            </p>
-        </div>
-    </section>
+        <!-- Testimonials -->
+        <section class="section">
+            <div class="testimonials" data-aos="fade-up">
+                <h2 class="section-title">Cosa Dicono i Nostri Utenti</h2>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <p class="testimonial-text">"The Stoic Journey ha trasformato il mio approccio alla vita. Ogni mattina trovo ispirazione e guida pratica per affrontare la giornata con serenità."</p>
+                    <p class="testimonial-author">— Marco R., Imprenditore</p>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <p class="testimonial-text">"Le micro-sfide sono perfette: brevi ma profonde. In soli 10 minuti al giorno sto costruendo abitudini che cambiano davvero la mia vita."</p>
+                    <p class="testimonial-author">— Laura T., Designer</p>
+                </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                    <p class="testimonial-text">"Finalmente ho trovato un modo concreto per applicare la filosofia stoica. Le interpretazioni moderne rendono tutto chiaro e applicabile."</p>
+                    <p class="testimonial-author">— Alessandro P., Manager</p>
+                </div>
+            </div>
+        </section>
 
-    <!-- FAQ + CONTACT FORM -->
-    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900">
-                Domande & Contatti
-            </h2>
-            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter text-sm md:text-base">
-                Trova risposte o scrivici direttamente
-            </p>
-
-            <div class="faq-contact-grid grid lg:grid-cols-[60%_40%] gap-8 lg:gap-10 items-start">
-                
-                <!-- COLONNA SINISTRA: FAQ Accordion -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
-                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                        <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
-                                Devo conoscere la filosofia stoica per iniziare?
-                            </h3>
-                            <span class="faq-icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
-                                No, ti guidiamo passo dopo passo. L'AI introduce i concetti stoici attraverso esercizi pratici applicati alla tua vita quotidiana.
-                            </p>
-                        </div>
+        <!-- Pricing -->
+        <section id="pricing" class="section">
+            <div class="pricing-section" data-aos="fade-up">
+                <h2 class="section-title">Scegli il Tuo Piano</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Piano Mensile</h3>
+                        <div class="price">€9.99<span style="font-size: 0.4em;">/mese</span></div>
+                        <ul class="pricing-features">
+                            <li>Accesso a tutte le 365 sfide</li>
+                            <li>Micro-sfide quotidiane</li>
+                            <li>Interpretazioni moderne</li>
+                            <li>Tracciamento progressi base</li>
+                        </ul>
+                        <a href="#" class="cta-button">Inizia Ora</a>
                     </div>
-
-                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                        <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
-                                Quanto tempo devo dedicare ogni giorno?
-                            </h3>
-                            <span class="faq-icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
-                                Bastano 5-10 minuti. Scrivi una riflessione e l'AI genera immediatamente la tua sfida personalizzata da applicare durante la giornata.
-                            </p>
-                        </div>
+                    <div class="pricing-card featured" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Piano Annuale</h3>
+                        <div class="price">€79.99<span style="font-size: 0.4em;">/anno</span></div>
+                        <p style="color: var(--secondary-color); font-weight: bold; margin: 10px 0;">Risparmia 33%</p>
+                        <ul class="pricing-features">
+                            <li>Tutto del piano mensile</li>
+                            <li>Tracciamento avanzato</li>
+                            <li>Riflessioni personali</li>
+                            <li>Community privata</li>
+                            <li>Contenuti bonus esclusivi</li>
+                        </ul>
+                        <a href="#" class="cta-button">Piano Migliore</a>
                     </div>
-
-                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                        <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
-                                I miei dati personali sono al sicuro?
-                            </h3>
-                            <span class="faq-icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
-                                Assolutamente sì. Le tue riflessioni sono criptate end-to-end e mai condivise. L'AI elabora i contenuti in modo anonimo (GDPR compliant).
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
-                        <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
-                                Posso provare gratuitamente prima di abbonarmi?
-                            </h3>
-                            <span class="faq-icon">+</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
-                                Sì, 7 giorni di prova gratuita con accesso completo. Nessuna carta richiesta per iniziare. Cancellazione immediata.
-                            </p>
-                        </div>
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3>Piano Lifetime</h3>
+                        <div class="price">€199<span style="font-size: 0.4em;">una tantum</span></div>
+                        <ul class="pricing-features">
+                            <li>Accesso illimitato a vita</li>
+                            <li>Tutte le funzionalità premium</li>
+                            <li>Aggiornamenti futuri gratuiti</li>
+                            <li>Supporto prioritario</li>
+                            <li>Contenuti esclusivi lifetime</li>
+                        </ul>
+                        <a href="#" class="cta-button">Acquista Ora</a>
                     </div>
                 </div>
-
-                <!-- COLONNA DESTRA: Contact Form -->
-                <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8 lg:sticky lg:top-8">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 text-center">
-                        CONTATTACI
-                    </h3>
-                    <p class="text-sm text-slate-600 mb-6 text-center font-inter">
-                        Hai bisogno di aiuto? Scrivici!
-                    </p>
-                    
-                    <form action="#" method="POST" class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Nome</label>
-                            <input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                required 
-                                class="contact-form-input"
-                                placeholder="Il tuo nome">
-                        </div>
-                        
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                required 
-                                class="contact-form-input"
-                                placeholder="tua@email.com">
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Messaggio</label>
-                            <textarea 
-                                id="message" 
-                                name="message" 
-                                required 
-                                rows="4"
-                                class="contact-form-textarea"
-                                placeholder="Come possiamo aiutarti?"></textarea>
-                        </div>
-                        
-                        <button 
-                            type="submit" 
-                            class="contact-form-button font-inter">
-                            Invia Messaggio
-                        </button>
-                    </form>
-                    
-                    <p class="text-xs text-slate-500 mt-4 text-center font-inter">
-                        Risponderemo entro 24 ore
-                    </p>
-                </div>
-
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- FAQ -->
+        <section id="faq" class="section">
+            <div class="faq-section" data-aos="fade-up">
+                <h2 class="section-title">Domande Frequenti</h2>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Cos'è The Stoic Journey?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        The Stoic Journey è un programma di crescita personale basato sulla filosofia stoica. Ogni giorno ricevi una citazione autentica, un'interpretazione moderna e una micro-sfida pratica da completare.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quanto tempo richiede al giorno?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Le micro-sfide sono progettate per essere completate in 5-10 minuti. Puoi dedicare più tempo se vuoi approfondire, ma anche solo 10 minuti al giorno possono fare la differenza.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        È adatto ai principianti?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Assolutamente sì! Non serve conoscenza pregressa dello stoicismo. Ogni sfida include interpretazioni chiare e spiegazioni moderne che rendono la filosofia accessibile a tutti.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Posso cancellare in qualsiasi momento?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sì, puoi cancellare il tuo abbonamento in qualsiasi momento. Non ci sono vincoli o penali. Se hai il piano lifetime, l'accesso è tuo per sempre.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Le citazioni sono autentiche?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Sì, tutte le citazioni provengono direttamente dalle opere originali di Marco Aurelio, Epitteto, Seneca e altri filosofi stoici, con riferimenti precisi alle fonti.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="section">
+            <div class="newsletter-section" data-aos="fade-up">
+                <h2>Ricevi la Sfida Stoica nella Tua Email</h2>
+                <p style="font-size: 1.2em; margin-top: 15px;">
+                    Iscriviti alla newsletter e ricevi ogni giorno la sfida stoica direttamente nella tua casella email.
+                </p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="La tua email" required>
+                    <button type="submit">Iscriviti</button>
+                </form>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h4 class="flex items-center gap-2 text-xl font-bold mb-4 font-cinzel">
-                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-7 w-7 object-contain">
-                        The Stoic Journey
-                    </h4>
-                    <p class="text-gray-400">La tua guida quotidiana alla saggezza stoica.</p>
-                </div>
-                <div>
-                    <h5 class="font-semibold mb-3">Prodotto</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Funzionalità</a></li>
-                        <li><a href="#" class="hover:text-white">Prezzi</a></li>
-                        <li><a href="#" class="hover:text-white">FAQ</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-semibold mb-3">Risorse</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="cosa-e-stoicismo.html" class="hover:text-white">Cos'è lo Stoicismo</a></li>
-                        <li><a href="#" class="hover:text-white">Blog</a></li>
-                        <li><a href="#" class="hover:text-white">Community</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-semibold mb-3">Contatti</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>Email: info@thestoicjourney.com</li>
-                        <li>Twitter: @StoicJourney</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 The Stoic Journey. Tutti i diritti riservati.</p>
-            </div>
+    <footer>
+        <p>© 2025 The Stoic Journey | Creato con passione per la filosofia stoica</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Termini di Servizio</a>
+            <a href="#">Contatti</a>
+            <a href="#">Blog</a>
         </div>
+        <p style="margin-top: 20px; font-size: 0.9em;">Marco Aurelio • Epitteto • Seneca</p>
     </footer>
 
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
     <script>
-        // Effetto zoom parallax su scroll
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxBg = document.getElementById('parallaxBg');
-            
-            const maxScroll = window.innerHeight;
-            const scrollFraction = Math.min(scrolled / maxScroll, 1);
-            
-            const scaleValue = 2 + (scrollFraction * 0.5);
-            const translateZ = -1 - (scrollFraction * 0.3);
-            
-            parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
         });
 
-        // Reveal effect script
-        document.addEventListener("DOMContentLoaded", function() {
-            function revealOnScroll() {
-                document.querySelectorAll('.reveal').forEach(function(el) {
-                    var rect = el.getBoundingClientRect(),
-                        windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-                    if (rect.top <= windowHeight - 60) {
-                        el.classList.add("visible");
-                    }
-                });
-            }
-            window.addEventListener("scroll", revealOnScroll);
-            revealOnScroll();
+        // CONFIGURAZIONE SUPABASE
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            const fadeElements = document.querySelectorAll('.fade-in-scroll');
+        // Calcola il giorno dell'anno
+        function getDayOfYear(date) {
+            const start = new Date(date.getFullYear(), 0, 0);
+            const diff = date - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+
+        // Verifica se è anno bisestile
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        // Caricamento sfida del giorno
+        async function loadTodayChallenge() {
+            const container = document.getElementById('daily-challenge-container');
             
-            const fadeObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, {
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            fadeElements.forEach(element => {
-                fadeObserver.observe(element);
-            });
-
-            // FAQ Accordion Toggle
-            const faqItems = document.querySelectorAll('.faq-item');
-            
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
+            try {
+                const today = new Date();
+                const dayOfYear = getDayOfYear(today);
+                const year = today.getFullYear();
+                const isLeap = isLeapYear(year);
                 
-                question.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleFAQ(item);
-                });
-
-                question.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleFAQ(item);
-                    }
-                });
-            });
-
-            function toggleFAQ(item) {
-                const isActive = item.classList.contains('active');
-                const question = item.querySelector('.faq-question');
+                const { data, error } = await supabase
+                    .from('sfide_quotidiane')
+                    .select('*')
+                    .eq('giorno', dayOfYear)
+                    .single();
                 
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                        otherItem.setAttribute('aria-expanded', 'false');
-                    }
-                });
+                if (error) throw error;
                 
-                if (isActive) {
-                    item.classList.remove('active');
-                    question.setAttribute('aria-expanded', 'false');
+                if (!isLeap && data.is_leap_day) {
+                    const { data: nextData, error: nextError } = await supabase
+                        .from('sfide_quotidiane')
+                        .select('*')
+                        .eq('giorno', dayOfYear + 1)
+                        .single();
+                    
+                    if (nextError) throw nextError;
+                    renderChallenge(nextData);
                 } else {
-                    item.classList.add('active');
-                    question.setAttribute('aria-expanded', 'true');
+                    renderChallenge(data);
                 }
+                
+            } catch (error) {
+                console.error('Errore nel caricamento:', error);
+                container.innerHTML = `
+                    <div class="error">
+                        <strong>Errore nel caricamento della sfida</strong>
+                        <p>Verifica la connessione a Supabase. Dettagli: ${error.message}</p>
+                    </div>
+                `;
             }
+        }
+
+        // Rendering della sfida
+        function renderChallenge(sfida) {
+            const container = document.getElementById('daily-challenge-container');
+            
+            const difficoltaColor = {
+                'facile': '#4CAF50',
+                'media': '#FF9800',
+                'difficile': '#F44336'
+            };
+            
+            container.className = 'daily-challenge';
+            container.innerHTML = `
+                <div class="challenge-header">
+                    <div class="challenge-day">Giorno ${sfida.giorno}</div>
+                    <h2 class="challenge-title">${sfida.data}</h2>
+                </div>
+
+                <div class="quote">
+                    "${sfida.citazione}"
+                    <div class="quote-author">— ${sfida.autore}</div>
+                    <div style="text-align: right; font-size: 0.9em; margin-top: 5px; opacity: 0.8;">
+                        ${sfida.opera}
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <span class="theme-badge">
+                        ${sfida.tema.toUpperCase()}
+                    </span>
+                </div>
+
+                <div class="interpretation">
+                    <h3>Interpretazione Moderna</h3>
+                    <p>${sfida.interpretazione}</p>
+                </div>
+
+                <div class="micro-challenge">
+                    <h4>Micro-Sfida del Giorno</h4>
+                    <p>${sfida.micro_sfida}</p>
+                    <span class="difficulty" style="background: ${difficoltaColor[sfida.difficolta]};">
+                        Difficoltà: ${sfida.difficolta.charAt(0).toUpperCase() + sfida.difficolta.slice(1)}
+                    </span>
+                </div>
+            `;
+        }
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+                const plus = item.querySelector('.faq-question span');
+                plus.textContent = item.classList.contains('active') ? '−' : '+';
+            });
         });
+
+        // Newsletter Form
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            alert(`Grazie per l'iscrizione! Conferma la tua email: ${email}`);
+            e.target.reset();
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', loadTodayChallenge);
     </script>
 </body>
 </html>
