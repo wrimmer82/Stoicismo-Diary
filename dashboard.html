@@ -596,19 +596,14 @@ async function loadUserData(user) {
                            user.email?.split('@')[0] ||
                            'Stoico';
         
+        console.log('✅ Nome caricato:', displayName);
         document.getElementById('userName').textContent = displayName;
     } catch (err) {
+        console.error('⚠️ Errore caricamento profilo:', err);
         const fallback = user.email?.split('@')[0] || 'Stoico';
         document.getElementById('userName').textContent = fallback;
     }
 }
-                                user.user_metadata?.name || 
-                                user.email?.split('@')[0] || 
-                                'Stoico';
-            
-            console.log('👤 Nome visualizzato:', displayName);
-            document.getElementById('userName').textContent = displayName;
-        }
 
         async function loadDailyContent() {
   const dayOfYear = getDayOfYear();
