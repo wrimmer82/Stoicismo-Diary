@@ -408,9 +408,8 @@
 
                 currentUser = session.user;
                 console.log('✅ Utente autenticato:', currentUser.id);
-
-                loadUserData();
-                loadProgressData();
+await loadUserData(); // ✅ Aspetta il caricamento del nome
+loadProgressData();
                 setupEventListeners();
                 
             } catch (error) {
@@ -420,12 +419,35 @@
         });
 
         // CARICA DATI UTENTE
-        function loadUserData() {
-            const displayName = currentUser.user_metadata?.full_name || 
-                                currentUser.user_metadata?.name || 
-                                currentUser.email?.split('@')[0] || 
-                                'Stoico';
-            
+async function loadUserData() {
+    let displayName = 'Stoico';
+    
+    // ✅ PRIORITÀ 1: Leggi da tabella profiles
+    try {
+        const { data: profile, error } = await supabase
+            .from('profiles')
+            .select('name')
+            .eq('id', currentUser.id)
+            .single();
+        
+        if (!error && profile?.name) {
+            displayName = profile.name;
+            console.log('✅ Nome caricato da profiles:', displayName);
+        } else {
+            // PRIORITÀ 2: OAuth metadata
+            displayName = currentUser.user_metadata?.full_name || 
+                         currentUser.user_metadata?.name || 
+                         currentUser.email?.split('@')[0] || 
+                         'Stoico';
+            console.log('✅ Nome caricato da metadata:', displayName);
+        }
+    } catch (err) {
+        console.error('❌ Errore caricamento profilo:', err);
+        displayName = currentUser.user_metadata?.full_name || 
+                     currentUser.email?.split('@')[0] || 
+                     'Stoico';
+    }
+          
             const language = currentUser.user_metadata?.language || 
                            localStorage.getItem('language') || 
                            'it';
@@ -518,31 +540,33 @@
                 window.location.href = 'index.html';
             });
 
-            // Salva profilo
-            document.getElementById('saveProfileBtn').addEventListener('click', async () => {
-                const newName = document.getElementById('profileName').value.trim();
-                
-                if (!newName) {
-                    showToast('⚠️ Inserisci un nome');
-                    return;
-                }
+// Salva profilo
+document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+    const newName = document.getElementById('profileName').value.trim();
+    
+    if (!newName) {
+        showToast('⚠️ Inserisci un nome');
+        return;
+    }
 
-                try {
-                    const { error } = await supabase.auth.updateUser({
-                        data: { full_name: newName }
-                    });
+    try {
+        // ✅ SALVA IN TABELLA PROFILES
+        const { error } = await supabase
+            .from('profiles')
+            .update({ name: newName })
+            .eq('id', currentUser.id);
 
-                    if (error) throw error;
+        if (error) throw error;
 
-                    showToast('✅ Profilo aggiornato!');
-                    document.getElementById('userName').textContent = newName;
-                    console.log('✅ Nome aggiornato:', newName);
+        showToast('✅ Profilo aggiornato!');
+        document.getElementById('userName').textContent = newName;
+        console.log('✅ Nome salvato in profiles:', newName);
 
-                } catch (error) {
-                    console.error('❌ Errore aggiornamento profilo:', error);
-                    showToast('❌ Errore: ' + error.message);
-                }
-            });
+    } catch (error) {
+        console.error('❌ Errore aggiornamento profilo:', error);
+        showToast('❌ Errore: ' + error.message);
+    }
+});
 
             // Reset password
             document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
