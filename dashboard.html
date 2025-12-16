@@ -571,8 +571,8 @@
     console.log('Email:', user.email);
     console.log('Provider:', user.app_metadata?.provider);
     
-    loadUserData(user);
-    await loadDailyContent();              // ← AGGIUNTO "await" QUI
+    await loadUserData(user);
+await loadDailyContent();
     await loadProgressData(user.id);
     setupEventListeners();
     
@@ -582,8 +582,26 @@
   }
 });
 
-        function loadUserData(user) {
-            const displayName = user.user_metadata?.full_name || 
+async function loadUserData(user) {
+    try {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('name')
+            .eq('id', user.id)
+            .single();
+        
+        const displayName = profile?.name || 
+                           user.user_metadata?.full_name ||
+                           user.user_metadata?.name ||
+                           user.email?.split('@')[0] ||
+                           'Stoico';
+        
+        document.getElementById('userName').textContent = displayName;
+    } catch (err) {
+        const fallback = user.email?.split('@')[0] || 'Stoico';
+        document.getElementById('userName').textContent = fallback;
+    }
+}
                                 user.user_metadata?.name || 
                                 user.email?.split('@')[0] || 
                                 'Stoico';
