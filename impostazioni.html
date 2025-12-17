@@ -316,7 +316,6 @@
                             maxlength="30"
                             class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all"
                         >
-                        <!-- ✅ MESSAGGIO ERRORE VALIDAZIONE -->
                         <p id="nameError" class="error-message"></p>
                         <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30. Puoi usare lettere, numeri, spazi, apostrofi e trattini</p>
                     </div>
@@ -368,54 +367,37 @@
                 </div>
             </div>
 
-            <!-- CARD PREFERENZE LINGUA -->
-            <div class="parchment-card rounded-lg p-6 md:p-8 mb-6">
-                <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path>
-                    </svg>
-                    Lingua Interfaccia
-                </h3>
-                
-                <div class="space-y-4">
-                    <div>
-                        <label for="languageSelect" class="block text-sm font-semibold mb-2">Seleziona Lingua</label>
-                        <select 
-                            id="languageSelect"
-                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all"
-                        >
-                            <option value="it">🇮🇹 Italiano</option>
-                            <option value="en">🇬🇧 English</option>
-                        </select>
-                    </div>
-                    
-                    <button id="saveLanguageBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn">
-                        🌐 Salva Preferenze
-                    </button>
-                </div>
-            </div>
-
             <!-- CARD PRIVACY & ACCOUNT -->
             <div class="parchment-card rounded-lg p-6 md:p-8 mb-6">
                 <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide flex items-center gap-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                     </svg>
-                    Privacy & Account
+                    Privacy & Gestione Dati
                 </h3>
                 
                 <div class="space-y-4">
                     <div class="bg-amber-50 border-l-4 border-amber-600 p-4 rounded">
+                        <p class="text-sm text-amber-900 leading-relaxed mb-3">
+                            <strong>📋 Dati Memorizzati:</strong><br>
+                            Raccogliamo e conserviamo: nome utente, indirizzo email, riflessioni quotidiane e data di registrazione. Questi dati sono utilizzati esclusivamente per il funzionamento dell'applicazione e per fornire il servizio richiesto.
+                        </p>
+                        <p class="text-sm text-amber-900 leading-relaxed mb-3">
+                            <strong>🔒 Base Giuridica (GDPR):</strong><br>
+                            Il trattamento dei tuoi dati personali si basa sull'<strong>esecuzione del contratto</strong> (Art. 6.1.b Regolamento UE 2016/679) e sul <strong>consenso esplicito</strong> (Art. 6.1.a) fornito durante la registrazione.
+                        </p>
+                        <p class="text-sm text-amber-900 leading-relaxed mb-3">
+                            <strong>⚖️ I Tuoi Diritti:</strong><br>
+                            Ai sensi degli articoli 15-22 del GDPR, hai diritto di: <strong>accedere</strong> ai tuoi dati, <strong>rettificarli</strong>, <strong>cancellarli</strong> (diritto all'oblio), <strong>limitarne il trattamento</strong>, <strong>opporti al trattamento</strong> e richiedere la <strong>portabilità dei dati</strong>.
+                        </p>
                         <p class="text-sm text-amber-900 leading-relaxed">
-                            <strong>Dati Memorizzati:</strong> Salviamo il tuo nome, email e le tue riflessioni quotidiane. Questi dati sono utilizzati esclusivamente per il funzionamento dell'applicazione.
+                            <strong>🗄️ Conservazione:</strong><br>
+                            I dati sono conservati per tutta la durata dell'account attivo. Alla cancellazione dell'account, i dati vengono eliminati entro <strong>30 giorni</strong>, salvo obblighi di legge (Art. 17.3 GDPR).
                         </p>
                     </div>
                     
-                    <div class="flex flex-col md:flex-row gap-3">
-                        <button id="downloadDataBtn" class="bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm flex-1 mobile-btn">
-                            📥 Scarica i Miei Dati
-                        </button>
-                        <button id="deleteAccountBtn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm flex-1 mobile-btn">
+                    <div class="flex flex-col gap-3">
+                        <button id="deleteAccountBtn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full mobile-btn">
                             🗑️ Elimina il Mio Account
                         </button>
                     </div>
@@ -491,18 +473,13 @@
                              currentUser.email?.split('@')[0] || 
                              'Stoico';
             }
-          
-            const language = currentUser.user_metadata?.language || 
-                           localStorage.getItem('language') || 
-                           'it';
 
             document.getElementById('userName').textContent = displayName;
             document.getElementById('profileName').value = displayName;
             document.getElementById('profileEmail').value = currentUser.email;
             document.getElementById('resetEmail').value = currentUser.email;
-            document.getElementById('languageSelect').value = language;
 
-            console.log('👤 Dati caricati:', { displayName, email: currentUser.email, language });
+            console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
         }
 
         // CARICA STREAK
@@ -561,10 +538,8 @@
             const nameInput = document.getElementById('profileName');
             const errorMsg = document.getElementById('nameError');
             
-            // Rimuovi spazi iniziali/finali
             name = name.trim();
             
-            // Controllo lunghezza minima
             if (name.length < 2) {
                 nameInput.classList.add('error');
                 errorMsg.textContent = '❌ Nome troppo corto (minimo 2 caratteri)';
@@ -572,7 +547,6 @@
                 return false;
             }
             
-            // Controllo lunghezza massima
             if (name.length > 30) {
                 nameInput.classList.add('error');
                 errorMsg.textContent = '❌ Nome troppo lungo (massimo 30 caratteri)';
@@ -580,7 +554,6 @@
                 return false;
             }
             
-            // ✅ REGEX AGGIORNATO: Lettere + NUMERI + spazi + apostrofi + trattini
             const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
             if (!regex.test(name)) {
                 nameInput.classList.add('error');
@@ -589,7 +562,6 @@
                 return false;
             }
             
-            // ✅ NOME VALIDO
             nameInput.classList.remove('error');
             errorMsg.classList.remove('active');
             return true;
@@ -623,25 +595,23 @@
                 window.location.href = 'index.html';
             });
 
-            // ✅ VALIDAZIONE IN TEMPO REALE DURANTE DIGITAZIONE
+            // Validazione in tempo reale
             document.getElementById('profileName').addEventListener('input', (e) => {
                 const name = e.target.value;
                 if (name.length > 0) {
                     validateName(name);
                 } else {
-                    // Reset errore se campo vuoto
                     document.getElementById('profileName').classList.remove('error');
                     document.getElementById('nameError').classList.remove('active');
                 }
             });
 
-            // ✅ SALVA PROFILO CON FEEDBACK VISIVO
+            // Salva profilo
             document.getElementById('saveProfileBtn').addEventListener('click', async () => {
                 const newName = document.getElementById('profileName').value.trim();
                 const saveBtn = document.getElementById('saveProfileBtn');
                 const saveBtnText = document.getElementById('saveBtnText');
                 
-                // VALIDAZIONE PRIMA DI SALVARE
                 if (!newName) {
                     showToast('⚠️ Inserisci un nome', 'error');
                     return;
@@ -653,12 +623,10 @@
                 }
 
                 try {
-                    // ⏳ FASE 1: MOSTRA FEEDBACK "SALVATAGGIO IN CORSO"
                     saveBtn.disabled = true;
                     saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
                     console.log('⏳ Inizio salvataggio...');
 
-                    // 🔄 FASE 2: SALVA IN SUPABASE
                     const { error } = await supabase
                         .from('profiles')
                         .update({ name: newName })
@@ -666,21 +634,17 @@
 
                     if (error) throw error;
 
-                    // ✅ FASE 3: SUCCESSO
                     console.log('✅ Nome salvato in profiles:', newName);
                     document.getElementById('userName').textContent = newName;
                     
-                    // Ripristina bottone
                     saveBtnText.textContent = '💾 Salva Profilo';
                     saveBtn.disabled = false;
                     
-                    // Mostra toast per 6 secondi
                     showToast('✅ Profilo aggiornato con successo!', 'success');
 
                 } catch (error) {
                     console.error('❌ Errore aggiornamento profilo:', error);
                     
-                    // Ripristina bottone
                     saveBtnText.textContent = '💾 Salva Profilo';
                     saveBtn.disabled = false;
                     
@@ -688,25 +652,22 @@
                 }
             });
 
-            // ✅ RESET PASSWORD CON CONFERMA
+            // Reset password con conferma
             document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
                 const email = currentUser.email;
                 
-                // ✅ MOSTRA DIALOG DI CONFERMA
                 const confirmReset = window.confirm(
                     `📧 Reset Password\n\n` +
                     `L'email sarà inviata a:\n${email}\n\n` +
                     `Clicca OK per confermare.`
                 );
                 
-                // ❌ UTENTE HA CLICCATO "ANNULLA"
                 if (!confirmReset) {
                     console.log('⚠️ Reset password annullato dall\'utente');
                     showToast('❌ Operazione annullata', 'info');
                     return;
                 }
                 
-                // ✅ UTENTE HA CONFERMATO - PROCEDI CON INVIO EMAIL
                 try {
                     const { error } = await supabase.auth.resetPasswordForEmail(email, {
                         redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
@@ -723,53 +684,38 @@
                 }
             });
 
-            // Salva lingua
-            document.getElementById('saveLanguageBtn').addEventListener('click', async () => {
-                const lang = document.getElementById('languageSelect').value;
-                
-                try {
-                    const { error } = await supabase.auth.updateUser({
-                        data: { language: lang }
-                    });
-
-                    if (error) throw error;
-
-                    localStorage.setItem('language', lang);
-                    showToast('✅ Lingua salvata!', 'success');
-                    console.log('✅ Lingua impostata:', lang);
-
-                } catch (error) {
-                    console.error('❌ Errore salvataggio lingua:', error);
-                    showToast('❌ Errore: ' + error.message, 'error');
-                }
-            });
-
-            // Download dati
-            document.getElementById('downloadDataBtn').addEventListener('click', () => {
-                showToast('📥 Funzionalità disponibile prossimamente', 'info');
-            });
-
             // Elimina account
             document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-                const confirm1 = window.confirm('⚠️ SEI SICURO? Questa azione eliminerà TUTTI i tuoi dati in modo permanente.');
+                const confirm1 = window.confirm(
+                    '⚠️ ATTENZIONE: Cancellazione Account\n\n' +
+                    'Questa azione eliminerà permanentemente:\n' +
+                    '• Il tuo profilo utente\n' +
+                    '• Tutte le tue riflessioni\n' +
+                    '• I tuoi progressi e statistiche\n\n' +
+                    'Questa operazione NON è reversibile.\n\n' +
+                    'Vuoi procedere?'
+                );
                 
                 if (confirm1) {
-                    const confirm2 = window.confirm('❗ ULTIMA CONFERMA: Vuoi davvero eliminare il tuo account? NON è reversibile!');
+                    const confirm2 = window.confirm(
+                        '❗ ULTIMA CONFERMA\n\n' +
+                        'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
+                        'Clicca OK per confermare la cancellazione definitiva.'
+                    );
                     
                     if (confirm2) {
-                        showToast('🗑️ Per eliminare l\'account, contattaci a support@thestoicjourney.com', 'info');
+                        showToast('🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
                         console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
                     }
                 }
             });
         }
 
-        // ✅ TOAST MIGLIORATO CON DURATA 6 SECONDI E FADE OUT
+        // Toast
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
             
-            // Imposta colore in base al tipo
             if (type === 'error') {
                 toast.classList.remove('border-amber-500', 'text-amber-400');
                 toast.classList.add('border-red-500', 'text-red-400');
@@ -785,12 +731,10 @@
             toast.classList.remove('hiding');
             toast.style.transform = 'translateY(0)';
             
-            // Dopo 5.5 secondi inizia fade out
             setTimeout(() => {
                 toast.classList.add('hiding');
             }, 5500);
             
-            // Dopo 6 secondi nascondi completamente
             setTimeout(() => {
                 toast.style.transform = 'translateY(8rem)';
                 toast.classList.remove('hiding');
