@@ -12,14 +12,13 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Trajan+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-cinzel-decorative { font-family: 'Cinzel Decorative', 'Cinzel', serif; }
-        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
 
         body {
             background: linear-gradient(180deg, 
@@ -32,86 +31,83 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           🏛️ CARD PERGAMENA STILE ROMANO
+           🏛️ CARD PERGAMENA CON BORDI ARROTONDATI
         ═══════════════════════════════════════════════════════ */
         .parchment-card {
-            background: 
-                linear-gradient(135deg, rgba(245, 222, 179, 0.98) 0%, rgba(235, 212, 169, 0.98) 100%);
-            border: 4px solid #78350f;
-            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(245, 235, 215, 0.98) 0%, rgba(235, 225, 205, 0.98) 100%);
+            border: 5px solid #654321;
+            border-radius: 16px;
             box-shadow: 
-                inset 0 2px 8px rgba(0, 0, 0, 0.15),
-                0 16px 40px rgba(0, 0, 0, 0.7);
+                inset 0 3px 10px rgba(0, 0, 0, 0.2),
+                0 20px 50px rgba(0, 0, 0, 0.8);
             position: relative;
             overflow: hidden;
         }
 
-        /* Texture pergamena (macchie sottili) */
+        /* Texture pergamena antica */
         .parchment-card::after {
             content: '';
             position: absolute;
             inset: 0;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.05) 1px, transparent 1px),
-                radial-gradient(circle at 60% 70%, rgba(139, 69, 19, 0.04) 1px, transparent 1px),
-                radial-gradient(circle at 80% 20%, rgba(139, 69, 19, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px, 80px 80px, 100px 100px;
+                radial-gradient(circle at 30% 40%, rgba(139, 90, 43, 0.06) 2px, transparent 2px),
+                radial-gradient(circle at 70% 60%, rgba(139, 90, 43, 0.04) 2px, transparent 2px),
+                radial-gradient(circle at 50% 80%, rgba(139, 90, 43, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px, 90px 90px, 120px 120px;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
         /* ═══════════════════════════════════════════════════════
-           🎨 BORDO MEANDRO GRECO
+           🎨 BORDO MEANDRO GRECO (TIPICO PATTERN)
         ═══════════════════════════════════════════════════════ */
-        .greek-meander {
+        .greek-border {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 32px;
-            background: linear-gradient(180deg, #8b4513 0%, #a0522d 100%);
+            height: 48px;
+            background: linear-gradient(180deg, #8b5a2d 0%, #a0692f 50%, #8b5a2d 100%);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
             z-index: 1;
+            border-bottom: 3px solid #654321;
         }
 
-        .greek-meander::before {
+        /* Pattern meandro greco realistico */
+        .greek-border::before {
             content: '';
             position: absolute;
-            inset: 4px 8px;
-            background-image: repeating-linear-gradient(
-                90deg,
-                #d4a574 0px,
-                #d4a574 3px,
-                transparent 3px,
-                transparent 6px,
-                #d4a574 6px,
-                #d4a574 9px,
-                transparent 9px,
-                transparent 12px,
-                #d4a574 12px,
-                #d4a574 15px,
-                transparent 15px,
-                transparent 24px
-            );
-        }
-
-        .greek-meander::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                #d4a574 10%, 
-                #8b4513 50%, 
-                #d4a574 90%, 
-                transparent 100%
-            );
+            inset: 8px 16px;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    #d4a574 0px,
+                    #d4a574 4px,
+                    transparent 4px,
+                    transparent 8px,
+                    #d4a574 8px,
+                    #d4a574 12px,
+                    transparent 12px,
+                    transparent 16px,
+                    #d4a574 16px,
+                    #d4a574 20px,
+                    transparent 20px,
+                    transparent 32px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    #d4a574 0px,
+                    #d4a574 4px,
+                    transparent 4px,
+                    transparent 8px
+                );
+            background-size: 32px 100%, 100% 8px;
+            background-position: 0 0, 0 0;
         }
 
         .parchment-card-inner {
-            padding-top: 48px;
+            padding-top: 68px;
             position: relative;
             z-index: 2;
         }
@@ -124,7 +120,7 @@
             background: linear-gradient(90deg, 
                 transparent 0%, 
                 #d4a574 15%, 
-                #8b4513 50%, 
+                #8b5a2d 50%, 
                 #d4a574 85%, 
                 transparent 100%
             );
@@ -138,24 +134,45 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #8b4513;
-            font-size: 14px;
-            background: rgba(245, 222, 179, 0.98);
-            padding: 0 8px;
+            color: #8b5a2d;
+            font-size: 16px;
+            background: rgba(245, 235, 215, 0.98);
+            padding: 0 10px;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           🎯 ICONE CUSTOM SVG
+        ═══════════════════════════════════════════════════════ */
+        .icon-shield-column {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+        }
+
+        .icon-lock {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            fill: #8b5a2d;
+        }
+
+        .icon-laurel {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
         }
 
         /* ═══════════════════════════════════════════════════════
            📝 TITOLI E TESTI
         ═══════════════════════════════════════════════════════ */
         .parchment-card h3 {
-            color: #5a2d0c;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-            font-family: 'Trajan Pro', 'Cinzel', serif;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
+            color: #3e2723;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.05em;
             text-align: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 700;
+            margin-bottom: 0.5rem;
         }
 
         .parchment-card label {
@@ -163,6 +180,8 @@
             font-family: 'Cinzel', serif;
             font-weight: 600;
             font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* ═══════════════════════════════════════════════════════
@@ -171,16 +190,16 @@
         .parchment-input {
             background: rgba(255, 255, 255, 0.95);
             border: 2px solid rgba(139, 69, 19, 0.4);
-            border-radius: 4px;
-            color: #451a03;
+            border-radius: 6px;
+            color: #3e2723;
             font-family: 'Cinzel', serif;
             transition: all 0.3s ease;
         }
 
         .parchment-input:focus {
-            border-color: #8b4513;
+            border-color: #8b5a2d;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
+            box-shadow: 0 0 0 3px rgba(139, 90, 45, 0.2);
         }
 
         .parchment-input:disabled {
@@ -210,66 +229,46 @@
         ═══════════════════════════════════════════════════════ */
         .roman-seal-button {
             position: relative;
-            border-radius: 6px;
+            border-radius: 8px;
             box-shadow: 
-                0 4px 0 rgba(0, 0, 0, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.25),
-                0 8px 16px rgba(0, 0, 0, 0.3);
+                0 5px 0 rgba(0, 0, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 10px 20px rgba(0, 0, 0, 0.4);
             font-family: 'Cinzel', serif;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
             font-weight: 700;
             font-size: 0.875rem;
             transition: all 0.15s ease;
-            border: 2px solid rgba(0, 0, 0, 0.2);
+            border: none;
         }
 
         .roman-seal-button:hover {
-            transform: translateY(1px);
+            transform: translateY(2px);
             box-shadow: 
                 0 3px 0 rgba(0, 0, 0, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.25),
-                0 6px 12px rgba(0, 0, 0, 0.4);
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.5);
         }
 
         .roman-seal-button:active {
-            transform: translateY(3px);
+            transform: translateY(4px);
             box-shadow: 
                 0 1px 0 rgba(0, 0, 0, 0.4),
-                inset 0 2px 0 rgba(255, 255, 255, 0.25),
-                0 2px 6px rgba(0, 0, 0, 0.4);
+                inset 0 2px 0 rgba(255, 255, 255, 0.3),
+                0 4px 8px rgba(0, 0, 0, 0.5);
         }
 
         /* Sigillo Oro */
         .roman-seal-gold {
-            background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-        }
-
-        .roman-seal-gold:hover {
-            background: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+            background: linear-gradient(180deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
         }
 
         /* Sigillo Grigio */
         .roman-seal-gray {
-            background: linear-gradient(180deg, #64748b 0%, #475569 100%);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-        }
-
-        .roman-seal-gray:hover {
-            background: linear-gradient(180deg, #475569 0%, #334155 100%);
-        }
-
-        /* ═══════════════════════════════════════════════════════
-           ⚠️ WARNING BOX
-        ═══════════════════════════════════════════════════════ */
-        .warning-box {
-            background: rgba(254, 243, 199, 0.95);
-            border-left: 4px solid #d97706;
-            border-radius: 4px;
-            padding: 1rem;
-            font-size: 0.8rem;
-            line-height: 1.6;
+            background: linear-gradient(180deg, #64748b 0%, #475569 50%, #334155 100%);
+            text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
         }
 
         /* ═══════════════════════════════════════════════════════
@@ -352,12 +351,12 @@
             opacity: 0;
         }
 
-        /* Tipografia lapidaria */
-        .lapidary-title {
-            font-family: 'Trajan Pro', 'Cinzel Decorative', serif;
-            letter-spacing: 0.2em;
+        /* Titolo principale */
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            text-align: center;
+            font-weight: 900;
         }
 
         /* Grid 3 colonne */
@@ -365,7 +364,7 @@
             .cards-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 2rem;
+                gap: 2.5rem;
                 max-width: 1400px;
                 margin: 0 auto;
             }
@@ -375,7 +374,7 @@
             .cards-grid {
                 display: flex;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 2rem;
             }
         }
 
@@ -510,30 +509,42 @@
         <main class="flex-1 p-4 md:p-8 w-full">
             
             <!-- TITOLO PRINCIPALE -->
-            <div class="mb-8 text-center">
-                <h1 class="text-4xl md:text-5xl lapidary-title font-bold text-amber-400 mb-3">
+            <div class="mb-10 text-center">
+                <h1 class="text-5xl md:text-6xl main-title text-amber-400 mb-3">
                     Impostazioni
                 </h1>
-                <p class="text-slate-300 text-base md:text-lg font-cinzel">
+                <p class="text-slate-300 text-base md:text-lg font-cinzel italic">
                     Gestisci il tuo profilo, sicurezza e preferenze
                 </p>
             </div>
 
-            <!-- GRID 3 CARD CON MEANDRO GRECO -->
+            <!-- GRID 3 CARD CON BORDO GRECO -->
             <div class="cards-grid">
 
                 <!-- ═══════════════════════════════════════════════
-                     🏛️ CARD 1: PROFILO UTENTE
+                     🏛️ CARD 1: PROFILO UTENTE (SCUDO + COLONNA)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
-                    <div class="greek-meander"></div>
+                    <div class="greek-border"></div>
                     <div class="parchment-card-inner p-6">
-                        <h3 class="mb-2">
-                            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg>
-                            Profilo Utente
-                        </h3>
+                        
+                        <!-- Icona Scudo con Colonna -->
+                        <svg class="icon-shield-column" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Scudo -->
+                            <path d="M50 10 L20 25 L20 50 Q20 75 50 90 Q80 75 80 50 L80 25 Z" 
+                                  fill="#8b5a2d" stroke="#654321" stroke-width="2"/>
+                            <path d="M50 15 L25 28 L25 50 Q25 72 50 85 Q75 72 75 50 L75 28 Z" 
+                                  fill="#a0692f" stroke="#654321" stroke-width="1"/>
+                            <!-- Colonna -->
+                            <rect x="45" y="35" width="10" height="35" fill="#f5deb3"/>
+                            <rect x="42" y="33" width="16" height="4" fill="#f5deb3"/>
+                            <rect x="42" y="68" width="16" height="4" fill="#f5deb3"/>
+                            <line x1="47" y1="38" x2="47" y2="68" stroke="#d4a574" stroke-width="1"/>
+                            <line x1="50" y1="38" x2="50" y2="68" stroke="#d4a574" stroke-width="1"/>
+                            <line x1="53" y1="38" x2="53" y2="68" stroke="#d4a574" stroke-width="1"/>
+                        </svg>
+
+                        <h3>Profilo Utente</h3>
                         
                         <div class="gold-divider"></div>
                         
@@ -545,10 +556,10 @@
                                     id="profileName" 
                                     placeholder="Marco Aurelio"
                                     maxlength="30"
-                                    class="parchment-input w-full px-4 py-2.5 text-sm"
+                                    class="parchment-input w-full px-4 py-3 text-sm"
                                 >
                                 <p id="nameError" class="error-message"></p>
-                                <p class="text-xs text-amber-800 mt-1">Min 2, max 30 caratteri</p>
+                                <p class="text-xs text-amber-900 mt-1">Min 2, max 30 caratteri</p>
                             </div>
                             
                             <div>
@@ -557,30 +568,39 @@
                                     type="email" 
                                     id="profileEmail" 
                                     disabled
-                                    class="parchment-input w-full px-4 py-2.5 text-sm"
+                                    class="parchment-input w-full px-4 py-3 text-sm"
                                 >
-                                <p class="text-xs text-amber-800 mt-1">Non modificabile</p>
+                                <p class="text-xs text-amber-900 mt-1">Non modificabile</p>
                             </div>
                             
                             <button id="saveProfileBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full disabled:opacity-50 disabled:cursor-not-allowed mt-4">
-                                <span id="saveBtnText">💾 Salva Profilo</span>
+                                <span id="saveBtnText">Salva Profilo</span>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- ═══════════════════════════════════════════════
-                     🔒 CARD 2: SICUREZZA
+                     🔒 CARD 2: SICUREZZA (LUCCHETTO)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
-                    <div class="greek-meander"></div>
+                    <div class="greek-border"></div>
                     <div class="parchment-card-inner p-6">
-                        <h3 class="mb-2">
-                            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                            </svg>
-                            Sicurezza
-                        </h3>
+                        
+                        <!-- Icona Lucchetto -->
+                        <svg class="icon-lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Arco lucchetto -->
+                            <path d="M35 45 L35 30 Q35 15 50 15 Q65 15 65 30 L65 45" 
+                                  fill="none" stroke="#8b5a2d" stroke-width="6"/>
+                            <!-- Corpo lucchetto -->
+                            <rect x="25" y="40" width="50" height="40" rx="5" fill="#8b5a2d"/>
+                            <rect x="28" y="43" width="44" height="34" rx="3" fill="#a0692f"/>
+                            <!-- Buco serratura -->
+                            <circle cx="50" cy="57" r="5" fill="#654321"/>
+                            <rect x="48" y="57" width="4" height="12" fill="#654321"/>
+                        </svg>
+
+                        <h3>Sicurezza</h3>
                         
                         <div class="gold-divider"></div>
                         
@@ -595,60 +615,78 @@
                                     type="email" 
                                     id="resetEmail" 
                                     disabled
-                                    class="parchment-input w-full px-4 py-2.5 text-sm"
+                                    class="parchment-input w-full px-4 py-3 text-sm"
                                 >
                             </div>
                             
                             <button id="resetPasswordBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full mt-4">
-                                📧 Cambia Password
+                                Cambia Password
                             </button>
                         </div>
                     </div>
                 </div>
 
                 <!-- ═══════════════════════════════════════════════
-                     🛡️ CARD 3: PRIVACY & GESTIONE DATI
+                     🛡️ CARD 3: PRIVACY (CORONA ALLORO)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
-                    <div class="greek-meander"></div>
+                    <div class="greek-border"></div>
                     <div class="parchment-card-inner p-6">
-                        <h3 class="mb-2">
-                            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
-                            Privacy & Dati
-                        </h3>
+                        
+                        <!-- Icona Corona di Alloro -->
+                        <svg class="icon-laurel" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Corona sinistra -->
+                            <ellipse cx="30" cy="30" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-30 30 30)"/>
+                            <ellipse cx="25" cy="40" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-20 25 40)"/>
+                            <ellipse cx="23" cy="52" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-10 23 52)"/>
+                            <ellipse cx="25" cy="65" rx="8" ry="12" fill="#8b5a2d" transform="rotate(0 25 65)"/>
+                            <ellipse cx="30" cy="77" rx="8" ry="12" fill="#8b5a2d" transform="rotate(10 30 77)"/>
+                            
+                            <!-- Corona destra -->
+                            <ellipse cx="70" cy="30" rx="8" ry="12" fill="#8b5a2d" transform="rotate(30 70 30)"/>
+                            <ellipse cx="75" cy="40" rx="8" ry="12" fill="#8b5a2d" transform="rotate(20 75 40)"/>
+                            <ellipse cx="77" cy="52" rx="8" ry="12" fill="#8b5a2d" transform="rotate(10 77 52)"/>
+                            <ellipse cx="75" cy="65" rx="8" ry="12" fill="#8b5a2d" transform="rotate(0 75 65)"/>
+                            <ellipse cx="70" cy="77" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-10 70 77)"/>
+                            
+                            <!-- Nastro base -->
+                            <path d="M35 85 Q50 90 65 85" stroke="#654321" stroke-width="3" fill="none"/>
+                            <path d="M35 82 L30 95 L37 88" fill="#8b5a2d"/>
+                            <path d="M65 82 L70 95 L63 88" fill="#8b5a2d"/>
+                        </svg>
+
+                        <h3>Privacy & Dati</h3>
                         
                         <div class="gold-divider"></div>
                         
                         <div class="space-y-3 text-xs text-amber-900 leading-relaxed max-h-64 overflow-y-auto pr-2">
                             <div>
-                                <strong>📋 Dati Memorizzati:</strong><br>
+                                <strong>Dati Memorizzati:</strong><br>
                                 Nome, email, riflessioni e data registrazione. Uso esclusivo per il servizio.
                             </div>
                             
                             <div>
-                                <strong>🔒 Base Giuridica (GDPR):</strong><br>
+                                <strong>Base Giuridica (GDPR):</strong><br>
                                 Esecuzione contratto (Art. 6.1.b) e consenso esplicito (Art. 6.1.a) GDPR 2016/679.
                             </div>
                             
                             <div>
-                                <strong>⚖️ I Tuoi Diritti:</strong><br>
+                                <strong>I Tuoi Diritti:</strong><br>
                                 Art. 15-22 GDPR: accedere, rettificare, cancellare, limitare, opporsi, portabilità dati.
                             </div>
                             
                             <div>
-                                <strong>🗄️ Conservazione:</strong><br>
+                                <strong>Conservazione:</strong><br>
                                 Durata account attivo. Cancellazione entro 30 giorni (Art. 17.3 GDPR).
                             </div>
                         </div>
                         
                         <div class="mt-4">
                             <p class="text-xs text-amber-900 italic mb-3 text-center">
-                                ⚠️ Azione permanente e irreversibile
+                                Azione permanente e irreversibile
                             </p>
                             <button id="deleteAccountBtn" class="roman-seal-button roman-seal-gray text-white px-6 py-3 w-full">
-                                🗑️ Elimina Account
+                                Elimina Account
                             </button>
                         </div>
                     </div>
@@ -870,14 +908,14 @@
                     if (error) throw error;
 
                     document.getElementById('userName').textContent = newName;
-                    saveBtnText.textContent = '💾 Salva Profilo';
+                    saveBtnText.textContent = 'Salva Profilo';
                     saveBtn.disabled = false;
-                    showToast('✅ Profilo aggiornato', 'success');
+                    showToast('Profilo aggiornato', 'success');
 
                 } catch (error) {
-                    saveBtnText.textContent = '💾 Salva Profilo';
+                    saveBtnText.textContent = 'Salva Profilo';
                     saveBtn.disabled = false;
-                    showToast('❌ Errore: ' + error.message, 'error');
+                    showToast('Errore: ' + error.message, 'error');
                 }
             });
 
@@ -885,7 +923,7 @@
                 const email = currentUser.email;
                 
                 const confirmReset = window.confirm(
-                    `📧 Reset Password\n\nEmail: ${email}\n\nConferma?`
+                    `Reset Password\n\nEmail: ${email}\n\nConferma?`
                 );
                 
                 if (!confirmReset) {
@@ -899,23 +937,23 @@
                     });
 
                     if (error) throw error;
-                    showToast('✅ Email inviata', 'success');
+                    showToast('Email inviata', 'success');
 
                 } catch (error) {
-                    showToast('❌ Errore: ' + error.message, 'error');
+                    showToast('Errore: ' + error.message, 'error');
                 }
             });
 
             document.getElementById('deleteAccountBtn').addEventListener('click', () => {
                 const confirm1 = window.confirm(
-                    '⚠️ ATTENZIONE\n\nEliminazione permanente di:\n• Profilo\n• Riflessioni\n• Progressi\n\nContinuare?'
+                    'ATTENZIONE\n\nEliminazione permanente di:\n• Profilo\n• Riflessioni\n• Progressi\n\nContinuare?'
                 );
                 
                 if (confirm1) {
-                    const confirm2 = window.confirm('❗ ULTIMA CONFERMA\n\nConfermi eliminazione?');
+                    const confirm2 = window.confirm('ULTIMA CONFERMA\n\nConfermi eliminazione?');
                     
                     if (confirm2) {
-                        showToast('🗑️ Account eliminato entro 48h', 'info');
+                        showToast('Account eliminato entro 48h', 'info');
                     }
                 }
             });
