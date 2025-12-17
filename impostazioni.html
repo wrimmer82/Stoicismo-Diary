@@ -688,10 +688,25 @@
                 }
             });
 
-            // Reset password
+            // ✅ RESET PASSWORD CON CONFERMA
             document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
                 const email = currentUser.email;
                 
+                // ✅ MOSTRA DIALOG DI CONFERMA
+                const confirmReset = window.confirm(
+                    `📧 Reset Password\n\n` +
+                    `L'email sarà inviata a:\n${email}\n\n` +
+                    `Clicca OK per confermare.`
+                );
+                
+                // ❌ UTENTE HA CLICCATO "ANNULLA"
+                if (!confirmReset) {
+                    console.log('⚠️ Reset password annullato dall\'utente');
+                    showToast('❌ Operazione annullata', 'info');
+                    return;
+                }
+                
+                // ✅ UTENTE HA CONFERMATO - PROCEDI CON INVIO EMAIL
                 try {
                     const { error } = await supabase.auth.resetPasswordForEmail(email, {
                         redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
