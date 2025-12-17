@@ -20,7 +20,6 @@
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-cinzel-decorative { font-family: 'Cinzel Decorative', 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
 
         body {
             background: linear-gradient(180deg, 
@@ -34,56 +33,83 @@
 
         /* CARD STILE TAVOLA INCISA ROMANA */
         .parchment-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 3px solid rgba(146, 64, 14, 0.6);
-            border-radius: 2px;
+            background: rgba(245, 222, 179, 0.98);
+            border: 4px solid rgba(120, 53, 15, 0.8);
+            border-radius: 8px;
             box-shadow: 
-                inset 0 1px 3px rgba(0, 0, 0, 0.3),
-                0 8px 24px rgba(0, 0, 0, 0.5);
+                inset 0 2px 4px rgba(0, 0, 0, 0.25),
+                0 12px 32px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* BORDO MEANDRO GRECO */
+        .parchment-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 24px;
+            background: repeating-linear-gradient(
+                90deg,
+                #8b4513 0px, #8b4513 12px,
+                #d4a574 12px, #d4a574 24px
+            );
+            opacity: 0.8;
+        }
+
+        .parchment-card-inner {
+            padding-top: 32px;
+        }
+
+        /* SEPARATORE ORO */
+        .gold-divider {
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #d4a574 20%, 
+                #8b4513 50%, 
+                #d4a574 80%, 
+                transparent 100%
+            );
+            margin: 1.5rem 0;
         }
 
         .parchment-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+            color: #5a2d0c;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
             font-family: 'Trajan Pro', 'Cinzel', serif;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 1.5rem;
         }
 
         .parchment-card label {
-            color: #451a03;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+            color: #5a2d0c;
             font-family: 'Cinzel', serif;
-        }
-
-        /* MEANDRO GRECO-ROMANO */
-        .greek-key-border {
-            height: 2px;
-            background: repeating-linear-gradient(
-                90deg,
-                #92400e 0px, #92400e 8px,
-                transparent 8px, transparent 16px
-            );
-            margin-bottom: 1rem;
-            opacity: 0.6;
+            font-weight: 600;
         }
 
         /* INPUT STILE PERGAMENA */
         .parchment-input {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(146, 64, 14, 0.3);
-            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(139, 69, 19, 0.4);
+            border-radius: 4px;
             color: #451a03;
             font-family: 'Cinzel', serif;
+            transition: all 0.3s ease;
         }
 
         .parchment-input:focus {
-            border-color: #92400e;
+            border-color: #8b4513;
             outline: none;
-            box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.2);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.2);
         }
 
         .parchment-input:disabled {
-            background: rgba(229, 231, 235, 0.6);
+            background: rgba(229, 231, 235, 0.7);
             cursor: not-allowed;
         }
 
@@ -106,27 +132,50 @@
 
         /* BOTTONI SIGILLO ROMANO */
         .roman-button {
-            border-radius: 2px;
+            border-radius: 4px;
             position: relative;
             box-shadow: 
-                0 2px 0 rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 3px 0 rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             font-family: 'Cinzel', serif;
             letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: all 0.2s ease;
         }
 
         .roman-button:active {
-            transform: translateY(1px);
+            transform: translateY(2px);
             box-shadow: 
                 0 1px 0 rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .roman-button-secondary {
+            background: linear-gradient(180deg, #64748b 0%, #475569 100%);
+            border: 2px solid #334155;
+        }
+
+        .roman-button-secondary:hover {
+            background: linear-gradient(180deg, #475569 0%, #334155 100%);
         }
 
         /* TIPOGRAFIA LAPIDARIA */
         .lapidary-title {
             font-family: 'Trajan Pro', 'Cinzel Decorative', serif;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* WARNING BOX */
+        .warning-box {
+            background: rgba(254, 243, 199, 0.95);
+            border-left: 4px solid #d97706;
+            border-radius: 4px;
+            padding: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
         }
 
         #mobileMenuOverlay {
@@ -199,10 +248,30 @@
         #toast {
             transition: transform 0.3s ease, opacity 0.5s ease;
             font-family: 'Cinzel', serif;
+            border-radius: 4px;
         }
 
         #toast.hiding {
             opacity: 0;
+        }
+
+        /* LAYOUT 3 COLONNE */
+        @media (min-width: 1024px) {
+            .cards-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+                max-width: 1400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .cards-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
         }
 
         @media (max-width: 767px) {
@@ -333,140 +402,155 @@
         </aside>
 
         <!-- MAIN CONTENT -->
-        <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full">
+        <main class="flex-1 p-4 md:p-8 w-full">
             
-            <!-- TITOLO CON FONT LAPIDARIO -->
-            <div class="mb-6">
-                <h1 class="text-3xl md:text-4xl lapidary-title font-bold text-amber-400 mb-2">
+            <!-- TITOLO PRINCIPALE -->
+            <div class="mb-8 text-center">
+                <h1 class="text-4xl md:text-5xl lapidary-title font-bold text-amber-400 mb-3">
                     Impostazioni
                 </h1>
-                <p class="text-slate-400 text-sm md:text-base font-cinzel">
+                <p class="text-slate-300 text-base md:text-lg font-cinzel">
                     Gestisci il tuo profilo, sicurezza e preferenze
                 </p>
             </div>
 
-            <!-- CARD PROFILO UTENTE -->
-            <div class="greek-key-border"></div>
-            <div class="parchment-card p-4 md:p-6 mb-4 md:mb-6">
-                <h3 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Profilo Utente
-                </h3>
-                
-                <div class="space-y-3 md:space-y-4">
-                    <div>
-                        <label for="profileName" class="block text-sm font-semibold mb-2">Nome Visualizzato</label>
-                        <input 
-                            type="text" 
-                            id="profileName" 
-                            placeholder="Es: Marco Aurelio o Emanuel82"
-                            maxlength="30"
-                            class="parchment-input w-full px-4 py-3 transition-all"
-                        >
-                        <p id="nameError" class="error-message"></p>
-                        <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30. Puoi usare lettere, numeri, spazi, apostrofi e trattini</p>
-                    </div>
-                    
-                    <div>
-                        <label for="profileEmail" class="block text-sm font-semibold mb-2">Email</label>
-                        <input 
-                            type="email" 
-                            id="profileEmail" 
-                            disabled
-                            class="parchment-input w-full px-4 py-3"
-                        >
-                        <p class="text-xs text-amber-800 mt-1">L'email non può essere modificata direttamente</p>
-                    </div>
-                    
-                    <button id="saveProfileBtn" class="roman-button bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 transition-all font-bold text-sm w-full md:w-auto mobile-btn disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span id="saveBtnText">Salva Profilo</span>
-                    </button>
-                </div>
-            </div>
+            <!-- GRID 3 CARD -->
+            <div class="cards-grid">
 
-            <!-- CARD SICUREZZA -->
-            <div class="greek-key-border"></div>
-            <div class="parchment-card p-4 md:p-6 mb-4 md:mb-6">
-                <h3 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    Sicurezza
-                </h3>
-                
-                <div class="space-y-3 md:space-y-4">
-                    <p class="text-sm text-amber-900">
-                        Riceverai un'email con un link sicuro per reimpostare la tua password.
-                    </p>
-                    
-                    <div>
-                        <label for="resetEmail" class="block text-sm font-semibold mb-2">Email per Reset Password</label>
-                        <input 
-                            type="email" 
-                            id="resetEmail" 
-                            disabled
-                            class="parchment-input w-full px-4 py-3"
-                        >
+                <!-- CARD 1: PROFILO UTENTE -->
+                <div class="parchment-card">
+                    <div class="parchment-card-inner p-6">
+                        <h3 class="mb-4">
+                            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            Profilo Utente
+                        </h3>
+                        
+                        <div class="gold-divider"></div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label for="profileName" class="block text-sm font-semibold mb-2">Nome Visualizzato</label>
+                                <input 
+                                    type="text" 
+                                    id="profileName" 
+                                    placeholder="Marco Aurelio"
+                                    maxlength="30"
+                                    class="parchment-input w-full px-4 py-2.5 text-sm"
+                                >
+                                <p id="nameError" class="error-message"></p>
+                                <p class="text-xs text-amber-800 mt-1">Min 2, max 30 caratteri</p>
+                            </div>
+                            
+                            <div>
+                                <label for="profileEmail" class="block text-sm font-semibold mb-2">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="profileEmail" 
+                                    disabled
+                                    class="parchment-input w-full px-4 py-2.5 text-sm"
+                                >
+                                <p class="text-xs text-amber-800 mt-1">Non modificabile</p>
+                            </div>
+                            
+                            <button id="saveProfileBtn" class="roman-button bg-gradient-to-b from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white px-6 py-3 w-full text-sm disabled:opacity-50 disabled:cursor-not-allowed mt-4">
+                                <span id="saveBtnText">Salva Profilo</span>
+                            </button>
+                        </div>
                     </div>
-                    
-                    <button id="resetPasswordBtn" class="roman-button bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 transition-all font-bold text-sm w-full md:w-auto mobile-btn">
-                        Invia Email per Cambio Password
-                    </button>
                 </div>
-            </div>
 
-            <!-- CARD PRIVACY & ACCOUNT -->
-            <div class="greek-key-border"></div>
-            <div class="parchment-card p-4 md:p-6 mb-4 md:mb-6">
-                <h3 class="text-lg md:text-xl font-bold mb-4 md:mb-6 flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                    </svg>
-                    Privacy & Gestione Dati
-                </h3>
-                
-                <div class="space-y-3 md:space-y-4">
-                    <div class="bg-amber-50 border-l-4 border-amber-600 p-3 md:p-4" style="border-radius: 2px;">
-                        <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>Dati Memorizzati:</strong><br>
-                            Raccogliamo e conserviamo: nome utente, indirizzo email, riflessioni quotidiane e data di registrazione. Questi dati sono utilizzati esclusivamente per il funzionamento dell'applicazione e per fornire il servizio richiesto.
-                        </p>
-                        <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>Base Giuridica (GDPR):</strong><br>
-                            Il trattamento dei tuoi dati personali si basa sull'<strong>esecuzione del contratto</strong> (Art. 6.1.b Regolamento UE 2016/679) e sul <strong>consenso esplicito</strong> (Art. 6.1.a) fornito durante la registrazione.
-                        </p>
-                        <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>I Tuoi Diritti:</strong><br>
-                            Ai sensi degli articoli 15-22 del GDPR, hai diritto di: <strong>accedere</strong> ai tuoi dati, <strong>rettificarli</strong>, <strong>cancellarli</strong> (diritto all'oblio), <strong>limitarne il trattamento</strong>, <strong>opporti al trattamento</strong> e richiedere la <strong>portabilità dei dati</strong>.
-                        </p>
-                        <p class="text-sm text-amber-900 leading-relaxed">
-                            <strong>Conservazione:</strong><br>
-                            I dati sono conservati per tutta la durata dell'account attivo. Alla cancellazione dell'account, i dati vengono eliminati entro <strong>30 giorni</strong>, salvo obblighi di legge (Art. 17.3 GDPR).
-                        </p>
-                    </div>
-                    
-                    <div class="pt-2">
-                        <p class="text-xs text-amber-800 mb-3 italic">
-                            La cancellazione dell'account è un'azione permanente e irreversibile.
-                        </p>
-                        <button id="deleteAccountBtn" class="roman-button bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 transition-all font-medium text-sm w-full mobile-btn border border-slate-500">
-                            Elimina Account
-                        </button>
+                <!-- CARD 2: SICUREZZA -->
+                <div class="parchment-card">
+                    <div class="parchment-card-inner p-6">
+                        <h3 class="mb-4">
+                            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            Sicurezza
+                        </h3>
+                        
+                        <div class="gold-divider"></div>
+                        
+                        <div class="space-y-4">
+                            <p class="text-sm text-amber-900 leading-relaxed">
+                                Riceverai un'email con link sicuro per reimpostare la password.
+                            </p>
+                            
+                            <div>
+                                <label for="resetEmail" class="block text-sm font-semibold mb-2">Email Reset</label>
+                                <input 
+                                    type="email" 
+                                    id="resetEmail" 
+                                    disabled
+                                    class="parchment-input w-full px-4 py-2.5 text-sm"
+                                >
+                            </div>
+                            
+                            <button id="resetPasswordBtn" class="roman-button bg-gradient-to-b from-amber-500 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white px-6 py-3 w-full text-sm mt-4">
+                                Cambia Password
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+                <!-- CARD 3: PRIVACY & GESTIONE DATI -->
+                <div class="parchment-card">
+                    <div class="parchment-card-inner p-6">
+                        <h3 class="mb-4">
+                            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                            Privacy & Dati
+                        </h3>
+                        
+                        <div class="gold-divider"></div>
+                        
+                        <div class="space-y-3 text-xs text-amber-900 leading-relaxed max-h-64 overflow-y-auto">
+                            <div>
+                                <strong>Dati Memorizzati:</strong><br>
+                                Nome, email, riflessioni e data registrazione. Uso esclusivo per il servizio.
+                            </div>
+                            
+                            <div>
+                                <strong>Base Giuridica (GDPR):</strong><br>
+                                Esecuzione contratto (Art. 6.1.b) e consenso esplicito (Art. 6.1.a) GDPR 2016/679.
+                            </div>
+                            
+                            <div>
+                                <strong>I Tuoi Diritti:</strong><br>
+                                Art. 15-22 GDPR: accedere, rettificare, cancellare, limitare, opporsi, portabilità dati.
+                            </div>
+                            
+                            <div>
+                                <strong>Conservazione:</strong><br>
+                                Durata account attivo. Cancellazione entro 30 giorni (Art. 17.3 GDPR).
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <p class="text-xs text-amber-900 italic mb-3 text-center">
+                                Azione permanente e irreversibile
+                            </p>
+                            <button id="deleteAccountBtn" class="roman-button roman-button-secondary text-white px-6 py-3 w-full text-sm">
+                                Elimina Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </main>
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm" style="border-radius: 2px;">
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT (STESSO DI PRIMA) -->
     <script>
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
@@ -474,7 +558,6 @@
 
         let currentUser = null;
 
-        // INIZIALIZZAZIONE
         document.addEventListener('DOMContentLoaded', async () => {
             console.log('⚙️ Impostazioni: Verifico autenticazione...');
             
@@ -500,7 +583,6 @@
             }
         });
 
-        // CARICA DATI UTENTE
         async function loadUserData() {
             let displayName = 'Stoico';
             
@@ -513,16 +595,13 @@
                 
                 if (!error && profile?.name) {
                     displayName = profile.name;
-                    console.log('✅ Nome caricato da profiles:', displayName);
                 } else {
                     displayName = currentUser.user_metadata?.full_name || 
                                  currentUser.user_metadata?.name || 
                                  currentUser.email?.split('@')[0] || 
                                  'Stoico';
-                    console.log('✅ Nome caricato da metadata:', displayName);
                 }
             } catch (err) {
-                console.error('❌ Errore caricamento profilo:', err);
                 displayName = currentUser.user_metadata?.full_name || 
                              currentUser.email?.split('@')[0] || 
                              'Stoico';
@@ -532,11 +611,8 @@
             document.getElementById('profileName').value = displayName;
             document.getElementById('profileEmail').value = currentUser.email;
             document.getElementById('resetEmail').value = currentUser.email;
-
-            console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
         }
 
-        // CARICA STREAK
         async function loadProgressData() {
             try {
                 const { data: reflections, error } = await supabase
@@ -556,7 +632,6 @@
             }
         }
 
-        // CALCOLA STREAK
         function calculateStreak(reflections) {
             if (!reflections || reflections.length === 0) return 0;
 
@@ -587,7 +662,6 @@
             return streak;
         }
 
-        // VALIDAZIONE NOME
         function validateName(name) {
             const nameInput = document.getElementById('profileName');
             const errorMsg = document.getElementById('nameError');
@@ -596,14 +670,14 @@
             
             if (name.length < 2) {
                 nameInput.classList.add('error');
-                errorMsg.textContent = 'Nome troppo corto (minimo 2 caratteri)';
+                errorMsg.textContent = 'Nome troppo corto (min 2 caratteri)';
                 errorMsg.classList.add('active');
                 return false;
             }
             
             if (name.length > 30) {
                 nameInput.classList.add('error');
-                errorMsg.textContent = 'Nome troppo lungo (massimo 30 caratteri)';
+                errorMsg.textContent = 'Nome troppo lungo (max 30 caratteri)';
                 errorMsg.classList.add('active');
                 return false;
             }
@@ -611,7 +685,7 @@
             const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
             if (!regex.test(name)) {
                 nameInput.classList.add('error');
-                errorMsg.textContent = 'Solo lettere, numeri, spazi, apostrofi e trattini';
+                errorMsg.textContent = 'Solo lettere, numeri, spazi, apostrofi, trattini';
                 errorMsg.classList.add('active');
                 return false;
             }
@@ -621,9 +695,7 @@
             return true;
         }
 
-        // SETUP EVENT LISTENERS
         function setupEventListeners() {
-            // Mobile menu
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
             const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
@@ -642,14 +714,11 @@
             closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
             mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
 
-            // Logout
             document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('👋 Logout...');
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
             });
 
-            // Validazione in tempo reale
             document.getElementById('profileName').addEventListener('input', (e) => {
                 const name = e.target.value;
                 if (name.length > 0) {
@@ -660,7 +729,6 @@
                 }
             });
 
-            // Salva profilo
             document.getElementById('saveProfileBtn').addEventListener('click', async () => {
                 const newName = document.getElementById('profileName').value.trim();
                 const saveBtn = document.getElementById('saveProfileBtn');
@@ -672,14 +740,13 @@
                 }
                 
                 if (!validateName(newName)) {
-                    showToast('Correggi gli errori prima di salvare', 'error');
+                    showToast('Correggi gli errori', 'error');
                     return;
                 }
 
                 try {
                     saveBtn.disabled = true;
                     saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
-                    console.log('⏳ Inizio salvataggio...');
 
                     const { error } = await supabase
                         .from('profiles')
@@ -688,36 +755,26 @@
 
                     if (error) throw error;
 
-                    console.log('✅ Nome salvato in profiles:', newName);
                     document.getElementById('userName').textContent = newName;
-                    
                     saveBtnText.textContent = 'Salva Profilo';
                     saveBtn.disabled = false;
-                    
-                    showToast('Profilo aggiornato con successo', 'success');
+                    showToast('Profilo aggiornato', 'success');
 
                 } catch (error) {
-                    console.error('❌ Errore aggiornamento profilo:', error);
-                    
                     saveBtnText.textContent = 'Salva Profilo';
                     saveBtn.disabled = false;
-                    
                     showToast('Errore: ' + error.message, 'error');
                 }
             });
 
-            // Reset password con conferma
             document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
                 const email = currentUser.email;
                 
                 const confirmReset = window.confirm(
-                    `Reset Password\n\n` +
-                    `L'email sarà inviata a:\n${email}\n\n` +
-                    `Clicca OK per confermare.`
+                    `Reset Password\n\nEmail: ${email}\n\nConferma?`
                 );
                 
                 if (!confirmReset) {
-                    console.log('⚠️ Reset password annullato dall\'utente');
                     showToast('Operazione annullata', 'info');
                     return;
                 }
@@ -728,44 +785,28 @@
                     });
 
                     if (error) throw error;
-
-                    showToast('Email inviata! Controlla la tua casella', 'success');
-                    console.log('✅ Email reset inviata a:', email);
+                    showToast('Email inviata', 'success');
 
                 } catch (error) {
-                    console.error('❌ Errore reset password:', error);
                     showToast('Errore: ' + error.message, 'error');
                 }
             });
 
-            // Elimina account
             document.getElementById('deleteAccountBtn').addEventListener('click', () => {
                 const confirm1 = window.confirm(
-                    'ATTENZIONE: Cancellazione Account\n\n' +
-                    'Questa azione eliminerà permanentemente:\n' +
-                    '• Il tuo profilo utente\n' +
-                    '• Tutte le tue riflessioni\n' +
-                    '• I tuoi progressi e statistiche\n\n' +
-                    'Questa operazione NON è reversibile.\n\n' +
-                    'Vuoi procedere?'
+                    'ATTENZIONE\n\nEliminazione permanente di:\n• Profilo\n• Riflessioni\n• Progressi\n\nContinuare?'
                 );
                 
                 if (confirm1) {
-                    const confirm2 = window.confirm(
-                        'ULTIMA CONFERMA\n\n' +
-                        'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
-                        'Clicca OK per confermare la cancellazione definitiva.'
-                    );
+                    const confirm2 = window.confirm('ULTIMA CONFERMA\n\nConfermi eliminazione?');
                     
                     if (confirm2) {
-                        showToast('Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
-                        console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
+                        showToast('Account eliminato entro 48h', 'info');
                     }
                 }
             });
         }
 
-        // Toast
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
@@ -785,10 +826,7 @@
             toast.classList.remove('hiding');
             toast.style.transform = 'translateY(0)';
             
-            setTimeout(() => {
-                toast.classList.add('hiding');
-            }, 5500);
-            
+            setTimeout(() => toast.classList.add('hiding'), 5500);
             setTimeout(() => {
                 toast.style.transform = 'translateY(8rem)';
                 toast.classList.remove('hiding');
