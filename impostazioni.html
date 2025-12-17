@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -65,6 +64,23 @@
             cursor: not-allowed;
         }
 
+        /* ✅ VALIDAZIONE INPUT - BORDO ROSSO SE ERRORE */
+        .parchment-input.error {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
         #mobileMenuOverlay {
             position: fixed;
             inset: 0;
@@ -115,6 +131,31 @@
 
         .streak-glow {
             animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* ✅ ANIMAZIONE ROTELLINA CARICAMENTO */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        /* ✅ TOAST CON FADE OUT GRADUALE */
+        #toast {
+            transition: transform 0.3s ease, opacity 0.5s ease;
+        }
+
+        #toast.hiding {
+            opacity: 0;
         }
 
         @media (max-width: 767px) {
@@ -271,9 +312,13 @@
                         <input 
                             type="text" 
                             id="profileName" 
-                            placeholder="Il tuo nome"
+                            placeholder="Es: Marco Aurelio"
+                            maxlength="30"
                             class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all"
                         >
+                        <!-- ✅ MESSAGGIO ERRORE VALIDAZIONE -->
+                        <p id="nameError" class="error-message"></p>
+                        <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30 caratteri</p>
                     </div>
                     
                     <div>
@@ -287,8 +332,8 @@
                         <p class="text-xs text-amber-800 mt-1">L'email non può essere modificata direttamente</p>
                     </div>
                     
-                    <button id="saveProfileBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn">
-                        💾 Salva Profilo
+                    <button id="saveProfileBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn disabled:opacity-50 disabled:cursor-not-allowed">
+                        <span id="saveBtnText">💾 Salva Profilo</span>
                     </button>
                 </div>
             </div>
@@ -408,8 +453,9 @@
 
                 currentUser = session.user;
                 console.log('✅ Utente autenticato:', currentUser.id);
-await loadUserData(); // ✅ Aspetta il caricamento del nome
-loadProgressData();
+
+                await loadUserData();
+                loadProgressData();
                 setupEventListeners();
                 
             } catch (error) {
@@ -419,34 +465,32 @@ loadProgressData();
         });
 
         // CARICA DATI UTENTE
-async function loadUserData() {
-    let displayName = 'Stoico';
-    
-    // ✅ PRIORITÀ 1: Leggi da tabella profiles
-    try {
-        const { data: profile, error } = await supabase
-            .from('profiles')
-            .select('name')
-            .eq('id', currentUser.id)
-            .single();
-        
-        if (!error && profile?.name) {
-            displayName = profile.name;
-            console.log('✅ Nome caricato da profiles:', displayName);
-        } else {
-            // PRIORITÀ 2: OAuth metadata
-            displayName = currentUser.user_metadata?.full_name || 
-                         currentUser.user_metadata?.name || 
-                         currentUser.email?.split('@')[0] || 
-                         'Stoico';
-            console.log('✅ Nome caricato da metadata:', displayName);
-        }
-    } catch (err) {
-        console.error('❌ Errore caricamento profilo:', err);
-        displayName = currentUser.user_metadata?.full_name || 
-                     currentUser.email?.split('@')[0] || 
-                     'Stoico';
-    }
+        async function loadUserData() {
+            let displayName = 'Stoico';
+            
+            try {
+                const { data: profile, error } = await supabase
+                    .from('profiles')
+                    .select('name')
+                    .eq('id', currentUser.id)
+                    .single();
+                
+                if (!error && profile?.name) {
+                    displayName = profile.name;
+                    console.log('✅ Nome caricato da profiles:', displayName);
+                } else {
+                    displayName = currentUser.user_metadata?.full_name || 
+                                 currentUser.user_metadata?.name || 
+                                 currentUser.email?.split('@')[0] || 
+                                 'Stoico';
+                    console.log('✅ Nome caricato da metadata:', displayName);
+                }
+            } catch (err) {
+                console.error('❌ Errore caricamento profilo:', err);
+                displayName = currentUser.user_metadata?.full_name || 
+                             currentUser.email?.split('@')[0] || 
+                             'Stoico';
+            }
           
             const language = currentUser.user_metadata?.language || 
                            localStorage.getItem('language') || 
@@ -512,6 +556,45 @@ async function loadUserData() {
             return streak;
         }
 
+        // ✅ VALIDAZIONE NOME IN TEMPO REALE
+        function validateName(name) {
+            const nameInput = document.getElementById('profileName');
+            const errorMsg = document.getElementById('nameError');
+            
+            // Rimuovi spazi iniziali/finali
+            name = name.trim();
+            
+            // Controllo lunghezza minima
+            if (name.length < 2) {
+                nameInput.classList.add('error');
+                errorMsg.textContent = '❌ Nome troppo corto (minimo 2 caratteri)';
+                errorMsg.classList.add('active');
+                return false;
+            }
+            
+            // Controllo lunghezza massima
+            if (name.length > 30) {
+                nameInput.classList.add('error');
+                errorMsg.textContent = '❌ Nome troppo lungo (massimo 30 caratteri)';
+                errorMsg.classList.add('active');
+                return false;
+            }
+            
+            // Controllo caratteri speciali non permessi
+            const regex = /^[a-zA-ZàèéìòùÀÈÉÌÒÙ\s'-]+$/;
+            if (!regex.test(name)) {
+                nameInput.classList.add('error');
+                errorMsg.textContent = '❌ Solo lettere, spazi, apostrofi e trattini';
+                errorMsg.classList.add('active');
+                return false;
+            }
+            
+            // ✅ NOME VALIDO
+            nameInput.classList.remove('error');
+            errorMsg.classList.remove('active');
+            return true;
+        }
+
         // SETUP EVENT LISTENERS
         function setupEventListeners() {
             // Mobile menu
@@ -540,33 +623,70 @@ async function loadUserData() {
                 window.location.href = 'index.html';
             });
 
-// Salva profilo
-document.getElementById('saveProfileBtn').addEventListener('click', async () => {
-    const newName = document.getElementById('profileName').value.trim();
-    
-    if (!newName) {
-        showToast('⚠️ Inserisci un nome');
-        return;
-    }
+            // ✅ VALIDAZIONE IN TEMPO REALE DURANTE DIGITAZIONE
+            document.getElementById('profileName').addEventListener('input', (e) => {
+                const name = e.target.value;
+                if (name.length > 0) {
+                    validateName(name);
+                } else {
+                    // Reset errore se campo vuoto
+                    document.getElementById('profileName').classList.remove('error');
+                    document.getElementById('nameError').classList.remove('active');
+                }
+            });
 
-    try {
-        // ✅ SALVA IN TABELLA PROFILES
-        const { error } = await supabase
-            .from('profiles')
-            .update({ name: newName })
-            .eq('id', currentUser.id);
+            // ✅ SALVA PROFILO CON FEEDBACK VISIVO
+            document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+                const newName = document.getElementById('profileName').value.trim();
+                const saveBtn = document.getElementById('saveProfileBtn');
+                const saveBtnText = document.getElementById('saveBtnText');
+                
+                // VALIDAZIONE PRIMA DI SALVARE
+                if (!newName) {
+                    showToast('⚠️ Inserisci un nome', 'error');
+                    return;
+                }
+                
+                if (!validateName(newName)) {
+                    showToast('⚠️ Correggi gli errori prima di salvare', 'error');
+                    return;
+                }
 
-        if (error) throw error;
+                try {
+                    // ⏳ FASE 1: MOSTRA FEEDBACK "SALVATAGGIO IN CORSO"
+                    saveBtn.disabled = true;
+                    saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
+                    console.log('⏳ Inizio salvataggio...');
 
-        showToast('✅ Profilo aggiornato!');
-        document.getElementById('userName').textContent = newName;
-        console.log('✅ Nome salvato in profiles:', newName);
+                    // 🔄 FASE 2: SALVA IN SUPABASE
+                    const { error } = await supabase
+                        .from('profiles')
+                        .update({ name: newName })
+                        .eq('id', currentUser.id);
 
-    } catch (error) {
-        console.error('❌ Errore aggiornamento profilo:', error);
-        showToast('❌ Errore: ' + error.message);
-    }
-});
+                    if (error) throw error;
+
+                    // ✅ FASE 3: SUCCESSO
+                    console.log('✅ Nome salvato in profiles:', newName);
+                    document.getElementById('userName').textContent = newName;
+                    
+                    // Ripristina bottone
+                    saveBtnText.textContent = '💾 Salva Profilo';
+                    saveBtn.disabled = false;
+                    
+                    // Mostra toast per 6 secondi
+                    showToast('✅ Profilo aggiornato con successo!', 'success');
+
+                } catch (error) {
+                    console.error('❌ Errore aggiornamento profilo:', error);
+                    
+                    // Ripristina bottone
+                    saveBtnText.textContent = '💾 Salva Profilo';
+                    saveBtn.disabled = false;
+                    
+                    showToast('❌ Errore: ' + error.message, 'error');
+                }
+            });
 
             // Reset password
             document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
@@ -579,12 +699,12 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
 
                     if (error) throw error;
 
-                    showToast('✅ Email inviata! Controlla la tua casella');
+                    showToast('✅ Email inviata! Controlla la tua casella', 'success');
                     console.log('✅ Email reset inviata a:', email);
 
                 } catch (error) {
                     console.error('❌ Errore reset password:', error);
-                    showToast('❌ Errore: ' + error.message);
+                    showToast('❌ Errore: ' + error.message, 'error');
                 }
             });
 
@@ -600,18 +720,18 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
                     if (error) throw error;
 
                     localStorage.setItem('language', lang);
-                    showToast('✅ Lingua salvata!');
+                    showToast('✅ Lingua salvata!', 'success');
                     console.log('✅ Lingua impostata:', lang);
 
                 } catch (error) {
                     console.error('❌ Errore salvataggio lingua:', error);
-                    showToast('❌ Errore: ' + error.message);
+                    showToast('❌ Errore: ' + error.message, 'error');
                 }
             });
 
             // Download dati
             document.getElementById('downloadDataBtn').addEventListener('click', () => {
-                showToast('📥 Funzionalità disponibile prossimamente');
+                showToast('📥 Funzionalità disponibile prossimamente', 'info');
             });
 
             // Elimina account
@@ -622,19 +742,44 @@ document.getElementById('saveProfileBtn').addEventListener('click', async () => 
                     const confirm2 = window.confirm('❗ ULTIMA CONFERMA: Vuoi davvero eliminare il tuo account? NON è reversibile!');
                     
                     if (confirm2) {
-                        showToast('🗑️ Per eliminare l\'account, contattaci a support@thestoicjourney.com');
+                        showToast('🗑️ Per eliminare l\'account, contattaci a support@thestoicjourney.com', 'info');
                         console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
                     }
                 }
             });
         }
 
-        // TOAST NOTIFICATION
-        function showToast(message) {
+        // ✅ TOAST MIGLIORATO CON DURATA 6 SECONDI E FADE OUT
+        function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = message;
+            const toastMessage = document.getElementById('toastMessage');
+            
+            // Imposta colore in base al tipo
+            if (type === 'error') {
+                toast.classList.remove('border-amber-500', 'text-amber-400');
+                toast.classList.add('border-red-500', 'text-red-400');
+            } else if (type === 'info') {
+                toast.classList.remove('border-amber-500', 'text-amber-400');
+                toast.classList.add('border-blue-500', 'text-blue-400');
+            } else {
+                toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
+                toast.classList.add('border-amber-500', 'text-amber-400');
+            }
+            
+            toastMessage.textContent = message;
+            toast.classList.remove('hiding');
             toast.style.transform = 'translateY(0)';
-            setTimeout(() => toast.style.transform = 'translateY(8rem)', 4000);
+            
+            // Dopo 5.5 secondi inizia fade out
+            setTimeout(() => {
+                toast.classList.add('hiding');
+            }, 5500);
+            
+            // Dopo 6 secondi nascondi completamente
+            setTimeout(() => {
+                toast.style.transform = 'translateY(8rem)';
+                toast.classList.remove('hiding');
+            }, 6000);
         }
     </script>
 </body>
