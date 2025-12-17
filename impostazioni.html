@@ -312,13 +312,13 @@
                         <input 
                             type="text" 
                             id="profileName" 
-                            placeholder="Es: Marco Aurelio"
+                            placeholder="Es: Marco Aurelio o Emanuel82"
                             maxlength="30"
                             class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all"
                         >
                         <!-- ✅ MESSAGGIO ERRORE VALIDAZIONE -->
                         <p id="nameError" class="error-message"></p>
-                        <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30 caratteri</p>
+                        <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30. Puoi usare lettere, numeri, spazi, apostrofi e trattini</p>
                     </div>
                     
                     <div>
@@ -556,7 +556,7 @@
             return streak;
         }
 
-        // ✅ VALIDAZIONE NOME IN TEMPO REALE
+        // ✅ VALIDAZIONE NOME CON SUPPORTO NUMERI
         function validateName(name) {
             const nameInput = document.getElementById('profileName');
             const errorMsg = document.getElementById('nameError');
@@ -580,11 +580,11 @@
                 return false;
             }
             
-            // Controllo caratteri speciali non permessi
-            const regex = /^[a-zA-ZàèéìòùÀÈÉÌÒÙ\s'-]+$/;
+            // ✅ REGEX AGGIORNATO: Lettere + NUMERI + spazi + apostrofi + trattini
+            const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
             if (!regex.test(name)) {
                 nameInput.classList.add('error');
-                errorMsg.textContent = '❌ Solo lettere, spazi, apostrofi e trattini';
+                errorMsg.textContent = '❌ Solo lettere, numeri, spazi, apostrofi e trattini';
                 errorMsg.classList.add('active');
                 return false;
             }
