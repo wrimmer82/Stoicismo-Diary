@@ -28,6 +28,7 @@
         }
         
         body {
+            font-family: 'Inter', sans-serif;
             background: linear-gradient(180deg, #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, #c49050 80%, #a8754a 90%, #1c1410 100%);
             min-height: 100vh;
             background-attachment: fixed;
@@ -66,26 +67,6 @@
             font-family: 'Cinzel', serif;
             font-weight: 700;
             letter-spacing: 0.1em;
-        }
-        
-        /* Navigation links IDENTICI a impostazioni */
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s;
-        }
-        
-        .nav-link:hover {
-            background-color: rgba(30, 41, 59, 1);
-        }
-        
-        .nav-link.active {
-            background-color: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-            font-weight: 500;
         }
         
         /* Animazione streak */
@@ -148,7 +129,7 @@
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <!-- Oggi -->
-                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
@@ -156,7 +137,7 @@
                 </a>
                 
                 <!-- Archivio - ATTIVO -->
-                <a href="archivio.html" class="nav-link active transition-colors">
+                <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
@@ -164,7 +145,7 @@
                 </a>
                 
                 <!-- Impostazioni -->
-                <a href="impostazioni.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -173,7 +154,7 @@
                 </a>
                 
                 <!-- Passa a PRO -->
-                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
