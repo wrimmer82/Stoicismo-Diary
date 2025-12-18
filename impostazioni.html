@@ -30,9 +30,6 @@
             background-attachment: fixed;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           🏛️ CARD PERGAMENA
-        ═══════════════════════════════════════════════════════ */
         .parchment-card {
             background: linear-gradient(135deg, rgba(245, 235, 215, 0.98) 0%, rgba(235, 225, 205, 0.98) 100%);
             border: 5px solid #654321;
@@ -64,9 +61,6 @@
             z-index: 1;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           📜 SEPARATORE ORO
-        ═══════════════════════════════════════════════════════ */
         .gold-divider {
             height: 3px;
             background: linear-gradient(90deg, 
@@ -92,9 +86,6 @@
             padding: 0 10px;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           🎯 ICONE CUSTOM
-        ═══════════════════════════════════════════════════════ */
         .icon-container {
             width: 100px;
             height: 100px;
@@ -108,9 +99,6 @@
                 drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
         }
 
-        /* ═══════════════════════════════════════════════════════
-           📝 TITOLI E TESTI
-        ═══════════════════════════════════════════════════════ */
         .parchment-card h3 {
             color: #3e2723;
             font-family: 'Playfair Display', serif;
@@ -130,9 +118,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           📋 INPUT FIELDS
-        ═══════════════════════════════════════════════════════ */
         .parchment-input {
             background: rgba(255, 255, 255, 0.95);
             border: 2px solid rgba(139, 69, 19, 0.4);
@@ -170,9 +155,6 @@
             display: block;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           🔘 BOTTONI SIGILLO ROMANO
-        ═══════════════════════════════════════════════════════ */
         .roman-seal-button {
             position: relative;
             border-radius: 8px;
@@ -215,9 +197,6 @@
             text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
         }
 
-        /* ═══════════════════════════════════════════════════════
-           🎯 LAYOUT & RESPONSIVE
-        ═══════════════════════════════════════════════════════ */
         #mobileMenuOverlay {
             position: fixed;
             inset: 0;
@@ -347,7 +326,6 @@
 </head>
 <body class="font-cinzel text-slate-100">
 
-    <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
@@ -385,10 +363,8 @@
         </div>
     </header>
 
-    <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenuOverlay"></div>
 
-    <!-- MOBILE SIDEBAR -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
             <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
@@ -432,7 +408,6 @@
         </div>
     </aside>
 
-    <!-- DESKTOP SIDEBAR -->
     <div class="flex">
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
@@ -464,7 +439,6 @@
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
         <main class="flex-1 p-4 md:p-8 w-full">
             
             <div class="mb-10 text-center title-section">
@@ -478,9 +452,6 @@
 
             <div class="cards-grid">
 
-                <!-- ═══════════════════════════════════════════════
-                     🏛️ CARD 1: PROFILO UTENTE
-                ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
                     <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -530,9 +501,6 @@
                     </div>
                 </div>
 
-                <!-- ═══════════════════════════════════════════════
-                     🔒 CARD 2: SICUREZZA
-                ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
                     <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -568,152 +536,157 @@
                     </div>
                 </div>
 
-                <!-- ═══════════════════════════════════════════════
-                     🏆 CARD 3: PRIVACY (CORONA ALLORO 30 FOGLIE)
-                ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
-                    <!-- CORONA DI ALLORO ROMANA IMPERIALE - 30 FOGLIE (15 PER RAMO) -->
-                    <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 🏆 ROMAN IMPERIAL LAUREL WREATH - PREMIUM SVG -->
+                    <svg class="icon-container" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="goldLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#f4d03f;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#d4a574;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#b8860b;stop-opacity:1" />
+                            <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E8C589"/>
+                                <stop offset="50%" stop-color="#D4A257"/>
+                                <stop offset="100%" stop-color="#B8873D"/>
                             </linearGradient>
-                            <linearGradient id="goldDark" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#d4a574;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#8b6914;stop-opacity:1" />
+                            <linearGradient id="branchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#D4A257"/>
+                                <stop offset="100%" stop-color="#8B6914"/>
                             </linearGradient>
-                            <!-- Pattern foglia base -->
-                            <g id="leaf">
-                                <ellipse cx="0" cy="0" rx="3.5" ry="7" fill="url(#goldLeaf)" stroke="#8b6914" stroke-width="0.5"/>
-                                <ellipse cx="-0.8" cy="-1" rx="1.5" ry="3" fill="rgba(255,255,255,0.4)"/>
-                                <line x1="0" y1="-6" x2="0" y2="6" stroke="#a67c00" stroke-width="0.3"/>
-                            </g>
+                            <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#E8C589"/>
+                                <stop offset="30%" stop-color="#D4A257"/>
+                                <stop offset="70%" stop-color="#B8873D"/>
+                                <stop offset="100%" stop-color="#8B6914"/>
+                            </linearGradient>
+                            <filter id="dropShadow">
+                                <feGaussianBlur in="SourceAlpha" stdDeviation="0.5"/>
+                                <feOffset dx="0.3" dy="0.5"/>
+                                <feComponentTransfer><feFuncA type="linear" slope="0.2"/></feComponentTransfer>
+                                <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+                            </filter>
                         </defs>
                         
-                        <!-- OMBRA CORONA -->
-                        <g opacity="0.3" transform="translate(4, 6)">
-                            <ellipse cx="20" cy="18" rx="3.5" ry="7" fill="#000" transform="rotate(-50 20 18)"/>
-                            <ellipse cx="16" cy="24" rx="3.5" ry="7" fill="#000" transform="rotate(-45 16 24)"/>
-                            <ellipse cx="13" cy="31" rx="3.5" ry="7" fill="#000" transform="rotate(-40 13 31)"/>
-                            <ellipse cx="11" cy="38" rx="3.5" ry="7" fill="#000" transform="rotate(-35 11 38)"/>
-                            <ellipse cx="10" cy="45" rx="3.5" ry="7" fill="#000" transform="rotate(-30 10 45)"/>
-                            <ellipse cx="9" cy="52" rx="3.5" ry="7" fill="#000" transform="rotate(-25 9 52)"/>
-                            <ellipse cx="10" cy="59" rx="3.5" ry="7" fill="#000" transform="rotate(-20 10 59)"/>
-                            <ellipse cx="12" cy="66" rx="3.5" ry="7" fill="#000" transform="rotate(-15 12 66)"/>
-                            <ellipse cx="15" cy="73" rx="3.5" ry="7" fill="#000" transform="rotate(-10 15 73)"/>
-                            <ellipse cx="19" cy="80" rx="3.5" ry="7" fill="#000" transform="rotate(-5 19 80)"/>
-                            <ellipse cx="24" cy="86" rx="3.5" ry="7" fill="#000" transform="rotate(0 24 86)"/>
-                            <ellipse cx="30" cy="92" rx="3.5" ry="7" fill="#000" transform="rotate(5 30 92)"/>
-                            <ellipse cx="37" cy="97" rx="3.5" ry="7" fill="#000" transform="rotate(10 37 97)"/>
-                            <ellipse cx="45" cy="101" rx="3.5" ry="7" fill="#000" transform="rotate(15 45 101)"/>
-                            <ellipse cx="53" cy="103" rx="3.5" ry="7" fill="#000" transform="rotate(20 53 103)"/>
+                        <!-- LEFT BRANCH (24 leaves) -->
+                        <g filter="url(#dropShadow)">
+                            <!-- Branch stem -->
+                            <path d="M 50,85 Q 30,70 20,55 Q 15,40 12,25 Q 11,15 12,8" stroke="url(#branchGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+                            
+                            <!-- Leaves layer 1 (bottom) -->
+                            <ellipse cx="46" cy="82" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-15 46 82)"/>
+                            <path d="M 46,75 L 46,89" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="42" cy="79" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-20 42 79)"/>
+                            <path d="M 42,72 L 42,86" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="38" cy="75" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-25 38 75)"/>
+                            <path d="M 38,68 L 38,82" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="34" cy="71" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-30 34 71)"/>
+                            <path d="M 34,64 L 34,78" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="30" cy="67" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-35 30 67)"/>
+                            <ellipse cx="27" cy="63" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-40 27 63)"/>
+                            
+                            <ellipse cx="24" cy="59" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-42 24 59)"/>
+                            <ellipse cx="22" cy="55" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-45 22 55)"/>
+                            
+                            <ellipse cx="20" cy="51" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-48 20 51)"/>
+                            <ellipse cx="18" cy="47" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-50 18 47)"/>
+                            
+                            <ellipse cx="17" cy="43" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-52 17 43)"/>
+                            <ellipse cx="16" cy="39" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-55 16 39)"/>
+                            
+                            <ellipse cx="15" cy="35" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-58 15 35)"/>
+                            <ellipse cx="14" cy="31" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-60 14 31)"/>
+                            
+                            <ellipse cx="14" cy="27" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-63 14 27)"/>
+                            <ellipse cx="13" cy="23" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-65 13 23)"/>
+                            
+                            <ellipse cx="13" cy="19" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-68 13 19)"/>
+                            <ellipse cx="13" cy="15" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-70 13 15)"/>
+                            
+                            <ellipse cx="13" cy="12" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-73 13 12)"/>
+                            <ellipse cx="14" cy="9" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-75 14 9)"/>
+                            
+                            <ellipse cx="16" cy="7" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-78 16 7)"/>
+                            <ellipse cx="19" cy="6" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-80 19 6)"/>
+                            
+                            <ellipse cx="23" cy="5" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-82 23 5)"/>
+                            <ellipse cx="27" cy="5" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(-84 27 5)"/>
                         </g>
-
-                        <!-- RAMO SINISTRO (15 FOGLIE DOPPIE + 1 APICALE) -->
-                        <use href="#leaf" transform="translate(20, 18) rotate(-50)"/>
-                        <use href="#leaf" transform="translate(22, 19) rotate(-48)"/>
                         
-                        <use href="#leaf" transform="translate(16, 24) rotate(-45)"/>
-                        <use href="#leaf" transform="translate(18, 25) rotate(-43)"/>
+                        <!-- RIGHT BRANCH (24 leaves) -->
+                        <g filter="url(#dropShadow)">
+                            <!-- Branch stem -->
+                            <path d="M 50,85 Q 70,70 80,55 Q 85,40 88,25 Q 89,15 88,8" stroke="url(#branchGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+                            
+                            <!-- Leaves layer 1 (bottom) -->
+                            <ellipse cx="54" cy="82" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(15 54 82)"/>
+                            <path d="M 54,75 L 54,89" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="58" cy="79" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(20 58 79)"/>
+                            <path d="M 58,72 L 58,86" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="62" cy="75" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(25 62 75)"/>
+                            <path d="M 62,68 L 62,82" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="66" cy="71" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(30 66 71)"/>
+                            <path d="M 66,64 L 66,78" stroke="#F0D896" stroke-width="0.3" opacity="0.6"/>
+                            
+                            <ellipse cx="70" cy="67" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(35 70 67)"/>
+                            <ellipse cx="73" cy="63" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(40 73 63)"/>
+                            
+                            <ellipse cx="76" cy="59" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(42 76 59)"/>
+                            <ellipse cx="78" cy="55" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(45 78 55)"/>
+                            
+                            <ellipse cx="80" cy="51" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(48 80 51)"/>
+                            <ellipse cx="82" cy="47" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(50 82 47)"/>
+                            
+                            <ellipse cx="83" cy="43" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(52 83 43)"/>
+                            <ellipse cx="84" cy="39" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(55 84 39)"/>
+                            
+                            <ellipse cx="85" cy="35" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(58 85 35)"/>
+                            <ellipse cx="86" cy="31" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(60 86 31)"/>
+                            
+                            <ellipse cx="86" cy="27" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(63 86 27)"/>
+                            <ellipse cx="87" cy="23" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(65 87 23)"/>
+                            
+                            <ellipse cx="87" cy="19" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(68 87 19)"/>
+                            <ellipse cx="87" cy="15" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(70 87 15)"/>
+                            
+                            <ellipse cx="87" cy="12" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(73 87 12)"/>
+                            <ellipse cx="86" cy="9" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(75 86 9)"/>
+                            
+                            <ellipse cx="84" cy="7" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(78 84 7)"/>
+                            <ellipse cx="81" cy="6" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(80 81 6)"/>
+                            
+                            <ellipse cx="77" cy="5" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(82 77 5)"/>
+                            <ellipse cx="73" cy="5" rx="2.8" ry="7" fill="url(#leafGrad)" transform="rotate(84 73 5)"/>
+                        </g>
                         
-                        <use href="#leaf" transform="translate(13, 31) rotate(-40)"/>
-                        <use href="#leaf" transform="translate(15, 32) rotate(-38)"/>
+                        <!-- TOP CENTER MEETING POINT -->
+                        <ellipse cx="50" cy="4" rx="3" ry="7.5" fill="url(#leafGrad)" transform="rotate(-88 50 4)"/>
+                        <path d="M 50,0 L 50,8" stroke="#F0D896" stroke-width="0.4" opacity="0.8"/>
                         
-                        <use href="#leaf" transform="translate(11, 38) rotate(-35)"/>
-                        <use href="#leaf" transform="translate(13, 39) rotate(-33)"/>
+                        <!-- RIBBON BOW (bottom center) -->
+                        <g filter="url(#dropShadow)">
+                            <!-- Ribbon base -->
+                            <path d="M 44,85 Q 47,86 50,86 Q 53,86 56,85" fill="url(#ribbonGrad)" stroke="#8B6914" stroke-width="0.5"/>
+                            
+                            <!-- Left ribbon tail -->
+                            <path d="M 44,85 L 40,92 L 42,93 L 45,87 Z" fill="url(#ribbonGrad)" stroke="#8B6914" stroke-width="0.4"/>
+                            <path d="M 42,87 Q 41,89 40,92" stroke="#E8C589" stroke-width="0.3" fill="none"/>
+                            
+                            <!-- Right ribbon tail -->
+                            <path d="M 56,85 L 60,92 L 58,93 L 55,87 Z" fill="url(#ribbonGrad)" stroke="#8B6914" stroke-width="0.4"/>
+                            <path d="M 58,87 Q 59,89 60,92" stroke="#E8C589" stroke-width="0.3" fill="none"/>
+                            
+                            <!-- Bow knot center -->
+                            <circle cx="50" cy="85.5" r="1.5" fill="url(#ribbonGrad)" stroke="#8B6914" stroke-width="0.3"/>
+                            <circle cx="49.5" cy="85" r="0.5" fill="#F0D896" opacity="0.8"/>
+                        </g>
                         
-                        <use href="#leaf" transform="translate(10, 45) rotate(-30)"/>
-                        <use href="#leaf" transform="translate(12, 46) rotate(-28)"/>
-                        
-                        <use href="#leaf" transform="translate(9, 52) rotate(-25)"/>
-                        <use href="#leaf" transform="translate(11, 53) rotate(-23)"/>
-                        
-                        <use href="#leaf" transform="translate(10, 59) rotate(-20)"/>
-                        <use href="#leaf" transform="translate(12, 60) rotate(-18)"/>
-                        
-                        <use href="#leaf" transform="translate(12, 66) rotate(-15)"/>
-                        <use href="#leaf" transform="translate(14, 67) rotate(-13)"/>
-                        
-                        <use href="#leaf" transform="translate(15, 73) rotate(-10)"/>
-                        <use href="#leaf" transform="translate(17, 74) rotate(-8)"/>
-                        
-                        <use href="#leaf" transform="translate(19, 80) rotate(-5)"/>
-                        <use href="#leaf" transform="translate(21, 81) rotate(-3)"/>
-                        
-                        <use href="#leaf" transform="translate(24, 86) rotate(0)"/>
-                        <use href="#leaf" transform="translate(26, 87) rotate(2)"/>
-                        
-                        <use href="#leaf" transform="translate(30, 92) rotate(5)"/>
-                        <use href="#leaf" transform="translate(32, 93) rotate(7)"/>
-                        
-                        <use href="#leaf" transform="translate(37, 97) rotate(10)"/>
-                        <use href="#leaf" transform="translate(39, 98) rotate(12)"/>
-                        
-                        <use href="#leaf" transform="translate(45, 101) rotate(15)"/>
-                        <use href="#leaf" transform="translate(47, 102) rotate(17)"/>
-                        
-                        <!-- RAMO DESTRO (15 FOGLIE DOPPIE) -->
-                        <use href="#leaf" transform="translate(100, 18) rotate(50)"/>
-                        <use href="#leaf" transform="translate(98, 19) rotate(48)"/>
-                        
-                        <use href="#leaf" transform="translate(104, 24) rotate(45)"/>
-                        <use href="#leaf" transform="translate(102, 25) rotate(43)"/>
-                        
-                        <use href="#leaf" transform="translate(107, 31) rotate(40)"/>
-                        <use href="#leaf" transform="translate(105, 32) rotate(38)"/>
-                        
-                        <use href="#leaf" transform="translate(109, 38) rotate(35)"/>
-                        <use href="#leaf" transform="translate(107, 39) rotate(33)"/>
-                        
-                        <use href="#leaf" transform="translate(110, 45) rotate(30)"/>
-                        <use href="#leaf" transform="translate(108, 46) rotate(28)"/>
-                        
-                        <use href="#leaf" transform="translate(111, 52) rotate(25)"/>
-                        <use href="#leaf" transform="translate(109, 53) rotate(23)"/>
-                        
-                        <use href="#leaf" transform="translate(110, 59) rotate(20)"/>
-                        <use href="#leaf" transform="translate(108, 60) rotate(18)"/>
-                        
-                        <use href="#leaf" transform="translate(108, 66) rotate(15)"/>
-                        <use href="#leaf" transform="translate(106, 67) rotate(13)"/>
-                        
-                        <use href="#leaf" transform="translate(105, 73) rotate(10)"/>
-                        <use href="#leaf" transform="translate(103, 74) rotate(8)"/>
-                        
-                        <use href="#leaf" transform="translate(101, 80) rotate(5)"/>
-                        <use href="#leaf" transform="translate(99, 81) rotate(3)"/>
-                        
-                        <use href="#leaf" transform="translate(96, 86) rotate(0)"/>
-                        <use href="#leaf" transform="translate(94, 87) rotate(-2)"/>
-                        
-                        <use href="#leaf" transform="translate(90, 92) rotate(-5)"/>
-                        <use href="#leaf" transform="translate(88, 93) rotate(-7)"/>
-                        
-                        <use href="#leaf" transform="translate(83, 97) rotate(-10)"/>
-                        <use href="#leaf" transform="translate(81, 98) rotate(-12)"/>
-                        
-                        <use href="#leaf" transform="translate(75, 101) rotate(-15)"/>
-                        <use href="#leaf" transform="translate(73, 102) rotate(-17)"/>
-                        
-                        <!-- FOGLIA APICALE CENTRALE (15° elemento) -->
-                        <use href="#leaf" transform="translate(60, 105) rotate(25)" opacity="1.2"/>
-                        
-                        <!-- RAMI PRINCIPALI -->
-                        <path d="M 60 12 Q 40 30, 25 60 Q 20 80, 50 105" stroke="url(#goldDark)" stroke-width="2.5" fill="none" opacity="0.6"/>
-                        <path d="M 60 12 Q 80 30, 95 60 Q 100 80, 70 105" stroke="url(#goldDark)" stroke-width="2.5" fill="none" opacity="0.6"/>
-                        
-                        <!-- NASTRI DECORATIVI -->
-                        <path d="M 48 103 Q 60 108 72 103" stroke="url(#goldDark)" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <path d="M 48 101 Q 60 106 72 101" stroke="#f4d03f" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                        
-                        <path d="M 48 101 L 40 115 L 50 108 Z" fill="url(#goldDark)" stroke="#8b6914" stroke-width="0.8"/>
-                        <path d="M 72 101 L 80 115 L 70 108 Z" fill="url(#goldDark)" stroke="#8b6914" stroke-width="0.8"/>
-                        
-                        <circle cx="60" cy="106" r="3" fill="url(#goldDark)" stroke="#8b6914" stroke-width="0.8"/>
-                        <circle cx="59" cy="105" r="1" fill="rgba(255,255,255,0.6)"/>
+                        <!-- HIGHLIGHT ACCENTS (top-left light source) -->
+                        <path d="M 20,50 Q 15,35 13,20" stroke="#F0D896" stroke-width="0.5" opacity="0.3" fill="none"/>
+                        <path d="M 80,50 Q 85,35 87,20" stroke="#F0D896" stroke-width="0.5" opacity="0.3" fill="none"/>
                     </svg>
 
                     <h3>Privacy & Dati</h3>
