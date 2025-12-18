@@ -637,55 +637,152 @@
                 </div>
 
                 <!-- ═══════════════════════════════════════════════
-                     🛡️ CARD 3: PRIVACY (CORONA ALLORO 3D)
+                     🏆 CARD 3: PRIVACY (CORONA ALLORO ROMANA ORO)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
-                    <!-- Icona Corona di Alloro 3D -->
-                    <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Corona di Alloro Romana Classica Oro -->
+                    <svg class="icon-container" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#9d7446;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#8b5a2d;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#6d461f;stop-opacity:1" />
+                            <!-- Gradiente oro per foglie -->
+                            <linearGradient id="goldLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#f0b429;stop-opacity:1" />
+                                <stop offset="40%" style="stop-color:#c89116;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#9d7012;stop-opacity:1" />
+                            </linearGradient>
+                            
+                            <!-- Gradiente highlight -->
+                            <linearGradient id="leafHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:rgba(255,255,255,0.4);stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:rgba(255,255,255,0);stop-opacity:0" />
                             </linearGradient>
                         </defs>
                         
-                        <!-- Ombra corona -->
-                        <g transform="translate(3, 5)" opacity="0.3">
-                            <ellipse cx="35" cy="35" rx="10" ry="15" fill="#000" transform="rotate(-30 35 35)"/>
-                            <ellipse cx="30" cy="48" rx="10" ry="15" fill="#000" transform="rotate(-20 30 48)"/>
-                            <ellipse cx="28" cy="62" rx="10" ry="15" fill="#000" transform="rotate(-10 28 62)"/>
-                            <ellipse cx="85" cy="35" rx="10" ry="15" fill="#000" transform="rotate(30 85 35)"/>
-                            <ellipse cx="90" cy="48" rx="10" ry="15" fill="#000" transform="rotate(20 90 48)"/>
-                            <ellipse cx="92" cy="62" rx="10" ry="15" fill="#000" transform="rotate(10 92 62)"/>
+                        <!-- RAMO SINISTRO -->
+                        <!-- Stelo principale sx -->
+                        <path d="M 25 120 Q 18 100, 15 80 Q 13 60, 15 40 Q 17 25, 22 15" 
+                              stroke="#9d7012" stroke-width="3" fill="none" opacity="0.6"/>
+                        
+                        <!-- Foglie sinistre (dal basso verso l'alto) -->
+                        <g transform="translate(25, 115) rotate(-25)">
+                            <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="8" ry="4" fill="url(#leafHighlight)"/>
                         </g>
                         
-                        <!-- Corona sinistra con 3D -->
-                        <ellipse cx="35" cy="35" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-30 35 35)" class="icon-3d"/>
-                        <ellipse cx="30" cy="48" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-20 30 48)" class="icon-3d"/>
-                        <ellipse cx="28" cy="62" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-10 28 62)" class="icon-3d"/>
-                        <ellipse cx="30" cy="76" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(0 30 76)" class="icon-3d"/>
-                        <ellipse cx="35" cy="88" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(10 35 88)" class="icon-3d"/>
+                        <g transform="translate(22, 105) rotate(-30)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
                         
-                        <!-- Corona destra con 3D -->
-                        <ellipse cx="85" cy="35" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(30 85 35)" class="icon-3d"/>
-                        <ellipse cx="90" cy="48" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(20 90 48)" class="icon-3d"/>
-                        <ellipse cx="92" cy="62" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(10 92 62)" class="icon-3d"/>
-                        <ellipse cx="90" cy="76" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(0 90 76)" class="icon-3d"/>
-                        <ellipse cx="85" cy="88" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-10 85 88)" class="icon-3d"/>
+                        <g transform="translate(19, 94) rotate(-35)">
+                            <ellipse cx="0" cy="0" rx="12.5" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
                         
-                        <!-- Highlight foglie -->
-                        <ellipse cx="33" cy="36" rx="4" ry="7" fill="rgba(255,255,255,0.3)" transform="rotate(-30 33 36)"/>
-                        <ellipse cx="87" cy="36" rx="4" ry="7" fill="rgba(255,255,255,0.3)" transform="rotate(30 87 36)"/>
+                        <g transform="translate(17, 82) rotate(-40)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
                         
-                        <!-- Nastro base con 3D -->
-                        <path d="M40 95 Q60 102 80 95" stroke="#6d461f" stroke-width="5" fill="none" class="icon-3d"/>
-                        <path d="M40 93 Q60 100 80 93" stroke="#8b5a2d" stroke-width="3" fill="none"/>
+                        <g transform="translate(15, 70) rotate(-45)">
+                            <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
                         
-                        <!-- Nastri laterali -->
-                        <path d="M40 92 L35 108 L42 100 Z" fill="#8b5a2d" class="icon-3d"/>
-                        <path d="M80 92 L85 108 L78 100 Z" fill="#8b5a2d" class="icon-3d"/>
+                        <g transform="translate(15, 58) rotate(-50)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(16, 46) rotate(-55)">
+                            <ellipse cx="0" cy="0" rx="12.5" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(18, 34) rotate(-60)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(21, 23) rotate(-65)">
+                            <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="-2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <!-- RAMO DESTRO -->
+                        <!-- Stelo principale dx -->
+                        <path d="M 115 120 Q 122 100, 125 80 Q 127 60, 125 40 Q 123 25, 118 15" 
+                              stroke="#9d7012" stroke-width="3" fill="none" opacity="0.6"/>
+                        
+                        <!-- Foglie destre (specchiato) -->
+                        <g transform="translate(115, 115) rotate(25)">
+                            <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="8" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(118, 105) rotate(30)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(121, 94) rotate(35)">
+                            <ellipse cx="0" cy="0" rx="12.5" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(123, 82) rotate(40)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(125, 70) rotate(45)">
+                            <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(125, 58) rotate(50)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(124, 46) rotate(55)">
+                            <ellipse cx="0" cy="0" rx="12.5" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(122, 34) rotate(60)">
+                            <ellipse cx="0" cy="0" rx="13" ry="6.5" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="9" ry="4" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <g transform="translate(119, 23) rotate(65)">
+                            <ellipse cx="0" cy="0" rx="12" ry="6" fill="url(#goldLeaf)"/>
+                            <ellipse cx="2" cy="-1" rx="8" ry="3.5" fill="url(#leafHighlight)"/>
+                        </g>
+                        
+                        <!-- NASTRO ALLA BASE -->
+                        <!-- Ombra nastro -->
+                        <path d="M 28 118 Q 70 123, 112 118" 
+                              stroke="rgba(0,0,0,0.3)" stroke-width="6" fill="none" transform="translate(0, 3)"/>
+                        
+                        <!-- Nastro principale -->
+                        <path d="M 28 118 Q 70 123, 112 118" 
+                              stroke="#c89116" stroke-width="5" fill="none"/>
+                        <path d="M 28 117 Q 70 122, 112 117" 
+                              stroke="#f0b429" stroke-width="3" fill="none"/>
+                        
+                        <!-- Estremità nastro sx -->
+                        <path d="M 28 115 L 20 128 L 30 122 Z" fill="#c89116"/>
+                        <path d="M 28 115 L 22 125 L 29 120 Z" fill="#f0b429"/>
+                        
+                        <!-- Estremità nastro dx -->
+                        <path d="M 112 115 L 120 128 L 110 122 Z" fill="#c89116"/>
+                        <path d="M 112 115 L 118 125 L 111 120 Z" fill="#f0b429"/>
+                        
+                        <!-- Ombra 3D globale -->
+                        <ellipse cx="70" cy="70" rx="55" ry="50" fill="none" 
+                                 stroke="rgba(0,0,0,0.15)" stroke-width="8" opacity="0.3" 
+                                 transform="translate(3, 5)"/>
                     </svg>
 
                     <h3>Privacy & Dati</h3>
@@ -734,7 +831,7 @@
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-    <!-- JAVASCRIPT (IDENTICO) -->
+    <!-- JAVASCRIPT -->
     <script>
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
