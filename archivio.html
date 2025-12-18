@@ -8,22 +8,28 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts - Identici a dashboard/impostazioni -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@400;600;700&family=EB+Garamond:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        
+        .font-trajan {
+            font-family: 'Trajan Pro', 'Cinzel', serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(180deg, #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, #c49050 80%, #a8754a 90%, #1c1410 100%);
             min-height: 100vh;
             background-attachment: fixed;
-        }
-        
-        .header-title {
-            font-family: 'Cinzel', serif;
-            color: #fbbf24;
-            letter-spacing: 0.05em;
         }
         
         .roman-number {
@@ -34,16 +40,23 @@
         
         /* Card pergamena identica a impostazioni */
         .reflection-card, .stats-card, .filters-card {
-            background: linear-gradient(145deg, #f5e6d3 0%, #e8d4b8 100%);
-            border: 2px solid #d4a574;
+            background: rgba(245, 222, 179, 0.95);
+            border: 2px solid rgba(146, 64, 14, 0.4);
             border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .reflection-card h3,
+        .stats-card h3,
+        .filters-card h3 {
+            color: #92400e;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
         }
         
         .reflection-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 28px rgba(0,0,0,0.35);
+            transition: all 0.2s;
         }
         
         /* Titoli sezioni stile impostazioni */
@@ -53,83 +66,61 @@
             font-weight: 700;
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
         }
         
-        /* Bottoni arancioni come "Salva Profilo" */
+        /* Bottoni arancioni */
         .btn-orange {
-            background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
-            border: none;
+            background: linear-gradient(to right, #d97706, #ea580c);
             color: white;
-            font-weight: 600;
-            transition: all 0.2s;
-            box-shadow: 0 4px 6px rgba(234, 88, 12, 0.3);
+            font-weight: 700;
+            transition: all 0.3s;
         }
         
         .btn-orange:hover {
-            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-            box-shadow: 0 6px 8px rgba(234, 88, 12, 0.4);
+            background: linear-gradient(to right, #b45309, #c2410c);
         }
         
-        /* Sidebar styling come dashboard */
-        .sidebar-link {
+        /* Sidebar styling */
+        .nav-link {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
             transition: all 0.2s;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-weight: 400;
         }
         
-        .sidebar-link:hover {
-            background-color: rgba(51, 65, 85, 0.6);
+        .nav-link:hover {
+            background-color: rgba(30, 41, 59, 1);
         }
         
-        .sidebar-link.active {
-            background-color: rgba(120, 113, 108, 0.8);
+        .nav-link.active {
+            background-color: rgba(251, 191, 36, 0.2);
             color: #fbbf24;
+            font-weight: 500;
         }
         
-        .sidebar-icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            flex-shrink: 0;
+        /* Animazione streak */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            }
+        }
+        
+        .streak-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
         }
         
         /* OTTIMIZZAZIONE MOBILE */
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                z-index: 50;
-                background: rgba(30, 41, 59, 0.95);
-            }
-            
-            .main-content {
-                padding-bottom: 80px;
-            }
-            
-            .header-title {
-                font-size: 1.25rem;
-            }
-            
-            .sidebar-link {
-                flex-direction: column;
-                gap: 0.25rem;
-                padding: 0.5rem;
-                font-size: 0.75rem;
-            }
-            
-            .sidebar-icon {
-                width: 1.25rem;
-                height: 1.25rem;
+        @media (max-width: 767px) {
+            .mobile-btn {
+                min-height: 48px;
+                font-size: 16px;
             }
             
             .section-header {
@@ -138,172 +129,227 @@
         }
     </style>
 </head>
-<body>
-    <header class="bg-slate-900 bg-opacity-90 p-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <img src="sigma_logo.png" alt="Sigma Logo" class="w-10 h-10 md:w-12 md:h-12">
-                <h1 class="header-title text-2xl md:text-3xl font-bold">The Stoic Journey</h1>
-            </div>
-            <div class="flex items-center gap-2 md:gap-4">
-                <button id="logoutBtn" class="btn-orange px-3 py-2 md:px-4 md:py-2 rounded text-white text-sm">
-                    Esci
-                </button>
+<body class="font-inter text-slate-100">
+    <!-- HEADER IDENTICO A DASHBOARD/IMPOSTAZIONI -->
+    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
+                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4 md:gap-6">
+                    <!-- Streak counter (nascosto su mobile) -->
+                    <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
+                        <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
+                        <span class="text-xs text-slate-900 font-medium">giorni</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <span class="hidden md:inline text-sm text-slate-300">
+                            Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
+                        </span>
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
+                            Esci
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="flex flex-col md:flex-row">
-        <!-- SIDEBAR -->
-        <aside class="sidebar md:w-64 bg-slate-800 bg-opacity-90 p-2 md:p-4">
-            <nav class="flex md:flex-col gap-1 md:gap-2">
-                <a href="dashboard.html" class="sidebar-link text-slate-200">
-                    <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    <div class="flex">
+        <!-- SIDEBAR DESKTOP -->
+        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
+            <nav class="p-6 space-y-2">
+                <!-- Oggi -->
+                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                     <span>Oggi</span>
                 </a>
                 
-                <a href="archivio.html" class="sidebar-link active">
-                    <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                <!-- Archivio - ATTIVO -->
+                <a href="archivio.html" class="nav-link active">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
                     <span>Archivio</span>
                 </a>
                 
-                <a href="impostazioni.html" class="sidebar-link text-slate-200">
-                    <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <!-- Impostazioni -->
+                <a href="impostazioni.html" class="nav-link text-slate-300 hover:text-amber-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>Impostazioni</span>
                 </a>
                 
-                <a href="#" class="sidebar-link text-slate-200 bg-orange-600 bg-opacity-20 hover:bg-opacity-30">
-                    <svg class="sidebar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                <!-- Passa a PRO -->
+                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 mt-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
         </aside>
 
-        <main class="main-content flex-1 p-3 md:p-6">
-            <!-- Container centrale con max-width come impostazioni -->
-            <div class="max-w-5xl mx-auto">
+        <!-- SIDEBAR MOBILE (bottom navigation) -->
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t border-amber-500/20 z-40">
+            <div class="flex justify-around py-2">
+                <a href="dashboard.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="text-xs">Oggi</span>
+                </a>
                 
-                <!-- FILTRI RIDOTTI -->
-                <div class="filters-card p-4 md:p-5 mb-4 md:mb-6">
-                    <h2 class="section-header text-lg md:text-xl">
-                        🔍 Filtri e Ricerca
-                    </h2>
-                    
-                    <div class="flex items-center gap-2 mb-3">
-                        <input 
-                            type="text" 
-                            id="searchInput" 
-                            placeholder="Cerca nelle riflessioni..."
-                            class="flex-1 px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base"
-                        >
-                        <button 
-                            id="toggleFilters" 
-                            class="bg-slate-600 hover:bg-slate-700 text-white px-3 py-2 md:px-4 md:py-2.5 rounded-lg text-sm md:text-base font-semibold"
-                        >
-                            Filtri
-                        </button>
-                    </div>
-                    
-                    <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
-                        <input 
-                            type="date" 
-                            id="dateFrom" 
-                            class="px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base"
-                        >
-                        
-                        <input 
-                            type="date" 
-                            id="dateTo" 
-                            class="px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base"
-                        >
-                        
-                        <select 
-                            id="contentTypeFilter" 
-                            class="px-3 py-2 md:px-4 md:py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base"
-                        >
-                            <option value="">Tutti i tipi</option>
-                            <option value="tipo1">Tipo 1</option>
-                            <option value="tipo2">Tipo 2</option>
-                            <option value="tipo3">Tipo 3</option>
-                            <option value="tipo4">Tipo 4</option>
-                        </select>
-                    </div>
-                    
-                    <button 
-                        id="applyFilters" 
-                        class="hidden mt-3 w-full btn-orange px-5 py-2.5 rounded-lg text-sm md:text-base"
+                <a href="archivio.html" class="flex flex-col items-center gap-1 px-3 py-2 text-amber-400 font-medium">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
+                    <span class="text-xs">Archivio</span>
+                </a>
+                
+                <a href="impostazioni.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span class="text-xs">Impostazioni</span>
+                </a>
+                
+                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="flex flex-col items-center gap-1 px-3 py-2 text-orange-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
+                    <span class="text-xs">PRO</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full pb-24 md:pb-8">
+            
+            <!-- FILTRI -->
+            <div class="filters-card rounded-lg p-6 md:p-8 mb-6">
+                <h3 class="section-header text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide">
+                    Filtri e Ricerca
+                </h3>
+                
+                <div class="flex items-center gap-2 mb-3">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Cerca nelle riflessioni..."
+                        class="flex-1 px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base bg-white/90 text-amber-900"
                     >
-                        💾 Applica Filtri
+                    <button 
+                        id="toggleFilters" 
+                        class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg text-sm md:text-base font-semibold transition-all mobile-btn"
+                    >
+                        Filtri
                     </button>
                 </div>
-
-                <!-- STATISTICHE -->
-                <div class="stats-card p-5 md:p-6 mb-4 md:mb-6">
-                    <h2 class="section-header text-lg md:text-xl">
-                        📊 Statistiche
-                    </h2>
+                
+                <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
+                    <input 
+                        type="date" 
+                        id="dateFrom" 
+                        class="px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base bg-white/90 text-amber-900"
+                    >
                     
-                    <div class="grid grid-cols-2 gap-4 md:gap-6">
-                        <div class="text-center">
-                            <p class="text-4xl md:text-5xl font-bold text-amber-700 roman-number mb-2" id="totalReflections">0</p>
-                            <p class="text-sm md:text-base text-slate-700 font-semibold">Riflessioni Totali</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-base md:text-lg font-bold text-slate-800 mb-2" id="dateRange" style="font-family: 'EB Garamond', serif;">-</p>
-                            <p class="text-sm md:text-base text-slate-700 font-semibold">Periodo</p>
-                        </div>
+                    <input 
+                        type="date" 
+                        id="dateTo" 
+                        class="px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base bg-white/90 text-amber-900"
+                    >
+                    
+                    <select 
+                        id="contentTypeFilter" 
+                        class="px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base bg-white/90 text-amber-900"
+                    >
+                        <option value="">Tutti i tipi</option>
+                        <option value="tipo1">Tipo 1</option>
+                        <option value="tipo2">Tipo 2</option>
+                        <option value="tipo3">Tipo 3</option>
+                        <option value="tipo4">Tipo 4</option>
+                    </select>
+                </div>
+                
+                <button 
+                    id="applyFilters" 
+                    class="hidden mt-3 w-full btn-orange px-6 py-3 rounded-lg text-sm md:text-base font-bold mobile-btn"
+                >
+                    Applica Filtri
+                </button>
+            </div>
+
+            <!-- STATISTICHE -->
+            <div class="stats-card rounded-lg p-6 md:p-8 mb-6">
+                <h3 class="section-header text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide">
+                    Statistiche
+                </h3>
+                
+                <div class="grid grid-cols-2 gap-4 md:gap-6">
+                    <div class="text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-amber-700 roman-number mb-2" id="totalReflections">0</p>
+                        <p class="text-sm md:text-base text-amber-900 font-semibold">Riflessioni Totali</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-base md:text-lg font-bold text-amber-900 mb-2" id="dateRange" style="font-family: 'EB Garamond', serif;">-</p>
+                        <p class="text-sm md:text-base text-amber-900 font-semibold">Periodo</p>
                     </div>
                 </div>
+            </div>
 
-                <!-- LISTA RIFLESSIONI -->
-                <div id="reflectionsContainer" class="space-y-4 md:space-y-5">
-                </div>
+            <!-- LISTA RIFLESSIONI -->
+            <div id="reflectionsContainer" class="space-y-4 md:space-y-5">
+            </div>
 
-                <!-- PAGINAZIONE -->
-                <div id="paginationControls" class="mt-6 md:mt-8 flex justify-center items-center gap-3 md:gap-4 flex-wrap">
-                    <button id="prevPage" class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold">
-                        ← Precedente
-                    </button>
-                    <span id="pageInfo" class="text-white font-bold text-sm md:text-base px-4 py-2 bg-slate-800 bg-opacity-70 rounded-lg">Pag 1 di 1</span>
-                    <button id="nextPage" class="bg-slate-600 hover:bg-slate-700 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold">
-                        Successiva →
-                    </button>
-                </div>
+            <!-- PAGINAZIONE -->
+            <div id="paginationControls" class="mt-6 md:mt-8 flex justify-center items-center gap-3 md:gap-4 flex-wrap">
+                <button id="prevPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold transition-all">
+                    ← Precedente
+                </button>
+                <span id="pageInfo" class="text-white font-bold text-sm md:text-base px-4 py-2 bg-slate-800/70 rounded-lg">Pag 1 di 1</span>
+                <button id="nextPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold transition-all">
+                    Successiva →
+                </button>
             </div>
         </main>
     </div>
 
-    <div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <!-- MODAL MODIFICA -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-xl p-5 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-            <h3 class="section-header text-xl md:text-2xl mb-4">✏️ Modifica Riflessione</h3>
+            <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-4 text-amber-900">Modifica Riflessione</h3>
             <textarea 
                 id="editTextarea" 
-                class="w-full h-56 md:h-72 p-4 md:p-5 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base"
+                class="w-full h-56 md:h-72 p-4 md:p-5 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base"
                 placeholder="Modifica il testo della tua riflessione..."
                 style="font-family: 'EB Garamond', serif;"
             ></textarea>
             <div class="mt-5 flex gap-3 md:gap-4">
-                <button id="saveEditBtn" class="flex-1 btn-orange px-6 py-3 rounded-lg text-sm md:text-base font-semibold">
-                    💾 Salva Modifiche
+                <button id="saveEditBtn" class="flex-1 btn-orange px-6 py-3 rounded-lg text-sm md:text-base font-bold mobile-btn">
+                    Salva Modifiche
                 </button>
-                <button id="cancelEditBtn" class="flex-1 bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg text-sm md:text-base font-semibold">
-                    ✖ Annulla
+                <button id="cancelEditBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg text-sm md:text-base font-bold mobile-btn">
+                    Annulla
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="hidden fixed bottom-20 md:bottom-6 right-4 left-4 md:left-auto md:right-6 bg-slate-900 text-white px-5 py-3.5 rounded-lg shadow-2xl z-50 text-sm md:text-base text-center md:text-left font-semibold">
-        <p id="toastMessage"></p>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-24 md:bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+        <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
     <script>
@@ -328,8 +374,66 @@
             }
             
             currentUser = session.user;
+            loadUserData();
             await loadReflections();
+            await loadProgressData();
             setupEventListeners();
+        }
+
+        function loadUserData() {
+            const displayName = currentUser.user_metadata?.full_name || 
+                               currentUser.user_metadata?.name || 
+                               currentUser.email?.split('@')[0] || 
+                               'Stoico';
+            document.getElementById('userName').textContent = displayName;
+        }
+
+        async function loadProgressData() {
+            try {
+                const { data: reflections, error } = await supabase
+                    .from('reflections')
+                    .select('date')
+                    .eq('user_id', currentUser.id)
+                    .order('date', { ascending: false });
+                
+                if (error) throw error;
+                
+                const streak = calculateStreak(reflections);
+                document.getElementById('headerStreak').textContent = streak;
+            } catch (error) {
+                console.error('Errore caricamento progresso:', error);
+            }
+        }
+
+        function calculateStreak(reflections) {
+            if (!reflections || reflections.length === 0) return 0;
+            
+            const today = new Date().toISOString().split('T')[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+            
+            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+            
+            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
+            
+            let streak = 0;
+            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+            
+            for (const dateStr of uniqueDates) {
+                const refDate = new Date(dateStr);
+                const expectedDate = new Date(currentDate);
+                
+                expectedDate.setHours(0, 0, 0, 0);
+                refDate.setHours(0, 0, 0, 0);
+                
+                if (refDate.getTime() === expectedDate.getTime()) {
+                    streak++;
+                    currentDate = new Date(currentDate.getTime() - 86400000);
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
         }
 
         async function loadReflections(filters = {}) {
@@ -364,9 +468,9 @@
             
             if (filteredReflections.length === 0) {
                 container.innerHTML = `
-                    <div class="stats-card p-8 md:p-12 text-center">
-                        <p class="text-lg md:text-xl text-slate-600 font-semibold">Nessuna riflessione trovata</p>
-                        <p class="text-sm md:text-base text-slate-500 mt-2">Inizia a scrivere le tue riflessioni quotidiane!</p>
+                    <div class="stats-card rounded-lg p-8 md:p-12 text-center">
+                        <p class="text-lg md:text-xl text-amber-900 font-semibold">Nessuna riflessione trovata</p>
+                        <p class="text-sm md:text-base text-amber-800 mt-2">Inizia a scrivere le tue riflessioni quotidiane!</p>
                     </div>
                 `;
                 updatePaginationControls(0);
@@ -388,30 +492,30 @@
             const contentPreview = truncateText(reflection.content, 200);
             
             return `
-                <div class="reflection-card p-5 md:p-7" data-id="${reflection.id}">
+                <div class="reflection-card rounded-lg p-5 md:p-7" data-id="${reflection.id}">
                     <div class="flex flex-wrap justify-between items-start mb-4 gap-3">
                         <div class="flex items-center gap-3">
                             <span class="roman-number text-2xl md:text-3xl font-bold text-amber-700">${dayRoman}</span>
-                            <span class="text-sm md:text-base text-slate-700 font-semibold">${dateFormatted}</span>
+                            <span class="text-sm md:text-base text-amber-900 font-semibold">${dateFormatted}</span>
                         </div>
                     </div>
                     
                     <div class="mb-4 md:mb-5">
-                        <p class="text-slate-800 text-base md:text-lg leading-relaxed" style="font-family: 'EB Garamond', serif;">${contentPreview}</p>
+                        <p class="text-amber-900 text-base md:text-lg leading-relaxed" style="font-family: 'EB Garamond', serif;">${contentPreview}</p>
                     </div>
                     
                     <div class="flex gap-3">
                         <button 
                             onclick="editReflection('${reflection.id}')" 
-                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-semibold"
+                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn"
                         >
-                            ✏️ Modifica
+                            Modifica
                         </button>
                         <button 
                             onclick="deleteReflection('${reflection.id}')" 
-                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-semibold"
+                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn"
                         >
-                            🗑️ Elimina
+                            Elimina
                         </button>
                     </div>
                 </div>
@@ -429,11 +533,12 @@
                     .eq('user_id', currentUser.id);
                 
                 if (error) throw error;
-                showToast('✓ Riflessione eliminata con successo!');
+                showToast('Riflessione eliminata con successo!');
                 await loadReflections();
+                await loadProgressData();
             } catch (error) {
                 console.error('Errore:', error);
-                showToast('✗ Errore durante l\'eliminazione');
+                showToast('Errore durante l\'eliminazione');
             }
         }
 
@@ -455,7 +560,7 @@
                 textarea.dataset.reflectionId = reflectionId;
             } catch (error) {
                 console.error('Errore:', error);
-                showToast('✗ Errore nel caricamento della riflessione');
+                showToast('Errore nel caricamento della riflessione');
             }
         }
 
@@ -465,7 +570,7 @@
             const newContent = textarea.value.trim();
             
             if (!newContent) {
-                showToast('⚠ Il contenuto non può essere vuoto');
+                showToast('Il contenuto non può essere vuoto');
                 return;
             }
             
@@ -478,12 +583,12 @@
                 
                 if (error) throw error;
                 
-                showToast('✓ Riflessione aggiornata con successo!');
+                showToast('Riflessione aggiornata con successo!');
                 closeEditModal();
                 await loadReflections();
             } catch (error) {
                 console.error('Errore:', error);
-                showToast('✗ Errore durante il salvataggio');
+                showToast('Errore durante il salvataggio');
             }
         }
 
@@ -532,7 +637,7 @@
                 const dates = filteredReflections.map(r => new Date(r.date)).sort((a, b) => a - b);
                 const firstDate = formatDate(dates[0].toISOString().split('T')[0]);
                 const lastDate = formatDate(dates[dates.length - 1].toISOString().split('T')[0]);
-                document.getElementById('dateRange').innerHTML = `<strong>Periodo:</strong> ${firstDate} - ${lastDate}`;
+                document.getElementById('dateRange').innerHTML = `${firstDate} - ${lastDate}`;
             } else {
                 document.getElementById('dateRange').textContent = '-';
             }
@@ -576,8 +681,10 @@
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
             toastMessage.textContent = message;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3500);
+            toast.style.transform = 'translateY(0)';
+            setTimeout(() => {
+                toast.style.transform = 'translateY(8rem)';
+            }, 4000);
         }
 
         function closeEditModal() {
@@ -606,7 +713,7 @@
             
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 await supabase.auth.signOut();
-                window.location.href = 'accedi.html';
+                window.location.href = 'index.html';
             });
             
             document.getElementById('editModal').addEventListener('click', (e) => {
