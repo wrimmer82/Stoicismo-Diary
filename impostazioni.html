@@ -31,7 +31,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           🏛️ CARD PERGAMENA CON BORDI ARROTONDATI
+           🏛️ CARD PERGAMENA SENZA BORDO GRECO
         ═══════════════════════════════════════════════════════ */
         .parchment-card {
             background: linear-gradient(135deg, rgba(245, 235, 215, 0.98) 0%, rgba(235, 225, 205, 0.98) 100%);
@@ -42,6 +42,7 @@
                 0 20px 50px rgba(0, 0, 0, 0.8);
             position: relative;
             overflow: hidden;
+            padding: 2rem 1.5rem;
         }
 
         /* Texture pergamena antica */
@@ -56,60 +57,12 @@
             background-size: 60px 60px, 90px 90px, 120px 120px;
             pointer-events: none;
             opacity: 0.7;
+            z-index: 0;
         }
 
-        /* ═══════════════════════════════════════════════════════
-           🎨 BORDO MEANDRO GRECO (TIPICO PATTERN)
-        ═══════════════════════════════════════════════════════ */
-        .greek-border {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 48px;
-            background: linear-gradient(180deg, #8b5a2d 0%, #a0692f 50%, #8b5a2d 100%);
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-            z-index: 1;
-            border-bottom: 3px solid #654321;
-        }
-
-        /* Pattern meandro greco realistico */
-        .greek-border::before {
-            content: '';
-            position: absolute;
-            inset: 8px 16px;
-            background-image: 
-                repeating-linear-gradient(
-                    90deg,
-                    #d4a574 0px,
-                    #d4a574 4px,
-                    transparent 4px,
-                    transparent 8px,
-                    #d4a574 8px,
-                    #d4a574 12px,
-                    transparent 12px,
-                    transparent 16px,
-                    #d4a574 16px,
-                    #d4a574 20px,
-                    transparent 20px,
-                    transparent 32px
-                ),
-                repeating-linear-gradient(
-                    0deg,
-                    #d4a574 0px,
-                    #d4a574 4px,
-                    transparent 4px,
-                    transparent 8px
-                );
-            background-size: 32px 100%, 100% 8px;
-            background-position: 0 0, 0 0;
-        }
-
-        .parchment-card-inner {
-            padding-top: 68px;
+        .parchment-card > * {
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
         /* ═══════════════════════════════════════════════════════
@@ -141,25 +94,20 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           🎯 ICONE CUSTOM SVG
+           🎯 ICONE CUSTOM SVG CON EFFETTO 3D
         ═══════════════════════════════════════════════════════ */
-        .icon-shield-column {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
+        .icon-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
         }
 
-        .icon-lock {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
-            fill: #8b5a2d;
-        }
-
-        .icon-laurel {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
+        /* Effetto 3D per icone */
+        .icon-3d {
+            filter: 
+                drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3))
+                drop-shadow(0 1px 3px rgba(0, 0, 0, 0.5));
         }
 
         /* ═══════════════════════════════════════════════════════
@@ -378,10 +326,28 @@
             }
         }
 
+        /* MOBILE: Titolo ridotto e centrato */
         @media (max-width: 767px) {
             .mobile-btn {
                 min-height: 48px;
                 font-size: 16px;
+            }
+
+            .main-title {
+                font-size: 2.5rem !important;
+                letter-spacing: 0.05em;
+                padding: 0 1rem;
+            }
+
+            .title-section {
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem !important;
+                letter-spacing: 0.03em;
             }
         }
     </style>
@@ -508,8 +474,8 @@
         <!-- MAIN CONTENT -->
         <main class="flex-1 p-4 md:p-8 w-full">
             
-            <!-- TITOLO PRINCIPALE -->
-            <div class="mb-10 text-center">
+            <!-- TITOLO PRINCIPALE (MOBILE CENTRATO) -->
+            <div class="mb-10 text-center title-section">
                 <h1 class="text-5xl md:text-6xl main-title text-amber-400 mb-3">
                     Impostazioni
                 </h1>
@@ -518,177 +484,243 @@
                 </p>
             </div>
 
-            <!-- GRID 3 CARD CON BORDO GRECO -->
+            <!-- GRID 3 CARD -->
             <div class="cards-grid">
 
                 <!-- ═══════════════════════════════════════════════
-                     🏛️ CARD 1: PROFILO UTENTE (SCUDO + COLONNA)
+                     🏛️ CARD 1: PROFILO UTENTE (SCUDO + COLONNA 3D)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
-                    <div class="greek-border"></div>
-                    <div class="parchment-card-inner p-6">
+                    
+                    <!-- Icona Scudo con Colonna 3D -->
+                    <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#a0692f;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#8b5a2d;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#6d461f;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="columnGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#d4a574;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#f5deb3;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#d4a574;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
                         
-                        <!-- Icona Scudo con Colonna -->
-                        <svg class="icon-shield-column" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Scudo -->
-                            <path d="M50 10 L20 25 L20 50 Q20 75 50 90 Q80 75 80 50 L80 25 Z" 
-                                  fill="#8b5a2d" stroke="#654321" stroke-width="2"/>
-                            <path d="M50 15 L25 28 L25 50 Q25 72 50 85 Q75 72 75 50 L75 28 Z" 
-                                  fill="#a0692f" stroke="#654321" stroke-width="1"/>
-                            <!-- Colonna -->
-                            <rect x="45" y="35" width="10" height="35" fill="#f5deb3"/>
-                            <rect x="42" y="33" width="16" height="4" fill="#f5deb3"/>
-                            <rect x="42" y="68" width="16" height="4" fill="#f5deb3"/>
-                            <line x1="47" y1="38" x2="47" y2="68" stroke="#d4a574" stroke-width="1"/>
-                            <line x1="50" y1="38" x2="50" y2="68" stroke="#d4a574" stroke-width="1"/>
-                            <line x1="53" y1="38" x2="53" y2="68" stroke="#d4a574" stroke-width="1"/>
-                        </svg>
+                        <!-- Ombra scudo -->
+                        <path d="M60 15 L28 32 L28 60 Q28 88 60 105 Q92 88 92 60 L92 32 Z" 
+                              fill="rgba(0,0,0,0.3)" transform="translate(3, 5)"/>
+                        
+                        <!-- Scudo esterno -->
+                        <path d="M60 15 L28 32 L28 60 Q28 88 60 105 Q92 88 92 60 L92 32 Z" 
+                              fill="url(#shieldGrad)" stroke="#4a3621" stroke-width="3" class="icon-3d"/>
+                        
+                        <!-- Scudo interno (highlight) -->
+                        <path d="M60 20 L33 35 L33 60 Q33 85 60 100 Q87 85 87 60 L87 35 Z" 
+                              fill="url(#shieldGrad)" opacity="0.9"/>
+                        
+                        <!-- Base colonna -->
+                        <rect x="52" y="78" width="16" height="6" fill="#c4a574" rx="1"/>
+                        
+                        <!-- Corpo colonna con scanalature -->
+                        <rect x="54" y="45" width="12" height="33" fill="url(#columnGrad)"/>
+                        <line x1="57" y1="47" x2="57" y2="76" stroke="#c4a574" stroke-width="1.5"/>
+                        <line x1="60" y1="47" x2="60" y2="76" stroke="#c4a574" stroke-width="1.5"/>
+                        <line x1="63" y1="47" x2="63" y2="76" stroke="#c4a574" stroke-width="1.5"/>
+                        
+                        <!-- Capitello colonna -->
+                        <rect x="51" y="42" width="18" height="5" fill="#c4a574" rx="1"/>
+                        <rect x="52" y="40" width="16" height="3" fill="#d4a574"/>
+                        
+                        <!-- Highlight 3D -->
+                        <path d="M60 18 L30 33 L30 58 Q30 70 45 80" 
+                              stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+                    </svg>
 
-                        <h3>Profilo Utente</h3>
-                        
-                        <div class="gold-divider"></div>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label for="profileName" class="block mb-2">Nome Visualizzato</label>
-                                <input 
-                                    type="text" 
-                                    id="profileName" 
-                                    placeholder="Marco Aurelio"
-                                    maxlength="30"
-                                    class="parchment-input w-full px-4 py-3 text-sm"
-                                >
-                                <p id="nameError" class="error-message"></p>
-                                <p class="text-xs text-amber-900 mt-1">Min 2, max 30 caratteri</p>
-                            </div>
-                            
-                            <div>
-                                <label for="profileEmail" class="block mb-2">Email</label>
-                                <input 
-                                    type="email" 
-                                    id="profileEmail" 
-                                    disabled
-                                    class="parchment-input w-full px-4 py-3 text-sm"
-                                >
-                                <p class="text-xs text-amber-900 mt-1">Non modificabile</p>
-                            </div>
-                            
-                            <button id="saveProfileBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full disabled:opacity-50 disabled:cursor-not-allowed mt-4">
-                                <span id="saveBtnText">Salva Profilo</span>
-                            </button>
+                    <h3>Profilo Utente</h3>
+                    
+                    <div class="gold-divider"></div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label for="profileName" class="block mb-2">Nome Visualizzato</label>
+                            <input 
+                                type="text" 
+                                id="profileName" 
+                                placeholder="Marco Aurelio"
+                                maxlength="30"
+                                class="parchment-input w-full px-4 py-3 text-sm"
+                            >
+                            <p id="nameError" class="error-message"></p>
+                            <p class="text-xs text-amber-900 mt-1">Min 2, max 30 caratteri</p>
                         </div>
+                        
+                        <div>
+                            <label for="profileEmail" class="block mb-2">Email</label>
+                            <input 
+                                type="email" 
+                                id="profileEmail" 
+                                disabled
+                                class="parchment-input w-full px-4 py-3 text-sm"
+                            >
+                            <p class="text-xs text-amber-900 mt-1">Non modificabile</p>
+                        </div>
+                        
+                        <button id="saveProfileBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full disabled:opacity-50 disabled:cursor-not-allowed mt-4">
+                            <span id="saveBtnText">Salva Profilo</span>
+                        </button>
                     </div>
                 </div>
 
                 <!-- ═══════════════════════════════════════════════
-                     🔒 CARD 2: SICUREZZA (LUCCHETTO)
+                     🔒 CARD 2: SICUREZZA (LUCCHETTO 3D)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
-                    <div class="greek-border"></div>
-                    <div class="parchment-card-inner p-6">
+                    
+                    <!-- Icona Lucchetto 3D -->
+                    <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="lockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#a0692f;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#8b5a2d;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#6d461f;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
                         
-                        <!-- Icona Lucchetto -->
-                        <svg class="icon-lock" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Arco lucchetto -->
-                            <path d="M35 45 L35 30 Q35 15 50 15 Q65 15 65 30 L65 45" 
-                                  fill="none" stroke="#8b5a2d" stroke-width="6"/>
-                            <!-- Corpo lucchetto -->
-                            <rect x="25" y="40" width="50" height="40" rx="5" fill="#8b5a2d"/>
-                            <rect x="28" y="43" width="44" height="34" rx="3" fill="#a0692f"/>
-                            <!-- Buco serratura -->
-                            <circle cx="50" cy="57" r="5" fill="#654321"/>
-                            <rect x="48" y="57" width="4" height="12" fill="#654321"/>
-                        </svg>
+                        <!-- Ombra -->
+                        <path d="M40 55 L40 38 Q40 20 60 20 Q80 20 80 38 L80 55" 
+                              stroke="rgba(0,0,0,0.3)" stroke-width="8" fill="none" transform="translate(3, 5)"/>
+                        <rect x="33" y="53" width="64" height="50" rx="8" fill="rgba(0,0,0,0.3)" transform="translate(3, 5)"/>
+                        
+                        <!-- Arco lucchetto con 3D -->
+                        <path d="M40 55 L40 38 Q40 20 60 20 Q80 20 80 38 L80 55" 
+                              stroke="url(#lockGrad)" stroke-width="8" fill="none" class="icon-3d"/>
+                        <path d="M42 55 L42 38 Q42 22 60 22 Q78 22 78 38 L78 55" 
+                              stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none"/>
+                        
+                        <!-- Corpo lucchetto -->
+                        <rect x="30" y="50" width="60" height="48" rx="8" fill="url(#lockGrad)" class="icon-3d"/>
+                        <rect x="33" y="53" width="54" height="42" rx="6" fill="#a0692f"/>
+                        
+                        <!-- Highlight corpo -->
+                        <rect x="35" y="55" width="25" height="38" rx="4" fill="rgba(255,255,255,0.2)"/>
+                        
+                        <!-- Buco serratura con profondità -->
+                        <circle cx="60" cy="70" r="7" fill="#3e2723"/>
+                        <circle cx="60" cy="70" r="5" fill="#2a1810"/>
+                        <rect x="57" y="70" width="6" height="16" rx="1" fill="#2a1810"/>
+                    </svg>
 
-                        <h3>Sicurezza</h3>
+                    <h3>Sicurezza</h3>
+                    
+                    <div class="gold-divider"></div>
+                    
+                    <div class="space-y-4">
+                        <p class="text-sm text-amber-900 leading-relaxed">
+                            Riceverai un'email con link sicuro per reimpostare la password.
+                        </p>
                         
-                        <div class="gold-divider"></div>
-                        
-                        <div class="space-y-4">
-                            <p class="text-sm text-amber-900 leading-relaxed">
-                                Riceverai un'email con link sicuro per reimpostare la password.
-                            </p>
-                            
-                            <div>
-                                <label for="resetEmail" class="block mb-2">Email Reset</label>
-                                <input 
-                                    type="email" 
-                                    id="resetEmail" 
-                                    disabled
-                                    class="parchment-input w-full px-4 py-3 text-sm"
-                                >
-                            </div>
-                            
-                            <button id="resetPasswordBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full mt-4">
-                                Cambia Password
-                            </button>
+                        <div>
+                            <label for="resetEmail" class="block mb-2">Email Reset</label>
+                            <input 
+                                type="email" 
+                                id="resetEmail" 
+                                disabled
+                                class="parchment-input w-full px-4 py-3 text-sm"
+                            >
                         </div>
+                        
+                        <button id="resetPasswordBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full mt-4">
+                            Cambia Password
+                        </button>
                     </div>
                 </div>
 
                 <!-- ═══════════════════════════════════════════════
-                     🛡️ CARD 3: PRIVACY (CORONA ALLORO)
+                     🛡️ CARD 3: PRIVACY (CORONA ALLORO 3D)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
-                    <div class="greek-border"></div>
-                    <div class="parchment-card-inner p-6">
+                    
+                    <!-- Icona Corona di Alloro 3D -->
+                    <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#9d7446;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#8b5a2d;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#6d461f;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
                         
-                        <!-- Icona Corona di Alloro -->
-                        <svg class="icon-laurel" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Corona sinistra -->
-                            <ellipse cx="30" cy="30" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-30 30 30)"/>
-                            <ellipse cx="25" cy="40" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-20 25 40)"/>
-                            <ellipse cx="23" cy="52" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-10 23 52)"/>
-                            <ellipse cx="25" cy="65" rx="8" ry="12" fill="#8b5a2d" transform="rotate(0 25 65)"/>
-                            <ellipse cx="30" cy="77" rx="8" ry="12" fill="#8b5a2d" transform="rotate(10 30 77)"/>
-                            
-                            <!-- Corona destra -->
-                            <ellipse cx="70" cy="30" rx="8" ry="12" fill="#8b5a2d" transform="rotate(30 70 30)"/>
-                            <ellipse cx="75" cy="40" rx="8" ry="12" fill="#8b5a2d" transform="rotate(20 75 40)"/>
-                            <ellipse cx="77" cy="52" rx="8" ry="12" fill="#8b5a2d" transform="rotate(10 77 52)"/>
-                            <ellipse cx="75" cy="65" rx="8" ry="12" fill="#8b5a2d" transform="rotate(0 75 65)"/>
-                            <ellipse cx="70" cy="77" rx="8" ry="12" fill="#8b5a2d" transform="rotate(-10 70 77)"/>
-                            
-                            <!-- Nastro base -->
-                            <path d="M35 85 Q50 90 65 85" stroke="#654321" stroke-width="3" fill="none"/>
-                            <path d="M35 82 L30 95 L37 88" fill="#8b5a2d"/>
-                            <path d="M65 82 L70 95 L63 88" fill="#8b5a2d"/>
-                        </svg>
+                        <!-- Ombra corona -->
+                        <g transform="translate(3, 5)" opacity="0.3">
+                            <ellipse cx="35" cy="35" rx="10" ry="15" fill="#000" transform="rotate(-30 35 35)"/>
+                            <ellipse cx="30" cy="48" rx="10" ry="15" fill="#000" transform="rotate(-20 30 48)"/>
+                            <ellipse cx="28" cy="62" rx="10" ry="15" fill="#000" transform="rotate(-10 28 62)"/>
+                            <ellipse cx="85" cy="35" rx="10" ry="15" fill="#000" transform="rotate(30 85 35)"/>
+                            <ellipse cx="90" cy="48" rx="10" ry="15" fill="#000" transform="rotate(20 90 48)"/>
+                            <ellipse cx="92" cy="62" rx="10" ry="15" fill="#000" transform="rotate(10 92 62)"/>
+                        </g>
+                        
+                        <!-- Corona sinistra con 3D -->
+                        <ellipse cx="35" cy="35" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-30 35 35)" class="icon-3d"/>
+                        <ellipse cx="30" cy="48" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-20 30 48)" class="icon-3d"/>
+                        <ellipse cx="28" cy="62" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-10 28 62)" class="icon-3d"/>
+                        <ellipse cx="30" cy="76" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(0 30 76)" class="icon-3d"/>
+                        <ellipse cx="35" cy="88" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(10 35 88)" class="icon-3d"/>
+                        
+                        <!-- Corona destra con 3D -->
+                        <ellipse cx="85" cy="35" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(30 85 35)" class="icon-3d"/>
+                        <ellipse cx="90" cy="48" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(20 90 48)" class="icon-3d"/>
+                        <ellipse cx="92" cy="62" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(10 92 62)" class="icon-3d"/>
+                        <ellipse cx="90" cy="76" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(0 90 76)" class="icon-3d"/>
+                        <ellipse cx="85" cy="88" rx="10" ry="15" fill="url(#leafGrad)" transform="rotate(-10 85 88)" class="icon-3d"/>
+                        
+                        <!-- Highlight foglie -->
+                        <ellipse cx="33" cy="36" rx="4" ry="7" fill="rgba(255,255,255,0.3)" transform="rotate(-30 33 36)"/>
+                        <ellipse cx="87" cy="36" rx="4" ry="7" fill="rgba(255,255,255,0.3)" transform="rotate(30 87 36)"/>
+                        
+                        <!-- Nastro base con 3D -->
+                        <path d="M40 95 Q60 102 80 95" stroke="#6d461f" stroke-width="5" fill="none" class="icon-3d"/>
+                        <path d="M40 93 Q60 100 80 93" stroke="#8b5a2d" stroke-width="3" fill="none"/>
+                        
+                        <!-- Nastri laterali -->
+                        <path d="M40 92 L35 108 L42 100 Z" fill="#8b5a2d" class="icon-3d"/>
+                        <path d="M80 92 L85 108 L78 100 Z" fill="#8b5a2d" class="icon-3d"/>
+                    </svg>
 
-                        <h3>Privacy & Dati</h3>
-                        
-                        <div class="gold-divider"></div>
-                        
-                        <div class="space-y-3 text-xs text-amber-900 leading-relaxed max-h-64 overflow-y-auto pr-2">
-                            <div>
-                                <strong>Dati Memorizzati:</strong><br>
-                                Nome, email, riflessioni e data registrazione. Uso esclusivo per il servizio.
-                            </div>
-                            
-                            <div>
-                                <strong>Base Giuridica (GDPR):</strong><br>
-                                Esecuzione contratto (Art. 6.1.b) e consenso esplicito (Art. 6.1.a) GDPR 2016/679.
-                            </div>
-                            
-                            <div>
-                                <strong>I Tuoi Diritti:</strong><br>
-                                Art. 15-22 GDPR: accedere, rettificare, cancellare, limitare, opporsi, portabilità dati.
-                            </div>
-                            
-                            <div>
-                                <strong>Conservazione:</strong><br>
-                                Durata account attivo. Cancellazione entro 30 giorni (Art. 17.3 GDPR).
-                            </div>
+                    <h3>Privacy & Dati</h3>
+                    
+                    <div class="gold-divider"></div>
+                    
+                    <div class="space-y-3 text-xs text-amber-900 leading-relaxed max-h-64 overflow-y-auto pr-2">
+                        <div>
+                            <strong>Dati Memorizzati:</strong><br>
+                            Nome, email, riflessioni e data registrazione. Uso esclusivo per il servizio.
                         </div>
                         
-                        <div class="mt-4">
-                            <p class="text-xs text-amber-900 italic mb-3 text-center">
-                                Azione permanente e irreversibile
-                            </p>
-                            <button id="deleteAccountBtn" class="roman-seal-button roman-seal-gray text-white px-6 py-3 w-full">
-                                Elimina Account
-                            </button>
+                        <div>
+                            <strong>Base Giuridica (GDPR):</strong><br>
+                            Esecuzione contratto (Art. 6.1.b) e consenso esplicito (Art. 6.1.a) GDPR 2016/679.
                         </div>
+                        
+                        <div>
+                            <strong>I Tuoi Diritti:</strong><br>
+                            Art. 15-22 GDPR: accedere, rettificare, cancellare, limitare, opporsi, portabilità dati.
+                        </div>
+                        
+                        <div>
+                            <strong>Conservazione:</strong><br>
+                            Durata account attivo. Cancellazione entro 30 giorni (Art. 17.3 GDPR).
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <p class="text-xs text-amber-900 italic mb-3 text-center">
+                            Azione permanente e irreversibile
+                        </p>
+                        <button id="deleteAccountBtn" class="roman-seal-button roman-seal-gray text-white px-6 py-3 w-full">
+                            Elimina Account
+                        </button>
                     </div>
                 </div>
 
@@ -702,7 +734,7 @@
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- JAVASCRIPT (IDENTICO) -->
     <script>
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
@@ -711,54 +743,30 @@
         let currentUser = null;
 
         document.addEventListener('DOMContentLoaded', async () => {
-            console.log('⚙️ Impostazioni: Verifico autenticazione...');
-            
             try {
                 const { data: { session }, error } = await supabase.auth.getSession();
-                
                 if (!session || error) {
-                    console.warn('❌ Nessuna sessione attiva, redirect a login');
                     window.location.href = 'accedi.html';
                     return;
                 }
-
                 currentUser = session.user;
-                console.log('✅ Utente autenticato:', currentUser.id);
-
                 await loadUserData();
                 loadProgressData();
                 setupEventListeners();
-                
             } catch (error) {
-                console.error('❌ Errore verifica sessione:', error);
                 window.location.href = 'accedi.html';
             }
         });
 
         async function loadUserData() {
             let displayName = 'Stoico';
-            
             try {
-                const { data: profile, error } = await supabase
-                    .from('profiles')
-                    .select('name')
-                    .eq('id', currentUser.id)
-                    .single();
-                
-                if (!error && profile?.name) {
-                    displayName = profile.name;
-                } else {
-                    displayName = currentUser.user_metadata?.full_name || 
-                                 currentUser.user_metadata?.name || 
-                                 currentUser.email?.split('@')[0] || 
-                                 'Stoico';
-                }
+                const { data: profile } = await supabase.from('profiles').select('name').eq('id', currentUser.id).single();
+                if (profile?.name) displayName = profile.name;
+                else displayName = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
             } catch (err) {
-                displayName = currentUser.user_metadata?.full_name || 
-                             currentUser.email?.split('@')[0] || 
-                             'Stoico';
+                displayName = currentUser.email?.split('@')[0] || 'Stoico';
             }
-
             document.getElementById('userName').textContent = displayName;
             document.getElementById('profileName').value = displayName;
             document.getElementById('profileEmail').value = currentUser.email;
@@ -767,73 +775,50 @@
 
         async function loadProgressData() {
             try {
-                const { data: reflections, error } = await supabase
-                    .from('reflections')
-                    .select('date')
-                    .eq('user_id', currentUser.id)
-                    .order('date', { ascending: false });
-
-                if (error) throw error;
-
+                const { data: reflections } = await supabase.from('reflections').select('date').eq('user_id', currentUser.id).order('date', { ascending: false });
                 const streak = calculateStreak(reflections || []);
                 document.getElementById('headerStreak').textContent = streak;
                 document.getElementById('mobileStreak').textContent = streak;
-
-            } catch (error) {
-                console.error('❌ Errore caricamento progresso:', error);
-            }
+            } catch (error) {}
         }
 
         function calculateStreak(reflections) {
             if (!reflections || reflections.length === 0) return 0;
-
             const today = new Date().toISOString().split('T')[0];
             const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-            
             const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-            
             if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
-
             let streak = 0;
             let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-
             for (const dateStr of uniqueDates) {
                 const refDate = new Date(dateStr);
                 const expectedDate = new Date(currentDate);
                 expectedDate.setHours(0, 0, 0, 0);
                 refDate.setHours(0, 0, 0, 0);
-
                 if (refDate.getTime() === expectedDate.getTime()) {
                     streak++;
                     currentDate = new Date(currentDate.getTime() - 86400000);
-                } else {
-                    break;
-                }
+                } else break;
             }
-
             return streak;
         }
 
         function validateName(name) {
             const nameInput = document.getElementById('profileName');
             const errorMsg = document.getElementById('nameError');
-            
             name = name.trim();
-            
             if (name.length < 2) {
                 nameInput.classList.add('error');
                 errorMsg.textContent = 'Nome troppo corto (min 2)';
                 errorMsg.classList.add('active');
                 return false;
             }
-            
             if (name.length > 30) {
                 nameInput.classList.add('error');
                 errorMsg.textContent = 'Nome troppo lungo (max 30)';
                 errorMsg.classList.add('active');
                 return false;
             }
-            
             const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
             if (!regex.test(name)) {
                 nameInput.classList.add('error');
@@ -841,7 +826,6 @@
                 errorMsg.classList.add('active');
                 return false;
             }
-            
             nameInput.classList.remove('error');
             errorMsg.classList.remove('active');
             return true;
@@ -865,7 +849,6 @@
 
             closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
             mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 await supabase.auth.signOut();
                 window.location.href = 'index.html';
@@ -873,9 +856,8 @@
 
             document.getElementById('profileName').addEventListener('input', (e) => {
                 const name = e.target.value;
-                if (name.length > 0) {
-                    validateName(name);
-                } else {
+                if (name.length > 0) validateName(name);
+                else {
                     document.getElementById('profileName').classList.remove('error');
                     document.getElementById('nameError').classList.remove('active');
                 }
@@ -885,33 +867,17 @@
                 const newName = document.getElementById('profileName').value.trim();
                 const saveBtn = document.getElementById('saveProfileBtn');
                 const saveBtnText = document.getElementById('saveBtnText');
-                
-                if (!newName) {
-                    showToast('Inserisci un nome', 'error');
-                    return;
-                }
-                
-                if (!validateName(newName)) {
-                    showToast('Correggi gli errori', 'error');
-                    return;
-                }
-
+                if (!newName) { showToast('Inserisci un nome', 'error'); return; }
+                if (!validateName(newName)) { showToast('Correggi gli errori', 'error'); return; }
                 try {
                     saveBtn.disabled = true;
                     saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
-
-                    const { error } = await supabase
-                        .from('profiles')
-                        .update({ name: newName })
-                        .eq('id', currentUser.id);
-
+                    const { error } = await supabase.from('profiles').update({ name: newName }).eq('id', currentUser.id);
                     if (error) throw error;
-
                     document.getElementById('userName').textContent = newName;
                     saveBtnText.textContent = 'Salva Profilo';
                     saveBtn.disabled = false;
                     showToast('Profilo aggiornato', 'success');
-
                 } catch (error) {
                     saveBtnText.textContent = 'Salva Profilo';
                     saveBtn.disabled = false;
@@ -921,40 +887,25 @@
 
             document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
                 const email = currentUser.email;
-                
-                const confirmReset = window.confirm(
-                    `Reset Password\n\nEmail: ${email}\n\nConferma?`
-                );
-                
-                if (!confirmReset) {
+                if (!window.confirm(`Reset Password\n\nEmail: ${email}\n\nConferma?`)) {
                     showToast('Operazione annullata', 'info');
                     return;
                 }
-                
                 try {
                     const { error } = await supabase.auth.resetPasswordForEmail(email, {
                         redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
                     });
-
                     if (error) throw error;
                     showToast('Email inviata', 'success');
-
                 } catch (error) {
                     showToast('Errore: ' + error.message, 'error');
                 }
             });
 
             document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-                const confirm1 = window.confirm(
-                    'ATTENZIONE\n\nEliminazione permanente di:\n• Profilo\n• Riflessioni\n• Progressi\n\nContinuare?'
-                );
-                
-                if (confirm1) {
-                    const confirm2 = window.confirm('ULTIMA CONFERMA\n\nConfermi eliminazione?');
-                    
-                    if (confirm2) {
-                        showToast('Account eliminato entro 48h', 'info');
-                    }
+                if (!window.confirm('ATTENZIONE\n\nEliminazione permanente di:\n• Profilo\n• Riflessioni\n• Progressi\n\nContinuare?')) return;
+                if (window.confirm('ULTIMA CONFERMA\n\nConfermi eliminazione?')) {
+                    showToast('Account eliminato entro 48h', 'info');
                 }
             });
         }
@@ -962,7 +913,6 @@
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
-            
             if (type === 'error') {
                 toast.classList.remove('border-amber-500', 'text-amber-400');
                 toast.classList.add('border-red-500', 'text-red-400');
@@ -973,11 +923,9 @@
                 toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
                 toast.classList.add('border-amber-500', 'text-amber-400');
             }
-            
             toastMessage.textContent = message;
             toast.classList.remove('hiding');
             toast.style.transform = 'translateY(0)';
-            
             setTimeout(() => toast.classList.add('hiding'), 5500);
             setTimeout(() => {
                 toast.style.transform = 'translateY(8rem)';
