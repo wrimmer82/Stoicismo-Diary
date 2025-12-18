@@ -7,7 +7,9 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Identici a dashboard/impostazioni -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -32,56 +34,42 @@
             background-attachment: fixed;
         }
         
+        /* Card pergamena IDENTICA a impostazioni */
+        .parchment-card {
+            background: rgba(245, 222, 179, 0.95);
+            border: 2px solid rgba(146, 64, 14, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .parchment-card h3 {
+            color: #92400e;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+        }
+        
+        .parchment-card label {
+            color: #451a03;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        .parchment-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(146, 64, 14, 0.3);
+            color: #451a03;
+        }
+        
+        .parchment-input:focus {
+            border-color: #92400e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.2);
+        }
+        
         .roman-number {
             font-family: 'Cinzel', serif;
             font-weight: 700;
             letter-spacing: 0.1em;
         }
         
-        /* Card pergamena identica a impostazioni */
-        .reflection-card, .stats-card, .filters-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 2px solid rgba(146, 64, 14, 0.4);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        .reflection-card h3,
-        .stats-card h3,
-        .filters-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
-        
-        .reflection-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.35);
-            transition: all 0.2s;
-        }
-        
-        /* Titoli sezioni stile impostazioni */
-        .section-header {
-            font-family: 'Cinzel', serif;
-            color: #92400e;
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
-        
-        /* Bottoni arancioni */
-        .btn-orange {
-            background: linear-gradient(to right, #d97706, #ea580c);
-            color: white;
-            font-weight: 700;
-            transition: all 0.3s;
-        }
-        
-        .btn-orange:hover {
-            background: linear-gradient(to right, #b45309, #c2410c);
-        }
-        
-        /* Sidebar styling */
+        /* Navigation links IDENTICI a impostazioni */
         .nav-link {
             display: flex;
             align-items: center;
@@ -89,7 +77,6 @@
             padding: 0.75rem 1rem;
             border-radius: 0.5rem;
             transition: all 0.2s;
-            cursor: pointer;
         }
         
         .nav-link:hover {
@@ -122,15 +109,11 @@
                 min-height: 48px;
                 font-size: 16px;
             }
-            
-            .section-header {
-                font-size: 1.25rem;
-            }
         }
     </style>
 </head>
 <body class="font-inter text-slate-100">
-    <!-- HEADER IDENTICO A DASHBOARD/IMPOSTAZIONI -->
+    <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
@@ -142,7 +125,7 @@
                 </div>
                 
                 <div class="flex items-center gap-4 md:gap-6">
-                    <!-- Streak counter (nascosto su mobile) -->
+                    <!-- Streak counter -->
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
                         <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
@@ -162,11 +145,11 @@
     </header>
 
     <div class="flex">
-        <!-- SIDEBAR DESKTOP -->
+        <!-- SIDEBAR DESKTOP - IDENTICA A IMPOSTAZIONI -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <!-- Oggi -->
-                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400">
+                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
@@ -174,7 +157,7 @@
                 </a>
                 
                 <!-- Archivio - ATTIVO -->
-                <a href="archivio.html" class="nav-link active">
+                <a href="archivio.html" class="nav-link active transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
@@ -182,7 +165,7 @@
                 </a>
                 
                 <!-- Impostazioni -->
-                <a href="impostazioni.html" class="nav-link text-slate-300 hover:text-amber-400">
+                <a href="impostazioni.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -191,7 +174,7 @@
                 </a>
                 
                 <!-- Passa a PRO -->
-                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 mt-4">
+                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
@@ -200,100 +183,74 @@
             </nav>
         </aside>
 
-        <!-- SIDEBAR MOBILE (bottom navigation) -->
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t border-amber-500/20 z-40">
-            <div class="flex justify-around py-2">
-                <a href="dashboard.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span class="text-xs">Oggi</span>
-                </a>
-                
-                <a href="archivio.html" class="flex flex-col items-center gap-1 px-3 py-2 text-amber-400 font-medium">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span class="text-xs">Archivio</span>
-                </a>
-                
-                <a href="impostazioni.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span class="text-xs">Impostazioni</span>
-                </a>
-                
-                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="flex flex-col items-center gap-1 px-3 py-2 text-orange-400">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span class="text-xs">PRO</span>
-                </a>
-            </div>
-        </nav>
-
         <!-- MAIN CONTENT -->
-        <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full pb-24 md:pb-8">
+        <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full">
             
             <!-- FILTRI -->
-            <div class="filters-card rounded-lg p-6 md:p-8 mb-6">
-                <h3 class="section-header text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide">
+            <div class="parchment-card rounded-lg p-6 md:p-8 mb-6">
+                <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
                     Filtri e Ricerca
                 </h3>
                 
-                <div class="flex items-center gap-2 mb-3">
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="Cerca nelle riflessioni..."
-                        class="flex-1 px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base bg-white/90 text-amber-900"
-                    >
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Cerca nelle riflessioni..."
+                            class="parchment-input flex-1 px-4 py-3 rounded-lg font-medium transition-all"
+                        >
+                        <button 
+                            id="toggleFilters" 
+                            class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg text-sm md:text-base font-bold transition-all mobile-btn"
+                        >
+                            Filtri
+                        </button>
+                    </div>
+                    
+                    <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input 
+                            type="date" 
+                            id="dateFrom" 
+                            class="parchment-input px-4 py-3 rounded-lg font-medium"
+                        >
+                        
+                        <input 
+                            type="date" 
+                            id="dateTo" 
+                            class="parchment-input px-4 py-3 rounded-lg font-medium"
+                        >
+                        
+                        <select 
+                            id="contentTypeFilter" 
+                            class="parchment-input px-4 py-3 rounded-lg font-medium"
+                        >
+                            <option value="">Tutti i tipi</option>
+                            <option value="tipo1">Tipo 1</option>
+                            <option value="tipo2">Tipo 2</option>
+                            <option value="tipo3">Tipo 3</option>
+                            <option value="tipo4">Tipo 4</option>
+                        </select>
+                    </div>
+                    
                     <button 
-                        id="toggleFilters" 
-                        class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg text-sm md:text-base font-semibold transition-all mobile-btn"
+                        id="applyFilters" 
+                        class="hidden w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm mobile-btn"
                     >
-                        Filtri
+                        Applica Filtri
                     </button>
                 </div>
-                
-                <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
-                    <input 
-                        type="date" 
-                        id="dateFrom" 
-                        class="px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base bg-white/90 text-amber-900"
-                    >
-                    
-                    <input 
-                        type="date" 
-                        id="dateTo" 
-                        class="px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base bg-white/90 text-amber-900"
-                    >
-                    
-                    <select 
-                        id="contentTypeFilter" 
-                        class="px-4 py-3 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 text-sm md:text-base bg-white/90 text-amber-900"
-                    >
-                        <option value="">Tutti i tipi</option>
-                        <option value="tipo1">Tipo 1</option>
-                        <option value="tipo2">Tipo 2</option>
-                        <option value="tipo3">Tipo 3</option>
-                        <option value="tipo4">Tipo 4</option>
-                    </select>
-                </div>
-                
-                <button 
-                    id="applyFilters" 
-                    class="hidden mt-3 w-full btn-orange px-6 py-3 rounded-lg text-sm md:text-base font-bold mobile-btn"
-                >
-                    Applica Filtri
-                </button>
             </div>
 
             <!-- STATISTICHE -->
-            <div class="stats-card rounded-lg p-6 md:p-8 mb-6">
-                <h3 class="section-header text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide">
+            <div class="parchment-card rounded-lg p-6 md:p-8 mb-6">
+                <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide flex items-center gap-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
                     Statistiche
                 </h3>
                 
@@ -314,33 +271,67 @@
             </div>
 
             <!-- PAGINAZIONE -->
-            <div id="paginationControls" class="mt-6 md:mt-8 flex justify-center items-center gap-3 md:gap-4 flex-wrap">
-                <button id="prevPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold transition-all">
+            <div id="paginationControls" class="mt-6 md:mt-8 flex justify-center items-center gap-3 md:gap-4 flex-wrap pb-20 md:pb-8">
+                <button id="prevPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-bold transition-all">
                     ← Precedente
                 </button>
                 <span id="pageInfo" class="text-white font-bold text-sm md:text-base px-4 py-2 bg-slate-800/70 rounded-lg">Pag 1 di 1</span>
-                <button id="nextPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-semibold transition-all">
+                <button id="nextPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-bold transition-all">
                     Successiva →
                 </button>
             </div>
         </main>
     </div>
 
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t border-amber-500/20 z-40">
+        <div class="flex justify-around py-2">
+            <a href="dashboard.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300 hover:text-amber-400 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span class="text-xs">Oggi</span>
+            </a>
+            
+            <a href="archivio.html" class="flex flex-col items-center gap-1 px-3 py-2 bg-amber-500/20 text-amber-400 font-medium rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                </svg>
+                <span class="text-xs">Archivio</span>
+            </a>
+            
+            <a href="impostazioni.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300 hover:text-amber-400 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span class="text-xs">Impostazioni</span>
+            </a>
+            
+            <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="flex flex-col items-center gap-1 px-3 py-2 text-orange-400 hover:text-orange-300 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                </svg>
+                <span class="text-xs">PRO</span>
+            </a>
+        </div>
+    </nav>
+
     <!-- MODAL MODIFICA -->
     <div id="editModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-xl p-5 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-            <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-4 text-amber-900">Modifica Riflessione</h3>
+            <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-4 text-amber-900 uppercase tracking-wide">Modifica Riflessione</h3>
             <textarea 
                 id="editTextarea" 
-                class="w-full h-56 md:h-72 p-4 md:p-5 border-2 border-amber-900/30 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent text-sm md:text-base"
+                class="parchment-input w-full h-56 md:h-72 p-4 md:p-5 rounded-lg text-sm md:text-base font-medium"
                 placeholder="Modifica il testo della tua riflessione..."
                 style="font-family: 'EB Garamond', serif;"
             ></textarea>
             <div class="mt-5 flex gap-3 md:gap-4">
-                <button id="saveEditBtn" class="flex-1 btn-orange px-6 py-3 rounded-lg text-sm md:text-base font-bold mobile-btn">
+                <button id="saveEditBtn" class="flex-1 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg font-bold text-sm mobile-btn transition-all">
                     Salva Modifiche
                 </button>
-                <button id="cancelEditBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg text-sm md:text-base font-bold mobile-btn">
+                <button id="cancelEditBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-bold text-sm mobile-btn transition-all">
                     Annulla
                 </button>
             </div>
@@ -348,7 +339,7 @@
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-24 md:bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
@@ -468,7 +459,7 @@
             
             if (filteredReflections.length === 0) {
                 container.innerHTML = `
-                    <div class="stats-card rounded-lg p-8 md:p-12 text-center">
+                    <div class="parchment-card rounded-lg p-8 md:p-12 text-center">
                         <p class="text-lg md:text-xl text-amber-900 font-semibold">Nessuna riflessione trovata</p>
                         <p class="text-sm md:text-base text-amber-800 mt-2">Inizia a scrivere le tue riflessioni quotidiane!</p>
                     </div>
@@ -492,7 +483,7 @@
             const contentPreview = truncateText(reflection.content, 200);
             
             return `
-                <div class="reflection-card rounded-lg p-5 md:p-7" data-id="${reflection.id}">
+                <div class="parchment-card rounded-lg p-5 md:p-7 transition-all hover:shadow-lg" data-id="${reflection.id}">
                     <div class="flex flex-wrap justify-between items-start mb-4 gap-3">
                         <div class="flex items-center gap-3">
                             <span class="roman-number text-2xl md:text-3xl font-bold text-amber-700">${dayRoman}</span>
@@ -507,13 +498,13 @@
                     <div class="flex gap-3">
                         <button 
                             onclick="editReflection('${reflection.id}')" 
-                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn"
+                            class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn transition-all"
                         >
                             Modifica
                         </button>
                         <button 
                             onclick="deleteReflection('${reflection.id}')" 
-                            class="btn-orange px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn"
+                            class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn transition-all"
                         >
                             Elimina
                         </button>
