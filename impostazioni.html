@@ -65,7 +65,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           📜 SEPARATORE ORO
+           📜 SEPARATORE ORO DECORATIVO
         ═══════════════════════════════════════════════════════ */
         .gold-divider {
             height: 3px;
@@ -93,7 +93,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           🎯 ICONE CUSTOM
+           🎯 ICONE CUSTOM SVG CON EFFETTO 3D
         ═══════════════════════════════════════════════════════ */
         .icon-container {
             width: 100px;
@@ -109,7 +109,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           📝 TITOLI
+           📝 TITOLI E TESTI
         ═══════════════════════════════════════════════════════ */
         .parchment-card h3 {
             color: #3e2723;
@@ -131,7 +131,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           📋 INPUT
+           📋 INPUT FIELDS
         ═══════════════════════════════════════════════════════ */
         .parchment-input {
             background: rgba(255, 255, 255, 0.95);
@@ -171,7 +171,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           🔘 BOTTONI SIGILLO
+           🔘 BOTTONI SIGILLO ROMANO
         ═══════════════════════════════════════════════════════ */
         .roman-seal-button {
             position: relative;
@@ -216,7 +216,7 @@
         }
 
         /* ═══════════════════════════════════════════════════════
-           🎯 LAYOUT
+           🎯 LAYOUT & RESPONSIVE
         ═══════════════════════════════════════════════════════ */
         #mobileMenuOverlay {
             position: fixed;
@@ -467,7 +467,6 @@
         <!-- MAIN CONTENT -->
         <main class="flex-1 p-4 md:p-8 w-full">
             
-            <!-- TITOLO PRINCIPALE -->
             <div class="mb-10 text-center title-section">
                 <h1 class="text-5xl md:text-6xl main-title text-amber-400 mb-3">
                     Impostazioni
@@ -485,7 +484,6 @@
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
-                    <!-- Icona Scudo + Colonna -->
                     <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -499,55 +497,33 @@
                                 <stop offset="100%" style="stop-color:#d4a574;stop-opacity:1" />
                             </linearGradient>
                         </defs>
-                        
-                        <path d="M60 15 L28 32 L28 60 Q28 88 60 105 Q92 88 92 60 L92 32 Z" 
-                              fill="rgba(0,0,0,0.3)" transform="translate(3, 5)"/>
-                        
-                        <path d="M60 15 L28 32 L28 60 Q28 88 60 105 Q92 88 92 60 L92 32 Z" 
-                              fill="url(#shieldGrad)" stroke="#4a3621" stroke-width="3" class="icon-3d"/>
-                        
-                        <path d="M60 20 L33 35 L33 60 Q33 85 60 100 Q87 85 87 60 L87 35 Z" 
-                              fill="url(#shieldGrad)" opacity="0.9"/>
-                        
+                        <path d="M60 15 L28 32 L28 60 Q28 88 60 105 Q92 88 92 60 L92 32 Z" fill="rgba(0,0,0,0.3)" transform="translate(3, 5)"/>
+                        <path d="M60 15 L28 32 L28 60 Q28 88 60 105 Q92 88 92 60 L92 32 Z" fill="url(#shieldGrad)" stroke="#4a3621" stroke-width="3" class="icon-3d"/>
+                        <path d="M60 20 L33 35 L33 60 Q33 85 60 100 Q87 85 87 60 L87 35 Z" fill="url(#shieldGrad)" opacity="0.9"/>
                         <rect x="52" y="78" width="16" height="6" fill="#c4a574" rx="1"/>
                         <rect x="54" y="45" width="12" height="33" fill="url(#columnGrad)"/>
                         <line x1="57" y1="47" x2="57" y2="76" stroke="#c4a574" stroke-width="1.5"/>
                         <line x1="60" y1="47" x2="60" y2="76" stroke="#c4a574" stroke-width="1.5"/>
                         <line x1="63" y1="47" x2="63" y2="76" stroke="#c4a574" stroke-width="1.5"/>
-                        
                         <rect x="51" y="42" width="18" height="5" fill="#c4a574" rx="1"/>
                         <rect x="52" y="40" width="16" height="3" fill="#d4a574"/>
-                        
-                        <path d="M60 18 L30 33 L30 58 Q30 70 45 80" 
-                              stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+                        <path d="M60 18 L30 33 L30 58 Q30 70 45 80" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
                     </svg>
 
                     <h3>Profilo Utente</h3>
-                    
                     <div class="gold-divider"></div>
                     
                     <div class="space-y-4">
                         <div>
                             <label for="profileName" class="block mb-2">Nome Visualizzato</label>
-                            <input 
-                                type="text" 
-                                id="profileName" 
-                                placeholder="Marco Aurelio"
-                                maxlength="30"
-                                class="parchment-input w-full px-4 py-3 text-sm"
-                            >
+                            <input type="text" id="profileName" placeholder="Marco Aurelio" maxlength="30" class="parchment-input w-full px-4 py-3 text-sm">
                             <p id="nameError" class="error-message"></p>
                             <p class="text-xs text-amber-900 mt-1">Min 2, max 30 caratteri</p>
                         </div>
                         
                         <div>
                             <label for="profileEmail" class="block mb-2">Email</label>
-                            <input 
-                                type="email" 
-                                id="profileEmail" 
-                                disabled
-                                class="parchment-input w-full px-4 py-3 text-sm"
-                            >
+                            <input type="email" id="profileEmail" disabled class="parchment-input w-full px-4 py-3 text-sm">
                             <p class="text-xs text-amber-900 mt-1">Non modificabile</p>
                         </div>
                         
@@ -562,7 +538,6 @@
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
-                    <!-- Icona Lucchetto -->
                     <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="lockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -571,28 +546,19 @@
                                 <stop offset="100%" style="stop-color:#6d461f;stop-opacity:1" />
                             </linearGradient>
                         </defs>
-                        
-                        <path d="M40 55 L40 38 Q40 20 60 20 Q80 20 80 38 L80 55" 
-                              stroke="rgba(0,0,0,0.3)" stroke-width="8" fill="none" transform="translate(3, 5)"/>
+                        <path d="M40 55 L40 38 Q40 20 60 20 Q80 20 80 38 L80 55" stroke="rgba(0,0,0,0.3)" stroke-width="8" fill="none" transform="translate(3, 5)"/>
                         <rect x="33" y="53" width="64" height="50" rx="8" fill="rgba(0,0,0,0.3)" transform="translate(3, 5)"/>
-                        
-                        <path d="M40 55 L40 38 Q40 20 60 20 Q80 20 80 38 L80 55" 
-                              stroke="url(#lockGrad)" stroke-width="8" fill="none" class="icon-3d"/>
-                        <path d="M42 55 L42 38 Q42 22 60 22 Q78 22 78 38 L78 55" 
-                              stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none"/>
-                        
+                        <path d="M40 55 L40 38 Q40 20 60 20 Q80 20 80 38 L80 55" stroke="url(#lockGrad)" stroke-width="8" fill="none" class="icon-3d"/>
+                        <path d="M42 55 L42 38 Q42 22 60 22 Q78 22 78 38 L78 55" stroke="rgba(255,255,255,0.3)" stroke-width="3" fill="none"/>
                         <rect x="30" y="50" width="60" height="48" rx="8" fill="url(#lockGrad)" class="icon-3d"/>
                         <rect x="33" y="53" width="54" height="42" rx="6" fill="#a0692f"/>
-                        
                         <rect x="35" y="55" width="25" height="38" rx="4" fill="rgba(255,255,255,0.2)"/>
-                        
                         <circle cx="60" cy="70" r="7" fill="#3e2723"/>
                         <circle cx="60" cy="70" r="5" fill="#2a1810"/>
                         <rect x="57" y="70" width="6" height="16" rx="1" fill="#2a1810"/>
                     </svg>
 
                     <h3>Sicurezza</h3>
-                    
                     <div class="gold-divider"></div>
                     
                     <div class="space-y-4">
@@ -602,12 +568,7 @@
                         
                         <div>
                             <label for="resetEmail" class="block mb-2">Email Reset</label>
-                            <input 
-                                type="email" 
-                                id="resetEmail" 
-                                disabled
-                                class="parchment-input w-full px-4 py-3 text-sm"
-                            >
+                            <input type="email" id="resetEmail" disabled class="parchment-input w-full px-4 py-3 text-sm">
                         </div>
                         
                         <button id="resetPasswordBtn" class="roman-seal-button roman-seal-gold text-white px-6 py-3 w-full mt-4">
@@ -617,111 +578,118 @@
                 </div>
 
                 <!-- ═══════════════════════════════════════════════
-                     🏛️ CARD 3: PRIVACY (CORONA ALLORO STILIZZATA)
+                     🛡️ CARD 3: PRIVACY (CORONA ALLORO MINIMALISTA)
                 ═══════════════════════════════════════════════ -->
                 <div class="parchment-card">
                     
-                    <!-- Corona di Alloro Stilizzata Incisa (come immagine) -->
+                    <!-- Corona di Alloro Minimalista Stile Pietra -->
                     <svg class="icon-container" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <!-- Gradient oro classico -->
-                            <linearGradient id="goldLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <!-- Gradient oro caldo -->
+                            <linearGradient id="laurelGold" x1="0%" y1="0%" x2="0%" y2="100%">
                                 <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#c9a22b;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#b8941f;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#c4a02a;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#9e7e1d;stop-opacity:1" />
                             </linearGradient>
                         </defs>
                         
-                        <!-- Ombra della corona -->
-                        <g transform="translate(4, 5)" opacity="0.3">
-                            <!-- Lato sinistro -->
-                            <path d="M 25 30 Q 22 33 19 36 L 17 38 Q 15 40 18 42 L 20 40 Z" fill="#000"/>
-                            <path d="M 19 42 Q 16 45 14 48 L 12 50 Q 10 52 13 54 L 15 52 Z" fill="#000"/>
-                            <path d="M 14 54 Q 12 57 11 60 L 10 62 Q 9 64 12 66 L 13 64 Z" fill="#000"/>
-                            <path d="M 11 66 Q 10 69 11 72 L 11 74 Q 11 76 14 78 L 14 76 Z" fill="#000"/>
-                            <path d="M 14 78 Q 16 81 19 84 L 21 86 Q 23 88 26 86 L 24 84 Z" fill="#000"/>
-                            <path d="M 26 86 Q 30 89 35 91 L 38 92 Q 41 93 43 90 L 40 89 Z" fill="#000"/>
+                        <!-- Ombra corona (unica, sotto tutta la struttura) -->
+                        <g transform="translate(3, 5)" opacity="0.3">
+                            <ellipse cx="25" cy="30" rx="4.5" ry="12" transform="rotate(-50 25 30)" fill="#000"/>
+                            <ellipse cx="20" cy="42" rx="4.5" ry="12" transform="rotate(-40 20 42)" fill="#000"/>
+                            <ellipse cx="17" cy="55" rx="4.5" ry="12" transform="rotate(-30 17 55)" fill="#000"/>
+                            <ellipse cx="17" cy="68" rx="4.5" ry="12" transform="rotate(-20 17 68)" fill="#000"/>
+                            <ellipse cx="20" cy="81" rx="4.5" ry="12" transform="rotate(-10 20 81)" fill="#000"/>
+                            <ellipse cx="27" cy="92" rx="4.5" ry="12" transform="rotate(0 27 92)" fill="#000"/>
+                            <ellipse cx="38" cy="100" rx="4.5" ry="12" transform="rotate(10 38 100)" fill="#000"/>
                             
-                            <!-- Lato destro -->
-                            <path d="M 95 30 Q 98 33 101 36 L 103 38 Q 105 40 102 42 L 100 40 Z" fill="#000"/>
-                            <path d="M 101 42 Q 104 45 106 48 L 108 50 Q 110 52 107 54 L 105 52 Z" fill="#000"/>
-                            <path d="M 106 54 Q 108 57 109 60 L 110 62 Q 111 64 108 66 L 107 64 Z" fill="#000"/>
-                            <path d="M 109 66 Q 110 69 109 72 L 109 74 Q 109 76 106 78 L 106 76 Z" fill="#000"/>
-                            <path d="M 106 78 Q 104 81 101 84 L 99 86 Q 97 88 94 86 L 96 84 Z" fill="#000"/>
-                            <path d="M 94 86 Q 90 89 85 91 L 82 92 Q 79 93 77 90 L 80 89 Z" fill="#000"/>
+                            <ellipse cx="95" cy="30" rx="4.5" ry="12" transform="rotate(50 95 30)" fill="#000"/>
+                            <ellipse cx="100" cy="42" rx="4.5" ry="12" transform="rotate(40 100 42)" fill="#000"/>
+                            <ellipse cx="103" cy="55" rx="4.5" ry="12" transform="rotate(30 103 55)" fill="#000"/>
+                            <ellipse cx="103" cy="68" rx="4.5" ry="12" transform="rotate(20 103 68)" fill="#000"/>
+                            <ellipse cx="100" cy="81" rx="4.5" ry="12" transform="rotate(10 100 81)" fill="#000"/>
+                            <ellipse cx="93" cy="92" rx="4.5" ry="12" transform="rotate(0 93 92)" fill="#000"/>
+                            <ellipse cx="82" cy="100" rx="4.5" ry="12" transform="rotate(-10 82 100)" fill="#000"/>
                         </g>
                         
-                        <!-- RAMO SINISTRO - Foglie stilizzate allungate -->
-                        <!-- Foglia 1 -->
-                        <path d="M 25 30 Q 22 33 19 36 L 17 38 Q 15 40 18 42 L 20 40 Q 23 37 25 34 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 22 33 L 19 37" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+                        <!-- RAMO SINISTRO - Foglie allungate stile pietra incisa -->
+                        <g>
+                            <!-- Foglia 1 -->
+                            <ellipse cx="25" cy="30" rx="4.5" ry="12" transform="rotate(-50 25 30)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="24" cy="29" rx="2" ry="6" transform="rotate(-50 24 29)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 2 -->
+                            <ellipse cx="20" cy="42" rx="4.5" ry="12" transform="rotate(-40 20 42)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="19" cy="41" rx="2" ry="6" transform="rotate(-40 19 41)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 3 -->
+                            <ellipse cx="17" cy="55" rx="4.5" ry="12" transform="rotate(-30 17 55)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="16" cy="54" rx="2" ry="6" transform="rotate(-30 16 54)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 4 -->
+                            <ellipse cx="17" cy="68" rx="4.5" ry="12" transform="rotate(-20 17 68)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="16" cy="67" rx="2" ry="6" transform="rotate(-20 16 67)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 5 -->
+                            <ellipse cx="20" cy="81" rx="4.5" ry="12" transform="rotate(-10 20 81)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="19" cy="80" rx="2" ry="6" transform="rotate(-10 19 80)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 6 -->
+                            <ellipse cx="27" cy="92" rx="4.5" ry="12" transform="rotate(0 27 92)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="26" cy="91" rx="2" ry="6" transform="rotate(0 26 91)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 7 -->
+                            <ellipse cx="38" cy="100" rx="4.5" ry="12" transform="rotate(10 38 100)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="37" cy="99" rx="2" ry="6" transform="rotate(10 37 99)" fill="rgba(255,255,255,0.35)"/>
+                        </g>
                         
-                        <!-- Foglia 2 -->
-                        <path d="M 19 42 Q 16 45 14 48 L 12 50 Q 10 52 13 54 L 15 52 Q 18 49 19 46 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 16 45 L 13 49" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
+                        <!-- RAMO DESTRO - Foglie allungate stile pietra incisa -->
+                        <g>
+                            <!-- Foglia 1 -->
+                            <ellipse cx="95" cy="30" rx="4.5" ry="12" transform="rotate(50 95 30)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="96" cy="29" rx="2" ry="6" transform="rotate(50 96 29)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 2 -->
+                            <ellipse cx="100" cy="42" rx="4.5" ry="12" transform="rotate(40 100 42)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="101" cy="41" rx="2" ry="6" transform="rotate(40 101 41)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 3 -->
+                            <ellipse cx="103" cy="55" rx="4.5" ry="12" transform="rotate(30 103 55)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="104" cy="54" rx="2" ry="6" transform="rotate(30 104 54)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 4 -->
+                            <ellipse cx="103" cy="68" rx="4.5" ry="12" transform="rotate(20 103 68)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="104" cy="67" rx="2" ry="6" transform="rotate(20 104 67)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 5 -->
+                            <ellipse cx="100" cy="81" rx="4.5" ry="12" transform="rotate(10 100 81)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="101" cy="80" rx="2" ry="6" transform="rotate(10 101 80)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 6 -->
+                            <ellipse cx="93" cy="92" rx="4.5" ry="12" transform="rotate(0 93 92)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="94" cy="91" rx="2" ry="6" transform="rotate(0 94 91)" fill="rgba(255,255,255,0.35)"/>
+                            
+                            <!-- Foglia 7 -->
+                            <ellipse cx="82" cy="100" rx="4.5" ry="12" transform="rotate(-10 82 100)" fill="url(#laurelGold)" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <ellipse cx="83" cy="99" rx="2" ry="6" transform="rotate(-10 83 99)" fill="rgba(255,255,255,0.35)"/>
+                        </g>
                         
-                        <!-- Foglia 3 -->
-                        <path d="M 14 54 Q 12 57 11 60 L 10 62 Q 9 64 12 66 L 13 64 Q 15 61 16 58 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 12 57 L 10 61" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 4 -->
-                        <path d="M 11 66 Q 10 69 11 72 L 11 74 Q 11 76 14 78 L 14 76 Q 14 73 13 70 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 11 69 L 11 73" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 5 -->
-                        <path d="M 14 78 Q 16 81 19 84 L 21 86 Q 23 88 26 86 L 24 84 Q 21 81 19 78 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 17 81 L 22 85" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 6 -->
-                        <path d="M 26 86 Q 30 89 35 91 L 38 92 Q 41 93 43 90 L 40 89 Q 35 87 31 84 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 31 88 L 38 91" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- RAMO DESTRO - Foglie stilizzate allungate -->
-                        <!-- Foglia 1 -->
-                        <path d="M 95 30 Q 98 33 101 36 L 103 38 Q 105 40 102 42 L 100 40 Q 97 37 95 34 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 98 33 L 101 37" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 2 -->
-                        <path d="M 101 42 Q 104 45 106 48 L 108 50 Q 110 52 107 54 L 105 52 Q 102 49 101 46 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 104 45 L 107 49" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 3 -->
-                        <path d="M 106 54 Q 108 57 109 60 L 110 62 Q 111 64 108 66 L 107 64 Q 105 61 104 58 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 108 57 L 110 61" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 4 -->
-                        <path d="M 109 66 Q 110 69 109 72 L 109 74 Q 109 76 106 78 L 106 76 Q 106 73 107 70 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 109 69 L 109 73" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 5 -->
-                        <path d="M 106 78 Q 104 81 101 84 L 99 86 Q 97 88 94 86 L 96 84 Q 99 81 101 78 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 103 81 L 98 85" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Foglia 6 -->
-                        <path d="M 94 86 Q 90 89 85 91 L 82 92 Q 79 93 77 90 L 80 89 Q 85 87 89 84 Z" 
-                              fill="url(#goldLeafGrad)" stroke="#9d8420" stroke-width="1"/>
-                        <path d="M 89 88 L 82 91" stroke="rgba(255,255,255,0.4)" stroke-width="0.5"/>
-                        
-                        <!-- Base e nastri -->
-                        <path d="M 43 90 Q 60 95 77 90" 
-                              stroke="url(#goldLeafGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <path d="M 43 89 Q 60 94 77 89" 
-                              stroke="rgba(255,255,255,0.3)" stroke-width="1.5" fill="none"/>
+                        <!-- NASTRO DECORATIVO BASE (Più sottile e minimalista) -->
+                        <g>
+                            <!-- Nastro curvo centrale -->
+                            <path d="M 42 104 Q 60 108 78 104" 
+                                  stroke="url(#laurelGold)" 
+                                  stroke-width="3" 
+                                  fill="none" 
+                                  stroke-linecap="round"/>
+                            
+                            <!-- Nodo centrale piccolo -->
+                            <circle cx="60" cy="106" r="2.5" fill="#d4af37" stroke="#9e7e1d" stroke-width="0.8"/>
+                            <circle cx="59.5" cy="105.5" r="1" fill="rgba(255,255,255,0.4)"/>
+                        </g>
                     </svg>
 
                     <h3>Privacy & Dati</h3>
-                    
                     <div class="gold-divider"></div>
                     
                     <div class="space-y-3 text-xs text-amber-900 leading-relaxed max-h-64 overflow-y-auto pr-2">
@@ -761,7 +729,7 @@
         </main>
     </div>
 
-    <!-- TOAST -->
+    <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
