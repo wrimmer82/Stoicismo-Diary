@@ -3,838 +3,619 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - The Stoic Journey</title>
+    <title>Accedi - The Stoic Journey</title>
     
-    <!-- Meta -->
-    <meta name="description" content="La tua dashboard personale per la crescita stoica quotidiana - The Stoic Journey">
-    <meta name="robots" content="noindex, nofollow">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
-        
-        .pergamena-bg {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
-            position: relative;
-        }
-        
-        .highlighted-text {
-            color: #fde047;
-            font-weight: 900;
-            font-style: italic;
-            text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                         -4px 0 0 #000, 4px 0 0 #000, 0 -4px 0 #000, 0 4px 0 #000,
-                         -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-                         0 0 15px rgba(253, 224, 71, 1),
-                         0 0 25px rgba(253, 224, 71, 0.8),
-                         0 0 35px rgba(253, 224, 71, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.04em;
-        }
-        
-        .highlighted-text:hover {
-            color: #facc15;
-            text-shadow: -4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000, 4px 4px 0 #000,
-                         -5px 0 0 #000, 5px 0 0 #000, 0 -5px 0 #000, 0 5px 0 #000,
-                         -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                         0 0 20px rgba(250, 204, 21, 1),
-                         0 0 30px rgba(250, 204, 21, 0.9),
-                         0 0 40px rgba(250, 204, 21, 0.7);
-            transform: scale(1.02);
-        }
-        
-        .roman-number {
-            color: #fde047;
-            font-weight: 900;
-            font-size: 1.2em;
-            text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                         -4px 0 0 #000, 4px 0 0 #000, 0 -4px 0 #000, 0 4px 0 #000,
-                         -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-                         0 0 15px rgba(253, 224, 71, 1);
-            letter-spacing: 0.1em;
-        }
-        
-        .section-title-parchment {
-            color: #92400e;
-            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5),
-                        -1px -1px 0 rgba(0, 0, 0, 0.3);
-            font-weight: 900;
-        }
-        
-        .parchment-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 2px solid rgba(146, 64, 14, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        .parchment-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
-        
-        .parchment-card p {
-            color: #451a03;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-        }
         
         body {
             background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, 
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, 
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
                 #c49050 80%, #a8754a 90%, #1c1410 100%
             );
             min-height: 100vh;
             background-attachment: fixed;
         }
 
-        #mobileMenuOverlay {
-            position: fixed;
+        .spinner {
+            border: 3px solid rgba(251, 191, 36, 0.3);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading-pulse {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+
+        .input-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+        }
+
+        .input-success {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+        }
+
+        .input-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: #1e293b !important;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        .password-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .password-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .error-message {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-loading::after {
+            content: '';
+            position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(2px);
+            border-radius: 0.5rem;
+            pointer-events: none;
+            z-index: 10;
         }
 
-        #mobileMenuOverlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #mobileSidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        #mobileSidebar::-webkit-scrollbar {
-            display: none;
-        }
-
-        #mobileSidebar.active {
-            transform: translateX(0);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        .gradient-border {
+        .philosopher-circle {
             position: relative;
-            border-radius: 1rem;
+            cursor: pointer;
         }
 
-        .progress-bar {
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        .philosopher-circle img {
+            transition: all 0.3s ease;
         }
 
-        .skeleton {
-            background: linear-gradient(90deg, 
-                rgba(245, 222, 179, 0.3) 25%, 
-                rgba(245, 222, 179, 0.5) 50%, 
-                rgba(245, 222, 179, 0.3) 75%
-            );
-            background-size: 200% 100%;
-            animation: loading 1.5s ease-in-out infinite;
+        .philosopher-circle:hover img {
+            transform: scale(1.1);
+            border-color: #fbbf24 !important;
         }
 
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        .philosopher-circle p {
+            transition: opacity 0.3s ease;
         }
 
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
-        }
-
-        .streak-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        @media (max-width: 767px) {
-            .mobile-textarea {
-                height: 120px;
-                font-size: 16px;
-            }
-            .mobile-btn {
-                min-height: 48px;
-                font-size: 16px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .desktop-textarea {
-                height: 200px;
+        /* MOBILE: Nascondi filosofi */
+        @media (max-width: 768px) {
+            .philosopher-section {
+                display: none !important;
             }
         }
     </style>
 </head>
 <body class="font-inter text-slate-100">
 
-    <!-- Header -->
-    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex items-center justify-between">
-                <!-- Left: Mobile Menu + Logo -->
-                <div class="flex items-center gap-4">
-                    <!-- Mobile Menu Button -->
-                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors" aria-label="Apri menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                    
-                    <!-- Logo -->
-                    <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
-                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
-                    </div>
-                </div>
-
-                <!-- Right: Streak + User + Logout -->
-                <div class="flex items-center gap-4 md:gap-6">
-                    <!-- Streak Desktop -->
-                    <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
-                        <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
-                        <span class="text-xs text-slate-900 font-medium">giorni</span>
-                    </div>
-
-                    <!-- User Info + Logout -->
-                    <div class="flex items-center gap-3">
-                        <span class="hidden md:inline text-sm text-slate-300">
-                            Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
-                        </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
-                            Esci
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Menu Overlay -->
-    <div id="mobileMenuOverlay"></div>
-
-    <!-- Mobile Sidebar -->
-    <aside id="mobileSidebar" class="md:hidden">
-        <div class="p-6">
-            <!-- Close Button -->
-            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <!-- Navigation -->
-            <nav class="space-y-2">
-                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
-                </a>
-
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
-                </a>
-
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
-                </a>
-
-                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span>Passa a PRO</span>
-                </a>
-            </nav>
-
-            <!-- Mobile Streak -->
-            <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
-                <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
-                <div class="text-xs text-slate-400">giorni di streak</div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Container -->
-    <div class="flex">
-        <!-- Desktop Sidebar -->
-        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
-            <nav class="p-6 space-y-2">
-                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
-                </a>
-
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
-                </a>
-
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
-                </a>
-
-                <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span>Passa a PRO</span>
-                </a>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+    <section class="min-h-screen flex items-center justify-center py-8 md:py-12 px-4">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
             
-            <!-- View: Oggi -->
-            <div id="viewOggi" class="view-container">
+            <!-- LEFT: Filosofi + Citazione (3 col) - SOLO DESKTOP -->
+            <div class="philosopher-section md:col-span-3 text-center md:text-left animate-fadeIn">
                 
-                <!-- Contenuto Quotidiano -->
-                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
-                            Contenuto Quotidiano
+                <!-- Logo e Link Home -->
+                <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-10 w-10 md:h-12 md:w-12 object-contain drop-shadow-2xl">
+                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white">
+                        The Stoic Journey
+                    </span>
+                </a>
+                
+                <!-- Citazione Rotativa -->
+                <div class="mb-6 md:mb-8 animate-fadeIn delay-200">
+                    <h1 id="rotatingQuote" class="text-3xl md:text-5xl lg:text-6xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
+                        "La felicità della tua vita dipende dalla qualità dei tuoi pensieri"
+                    </h1>
+                    <p id="rotatingAuthor" class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
+                        — Marco Aurelio
+                    </p>
+                </div>
+                
+                <!-- Immagini 3 Filosofi - Layout Anelli Olimpici -->
+                <div class="philosopher-images flex justify-center md:justify-start animate-fadeIn delay-400">
+                    <div class="relative w-full max-w-2xl mx-auto md:mx-0">
+                        <!-- Riga superiore: Marco Aurelio + Epitteto -->
+                        <div class="flex justify-center gap-6 md:gap-8 mb-[-80px] md:mb-[-110px]">
+                            <!-- Marco Aurelio -->
+                            <div class="philosopher-circle group">
+                                <img src="marco_aurelio_3d.jpg" 
+                                     alt="Marco Aurelio" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
+                            </div>
+                            
+                            <!-- Epitteto -->
+                            <div class="philosopher-circle group">
+                                <img src="Epitteto_3d.png" 
+                                     alt="Epitteto" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Riga inferiore: Zenone -->
+                        <div class="flex justify-center">
+                            <div class="philosopher-circle group">
+                                <img src="Zenone_di_Cinzio_3d.png" 
+                                     alt="Zenone di Cinzio" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl relative z-10">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Zenone di Cinzio</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RIGHT: Form Login (2 col) -->
+            <div class="md:col-span-2 animate-fadeIn">
+                <div class="max-w-md w-full bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-amber-500/20 shadow-2xl p-8">
+                    
+                    <!-- Logo Mobile Only -->
+                    <div class="md:hidden text-center mb-8">
+                        <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
+                            <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
+                        </a>
+                        <h1 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">The Stoic Journey</h1>
+                        <p class="text-slate-400">Accedi per continuare il tuo percorso stoico</p>
+                    </div>
+
+                    <!-- Title Desktop Only -->
+                    <div class="hidden md:block text-center mb-8">
+                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 mb-2">
+                            Bentornato, Stoico
                         </h2>
-                        <p class="text-sm font-trajan font-bold" style="color: #f5dec3; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                            Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
+                        <p class="text-sm md:text-base text-slate-300 font-baskerville">
+                            Continua il tuo viaggio di saggezza
                         </p>
                     </div>
 
-                    <!-- Skeleton Loader -->
-                    <div id="contentSkeleton" class="space-y-4">
-                        <div class="skeleton h-6 w-3/4 mx-auto rounded"></div>
-                        <div class="skeleton h-4 w-full rounded"></div>
-                        <div class="skeleton h-4 w-5/6 rounded"></div>
-                        <div class="skeleton h-32 w-full rounded mt-6"></div>
-                    </div>
+                    <!-- Google Login Button -->
+                    <button 
+                        id="googleLoginBtn"
+                        class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span id="googleBtnText">Continua con Google</span>
+                        <div id="googleSpinner" class="spinner hidden"></div>
+                    </button>
 
-                    <!-- Daily Content -->
-                    <div id="dailyContent" class="hidden space-y-6">
-                        <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
-                            <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="quoteText">...</p>
-                            <p class="text-sm font-semibold highlighted-text" id="quoteAuthor">...</p>
+                    <!-- Divider -->
+                    <div class="relative mb-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-700"></div>
                         </div>
-
-                        <div class="parchment-card rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
-                            <p class="leading-relaxed font-trajan" id="interpretationText">...</p>
-                        </div>
-
-                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
-                            <p class="leading-relaxed font-trajan" id="challengeText">...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Riflessioni -->
-                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
-                        Le Tue Riflessioni di Oggi
-                    </h3>
-
-                    <textarea 
-                        id="reflectionTextarea" 
-                        maxlength="2000"
-                        placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
-                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
-                    ></textarea>
-
-                    <div class="flex items-center justify-between mt-3">
-                        <span class="text-xs text-slate-500">
-                            <span id="charCount">0</span>/2000 caratteri
-                        </span>
-
-                        <div class="flex gap-3">
-                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
-                                <span>Copia</span>
-                            </button>
-                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
-                                <span>Salva</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Il Tuo Progresso -->
-                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
-                        Il Tuo Progresso
-                    </h3>
-
-                    <!-- Mobile Progress -->
-                    <div class="space-y-4 md:hidden">
-                        <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
-                            <div class="text-xs text-slate-400">giorni di streak</div>
-                        </div>
-
-                        <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-2xl font-bold text-amber-400 mb-1" id="progressReflections">0</div>
-                            <div class="text-xs text-slate-400">riflessioni scritte</div>
-                        </div>
-
-                        <div class="bg-slate-800 rounded-lg p-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-slate-300">Sfide completate</span>
-                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
-                            </div>
-                            <div class="w-full bg-slate-700 rounded-full h-2">
-                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
-                            </div>
-                            <div class="text-xs text-slate-500 text-right mt-1">
-                                <span id="progressPercentage">0</span>%
-                            </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-slate-900 text-slate-500 font-baskerville">oppure con email</span>
                         </div>
                     </div>
 
-                    <!-- Desktop Progress -->
-                    <div class="hidden md:grid md:grid-cols-3 gap-6">
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
-                            <div class="text-sm text-slate-400">giorni di streak</div>
+                    <!-- Form Login Email/Password -->
+                    <form id="loginForm" class="space-y-4 relative">
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input 
+                                type="email" 
+                                id="emailInput"
+                                required
+                                placeholder="stoico@esempio.com"
+                                autocomplete="email"
+                                class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 outline-none transition-all"
+                            >
+                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
+                            <p id="emailSuccess" class="text-green-400 text-sm mt-1 hidden error-message">✓ Email valida</p>
                         </div>
 
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
-                            <div class="text-sm text-slate-400">riflessioni scritte</div>
+                        <!-- Password -->
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Password</label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="passwordInput"
+                                    required
+                                    placeholder="Inserisci la tua password"
+                                    autocomplete="current-password"
+                                    class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 pr-12 outline-none transition-all"
+                                >
+                                <button 
+                                    type="button" 
+                                    id="togglePassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
+                                    aria-label="Mostra/Nascondi password"
+                                >
+                                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    <svg id="eyeSlashIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p id="passwordError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
                         </div>
 
-                        <div class="bg-slate-800 rounded-lg p-6">
-                            <div class="text-center mb-3">
-                                <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
-                            </div>
-                            <div class="w-full bg-slate-700 rounded-full h-3">
-                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
-                            </div>
-                            <div class="text-xs text-slate-400 text-center mt-2">
-                                <span id="progressPercentageDesktop">0</span>% completato
-                            </div>
+                        <!-- Remember Me Checkbox -->
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rememberMe" class="mr-2 w-4 h-4 bg-slate-800 border-slate-700 rounded">
+                            <label for="rememberMe" class="text-sm text-slate-400">Ricordami su questo dispositivo</label>
                         </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            id="submitBtn"
+                            class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span id="submitBtnText">Accedi</span>
+                            <div id="submitSpinner" class="spinner hidden"></div>
+                        </button>
+                    </form>
+
+                    <!-- Password Dimenticata -->
+                    <div class="mt-6 text-center">
+                        <a href="#" class="text-amber-400 hover:underline text-sm">Password dimenticata?</a>
+                    </div>
+
+                    <!-- Link Registrazione -->
+                    <div class="mt-4 text-center text-sm text-slate-500">
+                        Non hai ancora un account? <a href="registrazione.html" class="text-amber-400 hover:underline">Registrati</a>
+                    </div>
+
+                    <!-- Privacy Footer -->
+                    <div class="mt-6 text-center text-xs text-slate-600">
+                        Continuando accetti i nostri <a href="#" class="text-amber-400 hover:underline">Termini</a> e la <a href="#" class="text-amber-400 hover:underline">Privacy Policy</a>
                     </div>
                 </div>
             </div>
-
-            <!-- View: Archivio -->
-            <div id="viewArchivio" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                </div>
-            </div>
-
-            <!-- View: Impostazioni -->
-            <div id="viewImpostazioni" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
-                </div>
-            </div>
-
-            <!-- View: PRO -->
-            <div id="viewPro" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
-                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
-                </div>
-            </div>
-
-        </main>
-    </div>
+            
+        </div>
+    </section>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
-
-    <!-- Libreria Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        function arabicToRoman(num) {
-            const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-            const syms = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
-            let roman = '';
-            for (let i = 0; i < val.length; i++) {
-                while (num >= val[i]) {
-                    roman += syms[i];
-                    num -= val[i];
-                }
+        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const googleBtnText = document.getElementById('googleBtnText');
+        const googleSpinner = document.getElementById('googleSpinner');
+        const loginForm = document.getElementById('loginForm');
+        const emailInput = document.getElementById('emailInput');
+        const emailError = document.getElementById('emailError');
+        const emailSuccess = document.getElementById('emailSuccess');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordError = document.getElementById('passwordError');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnText = document.getElementById('submitBtnText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const togglePassword = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+        const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+        // ========== CITAZIONI ROTANTI ==========
+        const quotes = [
+            {
+                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "Non è ciò che ti accade, ma come reagisci che conta",
+                author: "Epitteto"
+            },
+            {
+                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
+                author: "Zenone di Cizio"
+            },
+            {
+                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
+                author: "Marco Aurelio"
             }
-            return roman;
-        }
+        ];
 
-        const dailyContents = {
-            tipo1: {
-                quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
-                author: "Epitteto, Enchiridion",
-                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
-            },
-            tipo2: {
-                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
-                author: "Marco Aurelio, Meditazioni V.20",
-                interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
-            },
-            tipo3: {
-                quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
-                author: "Seneca, Lettere a Lucilio",
-                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
-            },
-            tipo4: {
-                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
-                author: "Marco Aurelio, Meditazioni II.11",
-                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
-                challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
-            }
-        };
+        let currentQuoteIndex = 0;
 
-        function getDayOfYear() {
-            const now = new Date();
-            const start = new Date(now.getFullYear(), 0, 0);
-            const diff = now - start;
-            const oneDay = 1000 * 60 * 60 * 24;
-            return Math.floor(diff / oneDay);
-        }
-
-        function getDailyContentType() {
-            const dayNum = getDayOfYear();
-            const cycle = (dayNum % 4) + 1;
-            return 'tipo' + cycle;
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('🚀 Dashboard: Verifico autenticazione...');
+        function rotateQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            const quote = quotes[currentQuoteIndex];
             
-            try {
-                const { data: { session }, error } = await supabaseClient.auth.getSession();
+            const quoteEl = document.getElementById('rotatingQuote');
+            const authorEl = document.getElementById('rotatingAuthor');
+            
+            if (quoteEl && authorEl) {
+                quoteEl.style.opacity = '0';
+                authorEl.style.opacity = '0';
                 
-                if (!session || error) {
-                    console.warn('⚠️ Nessuna sessione attiva, redirect a login');
-                    window.location.href = 'index.html';
-                    return;
-                }
-                
-                const user = session.user;
-                console.log('✅ Utente autenticato:', user.id);
-                console.log('📧 Email:', user.email);
-                console.log('🔐 Provider:', user.app_metadata?.provider);
-                
-                loadUserData(user);
-                loadDailyContent();
-                await loadProgressData(user.id);
-                setupEventListeners();
-                
-            } catch (error) {
-                console.error('❌ Errore verifica sessione:', error);
-                window.location.href = 'index.html';
+                setTimeout(() => {
+                    quoteEl.textContent = `"${quote.text}"`;
+                    authorEl.textContent = `— ${quote.author}`;
+                    
+                    quoteEl.style.transition = 'opacity 0.5s';
+                    authorEl.style.transition = 'opacity 0.5s';
+                    quoteEl.style.opacity = '1';
+                    authorEl.style.opacity = '1';
+                }, 500);
+            }
+        }
+
+        setInterval(rotateQuote, 8000);
+
+        // ========== VERIFICA SESSIONE ESISTENTE ==========
+        document.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (session && !error) {
+                window.location.href = 'dashboard.html';
+                return;
             }
         });
 
-        function loadUserData(user) {
-            const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'Stoico';
-            console.log('👤 Nome visualizzato:', displayName);
-            document.getElementById('userName').textContent = displayName;
+        // ========== TOGGLE PASSWORD VISIBILITY ==========
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            eyeIcon.classList.toggle('hidden');
+            eyeSlashIcon.classList.toggle('hidden');
+        });
+
+        // ========== VALIDAZIONE EMAIL REAL-TIME ==========
+        emailInput.addEventListener('input', () => {
+            emailError.classList.add('hidden');
+            emailSuccess.classList.add('hidden');
+            emailInput.classList.remove('input-error', 'input-success', 'shake');
+        });
+
+        emailInput.addEventListener('blur', () => {
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email) {
+                emailError.textContent = "L'email è obbligatoria";
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('input-error', 'shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 600);
+                return;
+            }
+
+            if (!emailRegex.test(email)) {
+                emailError.textContent = "Inserisci un'email valida";
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('input-error', 'shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 600);
+                return;
+            }
+
+            emailError.classList.add('hidden');
+            emailSuccess.classList.remove('hidden');
+            emailInput.classList.remove('input-error');
+            emailInput.classList.add('input-success');
+        });
+
+        // ========== HELPER: SET LOADING STATE ==========
+        function setLoadingState(isLoading) {
+            if (isLoading) {
+                emailInput.disabled = true;
+                passwordInput.disabled = true;
+                submitBtn.disabled = true;
+                googleLoginBtn.disabled = true;
+                togglePassword.disabled = true;
+                
+                emailInput.classList.add('input-disabled', 'loading-pulse');
+                passwordInput.classList.add('input-disabled', 'loading-pulse');
+                
+                loginForm.classList.add('form-loading');
+            } else {
+                emailInput.disabled = false;
+                passwordInput.disabled = false;
+                submitBtn.disabled = false;
+                googleLoginBtn.disabled = false;
+                togglePassword.disabled = false;
+                
+                emailInput.classList.remove('input-disabled', 'loading-pulse');
+                passwordInput.classList.remove('input-disabled', 'loading-pulse');
+                
+                loginForm.classList.remove('form-loading');
+            }
         }
 
-        function loadDailyContent() {
-            const dayOfYear = getDayOfYear();
-            const dayRoman = arabicToRoman(dayOfYear);
-            const contentType = getDailyContentType();
-            const content = dailyContents[contentType];
+        // ========== LOGIN GOOGLE OAUTH ==========
+        googleLoginBtn.addEventListener('click', async () => {
+            googleBtnText.textContent = 'Reindirizzamento...';
+            googleSpinner.classList.remove('hidden');
+            setLoadingState(true);
             
-            document.getElementById('dayOfYear').textContent = dayRoman;
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+                options: {
+                    redirectTo: `${window.location.origin}/Stoicismo-Diary/dashboard.html`
+                }
+            });
+
+            if (error) {
+                showToast('Errore durante il login con Google: ' + error.message);
+                googleBtnText.textContent = 'Continua con Google';
+                googleSpinner.classList.add('hidden');
+                setLoadingState(false);
+            }
+        });
+
+        // ========== LOGIN EMAIL/PASSWORD ==========
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
             
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            emailError.classList.add('hidden');
+            passwordError.classList.add('hidden');
+            emailInput.classList.remove('input-error', 'shake');
+            passwordInput.classList.remove('input-error', 'shake');
+
+            let hasError = false;
+
+            if (!email) {
+                emailError.textContent = "Inserisci la tua email";
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('input-error', 'shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 600);
+                hasError = true;
+            }
+
+            if (!password) {
+                passwordError.textContent = "Inserisci la tua password";
+                passwordError.classList.remove('hidden');
+                passwordInput.classList.add('input-error', 'shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 600);
+                hasError = true;
+            }
+
+            if (hasError) {
+                showToast('Compila tutti i campi');
+                return;
+            }
+
+            submitBtnText.textContent = 'Accesso in corso...';
+            submitSpinner.classList.remove('hidden');
+            setLoadingState(true);
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) {
+                let errorMessage = 'Credenziali non valide';
+                
+                if (error.message.includes('Invalid login credentials')) {
+                    errorMessage = 'Email o password non corretti';
+                    emailInput.classList.add('input-error', 'shake');
+                    passwordInput.classList.add('input-error', 'shake');
+                    setTimeout(() => {
+                        emailInput.classList.remove('shake');
+                        passwordInput.classList.remove('shake');
+                    }, 600);
+                } else if (error.message.includes('Email not confirmed')) {
+                    errorMessage = 'Conferma prima la tua email';
+                    emailInput.classList.add('input-error', 'shake');
+                    setTimeout(() => emailInput.classList.remove('shake'), 600);
+                }
+                
+                showToast(errorMessage);
+                submitBtnText.textContent = 'Accedi';
+                submitSpinner.classList.add('hidden');
+                setLoadingState(false);
+                return;
+            }
+
+            showToast('✅ Login riuscito! Reindirizzamento...');
             setTimeout(() => {
-                document.getElementById('contentSkeleton').classList.add('hidden');
-                document.getElementById('dailyContent').classList.remove('hidden');
-                
-                document.getElementById('quoteText').textContent = content.quote;
-                document.getElementById('quoteAuthor').textContent = content.author;
-                document.getElementById('interpretationText').textContent = content.interpretation;
-                document.getElementById('challengeText').textContent = content.challenge;
-            }, 800);
-        }
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        });
 
-        async function loadProgressData(userId) {
-            console.log('📊 Carico progresso per user:', userId);
-            
-            try {
-                const { data: reflections, error: reflError } = await supabaseClient
-                    .from('reflections')
-                    .select('date, created_at')
-                    .eq('user_id', userId)
-                    .order('date', { ascending: false });
-
-                if (reflError) {
-                    console.error('❌ Errore caricamento riflessioni:', reflError);
-                    updateProgressUI({
-                        streak: 0,
-                        totalReflections: 0,
-                        completedChallenges: 0,
-                        totalChallenges: 365
-                    });
-                    return;
-                }
-
-                console.log('✅ Riflessioni caricate:', reflections?.length || 0);
-
-                const streak = calculateStreak(reflections);
-                const totalReflections = reflections?.length || 0;
-
-                updateProgressUI({
-                    streak,
-                    totalReflections,
-                    completedChallenges: totalReflections,
-                    totalChallenges: 365
-                });
-
-            } catch (error) {
-                console.error('❌ Errore generale:', error);
-                updateProgressUI({
-                    streak: 0,
-                    totalReflections: 0,
-                    completedChallenges: 0,
-                    totalChallenges: 365
-                });
-            }
-        }
-
-        function calculateStreak(reflections) {
-            if (!reflections || reflections.length === 0) return 0;
-
-            const today = new Date().toISOString().split('T')[0];
-            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-
-            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-
-            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
-                return 0;
-            }
-
-            let streak = 0;
-            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-
-            for (const dateStr of uniqueDates) {
-                const refDate = new Date(dateStr);
-                const expectedDate = new Date(currentDate);
-                
-                expectedDate.setHours(0, 0, 0, 0);
-                refDate.setHours(0, 0, 0, 0);
-
-                if (refDate.getTime() === expectedDate.getTime()) {
-                    streak++;
-                    currentDate = new Date(currentDate.getTime() - 86400000);
-                } else {
-                    break;
-                }
-            }
-
-            return streak;
-        }
-
-        function updateProgressUI(data) {
-            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
-
-            document.getElementById('headerStreak').textContent = data.streak;
-            document.getElementById('mobileStreak').textContent = data.streak;
-
-            document.getElementById('progressStreak').textContent = data.streak;
-            document.getElementById('progressReflections').textContent = data.totalReflections;
-            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBar').style.width = `${percentage}%`;
-            document.getElementById('progressPercentage').textContent = percentage;
-
-            document.getElementById('progressStreakDesktop').textContent = data.streak;
-            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
-            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
-            document.getElementById('progressPercentageDesktop').textContent = percentage;
-        }
-
-        function setupEventListeners() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const closeMobileMenu = document.getElementById('closeMobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileSidebar.classList.add('active');
-                mobileMenuOverlay.classList.add('active');
-            });
-
-            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-
-            function closeMobileMenuFunc() {
-                mobileSidebar.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-            }
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const view = e.currentTarget.dataset.view;
-
-                    if (view === 'archivio') {
-                        window.location.href = 'archivio.html';
-                        return;
-                    }
-
-                    if (view === 'impostazioni') {
-                        window.location.href = 'impostazioni.html';
-                        return;
-                    }
-
-                    if (view === 'pro') {
-                        showToast('Funzionalità PRO in arrivo!');
-                        return;
-                    }
-
-                    switchView(view);
-                    closeMobileMenuFunc();
-
-                    document.querySelectorAll('.nav-link').forEach(l => {
-                        l.classList.remove('bg-amber-500/20', 'text-amber-400');
-                    });
-                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
-                });
-            });
-
-            const textarea = document.getElementById('reflectionTextarea');
-            textarea.addEventListener('input', () => {
-                document.getElementById('charCount').textContent = textarea.value.length;
-            });
-
-            document.getElementById('saveBtn').addEventListener('click', async () => {
-                const text = textarea.value.trim();
-
-                if (!text) {
-                    showToast('Scrivi prima una riflessione!');
-                    return;
-                }
-
-                console.log('💾 Salvataggio riflessione...');
-
-                const { data: { session } } = await supabaseClient.auth.getSession();
-
-                if (!session) {
-                    showToast('Errore: non autenticato');
-                    window.location.href = 'index.html';
-                    return;
-                }
-
-                const { data, error } = await supabaseClient.from('reflections').insert({
-                    user_id: session.user.id,
-                    content: text,
-                    date: new Date().toISOString().split('T')[0],
-                    content_type: getDailyContentType()
-                });
-
-                if (error) {
-                    console.error('❌ Errore salvataggio:', error);
-                    showToast('Errore nel salvare: ' + error.message);
-                } else {
-                    console.log('✅ Riflessione salvata!');
-                    showToast('✅ Riflessione salvata!');
-                    textarea.value = '';
-                    document.getElementById('charCount').textContent = '0';
-                    await loadProgressData(session.user.id);
-                }
-            });
-
-            document.getElementById('copyBtn').addEventListener('click', () => {
-                const text = textarea.value;
-                if (!text) return showToast('Niente da copiare!');
-
-                navigator.clipboard.writeText(text).then(() => {
-                    showToast('✅ Copiato!');
-                });
-            });
-
-            document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('🚪 Logout...');
-                await supabaseClient.auth.signOut();
-                window.location.href = 'index.html';
-            });
-        }
-
-        function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-            document.getElementById('view' + viewName.charAt(0).toUpperCase() + viewName.slice(1)).classList.remove('hidden');
-        }
-
+        // ========== TOAST NOTIFICATION ==========
         function showToast(message) {
             const toast = document.getElementById('toast');
             document.getElementById('toastMessage').textContent = message;
             toast.style.transform = 'translateY(0)';
-            setTimeout(() => {
-                toast.style.transform = 'translateY(8rem)';
-            }, 3000);
+            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3500);
         }
-    </script>
 
+        // ========== GESTIONE CALLBACK OAUTH ==========
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                showToast('✅ Login riuscito!');
+                setLoadingState(true);
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+            }
+        });
+    </script>
 </body>
 </html>
