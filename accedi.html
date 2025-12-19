@@ -352,10 +352,10 @@
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabaseClient.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         const googleLoginBtn = document.getElementById('googleLoginBtn');
         const googleBtnText = document.getElementById('googleBtnText');
@@ -426,7 +426,7 @@
 
         // ========== VERIFICA SESSIONE ESISTENTE ==========
         document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session }, error } = await supabase.auth.getSession();
+            const { data: { session }, error } = await supabaseClient.auth.getSession();
             
             if (session && !error) {
                 window.location.href = 'dashboard.html';
@@ -509,7 +509,7 @@
             googleSpinner.classList.remove('hidden');
             setLoadingState(true);
             
-            const { error } = await supabase.auth.signInWithOAuth({
+            const { error } = await supabaseClient.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
                     redirectTo: `${window.location.origin}/Stoicismo-Diary/dashboard.html`
@@ -563,7 +563,7 @@
             submitSpinner.classList.remove('hidden');
             setLoadingState(true);
 
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
                 email,
                 password
             });
@@ -607,7 +607,7 @@
         }
 
         // ========== GESTIONE CALLBACK OAUTH ==========
-        supabase.auth.onAuthStateChange((event, session) => {
+        supabaseClient.auth.onAuthStateChange((event, session) => {
             if (event === 'SIGNED_IN' && session) {
                 showToast('✅ Login riuscito!');
                 setLoadingState(true);
