@@ -510,11 +510,12 @@
             setLoadingState(true);
             
             const { error } = await supabase.auth.signInWithOAuth({
-                provider: 'google',
-                options: {
-                    redirectTo: `${window.location.origin}/Stoicismo-Diary/dashboard.html`
-                }
-            });
+    provider: 'google',
+    options: {
+        redirectTo: `${window.location.origin}${window.location.pathname.replace('accedi.html', 'dashboard.html')}`
+    }
+});
+
 
             if (error) {
                 showToast('Errore durante il login con Google: ' + error.message);
