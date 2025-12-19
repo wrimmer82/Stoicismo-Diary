@@ -14,7 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-        
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
@@ -494,12 +495,10 @@
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabaseClient.co';
+    <script>
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         function arabicToRoman(num) {
             const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
@@ -559,7 +558,7 @@
   console.log('Dashboard: Verifico autenticazione...');
   
   try {
-    const { data: { session }, error } = await supabaseClient.auth.getSession();
+    const { data: { session }, error } = await supabase.auth.getSession();
     
     if (!session || error) {
       console.warn('Nessuna sessione attiva, redirect a login');
@@ -824,14 +823,14 @@ function useFallbackContent() {
 
                 console.log('💾 Salvataggio riflessione...');
 
-                const { data: { session } } = await supabaseClient.auth.getSession();
+                const { data: { session } } = await supabase.auth.getSession();
                 if (!session) {
                     showToast('Errore: non autenticato');
                     window.location.href = 'accedi.html';
                     return;
                 }
 
-                const { data, error } = await supabaseClient.from('reflections').insert({
+                const { data, error } = await supabase.from('reflections').insert({
                     user_id: session.user.id,
                     content: text,
                     date: new Date().toISOString().split('T')[0],
@@ -859,7 +858,7 @@ function useFallbackContent() {
 
             document.getElementById('logoutBtn').addEventListener('click', async () => {
                 console.log('👋 Logout...');
-                await supabaseClient.auth.signOut();
+                await supabase.auth.signOut();
                 window.location.href = 'index.html';
             });
         }
@@ -877,14 +876,15 @@ function useFallbackContent() {
         }
     </script>
     <!-- Libreria Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <!-- Codice per caricare contenuto quotidiano -->
 <script>
   // Configurazione Supabase
-  const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabaseClient.co';
+  const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
   
-  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // Funzione che calcola il giorno dell'anno (1-366)
   function getGiornoAnno() {
