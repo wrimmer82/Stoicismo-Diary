@@ -351,272 +351,269 @@
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-    <script>
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+   <script>
+    const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+    
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    const googleBtnText = document.getElementById('googleBtnText');
+    const googleSpinner = document.getElementById('googleSpinner');
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('emailInput');
+    const emailError = document.getElementById('emailError');
+    const emailSuccess = document.getElementById('emailSuccess');
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitBtnText = document.getElementById('submitBtnText');
+    const submitSpinner = document.getElementById('submitSpinner');
+    const togglePassword = document.getElementById('togglePassword');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const eyeSlashIcon = document.getElementById('eyeSlashIcon');
+
+    // ========== CITAZIONI ROTANTI ==========
+    const quotes = [
+        {
+            text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
+            author: "Marco Aurelio"
+        },
+        {
+            text: "Non è ciò che ti accade, ma come reagisci che conta",
+            author: "Epitteto"
+        },
+        {
+            text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
+            author: "Zenone di Cizio"
+        },
+        {
+            text: "Non conta quante volte cadi, ma quante volte ti rialzi",
+            author: "Marco Aurelio"
+        },
+        {
+            text: "Chi controlla le proprie passioni è più forte di chi conquista città",
+            author: "Marco Aurelio"
+        }
+    ];
+
+    let currentQuoteIndex = 0;
+
+    function rotateQuote() {
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        const quote = quotes[currentQuoteIndex];
         
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
-        const googleBtnText = document.getElementById('googleBtnText');
-        const googleSpinner = document.getElementById('googleSpinner');
-        const loginForm = document.getElementById('loginForm');
-        const emailInput = document.getElementById('emailInput');
-        const emailError = document.getElementById('emailError');
-        const emailSuccess = document.getElementById('emailSuccess');
-        const passwordInput = document.getElementById('passwordInput');
-        const passwordError = document.getElementById('passwordError');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitBtnText = document.getElementById('submitBtnText');
-        const submitSpinner = document.getElementById('submitSpinner');
-        const togglePassword = document.getElementById('togglePassword');
-        const eyeIcon = document.getElementById('eyeIcon');
-        const eyeSlashIcon = document.getElementById('eyeSlashIcon');
-
-        // ========== CITAZIONI ROTANTI ==========
-        const quotes = [
-            {
-                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
-                author: "Marco Aurelio"
-            },
-            {
-                text: "Non è ciò che ti accade, ma come reagisci che conta",
-                author: "Epitteto"
-            },
-            {
-                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
-                author: "Zenone di Cizio"
-            },
-            {
-                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
-                author: "Marco Aurelio"
-            },
-            {
-                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
-                author: "Marco Aurelio"
-            }
-        ];
-
-        let currentQuoteIndex = 0;
-
-        function rotateQuote() {
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-            const quote = quotes[currentQuoteIndex];
+        const quoteEl = document.getElementById('rotatingQuote');
+        const authorEl = document.getElementById('rotatingAuthor');
+        
+        if (quoteEl && authorEl) {
+            quoteEl.style.opacity = '0';
+            authorEl.style.opacity = '0';
             
-            const quoteEl = document.getElementById('rotatingQuote');
-            const authorEl = document.getElementById('rotatingAuthor');
-            
-            if (quoteEl && authorEl) {
-                quoteEl.style.opacity = '0';
-                authorEl.style.opacity = '0';
+            setTimeout(() => {
+                quoteEl.textContent = `"${quote.text}"`;
+                authorEl.textContent = `— ${quote.author}`;
                 
-                setTimeout(() => {
-                    quoteEl.textContent = `"${quote.text}"`;
-                    authorEl.textContent = `— ${quote.author}`;
-                    
-                    quoteEl.style.transition = 'opacity 0.5s';
-                    authorEl.style.transition = 'opacity 0.5s';
-                    quoteEl.style.opacity = '1';
-                    authorEl.style.opacity = '1';
-                }, 500);
-            }
+                quoteEl.style.transition = 'opacity 0.5s';
+                authorEl.style.transition = 'opacity 0.5s';
+                quoteEl.style.opacity = '1';
+                authorEl.style.opacity = '1';
+            }, 500);
         }
-
-        setInterval(rotateQuote, 8000);
-
-        // ========== VERIFICA SESSIONE ESISTENTE ==========
-        document.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session }, error } = await supabase.auth.getSession();
-            
-            if (session && !error) {
-                window.location.href = 'dashboard.html';
-                return;
-            }
-        });
-
-        // ========== TOGGLE PASSWORD VISIBILITY ==========
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            eyeIcon.classList.toggle('hidden');
-            eyeSlashIcon.classList.toggle('hidden');
-        });
-
-        // ========== VALIDAZIONE EMAIL REAL-TIME ==========
-        emailInput.addEventListener('input', () => {
-            emailError.classList.add('hidden');
-            emailSuccess.classList.add('hidden');
-            emailInput.classList.remove('input-error', 'input-success', 'shake');
-        });
-
-        emailInput.addEventListener('blur', () => {
-            const email = emailInput.value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            if (!email) {
-                emailError.textContent = "L'email è obbligatoria";
-                emailError.classList.remove('hidden');
-                emailInput.classList.add('input-error', 'shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 600);
-                return;
-            }
-
-            if (!emailRegex.test(email)) {
-                emailError.textContent = "Inserisci un'email valida";
-                emailError.classList.remove('hidden');
-                emailInput.classList.add('input-error', 'shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 600);
-                return;
-            }
-
-            emailError.classList.add('hidden');
-            emailSuccess.classList.remove('hidden');
-            emailInput.classList.remove('input-error');
-            emailInput.classList.add('input-success');
-        });
-
-        // ========== HELPER: SET LOADING STATE ==========
-        function setLoadingState(isLoading) {
-            if (isLoading) {
-                emailInput.disabled = true;
-                passwordInput.disabled = true;
-                submitBtn.disabled = true;
-                googleLoginBtn.disabled = true;
-                togglePassword.disabled = true;
-                
-                emailInput.classList.add('input-disabled', 'loading-pulse');
-                passwordInput.classList.add('input-disabled', 'loading-pulse');
-                
-                loginForm.classList.add('form-loading');
-            } else {
-                emailInput.disabled = false;
-                passwordInput.disabled = false;
-                submitBtn.disabled = false;
-                googleLoginBtn.disabled = false;
-                togglePassword.disabled = false;
-                
-                emailInput.classList.remove('input-disabled', 'loading-pulse');
-                passwordInput.classList.remove('input-disabled', 'loading-pulse');
-                
-                loginForm.classList.remove('form-loading');
-            }
-        }
-
-        // ========== LOGIN GOOGLE OAUTH ==========
-        googleLoginBtn.addEventListener('click', async () => {
-            googleBtnText.textContent = 'Reindirizzamento...';
-            googleSpinner.classList.remove('hidden');
-            setLoadingState(true);
-            
-            const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-                    redirectTo: 'https://wrimmer82.github.io/Stoicismo-Diary/dashboard.html'
     }
-});
 
+    setInterval(rotateQuote, 8000);
 
-            if (error) {
-                showToast('Errore durante il login con Google: ' + error.message);
-                googleBtnText.textContent = 'Continua con Google';
-                googleSpinner.classList.add('hidden');
-                setLoadingState(false);
+    // ========== VERIFICA SESSIONE ESISTENTE ==========
+    document.addEventListener('DOMContentLoaded', async () => {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (session && !error) {
+            window.location.href = 'dashboard.html';
+            return;
+        }
+    });
+
+    // ========== TOGGLE PASSWORD VISIBILITY ==========
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        eyeIcon.classList.toggle('hidden');
+        eyeSlashIcon.classList.toggle('hidden');
+    });
+
+    // ========== VALIDAZIONE EMAIL REAL-TIME ==========
+    emailInput.addEventListener('input', () => {
+        emailError.classList.add('hidden');
+        emailSuccess.classList.add('hidden');
+        emailInput.classList.remove('input-error', 'input-success', 'shake');
+    });
+
+    emailInput.addEventListener('blur', () => {
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!email) {
+            emailError.textContent = "L'email è obbligatoria";
+            emailError.classList.remove('hidden');
+            emailInput.classList.add('input-error', 'shake');
+            setTimeout(() => emailInput.classList.remove('shake'), 600);
+            return;
+        }
+
+        if (!emailRegex.test(email)) {
+            emailError.textContent = "Inserisci un'email valida";
+            emailError.classList.remove('hidden');
+            emailInput.classList.add('input-error', 'shake');
+            setTimeout(() => emailInput.classList.remove('shake'), 600);
+            return;
+        }
+
+        emailError.classList.add('hidden');
+        emailSuccess.classList.remove('hidden');
+        emailInput.classList.remove('input-error');
+        emailInput.classList.add('input-success');
+    });
+
+    // ========== HELPER: SET LOADING STATE ==========
+    function setLoadingState(isLoading) {
+        if (isLoading) {
+            emailInput.disabled = true;
+            passwordInput.disabled = true;
+            submitBtn.disabled = true;
+            googleLoginBtn.disabled = true;
+            togglePassword.disabled = true;
+            
+            emailInput.classList.add('input-disabled', 'loading-pulse');
+            passwordInput.classList.add('input-disabled', 'loading-pulse');
+            
+            loginForm.classList.add('form-loading');
+        } else {
+            emailInput.disabled = false;
+            passwordInput.disabled = false;
+            submitBtn.disabled = false;
+            googleLoginBtn.disabled = false;
+            togglePassword.disabled = false;
+            
+            emailInput.classList.remove('input-disabled', 'loading-pulse');
+            passwordInput.classList.remove('input-disabled', 'loading-pulse');
+            
+            loginForm.classList.remove('form-loading');
+        }
+    }
+
+    // ========== LOGIN GOOGLE OAUTH ==========
+    googleLoginBtn.addEventListener('click', async () => {
+        googleBtnText.textContent = 'Reindirizzamento...';
+        googleSpinner.classList.remove('hidden');
+        setLoadingState(true);
+        
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+                redirectTo: 'https://wrimmer82.github.io/Stoicismo-Diary/dashboard.html'
             }
         });
 
-        // ========== LOGIN EMAIL/PASSWORD ==========
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
+        if (error) {
+            showToast('Errore durante il login con Google: ' + error.message);
+            googleBtnText.textContent = 'Continua con Google';
+            googleSpinner.classList.add('hidden');
+            setLoadingState(false);
+        }
+    });
+
+    // ========== LOGIN EMAIL/PASSWORD ==========
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        emailError.classList.add('hidden');
+        passwordError.classList.add('hidden');
+        emailInput.classList.remove('input-error', 'shake');
+        passwordInput.classList.remove('input-error', 'shake');
+
+        let hasError = false;
+
+        if (!email) {
+            emailError.textContent = "Inserisci la tua email";
+            emailError.classList.remove('hidden');
+            emailInput.classList.add('input-error', 'shake');
+            setTimeout(() => emailInput.classList.remove('shake'), 600);
+            hasError = true;
+        }
+
+        if (!password) {
+            passwordError.textContent = "Inserisci la tua password";
+            passwordError.classList.remove('hidden');
+            passwordInput.classList.add('input-error', 'shake');
+            setTimeout(() => passwordInput.classList.remove('shake'), 600);
+            hasError = true;
+        }
+
+        if (hasError) {
+            showToast('Compila tutti i campi');
+            return;
+        }
+
+        submitBtnText.textContent = 'Accesso in corso...';
+        submitSpinner.classList.remove('hidden');
+        setLoadingState(true);
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password
+        });
+
+        if (error) {
+            let errorMessage = 'Credenziali non valide';
             
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-
-            emailError.classList.add('hidden');
-            passwordError.classList.add('hidden');
-            emailInput.classList.remove('input-error', 'shake');
-            passwordInput.classList.remove('input-error', 'shake');
-
-            let hasError = false;
-
-            if (!email) {
-                emailError.textContent = "Inserisci la tua email";
-                emailError.classList.remove('hidden');
+            if (error.message.includes('Invalid login credentials')) {
+                errorMessage = 'Email o password non corretti';
+                emailInput.classList.add('input-error', 'shake');
+                passwordInput.classList.add('input-error', 'shake');
+                setTimeout(() => {
+                    emailInput.classList.remove('shake');
+                    passwordInput.classList.remove('shake');
+                }, 600);
+            } else if (error.message.includes('Email not confirmed')) {
+                errorMessage = 'Conferma prima la tua email';
                 emailInput.classList.add('input-error', 'shake');
                 setTimeout(() => emailInput.classList.remove('shake'), 600);
-                hasError = true;
             }
+            
+            showToast(errorMessage);
+            submitBtnText.textContent = 'Accedi';
+            submitSpinner.classList.add('hidden');
+            setLoadingState(false);
+            return;
+        }
 
-            if (!password) {
-                passwordError.textContent = "Inserisci la tua password";
-                passwordError.classList.remove('hidden');
-                passwordInput.classList.add('input-error', 'shake');
-                setTimeout(() => passwordInput.classList.remove('shake'), 600);
-                hasError = true;
-            }
+        showToast('✅ Login riuscito! Reindirizzamento...');
+        setTimeout(() => {
+            window.location.href = 'dashboard.html';
+        }, 1000);
+    });
 
-            if (hasError) {
-                showToast('Compila tutti i campi');
-                return;
-            }
+    // ========== TOAST NOTIFICATION ==========
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMessage').textContent = message;
+        toast.style.transform = 'translateY(0)';
+        setTimeout(() => toast.style.transform = 'translateY(8rem)', 3500);
+    }
 
-            submitBtnText.textContent = 'Accesso in corso...';
-            submitSpinner.classList.remove('hidden');
+    // ========== GESTIONE CALLBACK OAUTH ==========
+    supabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+            showToast('✅ Login riuscito!');
             setLoadingState(true);
-
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email,
-                password
-            });
-
-            if (error) {
-                let errorMessage = 'Credenziali non valide';
-                
-                if (error.message.includes('Invalid login credentials')) {
-                    errorMessage = 'Email o password non corretti';
-                    emailInput.classList.add('input-error', 'shake');
-                    passwordInput.classList.add('input-error', 'shake');
-                    setTimeout(() => {
-                        emailInput.classList.remove('shake');
-                        passwordInput.classList.remove('shake');
-                    }, 600);
-                } else if (error.message.includes('Email not confirmed')) {
-                    errorMessage = 'Conferma prima la tua email';
-                    emailInput.classList.add('input-error', 'shake');
-                    setTimeout(() => emailInput.classList.remove('shake'), 600);
-                }
-                
-                showToast(errorMessage);
-                submitBtnText.textContent = 'Accedi';
-                submitSpinner.classList.add('hidden');
-                setLoadingState(false);
-                return;
-            }
-
-            showToast('✅ Login riuscito! Reindirizzamento...');
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 1000);
-        });
-
-        // ========== TOAST NOTIFICATION ==========
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = message;
-            toast.style.transform = 'translateY(0)';
-            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3500);
         }
-
-        // ========== GESTIONE CALLBACK OAUTH ==========
-        supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_IN' && session) {
-                showToast('✅ Login riuscito!');
-                setLoadingState(true);
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
-            }
-        });
-    </script>
-</body>
-</html>
+    });
+</script>
