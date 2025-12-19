@@ -5,121 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archivio Riflessioni - The Stoic Journey</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-cinzel {
+            font-family: 'Cinzel', serif;
+        }
+        
+        .font-trajan {
+            font-family: 'Trajan Pro', 'Cinzel', serif;
+        }
+        
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
         
         body {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, 
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, 
-                #c49050 80%, #a8754a 90%, #1c1410 100%
-            );
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, #c49050 80%, #a8754a 90%, #1c1410 100%);
             min-height: 100vh;
             background-attachment: fixed;
         }
-
+        
+        /* Card pergamena IDENTICA a impostazioni */
         .parchment-card {
-            background: linear-gradient(135deg, rgba(245, 222, 179, 0.95) 0%, rgba(235, 212, 169, 0.95) 100%);
+            background: rgba(245, 222, 179, 0.95);
             border: 2px solid rgba(146, 64, 14, 0.4);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-
-        .reflection-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        
+        .parchment-card h3 {
+            color: #92400e;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
         }
-
-        .reflection-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        
+        .parchment-card label {
+            color: #451a03;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
+        
+        .parchment-input {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(146, 64, 14, 0.3);
+            color: #451a03;
         }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
+        
+        .parchment-input:focus {
+            border-color: #92400e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.2);
         }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
+        
+        .roman-number {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            letter-spacing: 0.1em;
         }
-
-        #mobileMenuOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+        
+        /* Navigation links IDENTICI a impostazioni */
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
         }
-
-        #mobileMenuOverlay.active {
-            opacity: 1;
-            visibility: visible;
+        
+        .nav-link:hover {
+            background-color: rgba(30, 41, 59, 1);
         }
-
-        #mobileSidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
+        
+        .nav-link.active {
+            background-color: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            font-weight: 500;
         }
-
-        #mobileSidebar.active {
-            transform: translateX(0);
+        
+        /* Animazione streak */
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            }
+        }
+        
+        .streak-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        /* OTTIMIZZAZIONE MOBILE */
+        @media (max-width: 767px) {
+            .mobile-btn {
+                min-height: 48px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
 <body class="font-inter text-slate-100">
-
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
-                    <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                    
                     <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="Logo" class="h-10 w-10 object-contain">
-                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400">The Stoic Journey</span>
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
+                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
                     </div>
                 </div>
-
-                <div class="flex items-center gap-4">
-                    <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full">
+                
+                <div class="flex items-center gap-4 md:gap-6">
+                    <!-- Streak counter -->
+                    <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
                         <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
-
+                    
                     <div class="flex items-center gap-3">
                         <span class="hidden md:inline text-sm text-slate-300">
                             Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
                         </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium">
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
                             Esci
                         </button>
                     </div>
@@ -128,79 +144,37 @@
         </div>
     </header>
 
-    <!-- Mobile Overlay -->
-    <div id="mobileMenuOverlay"></div>
-
-    <!-- Mobile Sidebar -->
-    <aside id="mobileSidebar">
-        <div class="p-6">
-            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <nav class="space-y-2">
-                <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
-                </a>
-
-                <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
-                </a>
-
-                <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
-                </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span>Passa a PRO</span>
-                </a>
-            </nav>
-        </div>
-    </aside>
-
-    <!-- Main Container -->
     <div class="flex">
-        <!-- Desktop Sidebar -->
+        <!-- SIDEBAR DESKTOP - IDENTICA A IMPOSTAZIONI -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
-                <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                <!-- Oggi -->
+                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                     <span>Oggi</span>
                 </a>
-
-                <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium">
+                
+                <!-- Archivio - ATTIVO -->
+                <a href="archivio.html" class="nav-link active transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
                     <span>Archivio</span>
                 </a>
-
-                <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                
+                <!-- Impostazioni -->
+                <a href="impostazioni.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>Impostazioni</span>
                 </a>
-
-                <a href="#" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold mt-4">
+                
+                <!-- Passa a PRO -->
+                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
@@ -209,171 +183,239 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-4 md:p-8 max-w-6xl mx-auto w-full">
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full">
             
-            <!-- Filtri e Ricerca -->
-            <div class="parchment-card rounded-lg p-6 mb-6">
-                <h2 class="text-xl md:text-2xl font-cinzel font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <!-- FILTRI -->
+            <div class="parchment-card rounded-lg p-6 md:p-8 mb-6">
+                <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide flex items-center gap-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     Filtri e Ricerca
-                </h2>
-
-                <div class="flex flex-col md:flex-row gap-4">
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        placeholder="Cerca nelle riflessioni..."
-                        class="flex-1 px-4 py-2 bg-white border-2 border-amber-900/20 rounded-lg focus:border-amber-500 focus:outline-none text-slate-900"
+                </h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            placeholder="Cerca nelle riflessioni..."
+                            class="parchment-input flex-1 px-4 py-3 rounded-lg font-medium transition-all"
+                        >
+                        <button 
+                            id="toggleFilters" 
+                            class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-3 rounded-lg text-sm md:text-base font-bold transition-all mobile-btn"
+                        >
+                            Filtri
+                        </button>
+                    </div>
+                    
+                    <div id="advancedFilters" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <input 
+                            type="date" 
+                            id="dateFrom" 
+                            class="parchment-input px-4 py-3 rounded-lg font-medium"
+                        >
+                        
+                        <input 
+                            type="date" 
+                            id="dateTo" 
+                            class="parchment-input px-4 py-3 rounded-lg font-medium"
+                        >
+                        
+                        <select 
+                            id="contentTypeFilter" 
+                            class="parchment-input px-4 py-3 rounded-lg font-medium"
+                        >
+                            <option value="">Tutti i tipi</option>
+                            <option value="tipo1">Tipo 1</option>
+                            <option value="tipo2">Tipo 2</option>
+                            <option value="tipo3">Tipo 3</option>
+                            <option value="tipo4">Tipo 4</option>
+                        </select>
+                    </div>
+                    
+                    <button 
+                        id="applyFilters" 
+                        class="hidden w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm mobile-btn"
                     >
-                    <button id="filterBtn" class="bg-slate-900 hover:bg-slate-800 text-amber-400 px-6 py-2 rounded-lg font-medium transition-all">
-                        Filtri
+                        Applica Filtri
                     </button>
                 </div>
             </div>
 
-            <!-- Statistiche -->
-            <div class="parchment-card rounded-lg p-6 mb-6">
-                <h2 class="text-xl md:text-2xl font-cinzel font-bold text-amber-900 mb-4 flex items-center gap-2">
+            <!-- STATISTICHE -->
+            <div class="parchment-card rounded-lg p-6 md:p-8 mb-6">
+                <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-6 uppercase tracking-wide flex items-center gap-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
                     Statistiche
-                </h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="text-center p-4 bg-white/50 rounded-lg">
-                        <div class="text-3xl font-bold text-amber-900" id="totalReflections">0</div>
-                        <div class="text-sm text-slate-700 mt-1">Riflessioni Totali</div>
+                </h3>
+                
+                <div class="grid grid-cols-2 gap-4 md:gap-6">
+                    <div class="text-center">
+                        <p class="text-4xl md:text-5xl font-bold text-amber-700 roman-number mb-2" id="totalReflections">0</p>
+                        <p class="text-sm md:text-base text-amber-900 font-semibold">Riflessioni Totali</p>
                     </div>
-
-                    <div class="text-center p-4 bg-white/50 rounded-lg">
-                        <div class="text-3xl font-bold text-amber-900" id="currentStreak">0</div>
-                        <div class="text-sm text-slate-700 mt-1">-</div>
-                    </div>
-
-                    <div class="text-center p-4 bg-white/50 rounded-lg">
-                        <div class="text-3xl font-bold text-amber-900">Periodo</div>
-                        <div class="text-sm text-slate-700 mt-1">-</div>
+                    <div class="text-center">
+                        <p class="text-base md:text-lg font-bold text-amber-900 mb-2" id="dateRange" style="font-family: 'EB Garamond', serif;">-</p>
+                        <p class="text-sm md:text-base text-amber-900 font-semibold">Periodo</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Lista Riflessioni -->
-            <div id="reflectionsList" class="space-y-4">
-                <!-- Le riflessioni verranno caricate qui dinamicamente -->
+            <!-- LISTA RIFLESSIONI -->
+            <div id="reflectionsContainer" class="space-y-4 md:space-y-5">
             </div>
 
-            <!-- Paginazione -->
-            <div class="flex justify-center gap-4 mt-8">
-                <button id="prevPage" class="bg-slate-900 hover:bg-slate-800 text-amber-400 px-6 py-2 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+            <!-- PAGINAZIONE -->
+            <div id="paginationControls" class="mt-6 md:mt-8 flex justify-center items-center gap-3 md:gap-4 flex-wrap pb-20 md:pb-8">
+                <button id="prevPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-bold transition-all">
                     ← Precedente
                 </button>
-                <span class="flex items-center text-slate-300 font-medium">
-                    Pag <span id="currentPage" class="mx-2 text-amber-400">1</span> di <span id="totalPages" class="ml-2 text-amber-400">1</span>
-                </span>
-                <button id="nextPage" class="bg-slate-900 hover:bg-slate-800 text-amber-400 px-6 py-2 rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                <span id="pageInfo" class="text-white font-bold text-sm md:text-base px-4 py-2 bg-slate-800/70 rounded-lg">Pag 1 di 1</span>
+                <button id="nextPage" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-lg disabled:opacity-50 text-sm md:text-base font-bold transition-all">
                     Successiva →
                 </button>
             </div>
-
         </main>
     </div>
 
-    <!-- Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50">
-        <p id="toastMessage"></p>
+    <!-- MOBILE BOTTOM NAVIGATION -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-t border-amber-500/20 z-40">
+        <div class="flex justify-around py-2">
+            <a href="dashboard.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300 hover:text-amber-400 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span class="text-xs">Oggi</span>
+            </a>
+            
+            <a href="archivio.html" class="flex flex-col items-center gap-1 px-3 py-2 bg-amber-500/20 text-amber-400 font-medium rounded-lg">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                </svg>
+                <span class="text-xs">Archivio</span>
+            </a>
+            
+            <a href="impostazioni.html" class="flex flex-col items-center gap-1 px-3 py-2 text-slate-300 hover:text-amber-400 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span class="text-xs">Impostazioni</span>
+            </a>
+            
+            <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="flex flex-col items-center gap-1 px-3 py-2 text-orange-400 hover:text-orange-300 transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                </svg>
+                <span class="text-xs">PRO</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- MODAL MODIFICA -->
+    <div id="editModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl p-5 md:p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <h3 class="text-xl md:text-2xl font-cinzel font-bold mb-4 text-amber-900 uppercase tracking-wide">Modifica Riflessione</h3>
+            <textarea 
+                id="editTextarea" 
+                class="parchment-input w-full h-56 md:h-72 p-4 md:p-5 rounded-lg text-sm md:text-base font-medium"
+                placeholder="Modifica il testo della tua riflessione..."
+                style="font-family: 'EB Garamond', serif;"
+            ></textarea>
+            <div class="mt-5 flex gap-3 md:gap-4">
+                <button id="saveEditBtn" class="flex-1 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg font-bold text-sm mobile-btn transition-all">
+                    Salva Modifiche
+                </button>
+                <button id="cancelEditBtn" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-lg font-bold text-sm mobile-btn transition-all">
+                    Annulla
+                </button>
+            </div>
+        </div>
     </div>
 
-    <!-- Libreria Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+        <p id="toastMessage" class="text-sm font-medium"></p>
+    </div>
 
     <script>
         const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-        
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+        let currentUser = null;
         let allReflections = [];
+        let filteredReflections = [];
         let currentPage = 1;
-        const itemsPerPage = 10;
+        const ITEMS_PER_PAGE = 10;
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('📚 Caricamento Archivio...');
+        document.addEventListener('DOMContentLoaded', initArchive);
 
-            const { data: { session }, error } = await supabaseClient.auth.getSession();
-
-            if (!session || error) {
-                console.warn('⚠️ Non autenticato');
+        async function initArchive() {
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            if (!session) {
                 window.location.href = 'accedi.html';
                 return;
             }
-
-            const user = session.user;
-            console.log('✅ Utente:', user.id);
-
-            loadUserData(user);
-            await loadReflections(user.id);
+            
+            currentUser = session.user;
+            loadUserData();
+            await loadReflections();
+            await loadProgressData();
             setupEventListeners();
-        });
+        }
 
-        function loadUserData(user) {
-            const displayName = user.user_metadata?.full_name || user.user_metadata?.name || user.email?.split('@')[0] || 'Stoico';
+        function loadUserData() {
+            const displayName = currentUser.user_metadata?.full_name || 
+                               currentUser.user_metadata?.name || 
+                               currentUser.email?.split('@')[0] || 
+                               'Stoico';
             document.getElementById('userName').textContent = displayName;
         }
 
-        async function loadReflections(userId) {
+        async function loadProgressData() {
             try {
-                const { data, error } = await supabaseClient
+                const { data: reflections, error } = await supabase
                     .from('reflections')
-                    .select('*')
-                    .eq('user_id', userId)
+                    .select('date')
+                    .eq('user_id', currentUser.id)
                     .order('date', { ascending: false });
-
-                if (error) {
-                    console.error('❌ Errore caricamento:', error);
-                    showToast('Errore nel caricamento');
-                    return;
-                }
-
-                allReflections = data || [];
-                console.log('✅ Caricate', allReflections.length, 'riflessioni');
-
-                document.getElementById('totalReflections').textContent = allReflections.length;
-
-                const streak = calculateStreak(allReflections);
-                document.getElementById('currentStreak').textContent = streak;
+                
+                if (error) throw error;
+                
+                const streak = calculateStreak(reflections);
                 document.getElementById('headerStreak').textContent = streak;
-
-                renderReflections();
-
-            } catch (err) {
-                console.error('❌ Errore:', err);
+            } catch (error) {
+                console.error('Errore caricamento progresso:', error);
             }
         }
 
         function calculateStreak(reflections) {
             if (!reflections || reflections.length === 0) return 0;
-
+            
             const today = new Date().toISOString().split('T')[0];
             const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-
+            
             const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-
+            
             if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
-
+            
             let streak = 0;
             let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-
+            
             for (const dateStr of uniqueDates) {
                 const refDate = new Date(dateStr);
                 const expectedDate = new Date(currentDate);
                 
                 expectedDate.setHours(0, 0, 0, 0);
                 refDate.setHours(0, 0, 0, 0);
-
+                
                 if (refDate.getTime() === expectedDate.getTime()) {
                     streak++;
                     currentDate = new Date(currentDate.getTime() - 86400000);
@@ -381,133 +423,294 @@
                     break;
                 }
             }
-
+            
             return streak;
         }
 
+        async function loadReflections(filters = {}) {
+            try {
+                let query = supabase
+                    .from('reflections')
+                    .select('*')
+                    .eq('user_id', currentUser.id)
+                    .order('date', { ascending: false });
+                
+                if (filters.dateFrom) query = query.gte('date', filters.dateFrom);
+                if (filters.dateTo) query = query.lte('date', filters.dateTo);
+                if (filters.search) query = query.ilike('content', `%${filters.search}%`);
+                if (filters.contentType) query = query.eq('content_type', filters.contentType);
+                
+                const { data, error } = await query;
+                if (error) throw error;
+                
+                allReflections = data || [];
+                filteredReflections = allReflections;
+                currentPage = 1;
+                renderReflections();
+                updateStatistics();
+            } catch (error) {
+                console.error('Errore:', error);
+                showToast('Errore caricamento riflessioni');
+            }
+        }
+
         function renderReflections() {
-            const start = (currentPage - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            const pageReflections = allReflections.slice(start, end);
-
-            const container = document.getElementById('reflectionsList');
-            container.innerHTML = '';
-
-            if (pageReflections.length === 0) {
+            const container = document.getElementById('reflectionsContainer');
+            
+            if (filteredReflections.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-12">
-                        <p class="text-slate-400 text-lg">Nessuna riflessione trovata</p>
+                    <div class="parchment-card rounded-lg p-8 md:p-12 text-center">
+                        <p class="text-lg md:text-xl text-amber-900 font-semibold">Nessuna riflessione trovata</p>
+                        <p class="text-sm md:text-base text-amber-800 mt-2">Inizia a scrivere le tue riflessioni quotidiane!</p>
                     </div>
                 `;
+                updatePaginationControls(0);
                 return;
             }
+            
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const paginatedItems = filteredReflections.slice(start, end);
+            
+            container.innerHTML = paginatedItems.map(renderReflectionCard).join('');
+            updatePaginationControls(filteredReflections.length);
+        }
 
-            pageReflections.forEach(refl => {
-                const date = new Date(refl.date).toLocaleDateString('it-IT', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-
-                const card = document.createElement('div');
-                card.className = 'parchment-card rounded-lg p-6 reflection-card';
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-3">
-                        <h3 class="text-lg font-cinzel font-bold text-amber-900">${date}</h3>
-                        <span class="text-xs text-slate-600 bg-white/50 px-3 py-1 rounded-full">${refl.content_type || 'Tipo 1'}</span>
+        function renderReflectionCard(reflection) {
+            const dayOfYear = getDayOfYear(reflection.date);
+            const dayRoman = arabicToRoman(dayOfYear);
+            const dateFormatted = formatDate(reflection.date);
+            const contentPreview = truncateText(reflection.content, 200);
+            
+            return `
+                <div class="parchment-card rounded-lg p-5 md:p-7 transition-all hover:shadow-lg" data-id="${reflection.id}">
+                    <div class="flex flex-wrap justify-between items-start mb-4 gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="roman-number text-2xl md:text-3xl font-bold text-amber-700">${dayRoman}</span>
+                            <span class="text-sm md:text-base text-amber-900 font-semibold">${dateFormatted}</span>
+                        </div>
                     </div>
-                    <p class="text-slate-800 leading-relaxed whitespace-pre-wrap">${refl.content}</p>
-                `;
-                container.appendChild(card);
-            });
-
-            updatePagination();
-        }
-
-        function updatePagination() {
-            const totalPages = Math.ceil(allReflections.length / itemsPerPage);
-            document.getElementById('currentPage').textContent = currentPage;
-            document.getElementById('totalPages').textContent = totalPages;
-
-            document.getElementById('prevPage').disabled = currentPage === 1;
-            document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
-        }
-
-        function setupEventListeners() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const closeMobileMenu = document.getElementById('closeMobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileSidebar.classList.add('active');
-                mobileMenuOverlay.classList.add('active');
-            });
-
-            function closeMenu() {
-                mobileSidebar.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-            }
-
-            closeMobileMenu.addEventListener('click', closeMenu);
-            mobileMenuOverlay.addEventListener('click', closeMenu);
-
-            document.getElementById('logoutBtn').addEventListener('click', async () => {
-                await supabaseClient.auth.signOut();
-                window.location.href = 'index.html';
-            });
-
-            document.getElementById('prevPage').addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderReflections();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
-            document.getElementById('nextPage').addEventListener('click', () => {
-                const totalPages = Math.ceil(allReflections.length / itemsPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderReflections();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                const query = e.target.value.toLowerCase();
-                if (query === '') {
-                    renderReflections();
-                } else {
-                    const filtered = allReflections.filter(r => 
-                        r.content.toLowerCase().includes(query)
-                    );
-                    const container = document.getElementById('reflectionsList');
-                    container.innerHTML = '';
                     
-                    filtered.forEach(refl => {
-                        const date = new Date(refl.date).toLocaleDateString('it-IT');
-                        const card = document.createElement('div');
-                        card.className = 'parchment-card rounded-lg p-6 reflection-card';
-                        card.innerHTML = `
-                            <h3 class="text-lg font-cinzel font-bold text-amber-900 mb-3">${date}</h3>
-                            <p class="text-slate-800 leading-relaxed whitespace-pre-wrap">${refl.content}</p>
-                        `;
-                        container.appendChild(card);
-                    });
+                    <div class="mb-4 md:mb-5">
+                        <p class="text-amber-900 text-base md:text-lg leading-relaxed" style="font-family: 'EB Garamond', serif;">${contentPreview}</p>
+                    </div>
+                    
+                    <div class="flex gap-3">
+                        <button 
+                            onclick="editReflection('${reflection.id}')" 
+                            class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn transition-all"
+                        >
+                            Modifica
+                        </button>
+                        <button 
+                            onclick="deleteReflection('${reflection.id}')" 
+                            class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-4 py-2.5 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-bold mobile-btn transition-all"
+                        >
+                            Elimina
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function deleteReflection(reflectionId) {
+            if (!confirm('Sei sicuro di voler eliminare questa riflessione?')) return;
+            
+            try {
+                const { error } = await supabase
+                    .from('reflections')
+                    .delete()
+                    .eq('id', reflectionId)
+                    .eq('user_id', currentUser.id);
+                
+                if (error) throw error;
+                showToast('Riflessione eliminata con successo!');
+                await loadReflections();
+                await loadProgressData();
+            } catch (error) {
+                console.error('Errore:', error);
+                showToast('Errore durante l\'eliminazione');
+            }
+        }
+
+        async function editReflection(reflectionId) {
+            try {
+                const { data, error } = await supabase
+                    .from('reflections')
+                    .select('content')
+                    .eq('id', reflectionId)
+                    .eq('user_id', currentUser.id)
+                    .single();
+                
+                if (error) throw error;
+                
+                const modal = document.getElementById('editModal');
+                const textarea = document.getElementById('editTextarea');
+                textarea.value = data.content;
+                modal.classList.remove('hidden');
+                textarea.dataset.reflectionId = reflectionId;
+            } catch (error) {
+                console.error('Errore:', error);
+                showToast('Errore nel caricamento della riflessione');
+            }
+        }
+
+        async function saveReflectionEdit() {
+            const textarea = document.getElementById('editTextarea');
+            const reflectionId = textarea.dataset.reflectionId;
+            const newContent = textarea.value.trim();
+            
+            if (!newContent) {
+                showToast('Il contenuto non può essere vuoto');
+                return;
+            }
+            
+            try {
+                const { error } = await supabase
+                    .from('reflections')
+                    .update({ content: newContent })
+                    .eq('id', reflectionId)
+                    .eq('user_id', currentUser.id);
+                
+                if (error) throw error;
+                
+                showToast('Riflessione aggiornata con successo!');
+                closeEditModal();
+                await loadReflections();
+            } catch (error) {
+                console.error('Errore:', error);
+                showToast('Errore durante il salvataggio');
+            }
+        }
+
+        function applyFilters() {
+            const filters = {
+                search: document.getElementById('searchInput').value.trim(),
+                dateFrom: document.getElementById('dateFrom').value,
+                dateTo: document.getElementById('dateTo').value,
+                contentType: document.getElementById('contentTypeFilter').value
+            };
+            loadReflections(filters);
+        }
+
+        function updatePaginationControls(totalItems) {
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            const prevBtn = document.getElementById('prevPage');
+            const nextBtn = document.getElementById('nextPage');
+            const pageInfo = document.getElementById('pageInfo');
+            
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage >= totalPages || totalPages === 0;
+            pageInfo.textContent = `Pag ${currentPage} di ${totalPages || 1}`;
+        }
+
+        function goToPreviousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderReflections();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function goToNextPage() {
+            const totalPages = Math.ceil(filteredReflections.length / ITEMS_PER_PAGE);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderReflections();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function updateStatistics() {
+            document.getElementById('totalReflections').textContent = filteredReflections.length;
+            
+            if (filteredReflections.length > 0) {
+                const dates = filteredReflections.map(r => new Date(r.date)).sort((a, b) => a - b);
+                const firstDate = formatDate(dates[0].toISOString().split('T')[0]);
+                const lastDate = formatDate(dates[dates.length - 1].toISOString().split('T')[0]);
+                document.getElementById('dateRange').innerHTML = `${firstDate} - ${lastDate}`;
+            } else {
+                document.getElementById('dateRange').textContent = '-';
+            }
+        }
+
+        function getDayOfYear(dateString) {
+            const date = new Date(dateString);
+            const start = new Date(date.getFullYear(), 0, 0);
+            const diff = date - start;
+            const oneDay = 1000 * 60 * 60 * 24;
+            return Math.floor(diff / oneDay);
+        }
+
+        function arabicToRoman(num) {
+            const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+            const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+            let roman = '';
+            for (let i = 0; i < val.length; i++) {
+                while (num >= val[i]) {
+                    roman += syms[i];
+                    num -= val[i];
                 }
-            });
+            }
+            return roman;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = String(date.getFullYear()).slice(-2);
+            return `${day}/${month}/${year}`;
+        }
+
+        function truncateText(text, maxLength) {
+            if (text.length <= maxLength) return text;
+            return text.slice(0, maxLength) + '...';
         }
 
         function showToast(message) {
             const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = message;
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
             toast.style.transform = 'translateY(0)';
             setTimeout(() => {
                 toast.style.transform = 'translateY(8rem)';
-            }, 3000);
+            }, 4000);
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        function setupEventListeners() {
+            document.getElementById('toggleFilters').addEventListener('click', () => {
+                const advanced = document.getElementById('advancedFilters');
+                const applyBtn = document.getElementById('applyFilters');
+                advanced.classList.toggle('hidden');
+                applyBtn.classList.toggle('hidden');
+            });
+            
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                if (e.target.value.length > 2 || e.target.value.length === 0) {
+                    applyFilters();
+                }
+            });
+            
+            document.getElementById('applyFilters').addEventListener('click', applyFilters);
+            document.getElementById('prevPage').addEventListener('click', goToPreviousPage);
+            document.getElementById('nextPage').addEventListener('click', goToNextPage);
+            document.getElementById('saveEditBtn').addEventListener('click', saveReflectionEdit);
+            document.getElementById('cancelEditBtn').addEventListener('click', closeEditModal);
+            
+            document.getElementById('logoutBtn').addEventListener('click', async () => {
+                await supabase.auth.signOut();
+                window.location.href = 'index.html';
+            });
+            
+            document.getElementById('editModal').addEventListener('click', (e) => {
+                if (e.target.id === 'editModal') closeEditModal();
+            });
         }
     </script>
-
 </body>
 </html>
