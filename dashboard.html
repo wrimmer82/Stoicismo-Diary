@@ -554,33 +554,50 @@
             return `tipo${cycle}`;
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-  console.log('Dashboard: Verifico autenticazione...');
-  
+        async function getSessionRobusta() {
+  // Se arrivi da Google con token nell'URL (#access_token=...), importali
+  const hash = window.location.hash?.startsWith('#') ? window.location.hash.slice(1) : '';
+  const params = new URLSearchParams(hash);
+
+  const access_token = params.get('access_token');
+  const refresh_token = params.get('refresh_token');
+
+  if (access_token && refresh_token) {
+    const { data, error } = await supabase.auth.setSession({ access_token, refresh_token });
+
+    if (!error && data?.session) {
+      // Pulisce l'URL (toglie i token visibili)
+      history.replaceState({}, document.title, window.location.pathname);
+      return data.session;
+    }
+  }
+
+  // Altrimenti usa la sessione salvata nel browser
+  const { data } = await supabase.auth.getSession();
+  return data?.session ?? null;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
   try {
-    const { data: { session }, error } = await supabase.auth.getSession();
-    
-    if (!session || error) {
-      console.warn('Nessuna sessione attiva, redirect a login');
+    const session = await getSessionRobusta();
+
+    if (!session) {
       window.location.href = 'accedi.html';
       return;
     }
-    
+
     const user = session.user;
-    console.log('Utente autenticato:', user.id);
-    console.log('Email:', user.email);
-    console.log('Provider:', user.app_metadata?.provider);
-    
+
     await loadUserData(user);
-await loadDailyContent();
+    await loadDailyContent();
     await loadProgressData(user.id);
     setupEventListeners();
-    
-  } catch (error) {
-    console.error('Errore verifica sessione:', error);
+  } catch (err) {
+    console.error('Errore init dashboard:', err);
     window.location.href = 'accedi.html';
   }
 });
+
 
 async function loadUserData(user) {
     try {
