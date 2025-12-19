@@ -355,29 +355,24 @@
                     </div>
 
                     <div id="dailyContent" class="hidden space-y-6">
-  <!-- Box Citazione -->
   <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
     <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="citazione-testo">Caricamento citazione...</p>
     <p class="text-sm font-semibold highlighted-text" id="citazione-autore">— Autore</p>
   </div>
 
-  <!-- Badge Tema e Difficoltà -->
   <div class="flex gap-3 flex-wrap">
     <span id="tema-badge" class="inline-block bg-amber-600/90 text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
       tema
     </span>
     <span id="difficolta-badge" class="inline-block bg-slate-700/90 text-amber-400 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
-      <!-- difficoltà -->
     </span>
   </div>
 
-  <!-- Box Interpretazione -->
   <div class="parchment-card rounded-lg p-4 md:p-6">
     <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
     <p class="leading-relaxed font-trajan" id="interpretazione-testo">Caricamento interpretazione...</p>
   </div>
 
-  <!-- Box Micro-Sfida -->
   <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95)">
     <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
     <p class="leading-relaxed font-trajan" id="micro-sfida-testo">Caricamento micro-sfida...</p>
@@ -496,406 +491,394 @@
     </div>
 
     <script>
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-        
-        // Inizializzazione Supabase client (dichiarata una sola volta)
-        let supabase;
-
-        function arabicToRoman(num) {
-            const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-            const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
-            let roman = '';
-            for (let i = 0; i < val.length; i++) {
-                while (num >= val[i]) {
-                    roman += syms[i];
-                    num -= val[i];
-                }
-            }
-            return roman;
-        }
-
-        const dailyContents = {
-            tipo1: {
-                quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
-                author: "Epitteto, Enchiridion",
-                interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-                challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
-            },
-            tipo2: {
-                quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
-                author: "Marco Aurelio, Meditazioni V.20",
-                interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-                challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
-            },
-            tipo3: {
-                quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
-                author: "Seneca, Lettere a Lucilio",
-                interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-                challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
-            },
-            tipo4: {
-                quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
-                author: "Marco Aurelio, Meditazioni II.11",
-                interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
-                challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
-            }
-        };
-
-        function getDayOfYear() {
-            const now = new Date();
-            const start = new Date(now.getFullYear(), 0, 0);
-            const diff = now - start;
-            const oneDay = 1000 * 60 * 60 * 24;
-            return Math.floor(diff / oneDay);
-        }
-
-        function getDailyContentType() {
-            const dayNum = getDayOfYear();
-            const cycle = (dayNum % 4) + 1;
-            return `tipo${cycle}`;
-        }
-
-        async function getSessionRobusta() {
-  // Se arrivi da Google con token nell'URL (#access_token=...), importali
-  const hash = window.location.hash?.startsWith('#') ? window.location.hash.slice(1) : '';
-  const params = new URLSearchParams(hash);
-
-  const access_token = params.get('access_token');
-  const refresh_token = params.get('refresh_token');
-
-  if (access_token && refresh_token) {
-    const { data, error } = await supabase.auth.setSession({ access_token, refresh_token });
-
-    if (!error && data?.session) {
-      // Pulisce l'URL (toglie i token visibili)
-      history.replaceState({}, document.title, window.location.pathname);
-      return data.session;
-    }
-  }
-
-  // Altrimenti usa la sessione salvata nel browser
-  const { data } = await supabase.auth.getSession();
-  return data?.session ?? null;
-}
-
-document.addEventListener('DOMContentLoaded', async () => {
-  // Inizializza Supabase client una sola volta
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  
-  try {
-    const session = await getSessionRobusta();
-
-    if (!session) {
-      window.location.href = 'accedi.html';
-      return;
-    }
-
-    const user = session.user;
-
-    await loadUserData(user);
-    await loadDailyContent();
-    await loadProgressData(user.id);
-    setupEventListeners();
-  } catch (err) {
-    console.error('Errore init dashboard:', err);
-    window.location.href = 'accedi.html';
-  }
-});
-
-
-async function loadUserData(user) {
-    try {
-        const { data: profile } = await supabase
-            .from('profiles')
-            .select('name')
-            .eq('id', user.id)
-            .single();
-        
-        const displayName = profile?.name || 
-                           user.user_metadata?.full_name ||
-                           user.user_metadata?.name ||
-                           user.email?.split('@')[0] ||
-                           'Stoico';
-        
-        console.log('✅ Nome caricato:', displayName);
-        document.getElementById('userName').textContent = displayName;
-    } catch (err) {
-        console.error('⚠️ Errore caricamento profilo:', err);
-        const fallback = user.email?.split('@')[0] || 'Stoico';
-        document.getElementById('userName').textContent = fallback;
-    }
-}
-
-        async function loadDailyContent() {
-  const dayOfYear = getDayOfYear();
-  const dayRoman = arabicToRoman(dayOfYear);
-  
-  document.getElementById('dayOfYear').textContent = dayRoman;
-  
-  console.log('🔍 Carico sfida per giorno:', dayOfYear);
-  
-  try {
-    // Query a Supabase
-    const { data, error } = await supabase
-      .from('sfide_quotidiane')
-      .select('*')
-      .eq('giorno', dayOfYear)
-      .single();
+(function() {
+    'use strict';
     
-    if (error) {
-      console.error('❌ Errore caricamento sfida:', error);
-      // Fallback: usa contenuto statico
-      useFallbackContent();
-      return;
-    }
+    const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
     
-    if (data) {
-      console.log('✅ Sfida caricata da Supabase:', data);
-      
-      setTimeout(() => {
-        document.getElementById('contentSkeleton').classList.add('hidden');
-        document.getElementById('dailyContent').classList.remove('hidden');
-        
-        // Popola con dati da Supabase
-        document.getElementById('citazione-testo').textContent = `"${data.citazione}"`;
-        document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
-        document.getElementById('tema-badge').textContent = data.tema;
-        document.getElementById('interpretazione-testo').textContent = data.interpretazione;
-        document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
-        
-        // Badge difficoltà (opzionale)
-        if (data.difficolta) {
-          document.getElementById('difficolta-badge').textContent = data.difficolta;
-          document.getElementById('difficolta-badge').style.display = 'inline-block';
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    function arabicToRoman(num) {
+        const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+        const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+        let roman = '';
+        for (let i = 0; i < val.length; i++) {
+            while (num >= val[i]) {
+                roman += syms[i];
+                num -= val[i];
+            }
         }
-      }, 800);
+        return roman;
     }
-  } catch (err) {
-    console.error('❌ Errore imprevisto:', err);
-    useFallbackContent();
-  }
-}
 
-// Funzione fallback se Supabase fallisce
-function useFallbackContent() {
-  const contentType = getDailyContentType();
-  const content = dailyContents[contentType];
-  
-  setTimeout(() => {
-    document.getElementById('contentSkeleton').classList.add('hidden');
-    document.getElementById('dailyContent').classList.remove('hidden');
-    
-    document.getElementById('citazione-testo').textContent = content.quote;
-    document.getElementById('citazione-autore').textContent = content.author;
-    document.getElementById('interpretazione-testo').textContent = content.interpretation;
-    document.getElementById('micro-sfida-testo').textContent = content.challenge;
-    document.getElementById('tema-badge').textContent = 'Stoicismo';
-  }, 800);
-}
+    const dailyContents = {
+        tipo1: {
+            quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
+            author: "Epitteto, Enchiridion",
+            interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
+            challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
+        },
+        tipo2: {
+            quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
+            author: "Marco Aurelio, Meditazioni V.20",
+            interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
+            challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
+        },
+        tipo3: {
+            quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
+            author: "Seneca, Lettere a Lucilio",
+            interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
+            challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
+        },
+        tipo4: {
+            quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
+            author: "Marco Aurelio, Meditazioni II.11",
+            interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
+            challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
+        }
+    };
 
-        async function loadProgressData(userId) {
-            console.log('📊 Carico progresso per user:', userId);
-            
-            try {
-                const { data: reflections, error: reflError } = await supabase
-                    .from('reflections')
-                    .select('date, created_at')
-                    .eq('user_id', userId)
-                    .order('date', { ascending: false });
+    function getDayOfYear() {
+        const now = new Date();
+        const start = new Date(now.getFullYear(), 0, 0);
+        const diff = now - start;
+        const oneDay = 1000 * 60 * 60 * 24;
+        return Math.floor(diff / oneDay);
+    }
 
-                if (reflError) {
-                    console.error('❌ Errore caricamento riflessioni:', reflError);
-                    updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
-                    return;
-                }
+    function getDailyContentType() {
+        const dayNum = getDayOfYear();
+        const cycle = (dayNum % 4) + 1;
+        return `tipo${cycle}`;
+    }
 
-                console.log('✅ Riflessioni caricate:', reflections?.length || 0);
+    async function getSessionRobusta() {
+        const hash = window.location.hash?.startsWith('#') ? window.location.hash.slice(1) : '';
+        const params = new URLSearchParams(hash);
 
-                const streak = calculateStreak(reflections || []);
-                const totalReflections = reflections?.length || 0;
+        const access_token = params.get('access_token');
+        const refresh_token = params.get('refresh_token');
 
-                updateProgressUI({
-                    streak,
-                    totalReflections,
-                    completedChallenges: totalReflections,
-                    totalChallenges: 365
-                });
+        if (access_token && refresh_token) {
+            const { data, error } = await sbClient.auth.setSession({ access_token, refresh_token });
 
-            } catch (error) {
-                console.error('❌ Errore generale:', error);
-                updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+            if (!error && data?.session) {
+                history.replaceState({}, document.title, window.location.pathname);
+                return data.session;
             }
         }
 
-        function calculateStreak(reflections) {
-            if (!reflections || reflections.length === 0) return 0;
+        const { data } = await sbClient.auth.getSession();
+        return data?.session ?? null;
+    }
 
-            const today = new Date().toISOString().split('T')[0];
-            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-            
-            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-            
-            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
-                return 0;
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const session = await getSessionRobusta();
+
+            if (!session) {
+                window.location.href = 'accedi.html';
+                return;
             }
 
-            let streak = 0;
-            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+            const user = session.user;
 
-            for (const dateStr of uniqueDates) {
-                const refDate = new Date(dateStr);
-                const expectedDate = new Date(currentDate);
-                expectedDate.setHours(0, 0, 0, 0);
-                refDate.setHours(0, 0, 0, 0);
-
-                if (refDate.getTime() === expectedDate.getTime()) {
-                    streak++;
-                    currentDate = new Date(currentDate.getTime() - 86400000);
-                } else {
-                    break;
-                }
-            }
-
-            return streak;
+            await loadUserData(user);
+            await loadDailyContent();
+            await loadProgressData(user.id);
+            setupEventListeners();
+        } catch (err) {
+            console.error('Errore init dashboard:', err);
+            window.location.href = 'accedi.html';
         }
+    });
 
-        function updateProgressUI(data) {
-            const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+    async function loadUserData(user) {
+        try {
+            const { data: profile } = await sbClient
+                .from('profiles')
+                .select('name')
+                .eq('id', user.id)
+                .single();
             
-            document.getElementById('headerStreak').textContent = data.streak;
-            document.getElementById('mobileStreak').textContent = data.streak;
-            document.getElementById('progressStreak').textContent = data.streak;
-            document.getElementById('progressReflections').textContent = data.totalReflections;
-            document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBar').style.width = `${percentage}%`;
-            document.getElementById('progressPercentage').textContent = `${percentage}%`;
+            const displayName = profile?.name || 
+                               user.user_metadata?.full_name ||
+                               user.user_metadata?.name ||
+                               user.email?.split('@')[0] ||
+                               'Stoico';
             
-            document.getElementById('progressStreakDesktop').textContent = data.streak;
-            document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
-            document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-            document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
-            document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
+            console.log('✅ Nome caricato:', displayName);
+            document.getElementById('userName').textContent = displayName;
+        } catch (err) {
+            console.error('⚠️ Errore caricamento profilo:', err);
+            const fallback = user.email?.split('@')[0] || 'Stoico';
+            document.getElementById('userName').textContent = fallback;
         }
+    }
 
-        function setupEventListeners() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const closeMobileMenu = document.getElementById('closeMobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileSidebar.classList.add('active');
-                mobileMenuOverlay.classList.add('active');
-            });
-
-            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-
-            function closeMobileMenuFunc() {
-                mobileSidebar.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
+    async function loadDailyContent() {
+        const dayOfYear = getDayOfYear();
+        const dayRoman = arabicToRoman(dayOfYear);
+        
+        document.getElementById('dayOfYear').textContent = dayRoman;
+        
+        console.log('🔍 Carico sfida per giorno:', dayOfYear);
+        
+        try {
+            const { data, error } = await sbClient
+                .from('sfide_quotidiane')
+                .select('*')
+                .eq('giorno', dayOfYear)
+                .single();
+            
+            if (error) {
+                console.error('❌ Errore caricamento sfida:', error);
+                useFallbackContent();
+                return;
             }
-
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-
-                    const view = e.currentTarget.dataset.view;
-
-                    // Redirect a pagine esterne
-                    if (view === 'archivio') {
-                        window.location.href = 'archivio.html';
-                        return;
-                    }
-
-                    if (view === 'impostazioni') {
-                        window.location.href = 'impostazioni.html';
-                        return;
-                    }
-
-                    if (view === 'pro') {
-                        showToast('✨ Funzionalità PRO in arrivo');
-                        return;
-                    }
-
-                    // Switch view interno solo per "oggi"
-                    switchView(view);
-                    closeMobileMenuFunc();
-
-                    // Aggiorna stato visuale menu
-                    document.querySelectorAll('.nav-link').forEach(l => {
-                        l.classList.remove('bg-amber-500/20', 'text-amber-400');
-                    });
-                    e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
-                });
-            });
-
-            const textarea = document.getElementById('reflectionTextarea');
-            textarea.addEventListener('input', () => {
-                document.getElementById('charCount').textContent = textarea.value.length;
-            });
-
-            document.getElementById('saveBtn').addEventListener('click', async () => {
-                const text = textarea.value.trim();
-                if (!text) {
-                    showToast('Scrivi prima una riflessione!');
-                    return;
-                }
-
-                console.log('💾 Salvataggio riflessione...');
-
-                const { data: { session } } = await supabase.auth.getSession();
-                if (!session) {
-                    showToast('Errore: non autenticato');
-                    window.location.href = 'accedi.html';
-                    return;
-                }
-
-                const { data, error } = await supabase.from('reflections').insert({
-                    user_id: session.user.id,
-                    content: text,
-                    date: new Date().toISOString().split('T')[0],
-                    content_type: getDailyContentType()
-                });
-
-                if (error) {
-                    console.error('❌ Errore salvataggio:', error);
-                    showToast('Errore nel salvare: ' + error.message);
-                } else {
-                    console.log('✅ Riflessione salvata!');
-                    showToast('✅ Riflessione salvata!');
-                    textarea.value = '';
-                    document.getElementById('charCount').textContent = '0';
+            
+            if (data) {
+                console.log('✅ Sfida caricata da Supabase:', data);
+                
+                setTimeout(() => {
+                    document.getElementById('contentSkeleton').classList.add('hidden');
+                    document.getElementById('dailyContent').classList.remove('hidden');
                     
-                    await loadProgressData(session.user.id);
+                    document.getElementById('citazione-testo').textContent = `"${data.citazione}"`;
+                    document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
+                    document.getElementById('tema-badge').textContent = data.tema;
+                    document.getElementById('interpretazione-testo').textContent = data.interpretazione;
+                    document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
+                    
+                    if (data.difficolta) {
+                        document.getElementById('difficolta-badge').textContent = data.difficolta;
+                        document.getElementById('difficolta-badge').style.display = 'inline-block';
+                    }
+                }, 800);
+            }
+        } catch (err) {
+            console.error('❌ Errore imprevisto:', err);
+            useFallbackContent();
+        }
+    }
+
+    function useFallbackContent() {
+        const contentType = getDailyContentType();
+        const content = dailyContents[contentType];
+        
+        setTimeout(() => {
+            document.getElementById('contentSkeleton').classList.add('hidden');
+            document.getElementById('dailyContent').classList.remove('hidden');
+            
+            document.getElementById('citazione-testo').textContent = content.quote;
+            document.getElementById('citazione-autore').textContent = content.author;
+            document.getElementById('interpretazione-testo').textContent = content.interpretation;
+            document.getElementById('micro-sfida-testo').textContent = content.challenge;
+            document.getElementById('tema-badge').textContent = 'Stoicismo';
+        }, 800);
+    }
+
+    async function loadProgressData(userId) {
+        console.log('📊 Carico progresso per user:', userId);
+        
+        try {
+            const { data: reflections, error: reflError } = await sbClient
+                .from('reflections')
+                .select('date, created_at')
+                .eq('user_id', userId)
+                .order('date', { ascending: false });
+
+            if (reflError) {
+                console.error('❌ Errore caricamento riflessioni:', reflError);
+                updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+                return;
+            }
+
+            console.log('✅ Riflessioni caricate:', reflections?.length || 0);
+
+            const streak = calculateStreak(reflections || []);
+            const totalReflections = reflections?.length || 0;
+
+            updateProgressUI({
+                streak,
+                totalReflections,
+                completedChallenges: totalReflections,
+                totalChallenges: 365
+            });
+
+        } catch (error) {
+            console.error('❌ Errore generale:', error);
+            updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
+        }
+    }
+
+    function calculateStreak(reflections) {
+        if (!reflections || reflections.length === 0) return 0;
+
+        const today = new Date().toISOString().split('T')[0];
+        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+        
+        const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+        
+        if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
+            return 0;
+        }
+
+        let streak = 0;
+        let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+
+        for (const dateStr of uniqueDates) {
+            const refDate = new Date(dateStr);
+            const expectedDate = new Date(currentDate);
+            expectedDate.setHours(0, 0, 0, 0);
+            refDate.setHours(0, 0, 0, 0);
+
+            if (refDate.getTime() === expectedDate.getTime()) {
+                streak++;
+                currentDate = new Date(currentDate.getTime() - 86400000);
+            } else {
+                break;
+            }
+        }
+
+        return streak;
+    }
+
+    function updateProgressUI(data) {
+        const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
+        
+        document.getElementById('headerStreak').textContent = data.streak;
+        document.getElementById('mobileStreak').textContent = data.streak;
+        document.getElementById('progressStreak').textContent = data.streak;
+        document.getElementById('progressReflections').textContent = data.totalReflections;
+        document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+        document.getElementById('progressBar').style.width = `${percentage}%`;
+        document.getElementById('progressPercentage').textContent = `${percentage}%`;
+        
+        document.getElementById('progressStreakDesktop').textContent = data.streak;
+        document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
+        document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
+        document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
+        document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
+    }
+
+    function setupEventListeners() {
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileSidebar.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+        });
+
+        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
+
+        function closeMobileMenuFunc() {
+            mobileSidebar.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const view = e.currentTarget.dataset.view;
+
+                if (view === 'archivio') {
+                    window.location.href = 'archivio.html';
+                    return;
                 }
+
+                if (view === 'impostazioni') {
+                    window.location.href = 'impostazioni.html';
+                    return;
+                }
+
+                if (view === 'pro') {
+                    showToast('✨ Funzionalità PRO in arrivo');
+                    return;
+                }
+
+                switchView(view);
+                closeMobileMenuFunc();
+
+                document.querySelectorAll('.nav-link').forEach(l => {
+                    l.classList.remove('bg-amber-500/20', 'text-amber-400');
+                });
+                e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
+            });
+        });
+
+        const textarea = document.getElementById('reflectionTextarea');
+        textarea.addEventListener('input', () => {
+            document.getElementById('charCount').textContent = textarea.value.length;
+        });
+
+        document.getElementById('saveBtn').addEventListener('click', async () => {
+            const text = textarea.value.trim();
+            if (!text) {
+                showToast('Scrivi prima una riflessione!');
+                return;
+            }
+
+            console.log('💾 Salvataggio riflessione...');
+
+            const { data: { session } } = await sbClient.auth.getSession();
+            if (!session) {
+                showToast('Errore: non autenticato');
+                window.location.href = 'accedi.html';
+                return;
+            }
+
+            const { data, error } = await sbClient.from('reflections').insert({
+                user_id: session.user.id,
+                content: text,
+                date: new Date().toISOString().split('T')[0],
+                content_type: getDailyContentType()
             });
 
-            document.getElementById('copyBtn').addEventListener('click', () => {
-                const text = textarea.value;
-                if (!text) return showToast('Niente da copiare!');
-                navigator.clipboard.writeText(text).then(() => showToast('Copiato!'));
-            });
+            if (error) {
+                console.error('❌ Errore salvataggio:', error);
+                showToast('Errore nel salvare: ' + error.message);
+            } else {
+                console.log('✅ Riflessione salvata!');
+                showToast('✅ Riflessione salvata!');
+                textarea.value = '';
+                document.getElementById('charCount').textContent = '0';
+                
+                await loadProgressData(session.user.id);
+            }
+        });
 
-            document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('👋 Logout...');
-                await supabase.auth.signOut();
-                window.location.href = 'index.html';
-            });
-        }
+        document.getElementById('copyBtn').addEventListener('click', () => {
+            const text = textarea.value;
+            if (!text) return showToast('Niente da copiare!');
+            navigator.clipboard.writeText(text).then(() => showToast('Copiato!'));
+        });
 
-        function switchView(viewName) {
-            document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-            document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
-        }
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            console.log('👋 Logout...');
+            await sbClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+    }
 
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = message;
-            toast.style.transform = 'translateY(0)';
-            setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
-        }
+    function switchView(viewName) {
+        document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
+        document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        document.getElementById('toastMessage').textContent = message;
+        toast.style.transform = 'translateY(0)';
+        setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
+    }
+})();
     </script>
 </body>
 </html>
