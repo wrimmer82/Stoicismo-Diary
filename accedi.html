@@ -426,7 +426,7 @@
 
     // ========== VERIFICA SESSIONE ESISTENTE ==========
     document.addEventListener('DOMContentLoaded', async () => {
-        const { data: { session }, error } = await supabase.auth.getSession();
+        const { data: { session }, error } = await supabaseClient.auth.getSession();
         
         if (session && !error) {
             window.location.href = 'dashboard.html';
@@ -509,7 +509,7 @@
         googleSpinner.classList.remove('hidden');
         setLoadingState(true);
         
-        const { error } = await supabase.auth.signInWithOAuth({
+        const { error } = await supabaseClient.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: 'https://wrimmer82.github.io/Stoicismo-Diary/dashboard.html'
@@ -563,7 +563,7 @@
         submitSpinner.classList.remove('hidden');
         setLoadingState(true);
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
             email,
             password
         });
@@ -607,7 +607,7 @@
     }
 
     // ========== GESTIONE CALLBACK OAUTH ==========
-    supabase.auth.onAuthStateChange((event, session) => {
+    supabaseClient.auth.onAuthStateChange((event, session) => {
         if (event === 'SIGNED_IN' && session) {
             showToast('✅ Login riuscito!');
             setLoadingState(true);
