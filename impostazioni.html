@@ -235,7 +235,7 @@
                     </svg>
                     <span>Impostazioni</span>
                 </a>
-                <a href="#" onclick="showToast('✨ Funzionalità PRO in arrivo'); return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                <a href="#" onclick="(function(){const t=document.getElementById('toast');const m=document.getElementById('toastMessage');m.textContent='✨ Funzionalità PRO in arrivo';t.style.transform='translateY(0)';setTimeout(()=>t.style.transform='translateY(8rem)',3000);})();return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
@@ -273,7 +273,7 @@
                     </svg>
                     <span>Impostazioni</span>
                 </a>
-                <a href="#" onclick="showToast('✨ Funzionalità PRO in arrivo'); return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                <a href="#" onclick="(function(){const t=document.getElementById('toast');const m=document.getElementById('toastMessage');m.textContent='✨ Funzionalità PRO in arrivo';t.style.transform='translateY(0)';setTimeout(()=>t.style.transform='translateY(8rem)',3000);})();return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
@@ -414,332 +414,338 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+(function() {
+    'use strict';
+    
+    const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        let currentUser = null;
+    let currentUser = null;
 
-        // INIZIALIZZAZIONE
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('⚙️ Impostazioni: Verifico autenticazione...');
+    // INIZIALIZZAZIONE
+    document.addEventListener('DOMContentLoaded', async () => {
+        console.log('⚙️ Impostazioni: Verifico autenticazione...');
+        
+        try {
+            const { data: { session }, error } = await sbClient.auth.getSession();
             
-            try {
-                const { data: { session }, error } = await supabase.auth.getSession();
-                
-                if (!session || error) {
-                    console.warn('❌ Nessuna sessione attiva, redirect a login');
-                    window.location.href = 'accedi.html';
-                    return;
-                }
-
-                currentUser = session.user;
-                console.log('✅ Utente autenticato:', currentUser.id);
-
-                await loadUserData();
-                loadProgressData();
-                setupEventListeners();
-                
-            } catch (error) {
-                console.error('❌ Errore verifica sessione:', error);
+            if (!session || error) {
+                console.warn('❌ Nessuna sessione attiva, redirect a login');
                 window.location.href = 'accedi.html';
+                return;
+            }
+
+            currentUser = session.user;
+            console.log('✅ Utente autenticato:', currentUser.id);
+
+            await loadUserData();
+            loadProgressData();
+            setupEventListeners();
+            
+        } catch (error) {
+            console.error('❌ Errore verifica sessione:', error);
+            window.location.href = 'accedi.html';
+        }
+    });
+
+    // CARICA DATI UTENTE
+    async function loadUserData() {
+        let displayName = 'Stoico';
+        
+        try {
+            const { data: profile, error } = await sbClient
+                .from('profiles')
+                .select('name')
+                .eq('id', currentUser.id)
+                .single();
+            
+            if (!error && profile?.name) {
+                displayName = profile.name;
+                console.log('✅ Nome caricato da profiles:', displayName);
+            } else {
+                displayName = currentUser.user_metadata?.full_name || 
+                             currentUser.user_metadata?.name || 
+                             currentUser.email?.split('@')[0] || 
+                             'Stoico';
+                console.log('✅ Nome caricato da metadata:', displayName);
+            }
+        } catch (err) {
+            console.error('❌ Errore caricamento profilo:', err);
+            displayName = currentUser.user_metadata?.full_name || 
+                         currentUser.email?.split('@')[0] || 
+                         'Stoico';
+        }
+
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('profileName').value = displayName;
+        document.getElementById('profileEmail').value = currentUser.email;
+        document.getElementById('resetEmail').value = currentUser.email;
+
+        console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
+    }
+
+    // CARICA STREAK
+    async function loadProgressData() {
+        try {
+            const { data: reflections, error } = await sbClient
+                .from('reflections')
+                .select('date')
+                .eq('user_id', currentUser.id)
+                .order('date', { ascending: false });
+
+            if (error) throw error;
+
+            const streak = calculateStreak(reflections || []);
+            document.getElementById('headerStreak').textContent = streak;
+            document.getElementById('mobileStreak').textContent = streak;
+
+        } catch (error) {
+            console.error('❌ Errore caricamento progresso:', error);
+        }
+    }
+
+    // CALCOLA STREAK
+    function calculateStreak(reflections) {
+        if (!reflections || reflections.length === 0) return 0;
+
+        const today = new Date().toISOString().split('T')[0];
+        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+        
+        const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+        
+        if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
+
+        let streak = 0;
+        let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+
+        for (const dateStr of uniqueDates) {
+            const refDate = new Date(dateStr);
+            const expectedDate = new Date(currentDate);
+            expectedDate.setHours(0, 0, 0, 0);
+            refDate.setHours(0, 0, 0, 0);
+
+            if (refDate.getTime() === expectedDate.getTime()) {
+                streak++;
+                currentDate = new Date(currentDate.getTime() - 86400000);
+            } else {
+                break;
+            }
+        }
+
+        return streak;
+    }
+
+    // VALIDAZIONE NOME
+    function validateName(name) {
+        const nameInput = document.getElementById('profileName');
+        const errorMsg = document.getElementById('nameError');
+        
+        name = name.trim();
+        
+        if (name.length < 2) {
+            nameInput.classList.add('error');
+            errorMsg.textContent = '❌ Nome troppo corto (minimo 2 caratteri)';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        
+        if (name.length > 30) {
+            nameInput.classList.add('error');
+            errorMsg.textContent = '❌ Nome troppo lungo (massimo 30 caratteri)';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        
+        const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
+        if (!regex.test(name)) {
+            nameInput.classList.add('error');
+            errorMsg.textContent = '❌ Solo lettere, numeri, spazi, apostrofi e trattini';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        
+        nameInput.classList.remove('error');
+        errorMsg.classList.remove('active');
+        return true;
+    }
+
+    // SETUP EVENT LISTENERS
+    function setupEventListeners() {
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileSidebar.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+        });
+
+        function closeMobileMenuFunc() {
+            mobileSidebar.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+        }
+
+        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            console.log('👋 Logout...');
+            await sbClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+
+        // Validazione in tempo reale
+        document.getElementById('profileName').addEventListener('input', (e) => {
+            const name = e.target.value;
+            if (name.length > 0) {
+                validateName(name);
+            } else {
+                document.getElementById('profileName').classList.remove('error');
+                document.getElementById('nameError').classList.remove('active');
             }
         });
 
-        // CARICA DATI UTENTE
-        async function loadUserData() {
-            let displayName = 'Stoico';
+        // Salva profilo
+        document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+            const newName = document.getElementById('profileName').value.trim();
+            const saveBtn = document.getElementById('saveProfileBtn');
+            const saveBtnText = document.getElementById('saveBtnText');
             
-            try {
-                const { data: profile, error } = await supabase
-                    .from('profiles')
-                    .select('name')
-                    .eq('id', currentUser.id)
-                    .single();
-                
-                if (!error && profile?.name) {
-                    displayName = profile.name;
-                    console.log('✅ Nome caricato da profiles:', displayName);
-                } else {
-                    displayName = currentUser.user_metadata?.full_name || 
-                                 currentUser.user_metadata?.name || 
-                                 currentUser.email?.split('@')[0] || 
-                                 'Stoico';
-                    console.log('✅ Nome caricato da metadata:', displayName);
-                }
-            } catch (err) {
-                console.error('❌ Errore caricamento profilo:', err);
-                displayName = currentUser.user_metadata?.full_name || 
-                             currentUser.email?.split('@')[0] || 
-                             'Stoico';
+            if (!newName) {
+                showToast('⚠️ Inserisci un nome', 'error');
+                return;
+            }
+            
+            if (!validateName(newName)) {
+                showToast('⚠️ Correggi gli errori prima di salvare', 'error');
+                return;
             }
 
-            document.getElementById('userName').textContent = displayName;
-            document.getElementById('profileName').value = displayName;
-            document.getElementById('profileEmail').value = currentUser.email;
-            document.getElementById('resetEmail').value = currentUser.email;
-
-            console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
-        }
-
-        // CARICA STREAK
-        async function loadProgressData() {
             try {
-                const { data: reflections, error } = await supabase
-                    .from('reflections')
-                    .select('date')
-                    .eq('user_id', currentUser.id)
-                    .order('date', { ascending: false });
+                saveBtn.disabled = true;
+                saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
+                console.log('⏳ Inizio salvataggio...');
+
+                const { error } = await sbClient
+                    .from('profiles')
+                    .update({ name: newName })
+                    .eq('id', currentUser.id);
 
                 if (error) throw error;
 
-                const streak = calculateStreak(reflections || []);
-                document.getElementById('headerStreak').textContent = streak;
-                document.getElementById('mobileStreak').textContent = streak;
+                console.log('✅ Nome salvato in profiles:', newName);
+                document.getElementById('userName').textContent = newName;
+                
+                saveBtnText.textContent = '💾 Salva Profilo';
+                saveBtn.disabled = false;
+                
+                showToast('✅ Profilo aggiornato con successo!', 'success');
 
             } catch (error) {
-                console.error('❌ Errore caricamento progresso:', error);
-            }
-        }
-
-        // CALCOLA STREAK
-        function calculateStreak(reflections) {
-            if (!reflections || reflections.length === 0) return 0;
-
-            const today = new Date().toISOString().split('T')[0];
-            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-            
-            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-            
-            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
-
-            let streak = 0;
-            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-
-            for (const dateStr of uniqueDates) {
-                const refDate = new Date(dateStr);
-                const expectedDate = new Date(currentDate);
-                expectedDate.setHours(0, 0, 0, 0);
-                refDate.setHours(0, 0, 0, 0);
-
-                if (refDate.getTime() === expectedDate.getTime()) {
-                    streak++;
-                    currentDate = new Date(currentDate.getTime() - 86400000);
-                } else {
-                    break;
-                }
-            }
-
-            return streak;
-        }
-
-        // VALIDAZIONE NOME
-        function validateName(name) {
-            const nameInput = document.getElementById('profileName');
-            const errorMsg = document.getElementById('nameError');
-            
-            name = name.trim();
-            
-            if (name.length < 2) {
-                nameInput.classList.add('error');
-                errorMsg.textContent = '❌ Nome troppo corto (minimo 2 caratteri)';
-                errorMsg.classList.add('active');
-                return false;
-            }
-            
-            if (name.length > 30) {
-                nameInput.classList.add('error');
-                errorMsg.textContent = '❌ Nome troppo lungo (massimo 30 caratteri)';
-                errorMsg.classList.add('active');
-                return false;
-            }
-            
-            const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
-            if (!regex.test(name)) {
-                nameInput.classList.add('error');
-                errorMsg.textContent = '❌ Solo lettere, numeri, spazi, apostrofi e trattini';
-                errorMsg.classList.add('active');
-                return false;
-            }
-            
-            nameInput.classList.remove('error');
-            errorMsg.classList.remove('active');
-            return true;
-        }
-
-        // SETUP EVENT LISTENERS
-        function setupEventListeners() {
-            // Mobile menu
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const closeMobileMenu = document.getElementById('closeMobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileSidebar.classList.add('active');
-                mobileMenuOverlay.classList.add('active');
-            });
-
-            function closeMobileMenuFunc() {
-                mobileSidebar.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-            }
-
-            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-
-            // Logout
-            document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('👋 Logout...');
-                await supabase.auth.signOut();
-                window.location.href = 'index.html';
-            });
-
-            // Validazione in tempo reale
-            document.getElementById('profileName').addEventListener('input', (e) => {
-                const name = e.target.value;
-                if (name.length > 0) {
-                    validateName(name);
-                } else {
-                    document.getElementById('profileName').classList.remove('error');
-                    document.getElementById('nameError').classList.remove('active');
-                }
-            });
-
-            // Salva profilo
-            document.getElementById('saveProfileBtn').addEventListener('click', async () => {
-                const newName = document.getElementById('profileName').value.trim();
-                const saveBtn = document.getElementById('saveProfileBtn');
-                const saveBtnText = document.getElementById('saveBtnText');
+                console.error('❌ Errore aggiornamento profilo:', error);
                 
-                if (!newName) {
-                    showToast('⚠️ Inserisci un nome', 'error');
-                    return;
-                }
+                saveBtnText.textContent = '💾 Salva Profilo';
+                saveBtn.disabled = false;
                 
-                if (!validateName(newName)) {
-                    showToast('⚠️ Correggi gli errori prima di salvare', 'error');
-                    return;
-                }
+                showToast('❌ Errore: ' + error.message, 'error');
+            }
+        });
 
-                try {
-                    saveBtn.disabled = true;
-                    saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
-                    console.log('⏳ Inizio salvataggio...');
+        // Reset password con conferma
+        document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
+            const email = currentUser.email;
+            
+            const confirmReset = window.confirm(
+                `📧 Reset Password\n\n` +
+                `L'email sarà inviata a:\n${email}\n\n` +
+                `Clicca OK per confermare.`
+            );
+            
+            if (!confirmReset) {
+                console.log('⚠️ Reset password annullato dall\'utente');
+                showToast('❌ Operazione annullata', 'info');
+                return;
+            }
+            
+            try {
+                const { error } = await sbClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
+                });
 
-                    const { error } = await supabase
-                        .from('profiles')
-                        .update({ name: newName })
-                        .eq('id', currentUser.id);
+                if (error) throw error;
 
-                    if (error) throw error;
+                showToast('✅ Email inviata! Controlla la tua casella', 'success');
+                console.log('✅ Email reset inviata a:', email);
 
-                    console.log('✅ Nome salvato in profiles:', newName);
-                    document.getElementById('userName').textContent = newName;
-                    
-                    saveBtnText.textContent = '💾 Salva Profilo';
-                    saveBtn.disabled = false;
-                    
-                    showToast('✅ Profilo aggiornato con successo!', 'success');
+            } catch (error) {
+                console.error('❌ Errore reset password:', error);
+                showToast('❌ Errore: ' + error.message, 'error');
+            }
+        });
 
-                } catch (error) {
-                    console.error('❌ Errore aggiornamento profilo:', error);
-                    
-                    saveBtnText.textContent = '💾 Salva Profilo';
-                    saveBtn.disabled = false;
-                    
-                    showToast('❌ Errore: ' + error.message, 'error');
-                }
-            });
-
-            // Reset password con conferma
-            document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
-                const email = currentUser.email;
-                
-                const confirmReset = window.confirm(
-                    `📧 Reset Password\n\n` +
-                    `L'email sarà inviata a:\n${email}\n\n` +
-                    `Clicca OK per confermare.`
+        // ELIMINA ACCOUNT CON DOPPIA CONFERMA
+        document.getElementById('deleteAccountBtn').addEventListener('click', () => {
+            const confirm1 = window.confirm(
+                '⚠️ ATTENZIONE: Cancellazione Account\n\n' +
+                'Questa azione eliminerà permanentemente:\n' +
+                '• Il tuo profilo utente\n' +
+                '• Tutte le tue riflessioni\n' +
+                '• I tuoi progressi e statistiche\n\n' +
+                'Questa operazione NON è reversibile.\n\n' +
+                'Vuoi procedere?'
+            );
+            
+            if (confirm1) {
+                const confirm2 = window.confirm(
+                    '❗ ULTIMA CONFERMA\n\n' +
+                    'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
+                    'Clicca OK per confermare la cancellazione definitiva.'
                 );
                 
-                if (!confirmReset) {
-                    console.log('⚠️ Reset password annullato dall\'utente');
-                    showToast('❌ Operazione annullata', 'info');
-                    return;
+                if (confirm2) {
+                    showToast('🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
+                    console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
                 }
-                
-                try {
-                    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-                        redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
-                    });
-
-                    if (error) throw error;
-
-                    showToast('✅ Email inviata! Controlla la tua casella', 'success');
-                    console.log('✅ Email reset inviata a:', email);
-
-                } catch (error) {
-                    console.error('❌ Errore reset password:', error);
-                    showToast('❌ Errore: ' + error.message, 'error');
-                }
-            });
-
-            // ✅ ELIMINA ACCOUNT CON DOPPIA CONFERMA
-            document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-                const confirm1 = window.confirm(
-                    '⚠️ ATTENZIONE: Cancellazione Account\n\n' +
-                    'Questa azione eliminerà permanentemente:\n' +
-                    '• Il tuo profilo utente\n' +
-                    '• Tutte le tue riflessioni\n' +
-                    '• I tuoi progressi e statistiche\n\n' +
-                    'Questa operazione NON è reversibile.\n\n' +
-                    'Vuoi procedere?'
-                );
-                
-                if (confirm1) {
-                    const confirm2 = window.confirm(
-                        '❗ ULTIMA CONFERMA\n\n' +
-                        'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
-                        'Clicca OK per confermare la cancellazione definitiva.'
-                    );
-                    
-                    if (confirm2) {
-                        showToast('🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
-                        console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
-                    }
-                }
-            });
-        }
-
-        // Toast
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            if (type === 'error') {
-                toast.classList.remove('border-amber-500', 'text-amber-400');
-                toast.classList.add('border-red-500', 'text-red-400');
-            } else if (type === 'info') {
-                toast.classList.remove('border-amber-500', 'text-amber-400');
-                toast.classList.add('border-blue-500', 'text-blue-400');
-            } else {
-                toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
-                toast.classList.add('border-amber-500', 'text-amber-400');
             }
-            
-            toastMessage.textContent = message;
+        });
+    }
+
+    // Toast
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        if (type === 'error') {
+            toast.classList.remove('border-amber-500', 'text-amber-400');
+            toast.classList.add('border-red-500', 'text-red-400');
+        } else if (type === 'info') {
+            toast.classList.remove('border-amber-500', 'text-amber-400');
+            toast.classList.add('border-blue-500', 'text-blue-400');
+        } else {
+            toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
+            toast.classList.add('border-amber-500', 'text-amber-400');
+        }
+        
+        toastMessage.textContent = message;
+        toast.classList.remove('hiding');
+        toast.style.transform = 'translateY(0)';
+        
+        setTimeout(() => {
+            toast.classList.add('hiding');
+        }, 5500);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(8rem)';
             toast.classList.remove('hiding');
-            toast.style.transform = 'translateY(0)';
-            
-            setTimeout(() => {
-                toast.classList.add('hiding');
-            }, 5500);
-            
-            setTimeout(() => {
-                toast.style.transform = 'translateY(8rem)';
-                toast.classList.remove('hiding');
-            }, 6000);
-        }
+        }, 6000);
+    }
+    
+    window.showToast = showToast;
+})();
     </script>
 </body>
 </html>
