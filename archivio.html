@@ -359,20 +359,40 @@
 
     document.addEventListener('DOMContentLoaded', initArchive);
 
-    async function initArchive() {
-        const { data: { session }, error } = await sbClient.auth.getSession();
-        
-        if (!session) {
-            window.location.href = 'accedi.html';
-            return;
+async function loadUserData() {
+    // 1) prova a leggere dalla tabella profiles (nome aggiornato)
+    try {
+        const { data: profile, error } = await sbClient
+            .from('profiles')
+            .select('display_name')
+            .eq('id', currentUser.id)
+            .single();
+
+        let displayName = profile?.display_name;
+
+        // 2) se non c'è in profiles, fallback a user_metadata / email
+        if (!displayName) {
+            displayName = currentUser.user_metadata?.full_name ||
+                          currentUser.user_metadata?.name ||
+                          currentUser.email?.split('@')[0] ||
+                          'Stoico';
         }
-        
-        currentUser = session.user;
-        loadUserData();
-        await loadReflections();
-        await loadProgressData();
-        setupEventListeners();
+
+        const userNameEl = document.getElementById('userName');
+        if (userNameEl) userNameEl.textContent = displayName;
+    } catch (err) {
+        console.error('Errore loadUserData archivio:', err);
+
+        const fallbackName = currentUser.user_metadata?.full_name ||
+                             currentUser.user_metadata?.name ||
+                             currentUser.email?.split('@')[0] ||
+                             'Stoico';
+
+        const userNameEl = document.getElementById('userName');
+        if (userNameEl) userNameEl.textContent = fallbackName;
     }
+}
+
 
     function loadUserData() {
         const displayName = currentUser.user_metadata?.full_name || 
