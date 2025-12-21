@@ -155,6 +155,60 @@
             opacity: 0;
         }
 
+        /* NUOVO: Badge Ruoli */
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .role-badge.master {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #78350f;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+        }
+
+        .role-badge.pro {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .role-badge.vip {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .role-badge.vip-expired {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            color: #f1f5f9;
+            box-shadow: none;
+        }
+
+        /* NUOVO: Stili Admin Panel */
+        .admin-card {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+        }
+
+        .user-row {
+            transition: all 0.2s ease;
+        }
+
+        .user-row:hover {
+            background: rgba(251, 191, 36, 0.05);
+            transform: translateX(4px);
+        }
+
         @media (max-width: 767px) {
             .mobile-btn {
                 min-height: 48px;
@@ -188,6 +242,12 @@
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
                         <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
+                    </div>
+
+                    <!-- NUOVO: Badge Ruolo -->
+                    <div id="roleBadge" class="hidden role-badge" title="Il tuo ruolo">
+                        <span id="roleIcon">👤</span>
+                        <span id="roleText">VIP</span>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -292,6 +352,47 @@
                 <p class="text-slate-400 text-sm md:text-base">
                     Gestisci il tuo profilo, sicurezza e preferenze
                 </p>
+            </div>
+
+            <!-- NUOVO: PANNELLO ADMIN (solo per master) -->
+            <div id="adminPanel" class="hidden mb-6">
+                <div class="admin-card rounded-lg p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-4xl">👑</span>
+                        <div>
+                            <h2 class="text-2xl font-cinzel font-bold text-amber-400 uppercase tracking-wide">
+                                Pannello Admin
+                            </h2>
+                            <p class="text-amber-300 text-sm">Gestisci utenti e ruoli</p>
+                        </div>
+                    </div>
+
+                    <!-- Lista Utenti -->
+                    <div class="bg-slate-900/60 rounded-lg p-4 md:p-6 border border-amber-500/20">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                Utenti Registrati
+                            </h3>
+                            <button id="refreshUsersBtn" class="text-amber-400 hover:text-amber-300 transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div id="usersListContainer">
+                            <div class="text-center py-8 text-slate-400">
+                                <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                                <p>Caricamento utenti...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- CARD PROFILO UTENTE -->
@@ -422,6 +523,8 @@
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     let currentUser = null;
+    let currentUserRole = null;
+    let currentUserProfile = null;
 
     // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', async () => {
@@ -449,20 +552,32 @@
         }
     });
 
-    // CARICA DATI UTENTE
+    // CARICA DATI UTENTE CON RUOLO
     async function loadUserData() {
         let displayName = 'Stoico';
         
         try {
             const { data: profile, error } = await sbClient
                 .from('profiles')
-                .select('name')
+                .select('name, role, trial_ends_at, is_trial_expired')
                 .eq('id', currentUser.id)
                 .single();
             
-            if (!error && profile?.name) {
-                displayName = profile.name;
-                console.log('✅ Nome caricato da profiles:', displayName);
+            if (!error && profile) {
+                displayName = profile.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
+                currentUserProfile = profile;
+                currentUserRole = profile.role || 'vip';
+                
+                console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
+                
+                // Mostra badge ruolo
+                updateRoleBadge(currentUserRole, profile);
+                
+                // NUOVO: Se è master, mostra pannello admin
+                if (currentUserRole === 'master') {
+                    document.getElementById('adminPanel').classList.remove('hidden');
+                    await loadAllUsers();
+                }
             } else {
                 displayName = currentUser.user_metadata?.full_name || 
                              currentUser.user_metadata?.name || 
@@ -484,6 +599,218 @@
 
         console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
     }
+
+    // NUOVO: Aggiorna badge ruolo
+    function updateRoleBadge(role, profile) {
+        const badgeContainer = document.getElementById('roleBadge');
+        const roleIcon = document.getElementById('roleIcon');
+        const roleText = document.getElementById('roleText');
+
+        if (!role) {
+            badgeContainer.classList.add('hidden');
+            return;
+        }
+
+        badgeContainer.classList.remove('master', 'pro', 'vip', 'vip-expired');
+
+        if (role === 'master') {
+            badgeContainer.classList.add('master');
+            roleIcon.textContent = '👑';
+            roleText.textContent = 'MASTER';
+        } else if (role === 'pro') {
+            badgeContainer.classList.add('pro');
+            roleIcon.textContent = '⭐';
+            roleText.textContent = 'PRO';
+        } else if (role === 'vip') {
+            if (profile?.is_trial_expired === true) {
+                badgeContainer.classList.add('vip-expired');
+                roleIcon.textContent = '⏰';
+                roleText.textContent = 'TRIAL SCADUTO';
+            } else {
+                badgeContainer.classList.add('vip');
+                roleIcon.textContent = '🎁';
+                roleText.textContent = 'VIP';
+            }
+        }
+
+        badgeContainer.classList.remove('hidden');
+    }
+
+    // NUOVO: Carica tutti gli utenti (solo master)
+    async function loadAllUsers() {
+        console.log('👥 Caricamento utenti...');
+        
+        try {
+            const { data: users, error } = await sbClient
+                .from('profiles')
+                .select(`
+                    id,
+                    name,
+                    role,
+                    trial_ends_at,
+                    is_trial_expired,
+                    created_at
+                `)
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+
+            console.log('✅ Utenti caricati:', users?.length || 0);
+            renderUsersList(users || []);
+
+        } catch (error) {
+            console.error('❌ Errore caricamento utenti:', error);
+            document.getElementById('usersListContainer').innerHTML = `
+                <div class="text-center py-8 text-red-400">
+                    <p>Errore caricamento utenti</p>
+                    <p class="text-sm mt-2">${error.message}</p>
+                </div>
+            `;
+        }
+    }
+
+    // NUOVO: Renderizza lista utenti
+    function renderUsersList(users) {
+        const container = document.getElementById('usersListContainer');
+        
+        if (users.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-8 text-slate-400">
+                    <p>Nessun utente registrato</p>
+                </div>
+            `;
+            return;
+        }
+
+        const usersHTML = users.map(user => {
+            const roleIcons = {
+                master: '👑',
+                pro: '⭐',
+                vip: '🎁'
+            };
+            
+            const roleColors = {
+                master: 'text-amber-400',
+                pro: 'text-purple-400',
+                vip: 'text-blue-400'
+            };
+
+            const isExpired = user.role === 'vip' && user.is_trial_expired;
+            const trialInfo = user.trial_ends_at ? 
+                `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">
+                    ${isExpired ? '⏰ Scaduto' : '✅ Attivo fino al ' + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}
+                </span>` : 
+                '<span class="text-xs text-slate-500">Illimitato</span>';
+
+            return `
+                <div class="user-row flex items-center justify-between p-4 bg-slate-800/40 rounded-lg mb-3">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-2xl">${roleIcons[user.role]}</span>
+                            <span class="font-bold text-slate-200">${user.name || 'Utente senza nome'}</span>
+                            <span class="text-xs ${roleColors[user.role]} uppercase font-bold">${user.role}</span>
+                        </div>
+                        <div class="text-xs text-slate-400">
+                            ID: ${user.id.substring(0, 8)}... • ${trialInfo}
+                        </div>
+                    </div>
+                    ${user.id !== currentUser.id ? `
+                        <div class="flex gap-2">
+                            ${user.role !== 'pro' ? `
+                                <button 
+                                    onclick="window.changeUserRole('${user.id}', 'pro')"
+                                    class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
+                                    title="Promuovi a PRO"
+                                >
+                                    ⭐ PRO
+                                </button>
+                            ` : ''}
+                            ${user.role !== 'vip' ? `
+                                <button 
+                                    onclick="window.changeUserRole('${user.id}', 'vip')"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
+                                    title="Riporta a VIP"
+                                >
+                                    🎁 VIP
+                                </button>
+                            ` : ''}
+                            ${user.trial_ends_at ? `
+                                <button 
+                                    onclick="window.setUnlimitedVIP('${user.id}')"
+                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
+                                    title="VIP Illimitato (amici/parenti)"
+                                >
+                                    ♾️ VIP∞
+                                </button>
+                            ` : ''}
+                        </div>
+                    ` : `
+                        <span class="text-amber-400 text-xs font-bold">TU</span>
+                    `}
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = usersHTML;
+    }
+
+    // NUOVO: Cambia ruolo utente
+    window.changeUserRole = async function(userId, newRole) {
+        if (!confirm(`Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`)) {
+            return;
+        }
+
+        console.log(`🔄 Cambio ruolo utente ${userId} → ${newRole}`);
+
+        try {
+            const { error } = await sbClient
+                .from('profiles')
+                .update({ 
+                    role: newRole,
+                    trial_ends_at: null,
+                    is_trial_expired: false
+                })
+                .eq('id', userId);
+
+            if (error) throw error;
+
+            showToast(`✅ Ruolo aggiornato a ${newRole.toUpperCase()}!`, 'success');
+            await loadAllUsers();
+
+        } catch (error) {
+            console.error('❌ Errore cambio ruolo:', error);
+            showToast('❌ Errore: ' + error.message, 'error');
+        }
+    };
+
+    // NUOVO: Imposta VIP illimitato (amici/parenti)
+    window.setUnlimitedVIP = async function(userId) {
+        if (!confirm('Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?')) {
+            return;
+        }
+
+        console.log(`♾️ Imposto VIP illimitato per ${userId}`);
+
+        try {
+            const { error } = await sbClient
+                .from('profiles')
+                .update({ 
+                    role: 'vip',
+                    trial_ends_at: null,
+                    is_trial_expired: false
+                })
+                .eq('id', userId);
+
+            if (error) throw error;
+
+            showToast('✅ Utente impostato come VIP ILLIMITATO!', 'success');
+            await loadAllUsers();
+
+        } catch (error) {
+            console.error('❌ Errore:', error);
+            showToast('❌ Errore: ' + error.message, 'error');
+        }
+    };
 
     // CARICA STREAK
     async function loadProgressData() {
@@ -712,6 +1039,15 @@
                 }
             }
         });
+
+        // NUOVO: Refresh utenti (solo master)
+        const refreshBtn = document.getElementById('refreshUsersBtn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', async () => {
+                showToast('🔄 Aggiornamento lista utenti...', 'info');
+                await loadAllUsers();
+            });
+        }
     }
 
     // Toast
