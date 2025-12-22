@@ -658,7 +658,67 @@
                 const fallback = user.email?.split('@')[0] || 'Stoico';
                 document.getElementById('userName').textContent = fallback;
                 return;
-            }
+            } // BLOCCO A – LOGICA TRIAL
+function checkTrialStatus(profile) {
+  // Se manca il profilo, consideriamo l'utente come VIP senza limiti
+  if (!profile) {
+    return {
+      isExpired: false,
+      isInTrial: false,
+      reason: "Nessun profilo: accesso libero",
+      trialEnd: null
+    };
+  }
+
+  // Ruoli PRO/Master: nessun limite
+  if (profile.role === "pro" || profile.role === "master") {
+    return {
+      isExpired: false,
+      isInTrial: false,
+      reason: "PROMASTER",
+      trialEnd: null
+    };
+  }
+
+  // Se non abbiamo una data di fine trial → VIP illimitato (amico/familiare)
+  if (!profile.trial_ends_at) {
+    return {
+      isExpired: false,
+      isInTrial: false,
+      reason: "VIP illimitato o trial non configurato",
+      trialEnd: null
+    };
+  }
+
+  const now = new Date();
+  const trialEnd = new Date(profile.trial_ends_at);
+
+  // Scaduto per data
+  const expiredByDate = now > trialEnd;
+
+  // Flag manuale da DB
+  const expiredFlag = profile.is_trial_expired === true;
+
+  const isExpired = expiredByDate || expiredFlag;
+
+  if (isExpired) {
+    return {
+      isExpired: true,
+      isInTrial: false,
+      reason: "Trial terminato",
+      trialEnd
+    };
+  }
+
+  // Trial attivo
+  return {
+    isExpired: false,
+    isInTrial: true,
+    reason: "Trial attivo",
+    trialEnd
+  };
+}
+
 
             // Salva profilo in variabile globale
             currentUserProfile = profile;
