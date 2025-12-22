@@ -123,7 +123,7 @@
             0%, 100% { 
                 box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
             }
-            50% { 
+            50 { 
                 box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
             }
         }
@@ -155,7 +155,7 @@
             opacity: 0;
         }
 
-        /* NUOVO: Badge Ruoli */
+        /* Badge Ruoli */
         .role-badge {
             display: inline-flex;
             align-items: center;
@@ -193,7 +193,7 @@
             box-shadow: none;
         }
 
-        /* NUOVO: Stili Admin Panel */
+        /* Admin Panel */
         .admin-card {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
             border: 2px solid rgba(251, 191, 36, 0.3);
@@ -244,7 +244,7 @@
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
 
-                    <!-- NUOVO: Badge Ruolo -->
+                    <!-- Badge Ruolo -->
                     <div id="roleBadge" class="hidden role-badge" title="Il tuo ruolo">
                         <span id="roleIcon">👤</span>
                         <span id="roleText">VIP</span>
@@ -310,8 +310,8 @@
         </div>
     </aside>
 
-    <!-- DESKTOP SIDEBAR -->
     <div class="flex">
+        <!-- DESKTOP SIDEBAR -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
@@ -354,7 +354,7 @@
                 </p>
             </div>
 
-            <!-- NUOVO: PANNELLO ADMIN (solo per master) -->
+            <!-- PANNELLO ADMIN (solo per master) -->
             <div id="adminPanel" class="hidden mb-6">
                 <div class="admin-card rounded-lg p-6 md:p-8">
                     <div class="flex items-center gap-3 mb-6">
@@ -367,7 +367,6 @@
                         </div>
                     </div>
 
-                    <!-- Lista Utenti -->
                     <div class="bg-slate-900/60 rounded-lg p-4 md:p-6 border border-amber-500/20">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
@@ -570,10 +569,8 @@
                 
                 console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
                 
-                // Mostra badge ruolo
                 updateRoleBadge(currentUserRole, profile);
                 
-                // NUOVO: Se è master, mostra pannello admin
                 if (currentUserRole === 'master') {
                     document.getElementById('adminPanel').classList.remove('hidden');
                     await loadAllUsers();
@@ -600,7 +597,7 @@
         console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
     }
 
-    // NUOVO: Aggiorna badge ruolo
+    // Aggiorna badge ruolo
     function updateRoleBadge(role, profile) {
         const badgeContainer = document.getElementById('roleBadge');
         const roleIcon = document.getElementById('roleIcon');
@@ -636,7 +633,7 @@
         badgeContainer.classList.remove('hidden');
     }
 
-    // NUOVO: Carica tutti gli utenti (solo master)
+    // Carica tutti gli utenti (solo master)
     async function loadAllUsers() {
         console.log('👥 Caricamento utenti...');
         
@@ -669,7 +666,7 @@
         }
     }
 
-    // NUOVO: Renderizza lista utenti
+    // Render lista utenti
     function renderUsersList(users) {
         const container = document.getElementById('usersListContainer');
         
@@ -754,7 +751,7 @@
         container.innerHTML = usersHTML;
     }
 
-    // NUOVO: Cambia ruolo utente
+    // Cambia ruolo utente
     window.changeUserRole = async function(userId, newRole) {
         if (!confirm(`Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`)) {
             return;
@@ -783,7 +780,7 @@
         }
     };
 
-    // NUOVO: Imposta VIP illimitato (amici/parenti)
+    // Imposta VIP illimitato
     window.setUnlimitedVIP = async function(userId) {
         if (!confirm('Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?')) {
             return;
@@ -895,6 +892,23 @@
         nameInput.classList.remove('error');
         errorMsg.classList.remove('active');
         return true;
+    }
+
+    // NUOVO: invio richiesta eliminazione account (soft, nessun delete reale)
+    async function sendAccountDeletionRequest() {
+        try {
+            console.log('🗑️ Richiesta eliminazione account per:', currentUser.email);
+
+            // Qui in futuro potrai:
+            // - inserire una riga in una tabella "account_delete_requests"
+            // - mandarti una mail
+            // Per ora mostri solo il messaggio all’utente.
+
+            showToast('🗑️ Richiesta inviata. L\'account verrà gestito manualmente entro 30 giorni.', 'info');
+        } catch (error) {
+            console.error('❌ Errore registrazione richiesta eliminazione:', error);
+            showToast('❌ Errore durante la richiesta. Riprova più tardi.', 'error');
+        }
     }
 
     // SETUP EVENT LISTENERS
@@ -1014,33 +1028,34 @@
             }
         });
 
-        // ELIMINA ACCOUNT CON DOPPIA CONFERMA
+        // ELIMINA ACCOUNT: solo richiesta, nessuna cancellazione automatica
         document.getElementById('deleteAccountBtn').addEventListener('click', () => {
             const confirm1 = window.confirm(
                 '⚠️ ATTENZIONE: Cancellazione Account\n\n' +
-                'Questa azione eliminerà permanentemente:\n' +
-                '• Il tuo profilo utente\n' +
-                '• Tutte le tue riflessioni\n' +
-                '• I tuoi progressi e statistiche\n\n' +
-                'Questa operazione NON è reversibile.\n\n' +
+                'Questa azione avvia una richiesta di eliminazione del tuo account.\n' +
+                'Il team verificherà manualmente la richiesta.\n\n' +
                 'Vuoi procedere?'
             );
             
-            if (confirm1) {
-                const confirm2 = window.confirm(
-                    '❗ ULTIMA CONFERMA\n\n' +
-                    'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
-                    'Clicca OK per confermare la cancellazione definitiva.'
-                );
-                
-                if (confirm2) {
-                    showToast('🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
-                    console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
-                }
+            if (!confirm1) {
+                return;
             }
+
+            const confirm2 = window.confirm(
+                '❗ ULTIMA CONFERMA\n\n' +
+                'Confermi di voler inviare la richiesta di cancellazione del tuo account?\n\n' +
+                'Clicca OK per confermare.'
+            );
+            
+            if (!confirm2) {
+                return;
+            }
+
+            // Nessuna delete immediata: solo richiesta registrata
+            sendAccountDeletionRequest();
         });
 
-        // NUOVO: Refresh utenti (solo master)
+        // Refresh utenti (solo master)
         const refreshBtn = document.getElementById('refreshUsersBtn');
         if (refreshBtn) {
             refreshBtn.addEventListener('click', async () => {
