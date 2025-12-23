@@ -816,68 +816,6 @@ function showTrialExpiredOverlay(trialInfo) {
   `;
 
 
-    ">
-      <h2 style="
-        font-family: Cinzel, serif;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-        color: #fbbf24;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-      ">
-        Il tuo periodo di prova è terminato
-      </h2>
-
-      <p style="
-        font-size: 0.95rem;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-        color: #e5e7eb;
-      ">
-        Hai concluso i 30 giorni gratuiti di accesso completo a
-        <strong>The Stoic Journey</strong>.<br>
-        Per continuare ad accedere alle funzionalità PRO, attiva un abbonamento.
-      </p>
-
-      <p style="
-        font-size: 0.8rem;
-        color: #9ca3af;
-        margin-bottom: 1.5rem;
-      ">
-        ${trialInfo && trialInfo.trialEnd
-          ? `Scaduto il ${trialInfo.trialEnd.toLocaleDateString('it-IT')}`
-          : 'Trial scaduto.'}
-      </p>
-
-      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-        <button id="goProBtn" style="
-          padding: 0.9rem 1.5rem;
-          border-radius: 9999px;
-          border: none;
-          background: linear-gradient(90deg, #fbbf24, #f97316);
-          color: #111827;
-          font-weight: 700;
-          font-size: 1rem;
-          cursor: pointer;
-        ">
-          Passa a PRO (presto disponibile)
-        </button>
-
-        <button id="logoutTrialBtn" style="
-          padding: 0.7rem 1.5rem;
-          border-radius: 9999px;
-          border: 1px solid #4b5563;
-          background: transparent;
-          color: #e5e7eb;
-          font-size: 0.85rem;
-          cursor: pointer;
-        ">
-          Esci e torna alla home
-        </button>
-      </div>
-    </div>
-  `;
-
   document.body.appendChild(overlay);
 
   const goProBtn = document.getElementById('goProBtn');
