@@ -657,10 +657,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 6. Attiva i vari pulsanti/menu
     setupEventListeners();
-  } catch (err) {
-    console.error('Errore init dashboard:', err);
-    window.location.href = 'accedi.html';
-  }
+} catch (err) {
+  console.error('Errore init dashboard:', err);
+  // window.location.href = 'accedi.html'; // disattivato per debug
+}
+
 });
 
 
