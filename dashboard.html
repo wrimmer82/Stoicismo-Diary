@@ -680,6 +680,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 return;
             } // BLOCCO A – LOGICA TRIAL
 function checkTrialStatus(profile) {
+      // SOLO PER TEST – forza trial scaduto
+  return {
+    isExpired: true,
+    isInTrial: false,
+    reason: 'TEST_FORZATO',
+    trialEnd: new Date()
+  };
+
   // Se manca il profilo, consideriamo l'utente come VIP senza limiti
   if (!profile) {
     return {
