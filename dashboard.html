@@ -689,6 +689,121 @@ function checkTrialStatus(profile) {
       trialEnd: null
     };
   }
+    // BLOCCO B – OVERLAY TRIAL SCADUTO
+function showTrialExpiredOverlay(trialInfo) {
+  // Evita di creare più overlay se la funzione viene richiamata
+  let overlay = document.getElementById('trialOverlay');
+  if (overlay) return;
+
+  overlay = document.createElement('div');
+  overlay.id = 'trialOverlay';
+
+  // Stili base overlay pieno schermo
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.background = 'rgba(0, 0, 0, 0.9)';
+  overlay.style.backdropFilter = 'blur(8px)';
+  overlay.style.zIndex = '1000';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+
+  overlay.innerHTML = `
+    <div style="
+      max-width: 500px;
+      background: linear-gradient(135deg, #1f2937, #020617);
+      border-radius: 24px;
+      border: 3px solid rgba(251, 191, 36, 0.85);
+      padding: 2.5rem 2rem;
+      margin: 1rem;
+      color: #f9fafb;
+      text-align: center;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+      font-family: Inter, sans-serif;
+    ">
+      <h2 style="
+        font-family: Cinzel, serif;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: #fbbf24;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      ">
+        Il tuo periodo di prova è terminato
+      </h2>
+
+      <p style="
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        color: #e5e7eb;
+      ">
+        Hai concluso i 30 giorni gratuiti di accesso completo a
+        <strong>The Stoic Journey</strong>.<br>
+        Per continuare ad accedere alle funzionalità PRO, attiva un abbonamento.
+      </p>
+
+      <p style="
+        font-size: 0.8rem;
+        color: #9ca3af;
+        margin-bottom: 1.5rem;
+      ">
+        ${trialInfo && trialInfo.trialEnd
+          ? `Scaduto il ${trialInfo.trialEnd.toLocaleDateString('it-IT')}`
+          : 'Trial scaduto.'}
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+        <button id="goProBtn" style="
+          padding: 0.9rem 1.5rem;
+          border-radius: 9999px;
+          border: none;
+          background: linear-gradient(90deg, #fbbf24, #f97316);
+          color: #111827;
+          font-weight: 700;
+          font-size: 1rem;
+          cursor: pointer;
+        ">
+          Passa a PRO (presto disponibile)
+        </button>
+
+        <button id="logoutTrialBtn" style="
+          padding: 0.7rem 1.5rem;
+          border-radius: 9999px;
+          border: 1px solid #4b5563;
+          background: transparent;
+          color: #e5e7eb;
+          font-size: 0.85rem;
+          cursor: pointer;
+        ">
+          Esci e torna alla home
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  const goProBtn = document.getElementById('goProBtn');
+  if (goProBtn) {
+    goProBtn.addEventListener('click', () => {
+      if (typeof showToast === 'function') {
+        showToast('Presto potrai attivare il piano PRO da qui.');
+      }
+    });
+  }
+
+  const logoutBtn = document.getElementById('logoutTrialBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        await sbClient.auth.signOut();
+      } finally {
+        window.location.href = 'index.html';
+      }
+    });
+  }
+}
 
   // Ruoli PRO/Master: nessun limite
   if (profile.role === "pro" || profile.role === "master") {
