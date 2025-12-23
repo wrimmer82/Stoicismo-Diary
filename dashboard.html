@@ -635,11 +635,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await loadUserData(user);
 
-    // Usa checkTrialStatus solo se è definita
+    // 3. Controlla stato trial
+    let trialStatus = null;
     if (typeof checkTrialStatus === 'function') {
-      const trialStatus = checkTrialStatus(currentUserProfile);
+      trialStatus = checkTrialStatus(currentUserProfile);
       console.log('Stato trial:', trialStatus);
-      // Per ora NON blocchiamo nulla, anche se scaduto
+    }
+
+    // 4. Se il trial è scaduto, mostra overlay e NON caricare i contenuti
+    if (trialStatus && trialStatus.isExpired) {
+      if (typeof showTrialExpiredOverlay === 'function') {
+        showTrialExpiredOverlay(trialStatus);
+      }
+      setupEventListeners(); // menù, logout, ecc.
+      return;
     }
 
     await loadDailyContent();
@@ -647,9 +656,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupEventListeners();
   } catch (err) {
     console.error('Errore init dashboard:', err);
-    // window.location.href = 'accedi.html'; // lascialo commentato mentre testi
+    // window.location.href = 'accedi.html';
   }
 });
+
 
 
     // MODIFICATA: Funzione per caricare dati utente CON ruolo
