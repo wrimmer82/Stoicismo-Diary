@@ -621,26 +621,75 @@
         return data?.session ?? null;
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        try {
-            const session = await getSessionRobusta();
+// ============================================
+// BLOCCO C - INIT CON TRIAL
+// ============================================
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log('🚀 Inizializzazione dashboard con TRIAL...');
 
-            if (!session) {
-                window.location.href = 'accedi.html';
-                return;
-            }
+  try {
+    const session = await getSessionRobusta();
+    if (!session) {
+      window.location.href = 'accedi.html';
+      return;
+    }
 
-            const user = session.user;
+    const user = session.user;
+    await loadUserData(user); // qui viene popolato currentUserProfile
 
-            await loadUserData(user);
-            await loadDailyContent();
-            await loadProgressData(user.id);
-            setupEventListeners();
-        } catch (err) {
-            console.error('Errore init dashboard:', err);
-            window.location.href = 'accedi.html';
-        }
+    const trialStatus = checkTrialStatus(currentUserProfile);
+    console.log('🔍 Trial status:', trialStatus);
+
+    if (trialStatus.isExpired) {
+      console.warn('🚫 Trial scaduto → mostro overlay, non carico contenuti');
+      showTrialExpiredOverlay(trialStatus);
+      setupBaseListeners();
+      return;
+    }
+
+    await loadDailyContent();
+    await loadProgressData(user.id);
+    setupEventListeners();
+  } catch (err) {
+    console.error('Errore init dashboard:', err);
+    window.location.href = 'accedi.html';
+  }
+});
+
+// Listener minimi per menu + logout quando trial è scaduto
+function setupBaseListeners() {
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', async () => {
+      await sbClient.auth.signOut();
+      window.location.href = 'index.html';
     });
+  }
+
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const closeMobileMenu = document.getElementById('closeMobileMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  const mobileSidebar = document.getElementById('mobileSidebar');
+
+  if (mobileMenuBtn && mobileSidebar && mobileMenuOverlay) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileSidebar.classList.add('active');
+      mobileMenuOverlay.classList.add('active');
+    });
+  }
+
+  if (closeMobileMenu && mobileMenuOverlay && mobileSidebar) {
+    const closeFunc = () => {
+      mobileSidebar.classList.remove('active');
+      mobileMenuOverlay.classList.remove('active');
+    };
+    closeMobileMenu.addEventListener('click', closeFunc);
+    mobileMenuOverlay.addEventListener('click', closeFunc);
+  }
+
+  console.log('✅ Base listeners attivati (modalità trial scaduto)');
+}
+
 
     // MODIFICATA: Funzione per caricare dati utente CON ruolo
     async function loadUserData(user) {
@@ -727,6 +776,116 @@
         // Mostra il badge
         badgeContainer.classList.remove('hidden');
     }
+    // ============================================
+// BLOCCO A - LOGICA TRIAL
+// ============================================
+function checkTrialStatus(profile) {
+  if (!profile) {
+    console.warn('⚠️ Nessun profilo, accesso libero debug');
+    return { isExpired: false, isInTrial: false, reason: 'NO_PROFILE', trialEnd: null };
+  }
+
+  const role = profile.role?.toLowerCase() || '';
+
+  if (role === 'pro' || role === 'master') {
+    return { isExpired: false, isInTrial: false, reason: 'PRO_MASTER', trialEnd: null };
+  }
+
+  if (!profile.trial_ends_at) {
+    return { isExpired: false, isInTrial: false, reason: 'VIP_ILLIMITATO', trialEnd: null };
+  }
+
+  const trialEnd = new Date(profile.trial_ends_at);
+  trialEnd.setHours(0, 0, 0, 0);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (profile.is_trial_expired === true || trialEnd < today) {
+    return {
+      isExpired: true,
+      isInTrial: false,
+      reason: 'TRIAL_SCADUTO',
+      trialEnd: trialEnd
+    };
+  }
+
+  return {
+    isExpired: false,
+    isInTrial: true,
+    reason: 'TRIAL_ATTIVO',
+    trialEnd: trialEnd
+  };
+}
+
+// ============================================
+// BLOCCO B - OVERLAY PERGAMENA
+// ============================================
+function showTrialExpiredOverlay(trialInfo) {
+  if (document.getElementById('trialOverlay')) return;
+
+  const dataScadenza = trialInfo.trialEnd
+    ? trialInfo.trialEnd.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
+    : '';
+
+  const overlay = document.createElement('div');
+  overlay.id = 'trialOverlay';
+  overlay.style.cssText = `
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center; z-index: 9999;
+    animation: fadeIn 0.3s ease;
+  `;
+
+  overlay.innerHTML = `
+    <div style="
+      background: linear-gradient(145deg, #f4e4c1 0%, #e8d5b5 100%);
+      border: 8px solid #8b4513; border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      max-width: 720px; width: 90%; padding: 48px 32px; text-align: center;
+      animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      font-family: 'Cinzel', serif;
+    ">
+      <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">⏳ Trial Terminato</h2>
+      
+      <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
+        Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
+        Per continuare il tuo cammino stoico, passa al piano <strong>PRO</strong>.
+      </p>
+
+      ${dataScadenza ? `<p style="font-size: 0.95rem; color: #6d4c41; margin: 0 0 32px; font-style: italic;">Scaduto il ${dataScadenza}</p>` : ''}
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <button id="btnPassaPRO" style="
+          background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
+          border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
+          cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
+        ">💎 Passa a PRO</button>
+        
+        <button id="btnEsci" style="
+          background: #757575; color: white; border: none; border-radius: 12px;
+          padding: 16px 32px; font-size: 1.125rem; font-weight: 600; cursor: pointer;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s;
+        ">Esci</button>
+      </div>
+
+      <style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      </style>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('btnPassaPRO').onclick = () => {
+    showToast('🚀 Presto potrai attivare il piano PRO da qui!');
+  };
+  document.getElementById('btnEsci').onclick = async () => {
+    await sbClient.auth.signOut();
+    window.location.href = 'index.html';
+  };
+}
+
 
     async function loadDailyContent() {
         const dayOfYear = getDayOfYear();
