@@ -621,26 +621,48 @@
         return data?.session ?? null;
     }
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        try {
-            const session = await getSessionRobusta();
+// INIZIALIZZAZIONE DASHBOARD CON CONTROLLO TRIAL
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    // 1. Recupera la sessione (token dall'URL + sessione salvata)
+    const session = await getSessionRobusta();
 
-            if (!session) {
-                window.location.href = 'accedi.html';
-                return;
-            }
+    // Se non sei autenticato, manda alla pagina di login
+    if (!session) {
+      window.location.href = 'accedi.html';
+      return;
+    }
 
-            const user = session.user;
+    const user = session.user;
 
-            await loadUserData(user);
-            await loadDailyContent();
-            await loadProgressData(user.id);
-            setupEventListeners();
-        } catch (err) {
-            console.error('Errore init dashboard:', err);
-            window.location.href = 'accedi.html';
-        }
-    });
+    // 2. Carica i dati profilo (questo imposta anche currentUserProfile / currentUserRole)
+    await loadUserData(user);
+
+    // 3. Calcola lo stato del trial usando il profilo globale
+    const trialStatus = checkTrialStatus(currentUserProfile);
+    console.log('Stato trial:', trialStatus);
+
+    // 4. Se il trial è scaduto, per ora NON blocchiamo nulla.
+    //    Quando aggiungeremo il BLOCCO B, qui chiameremo showTrialExpiredOverlay(trialStatus)
+    //    e faremo "return" per non caricare i contenuti.
+    //    if (trialStatus.isExpired) {
+    //      showTrialExpiredOverlay(trialStatus);
+    //      setupEventListeners(); // solo menu + logout, se vuoi
+    //      return;
+    //    }
+
+    // 5. Trial ok: carica contenuti e progresso normalmente
+    await loadDailyContent();
+    await loadProgressData(user.id);
+
+    // 6. Attiva i vari pulsanti/menu
+    setupEventListeners();
+  } catch (err) {
+    console.error('Errore init dashboard:', err);
+    window.location.href = 'accedi.html';
+  }
+});
+
 
     // MODIFICATA: Funzione per caricare dati utente CON ruolo
     async function loadUserData(user) {
