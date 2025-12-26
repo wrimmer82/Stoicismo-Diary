@@ -89,7 +89,6 @@
             transform-style: preserve-3d;
         }
         
-        /* MODIFICATO: WebP invece di PNG */
         .parallax-zoom-bg {
             position: absolute;
             top: 0;
@@ -384,6 +383,25 @@
                 margin-bottom: 2.5rem;
             }
         }
+
+        /* NUOVO: Testo responsive per CTA Header */
+        .cta-text-full {
+            display: none;
+        }
+
+        .cta-text-short {
+            display: inline;
+        }
+
+        @media (min-width: 640px) {
+            .cta-text-full {
+                display: inline;
+            }
+            
+            .cta-text-short {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
@@ -402,8 +420,9 @@
                     </span>
                 </div>
                 
-                <a href="accedi.html" class="bg-amber-500 text-slate-900 px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl">
-                    Accedi
+                <a href="accedi.html" class="bg-amber-500 text-slate-900 px-4 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-sm sm:text-base whitespace-nowrap">
+                    <span class="cta-text-short">Entra</span>
+                    <span class="cta-text-full">Entra Nel Viaggio Stoico</span>
                 </a>
             </div>
             
