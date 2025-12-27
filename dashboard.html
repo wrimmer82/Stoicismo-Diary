@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - The Stoic Journey</title>
     
-    <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
+    <meta name="description" content="La tua dashboard personale per il percorso stoico quotidiano">
     <meta name="robots" content="noindex, nofollow">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,248 +16,13 @@
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <style>
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-
-        .pergamena-bg {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
-            position: relative;
-        }
-
-        .highlighted-text {
-            color: #fde047;
-            font-weight: 900;
-            font-style: italic;
-            text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                -4px 0 0 #000, 4px 0 0 #000,
-                0 -4px 0 #000, 0 4px 0 #000,
-                -2px -2px 0 #000, 2px -2px 0 #000,
-                -2px 2px 0 #000, 2px 2px 0 #000,
-                0 0 15px rgba(253, 224, 71, 1),
-                0 0 25px rgba(253, 224, 71, 0.8),
-                0 0 35px rgba(253, 224, 71, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.04em;
-        }
-
-        .highlighted-text:hover {
-            color: #facc15;
-            text-shadow: 
-                -4px -4px 0 #000, 4px -4px 0 #000,
-                -4px 4px 0 #000, 4px 4px 0 #000,
-                -5px 0 0 #000, 5px 0 0 #000,
-                0 -5px 0 #000, 0 5px 0 #000,
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                0 0 20px rgba(250, 204, 21, 1),
-                0 0 30px rgba(250, 204, 21, 0.9),
-                0 0 40px rgba(250, 204, 21, 0.7);
-            transform: scale(1.02);
-        }
-
-        .roman-number {
-            color: #fde047;
-            font-weight: 900;
-            font-size: 1.2em;
-            text-shadow: 
-                -3px -3px 0 #000, 3px -3px 0 #000,
-                -3px 3px 0 #000, 3px 3px 0 #000,
-                -4px 0 0 #000, 4px 0 0 #000,
-                0 -4px 0 #000, 0 4px 0 #000,
-                -2px -2px 0 #000, 2px -2px 0 #000,
-                -2px 2px 0 #000, 2px 2px 0 #000,
-                0 0 15px rgba(253, 224, 71, 1);
-            letter-spacing: 0.1em;
-        }
-
-        .section-title-parchment {
-            color: #92400e;
-            text-shadow: 
-                1px 1px 0 rgba(255, 255, 255, 0.5),
-                -1px -1px 0 rgba(0, 0, 0, 0.3);
-            font-weight: 900;
-        }
-
-        .parchment-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 2px solid rgba(146, 64, 14, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .parchment-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
-
-        .parchment-card p {
-            color: #451a03;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-        }
-
-        body {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
-                #c49050 80%, #a8754a 90%, #1c1410 100%
-            );
-            min-height: 100vh;
-            background-attachment: fixed;
-        }
-
-        #mobileMenuOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        #mobileMenuOverlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #mobileSidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        #mobileSidebar::-webkit-scrollbar {
-            display: none;
-        }
-
-        #mobileSidebar.active {
-            transform: translateX(0);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        .gradient-border {
-            position: relative;
-            border-radius: 1rem;
-        }
-
-        .progress-bar {
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .skeleton {
-            background: linear-gradient(90deg, rgba(245, 222, 179, 0.3) 25%, rgba(245, 222, 179, 0.5) 50%, rgba(245, 222, 179, 0.3) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s ease-in-out infinite;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
-            }
-        }
-
-        .streak-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        /* NUOVO: Badge Ruoli */
-        .role-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-            padding: 0.375rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-        }
-
-        .role-badge.master {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #78350f;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-
-        .role-badge.pro {
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-        }
-
-        .role-badge.vip {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .role-badge.vip-expired {
-            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-            color: #f1f5f9;
-            box-shadow: none;
-        }
-
-        @media (max-width: 767px) {
-            .mobile-textarea {
-                height: 120px;
-                font-size: 16px;
-            }
-            
-            .mobile-btn {
-                min-height: 48px;
-                font-size: 16px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .desktop-textarea {
-                height: 200px;
-            }
-        }
-    </style>
+    <!-- FILE CSS ESTERNI -->
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body class="font-inter text-slate-100">
 
+    <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
@@ -282,7 +47,6 @@
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
 
-                    <!-- NUOVO: Badge Ruolo (nascosto fino a caricamento) -->
                     <div id="roleBadge" class="hidden role-badge" title="Il tuo ruolo">
                         <span id="roleIcon">👤</span>
                         <span id="roleText">VIP</span>
@@ -301,8 +65,10 @@
         </div>
     </header>
 
+    <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenuOverlay"></div>
 
+    <!-- MOBILE SIDEBAR -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
             <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
@@ -313,26 +79,26 @@
 
             <nav class="space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                     <span>Oggi</span>
                 </a>
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
                     <span>Archivio</span>
                 </a>
                 <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>Impostazioni</span>
                 </a>
                 <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
                     <span>Passa a PRO</span>
@@ -346,30 +112,32 @@
         </div>
     </aside>
 
+    <!-- LAYOUT PRINCIPALE -->
     <div class="flex">
+        <!-- DESKTOP SIDEBAR -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                     </svg>
                     <span>Oggi</span>
                 </a>
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
                     </svg>
                     <span>Archivio</span>
                 </a>
                 <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>Impostazioni</span>
                 </a>
                 <a href="#" data-view="pro" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
                     </svg>
                     <span>Passa a PRO</span>
@@ -377,778 +145,189 @@
             </nav>
         </aside>
 
-        <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 p-4 md:p-8">
             
+            <!-- VIEW OGGI -->
             <div id="viewOggi" class="view-container">
-                
-                <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
-                            Contenuto Quotidiano
-                        </h2>
-                        <p class="text-sm font-trajan font-bold" style="color: #f5dec3; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                            Giorno <span id="dayOfYear" class="roman-number">...</span> dell'anno
-                        </p>
-                    </div>
-
-                    <div id="contentSkeleton" class="space-y-4">
-                        <div class="skeleton h-6 w-3/4 mx-auto rounded"></div>
-                        <div class="skeleton h-4 w-full rounded"></div>
-                        <div class="skeleton h-4 w-5/6 rounded"></div>
-                        <div class="skeleton h-32 w-full rounded mt-6"></div>
-                    </div>
-
-                    <div id="dailyContent" class="hidden space-y-6">
-  <div class="border-l-4 border-amber-500 pl-4 py-2 bg-black/40 rounded-r-lg">
-    <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="citazione-testo">Caricamento citazione...</p>
-    <p class="text-sm font-semibold highlighted-text" id="citazione-autore">— Autore</p>
-  </div>
-
-  <div class="flex gap-3 flex-wrap">
-    <span id="tema-badge" class="inline-block bg-amber-600/90 text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
-      tema
-    </span>
-    <span id="difficolta-badge" class="inline-block bg-slate-700/90 text-amber-400 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">
-    </span>
-  </div>
-
-  <div class="parchment-card rounded-lg p-4 md:p-6">
-    <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Interpretazione</h3>
-    <p class="leading-relaxed font-trajan" id="interpretazione-testo">Caricamento interpretazione...</p>
-  </div>
-
-  <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95)">
-    <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment">Micro-Sfida di Oggi</h3>
-    <p class="leading-relaxed font-trajan" id="micro-sfida-testo">Caricamento micro-sfida...</p>
-  </div>
-</div>
-     
-                    </div>
-                </div>
-
-                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide">
-                        Le Tue Riflessioni di Oggi
-                    </h3>
+                <div class="max-w-6xl mx-auto space-y-6">
                     
-                    <textarea 
-                        id="reflectionTextarea"
-                        maxlength="2000"
-                        placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
-                        class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
-                    ></textarea>
-                    
-                    <div class="flex items-center justify-between mt-3">
-                        <span class="text-xs text-slate-500">
-                            <span id="charCount">0</span>/2000 caratteri
-                        </span>
-                        <div class="flex gap-3">
-                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
-                                <span>Copia</span>
-                            </button>
-                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
-                                <span>Salva</span>
-                            </button>
+                    <!-- TITOLO -->
+                    <div class="text-center mb-8">
+                        <h1 class="text-4xl md:text-6xl day-title mb-3">
+                            GIORNO <span id="dayOfYear">I</span>
+                        </h1>
+                        <p class="text-lg md:text-xl day-subtitle text-amber-300">Il tuo cammino stoico quotidiano</p>
+                    </div>
+
+                    <!-- CONTENUTO QUOTIDIANO CON IMMAGINE PERGAMENA -->
+                    <div class="content-card p-6 md:p-10">
+                        
+                        <!-- SKELETON -->
+                        <div id="contentSkeleton" class="space-y-6 daily-content-wrapper">
+                            <div class="skeleton h-8 w-3/4 mx-auto"></div>
+                            <div class="skeleton h-6 w-full"></div>
+                            <div class="skeleton h-6 w-5/6 mx-auto"></div>
+                            <div class="skeleton h-32 w-full mt-8"></div>
+                        </div>
+
+                        <!-- CONTENUTO REALE -->
+                        <div id="dailyContent" class="hidden space-y-8 daily-content-wrapper">
+                            
+                            <!-- CITAZIONE -->
+                            <div class="text-center space-y-4">
+                                <div class="flex flex-wrap justify-center gap-3 mb-6">
+                                    <span id="tema-badge" class="theme-badge">Stoicismo</span>
+                                    <span id="difficolta-badge" class="difficulty-badge" style="display: none;">Media</span>
+                                </div>
+                                <blockquote class="text-2xl md:text-3xl quote-text px-4">
+                                    "<span id="citazione-testo">...</span>"
+                                </blockquote>
+                                <p id="citazione-autore" class="text-lg md:text-xl quote-author mt-4">— ...</p>
+                            </div>
+
+                            <!-- INTERPRETAZIONE -->
+                            <div class="interpretation-box p-6 md:p-8">
+                                <h3 class="interpretation-title text-xl md:text-2xl mb-4 pb-3">
+                                    Cosa significa oggi
+                                </h3>
+                                <p id="interpretazione-testo" class="interpretation-text text-base md:text-lg">...</p>
+                            </div>
+
+                            <!-- MICRO-SFIDA -->
+                            <div class="challenge-box p-6 md:p-8">
+                                <h3 class="challenge-title text-xl md:text-2xl mb-4 pb-3">
+                                    La tua micro-sfida
+                                </h3>
+                                <p id="micro-sfida-testo" class="challenge-text text-base md:text-lg">...</p>
+                            </div>
+
                         </div>
                     </div>
+
+                    <!-- RIFLESSIONI -->
+                    <div class="reflection-card p-6 md:p-8">
+                        <h3 class="reflection-title text-2xl md:text-3xl font-bold mb-6">
+                            Le tue riflessioni di oggi
+                        </h3>
+                        <textarea 
+                            id="reflectionTextarea"
+                            placeholder="Scrivi qui le tue riflessioni sulla sfida di oggi... Come ti senti? Cosa hai imparato? Quali azioni concrete puoi intraprendere?"
+                            maxlength="2000"
+                            class="w-full px-4 py-4 min-h-[200px] md:min-h-[250px] font-inter text-base"
+                        ></textarea>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-sm text-amber-900 font-medium">
+                                <span id="charCount">0</span>/2000 caratteri
+                            </span>
+                            <div class="flex gap-3">
+                                <button id="copyBtn" class="bg-slate-600 hover:bg-slate-700 text-white px-5 py-2.5 rounded-lg transition-all text-sm font-semibold mobile-btn shadow-lg">
+                                    Copia
+                                </button>
+                                <button id="saveBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-2.5 rounded-lg transition-all font-bold text-sm mobile-btn shadow-lg">
+                                    Salva
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROGRESSI MOBILE -->
+                    <div class="md:hidden progress-container p-6">
+                        <h3 class="progress-title text-2xl font-bold mb-6 text-center">Il tuo progresso</h3>
+                        <div class="space-y-5">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-300 text-sm font-medium">Streak</span>
+                                <span id="progressStreak" class="text-3xl font-bold text-amber-400">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-300 text-sm font-medium">Riflessioni</span>
+                                <span id="progressReflections" class="text-2xl font-bold text-slate-100">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-300 text-sm font-medium">Sfide</span>
+                                <span id="progressChallenges" class="text-2xl font-bold text-slate-100">0/365</span>
+                            </div>
+                            <div class="pt-2">
+                                <div class="flex justify-between text-xs text-slate-400 mb-2">
+                                    <span>Completamento annuale</span>
+                                    <span id="progressPercentage" class="font-bold">0%</span>
+                                </div>
+                                <div class="progress-bar-container h-3">
+                                    <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PROGRESSI DESKTOP -->
+                    <div class="hidden md:block progress-container p-8">
+                        <h3 class="progress-title text-3xl font-bold mb-8 text-center">Il tuo progresso</h3>
+                        <div class="grid grid-cols-3 gap-6 mb-8">
+                            <div class="progress-stat text-center p-6">
+                                <div class="text-sm text-slate-400 mb-3 font-medium">Streak</div>
+                                <div id="progressStreakDesktop" class="text-5xl font-bold text-amber-400 mb-2">0</div>
+                                <div class="text-xs text-slate-500">giorni consecutivi</div>
+                            </div>
+                            <div class="progress-stat text-center p-6">
+                                <div class="text-sm text-slate-400 mb-3 font-medium">Riflessioni</div>
+                                <div id="progressReflectionsDesktop" class="text-5xl font-bold text-slate-100 mb-2">0</div>
+                                <div class="text-xs text-slate-500">totali</div>
+                            </div>
+                            <div class="progress-stat text-center p-6">
+                                <div class="text-sm text-slate-400 mb-3 font-medium">Sfide</div>
+                                <div id="progressChallengesDesktop" class="text-5xl font-bold text-slate-100 mb-2">0/365</div>
+                                <div class="text-xs text-slate-500">completate</div>
+                            </div>
+                        </div>
+                        <div class="px-4">
+                            <div class="flex justify-between text-sm text-slate-400 mb-3">
+                                <span class="font-medium">Completamento annuale</span>
+                                <span id="progressPercentageDesktop" class="font-bold text-amber-400">0%</span>
+                            </div>
+                            <div class="progress-bar-container h-5">
+                                <div id="progressBarDesktop" class="progress-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
-                <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide">
-                        Il Tuo Progresso
-                    </h3>
-                    
-                    <div class="space-y-4 md:hidden">
-                        <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
-                            <div class="text-xs text-slate-400">giorni di streak</div>
-                        </div>
-                        <div class="bg-slate-800 rounded-lg p-4 text-center">
-                            <div class="text-2xl font-bold text-amber-400 mb-1" id="progressReflections">0</div>
-                            <div class="text-xs text-slate-400">riflessioni scritte</div>
-                        </div>
-                        <div class="bg-slate-800 rounded-lg p-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-slate-300">Sfide completate</span>
-                                <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
-                            </div>
-                            <div class="w-full bg-slate-700 rounded-full h-2">
-                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
-                            </div>
-                            <div class="text-xs text-slate-500 text-right mt-1">
-                                <span id="progressPercentage">0%</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="hidden md:grid md:grid-cols-3 gap-6">
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
-                            <div class="text-sm text-slate-400">giorni di streak</div>
-                        </div>
-                        <div class="bg-slate-800 rounded-lg p-6 text-center">
-                            <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
-                            <div class="text-sm text-slate-400">riflessioni scritte</div>
-                        </div>
-                        <div class="bg-slate-800 rounded-lg p-6">
-                            <div class="text-center mb-3">
-                                <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
-                            </div>
-                            <div class="w-full bg-slate-700 rounded-full h-3">
-                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
-                            </div>
-                            <div class="text-xs text-slate-400 text-center mt-2">
-                                <span id="progressPercentageDesktop">0%</span> completato
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
+            <!-- VIEW ARCHIVIO -->
             <div id="viewArchivio" class="view-container hidden">
-                <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                <div class="max-w-4xl mx-auto text-center py-20">
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio</h2>
+                    <p class="text-slate-300">Funzionalità in sviluppo...</p>
                 </div>
             </div>
 
+            <!-- VIEW IMPOSTAZIONI -->
             <div id="viewImpostazioni" class="view-container hidden">
-                <div class="text-center py-20">
+                <div class="max-w-4xl mx-auto text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                    <p class="text-slate-300">Funzionalità in sviluppo...</p>
                 </div>
             </div>
 
+            <!-- VIEW PRO -->
             <div id="viewPro" class="view-container hidden">
-                <div class="text-center py-20">
+                <div class="max-w-4xl mx-auto text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
-                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
+                    <p class="text-slate-300">Funzionalità in sviluppo...</p>
                 </div>
             </div>
 
         </main>
     </div>
 
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
-        <p id="toastMessage" class="text-sm font-medium"></p>
+    <!-- TOAST -->
+    <div id="toast">
+        <p id="toastMessage"></p>
     </div>
 
-    <script>
-(function() {
-    'use strict';
-    
-    const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-    
-    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    <!-- FILE JAVASCRIPT ESTERNI -->
+    <script src="common.js"></script>
+    <script src="dashboard.js"></script>
 
-    // NUOVO: Variabile globale per il ruolo utente
-    let currentUserRole = null;
-    let currentUserProfile = null;
-
-    function arabicToRoman(num) {
-        const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
-        const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
-        let roman = '';
-        for (let i = 0; i < val.length; i++) {
-            while (num >= val[i]) {
-                roman += syms[i];
-                num -= val[i];
-            }
-        }
-        return roman;
-    }
-
-    const dailyContents = {
-        tipo1: {
-            quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
-            author: "Epitteto, Enchiridion",
-            interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-            challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
-        },
-        tipo2: {
-            quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
-            author: "Marco Aurelio, Meditazioni V.20",
-            interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-            challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
-        },
-        tipo3: {
-            quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
-            author: "Seneca, Lettere a Lucilio",
-            interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-            challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
-        },
-        tipo4: {
-            quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
-            author: "Marco Aurelio, Meditazioni II.11",
-            interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
-            challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
-        }
-    };
-
-    function getDayOfYear() {
-        const now = new Date();
-        const start = new Date(now.getFullYear(), 0, 0);
-        const diff = now - start;
-        const oneDay = 1000 * 60 * 60 * 24;
-        return Math.floor(diff / oneDay);
-    }
-
-    function getDailyContentType() {
-        const dayNum = getDayOfYear();
-        const cycle = (dayNum % 4) + 1;
-        return `tipo${cycle}`;
-    }
-
-    async function getSessionRobusta() {
-        const hash = window.location.hash?.startsWith('#') ? window.location.hash.slice(1) : '';
-        const params = new URLSearchParams(hash);
-
-        const access_token = params.get('access_token');
-        const refresh_token = params.get('refresh_token');
-
-        if (access_token && refresh_token) {
-            const { data, error } = await sbClient.auth.setSession({ access_token, refresh_token });
-
-            if (!error && data?.session) {
-                history.replaceState({}, document.title, window.location.pathname);
-                return data.session;
-            }
-        }
-
-        const { data } = await sbClient.auth.getSession();
-        return data?.session ?? null;
-    }
-
-// ============================================
-// BLOCCO C - INIT CON TRIAL
-// ============================================
-document.addEventListener('DOMContentLoaded', async () => {
-  console.log('🚀 Inizializzazione dashboard con TRIAL...');
-
-  try {
-    const session = await getSessionRobusta();
-    if (!session) {
-      window.location.href = 'accedi.html';
-      return;
-    }
-
-    const user = session.user;
-    await loadUserData(user); // qui viene popolato currentUserProfile
-
-    const trialStatus = checkTrialStatus(currentUserProfile);
-    console.log('🔍 Trial status:', trialStatus);
-
-    if (trialStatus.isExpired) {
-      console.warn('🚫 Trial scaduto → mostro overlay, non carico contenuti');
-      showTrialExpiredOverlay(trialStatus);
-      setupBaseListeners();
-      return;
-    }
-
-    await loadDailyContent();
-    await loadProgressData(user.id);
-    setupEventListeners();
-  } catch (err) {
-    console.error('Errore init dashboard:', err);
-    window.location.href = 'accedi.html';
-  }
-});
-
-// Listener minimi per menu + logout quando trial è scaduto
-function setupBaseListeners() {
-  const logoutBtn = document.getElementById('logoutBtn');
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', async () => {
-      await sbClient.auth.signOut();
-      window.location.href = 'index.html';
-    });
-  }
-
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const closeMobileMenu = document.getElementById('closeMobileMenu');
-  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-  const mobileSidebar = document.getElementById('mobileSidebar');
-
-  if (mobileMenuBtn && mobileSidebar && mobileMenuOverlay) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileSidebar.classList.add('active');
-      mobileMenuOverlay.classList.add('active');
-    });
-  }
-
-  if (closeMobileMenu && mobileMenuOverlay && mobileSidebar) {
-    const closeFunc = () => {
-      mobileSidebar.classList.remove('active');
-      mobileMenuOverlay.classList.remove('active');
-    };
-    closeMobileMenu.addEventListener('click', closeFunc);
-    mobileMenuOverlay.addEventListener('click', closeFunc);
-  }
-
-  console.log('✅ Base listeners attivati (modalità trial scaduto)');
-}
-
-
-    // MODIFICATA: Funzione per caricare dati utente CON ruolo
-    async function loadUserData(user) {
-        try {
-            // Carica profilo completo con ruolo
-            const { data: profile, error } = await sbClient
-                .from('profiles')
-                .select('name, role, trial_ends_at, is_trial_expired')
-                .eq('id', user.id)
-                .single();
-            
-            if (error) {
-                console.error('⚠️ Errore caricamento profilo:', error);
-                // Fallback: usa solo dati base
-                const fallback = user.email?.split('@')[0] || 'Stoico';
-                document.getElementById('userName').textContent = fallback;
-                return;
-            }
-
-            // Salva profilo in variabile globale
-            currentUserProfile = profile;
-            currentUserRole = profile?.role || 'vip';
-
-            const displayName = profile?.name || 
-                               user.user_metadata?.full_name ||
-                               user.user_metadata?.name ||
-                               user.email?.split('@')[0] ||
-                               'Stoico';
-            
-            console.log('✅ Profilo caricato:', { 
-                name: displayName, 
-                role: currentUserRole,
-                trial_ends_at: profile?.trial_ends_at,
-                is_trial_expired: profile?.is_trial_expired
-            });
-
-            document.getElementById('userName').textContent = displayName;
-
-            // NUOVO: Mostra badge ruolo
-            updateRoleBadge(currentUserRole, profile);
-
-        } catch (err) {
-            console.error('⚠️ Errore generale caricamento utente:', err);
-            const fallback = user.email?.split('@')[0] || 'Stoico';
-            document.getElementById('userName').textContent = fallback;
-        }
-    }
-
-    // NUOVA: Funzione per aggiornare badge ruolo
-    function updateRoleBadge(role, profile) {
-        const badgeContainer = document.getElementById('roleBadge');
-        const roleIcon = document.getElementById('roleIcon');
-        const roleText = document.getElementById('roleText');
-
-        if (!role) {
-            badgeContainer.classList.add('hidden');
-            return;
-        }
-
-        // Rimuovi tutte le classi di ruolo precedenti
-        badgeContainer.classList.remove('master', 'pro', 'vip', 'vip-expired');
-
-        // Determina badge in base al ruolo e stato trial
-        if (role === 'master') {
-            badgeContainer.classList.add('master');
-            roleIcon.textContent = '👑';
-            roleText.textContent = 'MASTER';
-        } else if (role === 'pro') {
-            badgeContainer.classList.add('pro');
-            roleIcon.textContent = '⭐';
-            roleText.textContent = 'PRO';
-        } else if (role === 'vip') {
-            if (profile?.is_trial_expired === true) {
-                badgeContainer.classList.add('vip-expired');
-                roleIcon.textContent = '⏰';
-                roleText.textContent = 'TRIAL SCADUTO';
-            } else {
-                badgeContainer.classList.add('vip');
-                roleIcon.textContent = '🎁';
-                roleText.textContent = 'VIP';
-            }
-        }
-
-        // Mostra il badge
-        badgeContainer.classList.remove('hidden');
-    }
-    // ============================================
-// BLOCCO A - LOGICA TRIAL
-// ============================================
-function checkTrialStatus(profile) {
-  if (!profile) {
-    console.warn('⚠️ Nessun profilo, accesso libero debug');
-    return { isExpired: false, isInTrial: false, reason: 'NO_PROFILE', trialEnd: null };
-  }
-
-  const role = profile.role?.toLowerCase() || '';
-
-  if (role === 'pro' || role === 'master') {
-    return { isExpired: false, isInTrial: false, reason: 'PRO_MASTER', trialEnd: null };
-  }
-
-  if (!profile.trial_ends_at) {
-    return { isExpired: false, isInTrial: false, reason: 'VIP_ILLIMITATO', trialEnd: null };
-  }
-
-  const trialEnd = new Date(profile.trial_ends_at);
-  trialEnd.setHours(0, 0, 0, 0);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  if (profile.is_trial_expired === true || trialEnd < today) {
-    return {
-      isExpired: true,
-      isInTrial: false,
-      reason: 'TRIAL_SCADUTO',
-      trialEnd: trialEnd
-    };
-  }
-
-  return {
-    isExpired: false,
-    isInTrial: true,
-    reason: 'TRIAL_ATTIVO',
-    trialEnd: trialEnd
-  };
-}
-
-// ============================================
-// BLOCCO B - OVERLAY PERGAMENA
-// ============================================
-function showTrialExpiredOverlay(trialInfo) {
-  if (document.getElementById('trialOverlay')) return;
-
-  const dataScadenza = trialInfo.trialEnd
-    ? trialInfo.trialEnd.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
-    : '';
-
-  const overlay = document.createElement('div');
-  overlay.id = 'trialOverlay';
-  overlay.style.cssText = `
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-    display: flex; justify-content: center; align-items: center; z-index: 9999;
-    animation: fadeIn 0.3s ease;
-  `;
-
-  overlay.innerHTML = `
-    <div style="
-      background: linear-gradient(145deg, #f4e4c1 0%, #e8d5b5 100%);
-      border: 8px solid #8b4513; border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      max-width: 720px; width: 90%; padding: 48px 32px; text-align: center;
-      animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      font-family: 'Cinzel', serif;
-    ">
-      <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">⏳ Trial Terminato</h2>
-      
-      <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
-        Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
-        Per continuare il tuo cammino stoico, passa al piano <strong>PRO</strong>.
-      </p>
-
-      ${dataScadenza ? `<p style="font-size: 0.95rem; color: #6d4c41; margin: 0 0 32px; font-style: italic;">Scaduto il ${dataScadenza}</p>` : ''}
-
-      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <button id="btnPassaPRO" style="
-          background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
-          border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
-          cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
-        ">💎 Passa a PRO</button>
-        
-        <button id="btnEsci" style="
-          background: #757575; color: white; border: none; border-radius: 12px;
-          padding: 16px 32px; font-size: 1.125rem; font-weight: 600; cursor: pointer;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s;
-        ">Esci</button>
-      </div>
-
-      <style>
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-      </style>
-    </div>
-  `;
-
-  document.body.appendChild(overlay);
-
-  document.getElementById('btnPassaPRO').onclick = () => {
-    showToast('🚀 Presto potrai attivare il piano PRO da qui!');
-  };
-  document.getElementById('btnEsci').onclick = async () => {
-    await sbClient.auth.signOut();
-    window.location.href = 'index.html';
-  };
-}
-
-
-    async function loadDailyContent() {
-        const dayOfYear = getDayOfYear();
-        const dayRoman = arabicToRoman(dayOfYear);
-        
-        document.getElementById('dayOfYear').textContent = dayRoman;
-        
-        console.log('🔍 Carico sfida per giorno:', dayOfYear);
-        
-        try {
-            const { data, error } = await sbClient
-                .from('sfide_quotidiane')
-                .select('*')
-                .eq('giorno', dayOfYear)
-                .single();
-            
-            if (error) {
-                console.error('❌ Errore caricamento sfida:', error);
-                useFallbackContent();
-                return;
-            }
-            
-            if (data) {
-                console.log('✅ Sfida caricata da Supabase:', data);
-                
-                setTimeout(() => {
-                    document.getElementById('contentSkeleton').classList.add('hidden');
-                    document.getElementById('dailyContent').classList.remove('hidden');
-                    
-                    document.getElementById('citazione-testo').textContent = `"${data.citazione}"`;
-                    document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
-                    document.getElementById('tema-badge').textContent = data.tema;
-                    document.getElementById('interpretazione-testo').textContent = data.interpretazione;
-                    document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
-                    
-                    if (data.difficolta) {
-                        document.getElementById('difficolta-badge').textContent = data.difficolta;
-                        document.getElementById('difficolta-badge').style.display = 'inline-block';
-                    }
-                }, 800);
-            }
-        } catch (err) {
-            console.error('❌ Errore imprevisto:', err);
-            useFallbackContent();
-        }
-    }
-
-    function useFallbackContent() {
-        const contentType = getDailyContentType();
-        const content = dailyContents[contentType];
-        
-        setTimeout(() => {
-            document.getElementById('contentSkeleton').classList.add('hidden');
-            document.getElementById('dailyContent').classList.remove('hidden');
-            
-            document.getElementById('citazione-testo').textContent = content.quote;
-            document.getElementById('citazione-autore').textContent = content.author;
-            document.getElementById('interpretazione-testo').textContent = content.interpretation;
-            document.getElementById('micro-sfida-testo').textContent = content.challenge;
-            document.getElementById('tema-badge').textContent = 'Stoicismo';
-        }, 800);
-    }
-
-    async function loadProgressData(userId) {
-        console.log('📊 Carico progresso per user:', userId);
-        
-        try {
-            const { data: reflections, error: reflError } = await sbClient
-                .from('reflections')
-                .select('date, created_at')
-                .eq('user_id', userId)
-                .order('date', { ascending: false });
-
-            if (reflError) {
-                console.error('❌ Errore caricamento riflessioni:', reflError);
-                updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
-                return;
-            }
-
-            console.log('✅ Riflessioni caricate:', reflections?.length || 0);
-
-            const streak = calculateStreak(reflections || []);
-            const totalReflections = reflections?.length || 0;
-
-            updateProgressUI({
-                streak,
-                totalReflections,
-                completedChallenges: totalReflections,
-                totalChallenges: 365
-            });
-
-        } catch (error) {
-            console.error('❌ Errore generale:', error);
-            updateProgressUI({ streak: 0, totalReflections: 0, completedChallenges: 0, totalChallenges: 365 });
-        }
-    }
-
-    function calculateStreak(reflections) {
-        if (!reflections || reflections.length === 0) return 0;
-
-        const today = new Date().toISOString().split('T')[0];
-        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-        
-        const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-        
-        if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) {
-            return 0;
-        }
-
-        let streak = 0;
-        let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-
-        for (const dateStr of uniqueDates) {
-            const refDate = new Date(dateStr);
-            const expectedDate = new Date(currentDate);
-            expectedDate.setHours(0, 0, 0, 0);
-            refDate.setHours(0, 0, 0, 0);
-
-            if (refDate.getTime() === expectedDate.getTime()) {
-                streak++;
-                currentDate = new Date(currentDate.getTime() - 86400000);
-            } else {
-                break;
-            }
-        }
-
-        return streak;
-    }
-
-    function updateProgressUI(data) {
-        const percentage = Math.round((data.completedChallenges / data.totalChallenges) * 100);
-        
-        document.getElementById('headerStreak').textContent = data.streak;
-        document.getElementById('mobileStreak').textContent = data.streak;
-        document.getElementById('progressStreak').textContent = data.streak;
-        document.getElementById('progressReflections').textContent = data.totalReflections;
-        document.getElementById('progressChallenges').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-        document.getElementById('progressBar').style.width = `${percentage}%`;
-        document.getElementById('progressPercentage').textContent = `${percentage}%`;
-        
-        document.getElementById('progressStreakDesktop').textContent = data.streak;
-        document.getElementById('progressReflectionsDesktop').textContent = data.totalReflections;
-        document.getElementById('progressChallengesDesktop').textContent = `${data.completedChallenges}/${data.totalChallenges}`;
-        document.getElementById('progressBarDesktop').style.width = `${percentage}%`;
-        document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
-    }
-
-    function setupEventListeners() {
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileSidebar = document.getElementById('mobileSidebar');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileSidebar.classList.add('active');
-            mobileMenuOverlay.classList.add('active');
-        });
-
-        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-        mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-
-        function closeMobileMenuFunc() {
-            mobileSidebar.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-        }
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const view = e.currentTarget.dataset.view;
-
-                if (view === 'archivio') {
-                    window.location.href = 'archivio.html';
-                    return;
-                }
-
-                if (view === 'impostazioni') {
-                    window.location.href = 'impostazioni.html';
-                    return;
-                }
-
-                if (view === 'pro') {
-                    showToast('✨ Funzionalità PRO in arrivo');
-                    return;
-                }
-
-                switchView(view);
-                closeMobileMenuFunc();
-
-                document.querySelectorAll('.nav-link').forEach(l => {
-                    l.classList.remove('bg-amber-500/20', 'text-amber-400');
-                });
-                e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
-            });
-        });
-
-        const textarea = document.getElementById('reflectionTextarea');
-        textarea.addEventListener('input', () => {
-            document.getElementById('charCount').textContent = textarea.value.length;
-        });
-
-        document.getElementById('saveBtn').addEventListener('click', async () => {
-            const text = textarea.value.trim();
-            if (!text) {
-                showToast('Scrivi prima una riflessione!');
-                return;
-            }
-
-            console.log('💾 Salvataggio riflessione...');
-
-            const { data: { session } } = await sbClient.auth.getSession();
-            if (!session) {
-                showToast('Errore: non autenticato');
-                window.location.href = 'accedi.html';
-                return;
-            }
-
-            const { data, error } = await sbClient.from('reflections').insert({
-                user_id: session.user.id,
-                content: text,
-                date: new Date().toISOString().split('T')[0],
-                content_type: getDailyContentType()
-            });
-
-            if (error) {
-                console.error('❌ Errore salvataggio:', error);
-                showToast('Errore nel salvare: ' + error.message);
-            } else {
-                console.log('✅ Riflessione salvata!');
-                showToast('✅ Riflessione salvata!');
-                textarea.value = '';
-                document.getElementById('charCount').textContent = '0';
-                
-                await loadProgressData(session.user.id);
-            }
-        });
-
-        document.getElementById('copyBtn').addEventListener('click', () => {
-            const text = textarea.value;
-            if (!text) return showToast('Niente da copiare!');
-            navigator.clipboard.writeText(text).then(() => showToast('Copiato!'));
-        });
-
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            console.log('👋 Logout...');
-            await sbClient.auth.signOut();
-            window.location.href = 'index.html';
-        });
-    }
-
-    function switchView(viewName) {
-        document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-        document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
-    }
-
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        document.getElementById('toastMessage').textContent = message;
-        toast.style.transform = 'translateY(0)';
-        setTimeout(() => toast.style.transform = 'translateY(8rem)', 3000);
-    }
-})();
-    </script>
 </body>
 </html>
