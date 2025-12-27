@@ -1,6 +1,4 @@
-// =============================================================================
-// COMMON.JS - Funzioni condivise (IDENTICO all'originale)
-// =============================================================================
+// common.js - Estratto chirurgicamente dall'originale
 
 'use strict';
 
@@ -11,7 +9,6 @@ const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let currentUserRole = null;
 let currentUserProfile = null;
 
-// SESSIONE ROBUSTA
 async function getSessionRobusta() {
     const hash = window.location.hash?.startsWith('#') ? window.location.hash.slice(1) : '';
     const params = new URLSearchParams(hash);
@@ -33,7 +30,6 @@ async function getSessionRobusta() {
     return data?.session ?? null;
 }
 
-// CARICAMENTO PROFILO
 async function loadUserData(user) {
     try {
         const { data: profile, error } = await sbClient
@@ -75,7 +71,6 @@ async function loadUserData(user) {
     }
 }
 
-// BADGE RUOLO
 function updateRoleBadge(role, profile) {
     const badgeContainer = document.getElementById('roleBadge');
     const roleIcon = document.getElementById('roleIcon');
@@ -111,7 +106,6 @@ function updateRoleBadge(role, profile) {
     badgeContainer.classList.remove('hidden');
 }
 
-// NUMERI ROMANI
 function arabicToRoman(num) {
     const val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
     const syms = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
@@ -133,7 +127,6 @@ function getDayOfYear() {
     return Math.floor(diff / oneDay);
 }
 
-// PROGRESSI
 function calculateStreak(reflections) {
     if (!reflections || reflections.length === 0) return 0;
 
@@ -229,17 +222,36 @@ function updateProgressUI(data) {
     document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
 }
 
-// TOAST
 function showToast(message) {
     const toast = document.getElementById('toast');
-    document.getElementById('toastMessage').textContent = message;
-    toast.style.transform = 'translateY(0)';
+    const toastMessage = document.getElementById('toastMessage');
+    
+    if (!toast || !toastMessage) return;
+    
+    toastMessage.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        background: #1e293b;
+        border: 1px solid #fbbf24;
+        color: #fbbf24;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+        z-index: 9999;
+        max-width: 20rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    `;
+    
     setTimeout(() => {
         toast.style.transform = 'translateY(8rem)';
     }, 3000);
 }
 
-// MENU MOBILE
 function setupMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const closeMobileMenu = document.getElementById('closeMobileMenu');
@@ -268,10 +280,8 @@ function setupMobileMenu() {
     }
 }
 
-// LOGOUT
 async function handleLogout() {
     console.log('👋 Logout...');
     await sbClient.auth.signOut();
     window.location.href = 'index.html';
 }
-// common.js - Funzioni condivise tra tutte le pagine
