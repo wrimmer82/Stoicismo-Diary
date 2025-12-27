@@ -21,7 +21,6 @@
 </head>
 <body class="font-inter text-slate-100">
 
-    <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
@@ -64,10 +63,8 @@
         </div>
     </header>
 
-    <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenuOverlay"></div>
 
-    <!-- MOBILE SIDEBAR -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
             <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
@@ -111,9 +108,7 @@
         </div>
     </aside>
 
-    <!-- LAYOUT PRINCIPALE -->
     <div class="flex">
-        <!-- DESKTOP SIDEBAR -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
@@ -144,14 +139,11 @@
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
         <main class="flex-1 p-4 md:p-8">
             
-            <!-- VIEW OGGI -->
             <div id="viewOggi" class="view-container">
                 <div class="max-w-6xl mx-auto space-y-6">
                     
-                    <!-- TITOLO -->
                     <div class="text-center mb-8">
                         <h1 class="text-4xl md:text-5xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">
                             📜 Giorno <span id="dayOfYear" class="roman-number">I</span>
@@ -159,10 +151,8 @@
                         <p class="text-slate-400 text-sm md:text-base">Il tuo cammino stoico quotidiano</p>
                     </div>
 
-                    <!-- CONTENUTO QUOTIDIANO -->
                     <div class="pergamena-bg rounded-xl shadow-2xl">
                         
-                        <!-- SKELETON -->
                         <div id="contentSkeleton" class="space-y-6">
                             <div class="skeleton h-6 w-3/4 mx-auto"></div>
                             <div class="skeleton h-4 w-full"></div>
@@ -170,10 +160,8 @@
                             <div class="skeleton h-24 w-full mt-8"></div>
                         </div>
 
-                        <!-- CONTENUTO REALE -->
                         <div id="dailyContent" class="hidden space-y-6" style="position: relative; z-index: 1;">
                             
-                            <!-- CITAZIONE -->
                             <div class="text-center">
                                 <div class="flex justify-center gap-2 mb-4">
                                     <span id="tema-badge" style="display: inline-block; padding: 0.5rem 1rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); border: 2px solid rgba(255, 255, 255, 0.2);">Stoicismo</span>
@@ -185,7 +173,6 @@
                                 <p id="citazione-autore" class="text-base md:text-lg font-semibold" style="color: #fbbf24; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">— ...</p>
                             </div>
 
-                            <!-- INTERPRETAZIONE -->
                             <div style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 2px solid rgba(251, 191, 36, 0.3); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);">
                                 <h3 class="section-title-parchment text-lg md:text-xl font-bold mb-3">
                                     💡 Cosa significa oggi
@@ -193,7 +180,6 @@
                                 <p id="interpretazione-testo" style="color: #fef3c7; line-height: 1.8; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); font-size: 0.875rem;">...</p>
                             </div>
 
-                            <!-- MICRO-SFIDA -->
                             <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(245, 158, 11, 0.2) 100%); backdrop-filter: blur(8px); border: 2px solid rgba(251, 191, 36, 0.4); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 8px 24px rgba(251, 191, 36, 0.3);">
                                 <h3 class="section-title-parchment text-lg md:text-xl font-bold mb-3">
                                     🎯 La tua micro-sfida
@@ -204,7 +190,6 @@
                         </div>
                     </div>
 
-                    <!-- SEZIONE RIFLESSIONI -->
                     <div class="parchment-card rounded-xl p-6 md:p-8 shadow-xl">
                         <h3 class="text-2xl font-cinzel font-bold mb-4 flex items-center gap-2" style="color: #78350f; text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);">
                             ✍️ Le tue riflessioni di oggi
@@ -231,7 +216,6 @@
                         </div>
                     </div>
 
-                    <!-- PANNELLO PROGRESSI MOBILE -->
                     <div class="md:hidden bg-slate-900/90 backdrop-blur-sm rounded-xl p-6 border border-amber-500/30 shadow-xl">
                         <h3 class="text-xl font-cinzel font-bold text-amber-400 mb-4 text-center">📊 Il tuo progresso</h3>
                         <div class="space-y-4">
@@ -259,7 +243,6 @@
                         </div>
                     </div>
 
-                    <!-- PANNELLO PROGRESSI DESKTOP -->
                     <div class="hidden md:block bg-slate-900/90 backdrop-blur-sm rounded-xl p-8 border border-amber-500/30 shadow-2xl">
                         <h3 class="text-2xl font-cinzel font-bold text-amber-400 mb-6 text-center">📊 Il tuo progresso</h3>
                         <div class="grid grid-cols-3 gap-6 mb-6">
@@ -293,7 +276,6 @@
                 </div>
             </div>
 
-            <!-- VIEW ARCHIVIO -->
             <div id="viewArchivio" class="view-container hidden">
                 <div class="max-w-4xl mx-auto text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">📚 Archivio</h2>
@@ -301,7 +283,6 @@
                 </div>
             </div>
 
-            <!-- VIEW IMPOSTAZIONI -->
             <div id="viewImpostazioni" class="view-container hidden">
                 <div class="max-w-4xl mx-auto text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">⚙️ Impostazioni</h2>
@@ -309,7 +290,6 @@
                 </div>
             </div>
 
-            <!-- VIEW PRO -->
             <div id="viewPro" class="view-container hidden">
                 <div class="max-w-4xl mx-auto text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">💎 Passa a PRO</h2>
@@ -320,7 +300,6 @@
         </main>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
     <div id="toast">
         <p id="toastMessage"></p>
     </div>
