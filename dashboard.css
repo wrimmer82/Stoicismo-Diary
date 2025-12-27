@@ -1,96 +1,235 @@
 /* dashboard.css - Estratto chirurgicamente dall'originale */
 
 .pergamena-bg {
-    background-image: url('Seneca Cos\'è Lo Stoicismo.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 1.5rem;
-    padding: 3rem 2rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    position: relative;
-    overflow: hidden;
-}
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
+            position: relative;
+        }
 
-.pergamena-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
-    pointer-events: none;
-}
+        .highlighted-text {
+            color: #fde047;
+            font-weight: 900;
+            font-style: italic;
+            text-shadow: 
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
+                0 0 15px rgba(253, 224, 71, 1),
+                0 0 25px rgba(253, 224, 71, 0.8),
+                0 0 35px rgba(253, 224, 71, 0.6);
+            transition: all 0.3s ease;
+            letter-spacing: 0.04em;
+        }
 
-.highlighted-text {
-    background: linear-gradient(to bottom, transparent 50%, rgba(255, 193, 7, 0.3) 50%);
-    padding: 0.125rem 0.25rem;
-}
+        .highlighted-text:hover {
+            color: #facc15;
+            text-shadow: 
+                -4px -4px 0 #000, 4px -4px 0 #000,
+                -4px 4px 0 #000, 4px 4px 0 #000,
+                -5px 0 0 #000, 5px 0 0 #000,
+                0 -5px 0 #000, 0 5px 0 #000,
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                0 0 20px rgba(250, 204, 21, 1),
+                0 0 30px rgba(250, 204, 21, 0.9),
+                0 0 40px rgba(250, 204, 21, 0.7);
+            transform: scale(1.02);
+        }
 
-.roman-number {
-    font-family: 'Trajan Pro', 'Cinzel', serif;
-    font-weight: 700;
-    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
+        .roman-number {
+            color: #fde047;
+            font-weight: 900;
+            font-size: 1.2em;
+            text-shadow: 
+                -3px -3px 0 #000, 3px -3px 0 #000,
+                -3px 3px 0 #000, 3px 3px 0 #000,
+                -4px 0 0 #000, 4px 0 0 #000,
+                0 -4px 0 #000, 0 4px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000,
+                -2px 2px 0 #000, 2px 2px 0 #000,
+                0 0 15px rgba(253, 224, 71, 1);
+            letter-spacing: 0.1em;
+        }
 
-.section-title-parchment {
-    color: #92400e;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.05em;
-    border-bottom: 3px solid rgba(146, 64, 14, 0.3);
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-}
+        .section-title-parchment {
+            color: #92400e;
+            text-shadow: 
+                1px 1px 0 rgba(255, 255, 255, 0.5),
+                -1px -1px 0 rgba(0, 0, 0, 0.3);
+            font-weight: 900;
+        }
 
-@keyframes loading {
-    0% { 
-        background-position: 200% 0; 
-    }
-    100% { 
-        background-position: -200% 0; 
-    }
-}
+        .parchment-card {
+            background: rgba(245, 222, 179, 0.95);
+            border: 2px solid rgba(146, 64, 14, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
 
-.skeleton {
-    background: linear-gradient(90deg, 
-        #e0d4c0 0%, 
-        #f0e8d8 50%, 
-        #e0d4c0 100%
-    );
-    background-size: 200% 100%;
-    animation: loading 1.5s ease-in-out infinite;
-    border-radius: 0.5rem;
-}
+        .parchment-card h3 {
+            color: #92400e;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+        }
 
-.parchment-card {
-    background: rgba(245, 222, 179, 0.95);
-    border: 2px solid rgba(146, 64, 14, 0.4);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
+        .parchment-card p {
+            color: #451a03;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
 
-.parchment-card h3,
-.parchment-card h4 {
-    color: #92400e;
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-}
+        body {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
+                #c49050 80%, #a8754a 90%, #1c1410 100%
+            );
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
 
-.progress-bar {
-    background: linear-gradient(90deg, 
-        #f59e0b 0%, 
-        #d97706 50%, 
-        #b45309 100%
-    );
-    border-radius: 9999px;
-    height: 100%;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
-}
+        #mobileMenuOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
 
-@media (max-width: 767px) {
-    .pergamena-bg {
-        background-image: url('Epitetto Cos\'è Lo Stoicismo.png');
-        padding: 2rem 1rem;
-    }
-}
+        #mobileMenuOverlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #mobileSidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            z-index: 50;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #mobileSidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        #mobileSidebar.active {
+            transform: translateX(0);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .gradient-border {
+            position: relative;
+            border-radius: 1rem;
+        }
+
+        .progress-bar {
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, rgba(245, 222, 179, 0.3) 25%, rgba(245, 222, 179, 0.5) 50%, rgba(245, 222, 179, 0.3) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            }
+        }
+
+        .streak-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* NUOVO: Badge Ruoli */
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .role-badge.master {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #78350f;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+        }
+
+        .role-badge.pro {
+            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .role-badge.vip {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .role-badge.vip-expired {
+            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+            color: #f1f5f9;
+            box-shadow: none;
+        }
+
+        @media (max-width: 767px) {
+            .mobile-textarea {
+                height: 120px;
+                font-size: 16px;
+            }
+            
+            .mobile-btn {
+                min-height: 48px;
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .desktop-textarea {
+                height: 200px;
+            }
+        }
