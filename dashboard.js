@@ -1,5 +1,3 @@
-// dashboard.js - Estratto chirurgicamente dall'originale
-
 'use strict';
 
 const dailyContents = {
@@ -140,6 +138,14 @@ function showTrialExpiredOverlay(trialInfo) {
 }
 
 async function loadDailyContent() {
+    // ✅ FIX: Verifica session prima di caricare
+    const session = await getSessionRobusta();
+    if (!session) {
+        console.error('❌ Nessuna session attiva - redirect a login');
+        window.location.href = 'accedi.html';
+        return;
+    }
+
     const dayOfYear = getDayOfYear();
     const dayRoman = arabicToRoman(dayOfYear);
     document.getElementById('dayOfYear').textContent = dayRoman;
@@ -148,7 +154,7 @@ async function loadDailyContent() {
 
     try {
         const { data, error } = await sbClient
-            .from('sfidequotidiane')
+            .from('sfide_quotidiane')
             .select('*')
             .eq('giorno', dayOfYear)
             .single();
@@ -196,6 +202,9 @@ function useFallbackContent() {
         document.getElementById('interpretazione-testo').textContent = content.interpretation;
         document.getElementById('micro-sfida-testo').textContent = content.challenge;
         document.getElementById('tema-badge').textContent = 'Stoicismo';
+        
+        // ✅ FIX: Nascondi badge difficoltà nel fallback
+        document.getElementById('difficolta-badge').style.display = 'none';
     }, 800);
 }
 
