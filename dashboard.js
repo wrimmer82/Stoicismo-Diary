@@ -1,31 +1,27 @@
-// =============================================================================
-// DASHBOARD.JS - Logiche dashboard (IDENTICO all'originale)
-// =============================================================================
-
+// dashboard.js - VERSIONE CORRETTA
 'use strict';
 
-// CONTENUTI FALLBACK
 const dailyContents = {
     tipo1: {
-        quote: ""Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi."",
+        quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
         author: "Epitteto, Enchiridion",
         interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
         challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
     },
     tipo2: {
-        quote: ""L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via."",
+        quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
         author: "Marco Aurelio, Meditazioni V.20",
         interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
         challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
     },
     tipo3: {
-        quote: ""Chi non prevede eventi lontani, si espone alle disgrazie vicine."",
+        quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
         author: "Seneca, Lettere a Lucilio",
         interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
         challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
     },
     tipo4: {
-        quote: ""Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi."",
+        quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
         author: "Marco Aurelio, Meditazioni II.11",
         interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
         challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
@@ -38,7 +34,6 @@ function getDailyContentType() {
     return `tipo${cycle}`;
 }
 
-// TRIAL
 function checkTrialStatus(profile) {
     if (!profile) {
         console.warn('⚠️ Nessun profilo, accesso libero debug');
@@ -143,7 +138,6 @@ function showTrialExpiredOverlay(trialInfo) {
     };
 }
 
-// CARICAMENTO CONTENUTO
 async function loadDailyContent() {
     const dayOfYear = getDayOfYear();
     const dayRoman = arabicToRoman(dayOfYear);
@@ -204,7 +198,6 @@ function useFallbackContent() {
     }, 800);
 }
 
-// RIFLESSIONI
 function setupReflectionHandlers() {
     const textarea = document.getElementById('reflectionTextarea');
     const charCount = document.getElementById('charCount');
@@ -261,7 +254,6 @@ function setupReflectionHandlers() {
     });
 }
 
-// NAVIGAZIONE
 function setupNavigation() {
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
@@ -296,7 +288,6 @@ function switchView(viewName) {
     document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
 }
 
-// BASE LISTENERS
 function setupBaseListeners() {
     const logoutBtn = document.getElementById('logoutBtn');
     if (logoutBtn) {
@@ -308,7 +299,6 @@ function setupBaseListeners() {
     console.log('✅ Base listeners attivati (modalità trial scaduto)');
 }
 
-// INIZIALIZZAZIONE
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Inizializzazione dashboard con TRIAL...');
 
@@ -351,4 +341,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'accedi.html';
     }
 });
-// dashboard.js - Logiche specifiche dashboard
