@@ -175,7 +175,7 @@ async function loadDailyContent() {
                 document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
                 document.getElementById('tema-badge').textContent = data.tema;
                 document.getElementById('interpretazione-testo').textContent = data.interpretazione;
-                document.getElementById('micro-sfida-testo').textContent = data.microsfida;
+                document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
 
                 if (data.difficolta) {
                     document.getElementById('difficolta-badge').textContent = data.difficolta;
