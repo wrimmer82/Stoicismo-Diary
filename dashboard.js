@@ -1,4 +1,5 @@
-// dashboard.js - VERSIONE CORRETTA
+// dashboard.js - Estratto chirurgicamente dall'originale
+
 'use strict';
 
 const dailyContents = {
@@ -218,7 +219,7 @@ function setupReflectionHandlers() {
         console.log('💾 Salvataggio riflessione...');
 
         const { data: session } = await sbClient.auth.getSession();
-        if (!session) {
+        if (!session?.session) {
             showToast('❌ Errore: non autenticato');
             window.location.href = 'accedi.html';
             return;
