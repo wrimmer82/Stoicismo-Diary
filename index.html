@@ -384,7 +384,7 @@
             }
         }
 
-        /* NUOVO: Testo responsive per CTA Header */
+        /* Testo responsive per CTA Header */
         .cta-text-full {
             display: none;
         }
@@ -400,6 +400,51 @@
             
             .cta-text-short {
                 display: none;
+            }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(245, 158, 11, 0.5);
+        }
+
+        .scroll-to-top svg {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #0f172a;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 3rem;
+                height: 3rem;
             }
         }
     </style>
@@ -640,7 +685,7 @@
     </section>
 
     <!-- FAQ + CONTACT FORM - Layout 2 Colonne Desktop, Stack Mobile -->
-    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50">
+    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50" id="contatti">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900">
                 Domande & Contatti
@@ -773,21 +818,13 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid md:grid-cols-3 gap-8">
                 <div>
                     <h4 class="flex items-center gap-2 text-xl font-bold mb-4 font-cinzel">
                         <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-7 w-7 object-contain">
                         The Stoic Journey
                     </h4>
                     <p class="text-gray-400">La tua guida quotidiana alla saggezza stoica.</p>
-                </div>
-                <div>
-                    <h5 class="font-semibold mb-3">Prodotto</h5>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Funzionalità</a></li>
-                        <li><a href="#" class="hover:text-white">Prezzi</a></li>
-                        <li><a href="#" class="hover:text-white">FAQ</a></li>
-                    </ul>
                 </div>
                 <div>
                     <h5 class="font-semibold mb-3">Risorse</h5>
@@ -811,6 +848,13 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"/>
+        </svg>
+    </div>
 
     <script>
         // Effetto zoom parallax su scroll
@@ -899,6 +943,24 @@
                     question.setAttribute('aria-expanded', 'true');
                 }
             }
+
+            // Scroll to Top Button
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
