@@ -28,10 +28,72 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://thestoicjourney.app">
     
+    <!-- Cookie Consent Banner -->
+    <link rel="stylesheet" href="silktide-consent-manager.css">
+    <script src="silktide-consent-manager.js"></script>
+    <script>
+    silktideCookieBannerManager.updateCookieBannerConfig({
+      background: {
+        showBackground: true
+      },
+      cookieIcon: {
+        position: "bottomRight"
+      },
+      cookieTypes: [
+        {
+          id: "necessary",
+          name: "Necessary",
+          description: "<p>These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>",
+          required: true,
+          onAccept: function() {
+            console.log('Add logic for the required Necessary here');
+          }
+        },
+        {
+          id: "analytics",
+          name: "Analytics",
+          description: "<p><i>Ci aiutano a migliorare il sito analizzando come lo usi. Puoi rifiutarli senza problemi.</i></p>",
+          required: false,
+          onAccept: function() {
+            gtag('consent', 'update', {
+              analytics_storage: 'granted',
+            });
+            dataLayer.push({
+              'event': 'consent_accepted_analytics',
+            });
+          },
+          onReject: function() {
+            gtag('consent', 'update', {
+              analytics_storage: 'denied',
+            });
+          }
+        }
+      ],
+      text: {
+        banner: {
+          description: "<p><i>Utilizziamo cookie tecnici necessari e analytics (opzionali) per migliorare la tua esperienza. Puoi gestire le tue preferenze qui sotto.</i></p><div><br></div>",
+          acceptAllButtonText: "Accetta tutti",
+          acceptAllButtonAccessibleLabel: "Accetta tutti",
+          rejectNonEssentialButtonText: "Solo necessari",
+          rejectNonEssentialButtonAccessibleLabel: "Solo necessari",
+          preferencesButtonText: "Gestisci preferenze",
+          preferencesButtonAccessibleLabel: "Gestisci preferenze"
+        },
+        preferences: {
+          title: "Customize your cookie preferences",
+          description: "<p><i>Rispettiamo la tua privacy. Puoi scegliere quali cookie attivare. Le tue preferenze si applicheranno su tutto il sito. Maggiori informazioni nella Cookie Policy.</i></p><div><br></div>",
+          creditLinkText: "",
+          creditLinkAccessibleLabel: ""
+        }
+      }
+    });
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     
     <!-- Structured Data Schema.org JSON-LD -->
     <script type="application/ld+json">
