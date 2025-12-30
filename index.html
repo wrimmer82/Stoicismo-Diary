@@ -1096,7 +1096,7 @@ silktideCookieBannerManager.updateCookieBannerConfig({
       description: "<p>These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>",
       required: true,
       onAccept: function() {
-        console.log('Add logic for the required Necessary here');
+        console.log('Cookie necessari accettati');
       }
     },
     {
@@ -1105,18 +1105,11 @@ silktideCookieBannerManager.updateCookieBannerConfig({
       description: "<p><i>Ci aiutano a migliorare il sito analizzando come lo usi. Puoi rifiutarli senza problemi.</i></p>",
       required: false,
       onAccept: function() {
-        // Google Analytics consent
-        gtag('consent', 'update', {
-          analytics_storage: 'granted',
-        });
-        dataLayer.push({
-          'event': 'consent_accepted_analytics',
-        });
+        console.log('Cookie analytics accettati');
+        // Quando implementerai Google Analytics, aggiungi qui il codice gtag
       },
       onReject: function() {
-        gtag('consent', 'update', {
-          analytics_storage: 'denied',
-        });
+        console.log('Cookie analytics rifiutati');
       }
     }
   ],
