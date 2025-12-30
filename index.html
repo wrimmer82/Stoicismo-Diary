@@ -1078,5 +1078,67 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     </script>
+    <!-- Silktide Cookie Consent Manager -->
+<script src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js" type="text/javascript"></script>
+
+<script>
+silktideCookieBannerManager.updateCookieBannerConfig({
+  background: {
+    showBackground: true
+  },
+  cookieIcon: {
+    position: "bottomLeft"
+  },
+  cookieTypes: [
+    {
+      id: "necessary",
+      name: "Necessary",
+      description: "<p>These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>",
+      required: true,
+      onAccept: function() {
+        console.log('Add logic for the required Necessary here');
+      }
+    },
+    {
+      id: "analytics",
+      name: "Analytics",
+      description: "<p><i>Ci aiutano a migliorare il sito analizzando come lo usi. Puoi rifiutarli senza problemi.</i></p>",
+      required: false,
+      onAccept: function() {
+        // Google Analytics consent
+        gtag('consent', 'update', {
+          analytics_storage: 'granted',
+        });
+        dataLayer.push({
+          'event': 'consent_accepted_analytics',
+        });
+      },
+      onReject: function() {
+        gtag('consent', 'update', {
+          analytics_storage: 'denied',
+        });
+      }
+    }
+  ],
+  text: {
+    banner: {
+      description: "<p><i>Utilizziamo cookie tecnici necessari e analytics (opzionali) per migliorare la tua esperienza. Puoi gestire le tue preferenze qui sotto.</i></p><div><br></div>",
+      acceptAllButtonText: "Accetta tutti",
+      acceptAllButtonAccessibleLabel: "Accetta tutti",
+      rejectNonEssentialButtonText: "Solo necessari",
+      rejectNonEssentialButtonAccessibleLabel: "Solo necessari",
+      preferencesButtonText: "Gestisci preferenze",
+      preferencesButtonAccessibleLabel: "Gestisci preferenze"
+    },
+    preferences: {
+      title: "Customize your cookie preferences",
+      description: "<p><i>Rispettiamo la tua privacy. Puoi scegliere quali cookie attivare. Le tue preferenze si applicheranno su tutto il sito.</i></p><p><i>Maggiori informazioni nella <a href='/cookie-policy.html' target='_blank' style='color: #3b82f6; text-decoration: underline;'>Cookie Policy</a>.</i></p><div><br></div>",
+      creditLinkText: "",
+      creditLinkAccessibleLabel: ""
+    }
+  }
+});
+</script>
+
 </body>
 </html>
