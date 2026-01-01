@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <!-- Google Analytics (usa lo stesso di index.html) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GW6CH5RG1R"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GW6CH5RG1R');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passa a PRO - The Stoic Journey</title>
+    <meta name="description" content="Sblocca tutte le funzionalità premium di The Stoic Journey. Statistiche avanzate, esportazione PDF, contenuti esclusivi.">
+    
+    <!-- Scripts & Fonts (stessi del sito) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stripe.js (per checkout) -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <style>
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        body {
+            background: linear-gradient(180deg, #1a0f1f 0%, #2d1b3d 15%, #4a2c4f 30%, #6b4a5a 45%, #8b5a4e 60%, #a8754a 75%, #c49050 85%, #1c1410 100%);
+            min-height: 100vh;
+        }
+
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(245,222,179,0.95) 0%, rgba(232,213,181,0.95) 100%);
+            border: 3px solid rgba(146,64,14,0.4);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(251,191,36,0.4);
+        }
+
+        .pricing-card.recommended {
+            border-color: #fbbf24;
+            box-shadow: 0 0 30px rgba(251,191,36,0.5);
+        }
+
+        .check-icon {
+            color: #15803d;
+            font-size: 1.25rem;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(251,191,36,0.3); }
+            50% { box-shadow: 0 0 35px rgba(251,191,36,0.6); }
+        }
+
+        .btn-pro {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .loading-spinner {
+            border: 3px solid rgba(251,191,36,0.3);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-inter text-slate-100">
+
+    <!-- HEADER (stesso dell'app) -->
+    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="sigmalogo.png" alt="The Stoic Journey" class="h-10 w-10 object-contain">
+                    <span class="text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
+                </a>
+                <div class="flex items-center gap-4">
+                    <span class="hidden sm:inline text-sm text-slate-300">Ciao, <span id="userName" class="font-semibold text-amber-400">Stoico</span></span>
+                    <a href="dashboard.html" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium">
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-12 md:py-20">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-cinzel font-bold text-amber-300 mb-6">
+                Diventa un Praticante PRO
+            </h1>
+            <p class="text-lg md:text-xl text-slate-200 font-baskerville max-w-3xl mx-auto leading-relaxed">
+                Sblocca il pieno potenziale del tuo percorso stoico con funzionalità avanzate, 
+                statistiche profonde e contenuti esclusivi.
+            </p>
+        </div>
+
+        <!-- Comparison Table (Free vs PRO) -->
+        <div class="mb-16">
+            <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-center text-amber-400 mb-8">
+                Cosa Include il Piano PRO?
+            </h2>
+            <div class="max-w-4xl mx-auto bg-slate-900/60 backdrop-blur-sm rounded-2xl border border-amber-500/30 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-amber-500/30">
+                            <th class="p-4 md:p-6 font-cinzel text-slate-300">Funzionalità</th>
+                            <th class="p-4 md:p-6 font-cinzel text-center text-slate-400">Trial/Free</th>
+                            <th class="p-4 md:p-6 font-cinzel text-center text-amber-400">PRO</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-baskerville">
+                        <tr class="border-b border-slate-700/50">
+                            <td class="p-4 md:p-6 text-slate-200">Riflessioni quotidiane guidate</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50">
+                            <td class="p-4 md:p-6 text-slate-200">Citazioni stoiche autentiche</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50">
+                            <td class="p-4 md:p-6 text-slate-200">Archivio riflessioni (30 giorni)</td>
+                            <td class="p-4 md:p-6 text-center text-amber-400">Solo 30gg</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓ Illimitato</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50">
+                            <td class="p-4 md:p-6 text-slate-200">Statistiche avanzate (grafici)</td>
+                            <td class="p-4 md:p-6 text-center text-red-400 text-xl">✗</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50">
+                            <td class="p-4 md:p-6 text-slate-200">Esportazione PDF riflessioni</td>
+                            <td class="p-4 md:p-6 text-center text-red-400 text-xl">✗</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                        </tr>
+                        <tr class="border-b border-slate-700/50">
+                            <td class="p-4 md:p-6 text-slate-200">Contenuti esclusivi (biografie, approfondimenti)</td>
+                            <td class="p-4 md:p-6 text-center text-red-400 text-xl">✗</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 md:p-6 text-slate-200">Supporto prioritario</td>
+                            <td class="p-4 md:p-6 text-center text-red-400 text-xl">✗</td>
+                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+            
+            <!-- Piano Mensile -->
+            <div class="pricing-card rounded-2xl p-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-800 mb-2">Piano Mensile</h3>
+                    <div class="flex items-baseline justify-center gap-2 mb-4">
+                        <span class="text-5xl font-bold text-slate-900">4,99€</span>
+                        <span class="text-lg text-slate-700">/mese</span>
+                    </div>
+                    <p class="text-sm text-slate-700 font-baskerville">Cancella quando vuoi</p>
+                </div>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800">Tutte le funzionalità PRO</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800">Fatturazione mensile flessibile</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800">Cancellazione istantanea</span>
+                    </li>
+                </ul>
+                
+                <button 
+                    id="btnMonthly" 
+                    class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 rounded-lg transition-all text-lg font-cinzel">
+                    <span id="btnMonthlyText">Passa a PRO Mensile</span>
+                    <div id="spinnerMonthly" class="loading-spinner mx-auto hidden"></div>
+                </button>
+            </div>
+
+            <!-- Piano Annuale (RECOMMENDED) -->
+            <div class="pricing-card recommended rounded-2xl p-8 relative">
+                <!-- Badge "Miglior Valore" -->
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 px-6 py-2 rounded-full font-bold text-sm shadow-lg">
+                        🏆 MIGLIOR VALORE
+                    </div>
+                </div>
+
+                <div class="text-center mb-6 mt-4">
+                    <h3 class="text-2xl font-cinzel font-bold text-amber-800 mb-2">Piano Annuale</h3>
+                    <div class="flex items-baseline justify-center gap-2 mb-2">
+                        <span class="text-5xl font-bold text-slate-900">49,99€</span>
+                        <span class="text-lg text-slate-700">/anno</span>
+                    </div>
+                    <p class="text-sm text-green-700 font-bold mb-1">Risparmi 16% (9,89€)</p>
+                    <p class="text-xs text-slate-600 font-baskerville">Solo 4,16€/mese</p>
+                </div>
+                
+                <ul class="space-y-3 mb-8">
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800 font-semibold">Tutte le funzionalità PRO</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800 font-semibold">Risparmia 9,89€ all'anno</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800 font-semibold">Pagamento unico annuale</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="check-icon">✓</span>
+                        <span class="text-slate-800 font-semibold">Cancellazione istantanea</span>
+                    </li>
+                </ul>
+                
+                <button 
+                    id="btnAnnual" 
+                    class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold py-4 rounded-lg transition-all text-lg font-cinzel btn-pro">
+                    <span id="btnAnnualText">Passa a PRO Annuale</span>
+                    <div id="spinnerAnnual" class="loading-spinner mx-auto hidden"></div>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="max-w-4xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-300 font-baskerville">
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    Pagamento sicuro Stripe
+                </span>
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    Cancella quando vuoi
+                </span>
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    Dati crittografati
+                </span>
+            </div>
+
+            <!-- Garanzia -->
+            <div class="mt-8 bg-amber-50/10 border border-amber-500/30 rounded-lg p-6 text-center">
+                <p class="text-slate-200 font-baskerville leading-relaxed">
+                    <strong class="text-amber-400">Garanzia soddisfatti o rimborsati:</strong> 
+                    Se non sei soddisfatto, puoi cancellare entro 7 giorni e riceverai un rimborso completo.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+        <p id="toastMessage" class="text-sm font-medium"></p>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="js/common.js"></script>
+    <script>
+        'use strict';
+
+        // CONFIGURAZIONE STRIPE (sostituisci con le tue chiavi)
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_TU_CHIAVE_PUBBLICA_QUI'; // DA SOSTITUIRE!
+        const STRIPE_PRICE_ID_MONTHLY = 'price_1ABC...mensile'; // DA SOSTITUIRE!
+        const STRIPE_PRICE_ID_ANNUAL = 'price_1ABC...annuale'; // DA SOSTITUIRE!
+
+        const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+
+        let currentUser = null;
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('[PRO] Inizializzazione pagina PRO...');
+
+            try {
+                const session = await getSessionRobusta();
+                if (!session) {
+                    window.location.href = 'accedi.html';
+                    return;
+                }
+
+                currentUser = session.user;
+                await loadUserData(currentUser);
+
+                // Check se già PRO
+                await checkIfAlreadyPro();
+
+                // Setup bottoni
+                setupPricingButtons();
+
+            } catch (err) {
+                console.error('[PRO] Errore inizializzazione:', err);
+                window.location.href = 'accedi.html';
+            }
+        });
+
+        // CHECK SE GIÀ PRO
+        async function checkIfAlreadyPro() {
+            if (!currentUserProfile) return;
+
+            // Se role è 'pro' o 'master', mostra messaggio diverso
+            if (currentUserProfile.role === 'pro' || currentUserProfile.role === 'master') {
+                document.querySelector('main').innerHTML = `
+                    <div class="max-w-3xl mx-auto text-center py-20">
+                        <h1 class="text-4xl md:text-5xl font-cinzel font-bold text-amber-300 mb-6">
+                            Sei già un Membro PRO! 🎉
+                        </h1>
+                        <p class="text-lg text-slate-200 font-baskerville mb-8 leading-relaxed">
+                            Hai accesso completo a tutte le funzionalità premium di The Stoic Journey.
+                        </p>
+                        <a href="dashboard.html" 
+                           class="inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 px-8 rounded-lg transition-all text-lg font-cinzel">
+                            Torna alla Dashboard
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // SETUP BOTTONI PRICING
+        function setupPricingButtons() {
+            document.getElementById('btnMonthly').addEventListener('click', () => handleCheckout('monthly'));
+            document.getElementById('btnAnnual').addEventListener('click', () => handleCheckout('annual'));
+        }
+
+        // GESTIONE CHECKOUT STRIPE
+        async function handleCheckout(planType) {
+            console.log(`[PRO] Avvio checkout per piano: ${planType}`);
+
+            const priceId = planType === 'monthly' ? STRIPE_PRICE_ID_MONTHLY : STRIPE_PRICE_ID_ANNUAL;
+            const btnId = planType === 'monthly' ? 'btnMonthly' : 'btnAnnual';
+            const textId = planType === 'monthly' ? 'btnMonthlyText' : 'btnAnnualText';
+            const spinnerId = planType === 'monthly' ? 'spinnerMonthly' : 'spinnerAnnual';
+
+            const btn = document.getElementById(btnId);
+            const btnText = document.getElementById(textId);
+            const spinner = document.getElementById(spinnerId);
+
+            try {
+                // UI Loading
+                btn.disabled = true;
+                btnText.classList.add('hidden');
+                spinner.classList.remove('hidden');
+
+                // Chiama Edge Function per creare Checkout Session
+                const { data, error } = await sbClient.functions.invoke('create-checkout-session', {
+                    body: { 
+                        priceId: priceId,
+                        userId: currentUser.id,
+                        userEmail: currentUser.email
+                    }
+                });
+
+                if (error) throw error;
+                if (!data || !data.sessionId) throw new Error('Nessun sessionId ricevuto');
+
+                console.log('[PRO] Session ID ricevuto:', data.sessionId);
+
+                // Redirect a Stripe Checkout
+                const { error: stripeError } = await stripe.redirectToCheckout({
+                    sessionId: data.sessionId
+                });
+
+                if (stripeError) throw stripeError;
+
+            } catch (err) {
+                console.error('[PRO] Errore checkout:', err);
+                showToast('Errore durante l\'apertura del pagamento. Riprova.', 'error');
+
+                // Ripristina UI
+                btn.disabled = false;
+                btnText.classList.remove('hidden');
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // TOAST
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+
+            toastMessage.textContent = message;
+
+            if (type === 'error') {
+                toast.classList.remove('border-amber-500', 'text-amber-400');
+                toast.classList.add('border-red-500', 'text-red-400');
+            } else {
+                toast.classList.remove('border-red-500', 'text-red-400');
+                toast.classList.add('border-amber-500', 'text-amber-400');
+            }
+
+            toast.style.transform = 'translateY(0)';
+
+            setTimeout(() => {
+                toast.style.transform = 'translateY(8rem)';
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>
