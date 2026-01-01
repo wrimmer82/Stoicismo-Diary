@@ -638,37 +638,26 @@
     }
 
     // NUOVO: Carica tutti gli utenti (solo master)
-    async function loadAllUsers() {
-        console.log('👥 Caricamento utenti...');
-        
-        try {
-            const { data: users, error } = await sbClient
-                .from('profiles')
-                .select(`
-                    id,
-                    name,
-                    role,
-                    trial_ends_at,
-                    is_trial_expired,
-                    created_at
-                `)
-                .order('created_at', { ascending: false });
+   async function loadAllUsers() {
+  console.log("Caricamento utenti...");
+  try {
+    const { data: users, error } = await sbClient
+      .rpc('get_all_users');
 
-            if (error) throw error;
+    if (error) throw error;
+    console.log('Utenti caricati:', users?.length || 0);
+    renderUsersList(users);
+  } catch (error) {
+    console.error('Errore caricamento utenti:', error);
+    document.getElementById('usersListContainer').innerHTML = `
+      <div class="text-center py-8 text-red-400">
+        <p>Errore caricamento utenti</p>
+        <p class="text-sm mt-2">${error.message}</p>
+      </div>
+    `;
+  }
+}
 
-            console.log('✅ Utenti caricati:', users?.length || 0);
-            renderUsersList(users || []);
-
-        } catch (error) {
-            console.error('❌ Errore caricamento utenti:', error);
-            document.getElementById('usersListContainer').innerHTML = `
-                <div class="text-center py-8 text-red-400">
-                    <p>Errore caricamento utenti</p>
-                    <p class="text-sm mt-2">${error.message}</p>
-                </div>
-            `;
-        }
-    }
 
     // NUOVO: Renderizza lista utenti
     function renderUsersList(users) {
