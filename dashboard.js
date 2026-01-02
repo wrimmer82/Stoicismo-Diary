@@ -351,8 +351,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'accedi.html';
     }
 });
-// STRIPE PAGAMENTI - AGGIUNGI FINE dashboard.js
-async function creaPagamento() {
-  try
 
 
