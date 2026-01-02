@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!-- Google Analytics (usa lo stesso di index.html) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GW6CH5RG1R"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -13,16 +13,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Passa a PRO - The Stoic Journey</title>
-    <meta name="description" content="Sblocca tutte le funzionalità premium di The Stoic Journey. Statistiche avanzate, esportazione PDF, contenuti esclusivi.">
+    <meta name="description" content="Sblocca tutte le funzionalità premium di The Stoic Journey. 30 giorni di prova gratuita.">
     
-    <!-- Scripts & Fonts (stessi del sito) -->
+    <!-- Scripts & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Stripe.js (per checkout) -->
+    <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
 
     <style>
@@ -78,11 +78,21 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .trial-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: bold;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
     </style>
 </head>
 <body class="font-inter text-slate-100">
 
-    <!-- HEADER (stesso dell'app) -->
+    <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
@@ -105,12 +115,19 @@
         
         <!-- Hero Section -->
         <div class="text-center mb-16">
+            <!-- Trial Badge -->
+            <div class="flex justify-center mb-6">
+                <span class="trial-badge">
+                    🎁 30 GIORNI DI PROVA GRATUITA
+                </span>
+            </div>
+            
             <h1 class="text-4xl md:text-6xl font-cinzel font-bold text-amber-300 mb-6">
                 Diventa un Praticante PRO
             </h1>
             <p class="text-lg md:text-xl text-slate-200 font-baskerville max-w-3xl mx-auto leading-relaxed">
                 Sblocca il pieno potenziale del tuo percorso stoico con funzionalità avanzate, 
-                statistiche profonde e contenuti esclusivi.
+                statistiche profonde e contenuti esclusivi. <strong class="text-amber-400">Prova gratis per 30 giorni</strong>, poi cancella quando vuoi.
             </p>
         </div>
 
@@ -124,7 +141,7 @@
                     <thead>
                         <tr class="border-b border-amber-500/30">
                             <th class="p-4 md:p-6 font-cinzel text-slate-300">Funzionalità</th>
-                            <th class="p-4 md:p-6 font-cinzel text-center text-slate-400">Trial/Free</th>
+                            <th class="p-4 md:p-6 font-cinzel text-center text-slate-400">Free</th>
                             <th class="p-4 md:p-6 font-cinzel text-center text-amber-400">PRO</th>
                         </tr>
                     </thead>
@@ -140,9 +157,9 @@
                             <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
                         </tr>
                         <tr class="border-b border-slate-700/50">
-                            <td class="p-4 md:p-6 text-slate-200">Archivio riflessioni (30 giorni)</td>
+                            <td class="p-4 md:p-6 text-slate-200">Archivio riflessioni</td>
                             <td class="p-4 md:p-6 text-center text-amber-400">Solo 30gg</td>
-                            <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓ Illimitato</td>
+                            <td class="p-4 md:p-6 text-center text-green-400">✓ Illimitato</td>
                         </tr>
                         <tr class="border-b border-slate-700/50">
                             <td class="p-4 md:p-6 text-slate-200">Statistiche avanzate (grafici)</td>
@@ -155,7 +172,7 @@
                             <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
                         </tr>
                         <tr class="border-b border-slate-700/50">
-                            <td class="p-4 md:p-6 text-slate-200">Contenuti esclusivi (biografie, approfondimenti)</td>
+                            <td class="p-4 md:p-6 text-slate-200">Contenuti esclusivi (biografie)</td>
                             <td class="p-4 md:p-6 text-center text-red-400 text-xl">✗</td>
                             <td class="p-4 md:p-6 text-center text-green-400 text-2xl">✓</td>
                         </tr>
@@ -175,12 +192,15 @@
             <!-- Piano Mensile -->
             <div class="pricing-card rounded-2xl p-8">
                 <div class="text-center mb-6">
+                    <div class="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-3">
+                        30 GIORNI GRATIS
+                    </div>
                     <h3 class="text-2xl font-cinzel font-bold text-amber-800 mb-2">Piano Mensile</h3>
                     <div class="flex items-baseline justify-center gap-2 mb-4">
                         <span class="text-5xl font-bold text-slate-900">4,99€</span>
                         <span class="text-lg text-slate-700">/mese</span>
                     </div>
-                    <p class="text-sm text-slate-700 font-baskerville">Cancella quando vuoi</p>
+                    <p class="text-sm text-slate-700 font-baskerville">Dopo la prova gratuita • Cancella quando vuoi</p>
                 </div>
                 
                 <ul class="space-y-3 mb-8">
@@ -201,7 +221,7 @@
                 <button 
                     id="btnMonthly" 
                     class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 rounded-lg transition-all text-lg font-cinzel">
-                    <span id="btnMonthlyText">Passa a PRO Mensile</span>
+                    <span id="btnMonthlyText">Inizia 30gg Gratis</span>
                     <div id="spinnerMonthly" class="loading-spinner mx-auto hidden"></div>
                 </button>
             </div>
@@ -216,13 +236,16 @@
                 </div>
 
                 <div class="text-center mb-6 mt-4">
+                    <div class="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold mb-3">
+                        30 GIORNI GRATIS
+                    </div>
                     <h3 class="text-2xl font-cinzel font-bold text-amber-800 mb-2">Piano Annuale</h3>
                     <div class="flex items-baseline justify-center gap-2 mb-2">
                         <span class="text-5xl font-bold text-slate-900">49,99€</span>
                         <span class="text-lg text-slate-700">/anno</span>
                     </div>
                     <p class="text-sm text-green-700 font-bold mb-1">Risparmi 16% (9,89€)</p>
-                    <p class="text-xs text-slate-600 font-baskerville">Solo 4,16€/mese</p>
+                    <p class="text-xs text-slate-600 font-baskerville">Solo 4,16€/mese • Dopo la prova gratuita</p>
                 </div>
                 
                 <ul class="space-y-3 mb-8">
@@ -247,7 +270,7 @@
                 <button 
                     id="btnAnnual" 
                     class="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold py-4 rounded-lg transition-all text-lg font-cinzel btn-pro">
-                    <span id="btnAnnualText">Passa a PRO Annuale</span>
+                    <span id="btnAnnualText">Inizia 30gg Gratis</span>
                     <div id="spinnerAnnual" class="loading-spinner mx-auto hidden"></div>
                 </button>
             </div>
@@ -261,6 +284,12 @@
                     <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
+                    30 giorni gratis
+                </span>
+                <span class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
                     Pagamento sicuro Stripe
                 </span>
                 <span class="flex items-center gap-2">
@@ -269,19 +298,14 @@
                     </svg>
                     Cancella quando vuoi
                 </span>
-                <span class="flex items-center gap-2">
-                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    Dati crittografati
-                </span>
             </div>
 
             <!-- Garanzia -->
             <div class="mt-8 bg-amber-50/10 border border-amber-500/30 rounded-lg p-6 text-center">
                 <p class="text-slate-200 font-baskerville leading-relaxed">
-                    <strong class="text-amber-400">Garanzia soddisfatti o rimborsati:</strong> 
-                    Se non sei soddisfatto, puoi cancellare entro 7 giorni e riceverai un rimborso completo.
+                    <strong class="text-amber-400">💡 Come funziona:</strong> 
+                    Oggi inizi la prova gratuita di 30 giorni. Non paghi nulla ora. 
+                    Dopo 30 giorni, se non cancelli, inizia l'abbonamento. Puoi cancellare in qualsiasi momento.
                 </p>
             </div>
         </div>
@@ -298,10 +322,12 @@
     <script>
         'use strict';
 
-        // CONFIGURAZIONE STRIPE (sostituisci con le tue chiavi)
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_TU_CHIAVE_PUBBLICA_QUI'; // DA SOSTITUIRE!
-        const STRIPE_PRICE_ID_MONTHLY = 'price_1ABC...mensile'; // DA SOSTITUIRE!
-        const STRIPE_PRICE_ID_ANNUAL = 'price_1ABC...annuale'; // DA SOSTITUIRE!
+        // ⚠️ CONFIGURAZIONE STRIPE - MODALITÀ TEST SANDBOX
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51Sl5eILhVHM6uKggpQkTNs6Jzt3ixBGHx6NYWTiLrxCCkN7WpWG0x0J6UuMmCvB8isMnhCdsMFwE5BYKz9gCqvwG00Ru3CZVBF'; // ⚠️ CHIAVE TEST - DA SOSTITUIRE CON LIVE!
+        
+        // PRICE ID - MODALITÀ TEST SANDBOX
+        const STRIPE_PRICE_ID_MONTHLY = 'price_1Sl5hjLhVHM6uKgg53YXsXke'; // ✅ MENSILE €4.99
+        const STRIPE_PRICE_ID_ANNUAL = 'price_1Sl5hjLhVHM6uKggCwhVsvab';  // ✅ ANNUALE €49.99
 
         const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
