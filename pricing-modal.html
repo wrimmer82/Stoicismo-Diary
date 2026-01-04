@@ -33,7 +33,7 @@
     }
     
     .card-premium:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
       box-shadow: 0 30px 80px rgba(251, 191, 36, 0.5);
     }
     
@@ -45,7 +45,7 @@
     }
     
     .card-annual:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
       box-shadow: 0 30px 80px rgba(34, 197, 94, 0.5);
     }
     
@@ -98,7 +98,7 @@
     
     @media (max-width: 768px) {
       .modal-content {
-        max-height: 85vh;
+        max-height: 90vh;
         overflow-y: auto;
       }
     }
@@ -108,91 +108,91 @@
   
   <!-- MODAL PRINCIPALE -->
   <div id="pricingModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay">
-    <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl p-6 md:p-12 max-w-5xl w-full modal-content border border-amber-500/40 shadow-2xl">
+    <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl p-6 md:p-10 max-w-4xl w-full modal-content border border-amber-500/40 shadow-2xl">
       
       <!-- Header Modal -->
-      <div class="text-center mb-10 md:mb-14">
-        <div class="streak-glow inline-flex items-center justify-center mb-6 bg-slate-800/50 p-6 rounded-full">
-          <svg class="w-16 h-16 md:w-20 md:h-20 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="text-center mb-8 md:mb-10">
+        <div class="streak-glow inline-flex items-center justify-center mb-5 bg-slate-800/50 p-5 rounded-full">
+          <svg class="w-14 h-14 md:w-16 md:h-16 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
         
-        <h1 class="font-cinzel text-3xl md:text-5xl lg:text-6xl font-bold text-amber-400 mb-5 tracking-wide uppercase leading-tight">
+        <h1 class="font-cinzel text-3xl md:text-4xl lg:text-5xl font-bold text-amber-400 mb-4 tracking-wide uppercase leading-tight">
           Diventa PRO
         </h1>
         
-        <p class="text-lg md:text-xl lg:text-2xl text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed px-4">
+        <p class="text-base md:text-lg lg:text-xl text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed px-4">
           Sblocca tutto il potenziale della filosofia stoica con accesso illimitato
         </p>
       </div>
 
       <!-- Card Piani -->
-      <div class="grid md:grid-cols-2 gap-6 md:gap-8 mb-10 md:mb-14">
+      <div class="grid md:grid-cols-2 gap-5 md:gap-6 mb-8 md:mb-10">
         
         <!-- ========== PIANO MENSILE ========== -->
-        <div class="card-premium rounded-2xl p-6 md:p-10 group relative overflow-hidden">
+        <div class="card-premium rounded-2xl p-5 md:p-8 group relative overflow-hidden">
           <!-- Badge Popolare -->
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-            <span class="bg-slate-900 text-amber-400 px-4 py-2 rounded-full text-xs md:text-sm font-bold border-2 border-amber-400 shadow-xl uppercase tracking-wider">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+            <span class="bg-slate-900 text-amber-400 px-3 py-1.5 rounded-full text-xs md:text-sm font-bold border-2 border-amber-400 shadow-xl uppercase tracking-wider">
               🔥 Più Popolare
             </span>
           </div>
           
           <div class="text-center">
             <!-- Prezzo -->
-            <div class="mb-8 mt-4">
+            <div class="mb-6 mt-3">
               <div class="flex items-center justify-center gap-2">
-                <span id="monthlyPrice" class="font-cinzel text-5xl md:text-6xl font-extrabold text-amber-400">€4.99</span>
+                <span id="monthlyPrice" class="font-cinzel text-4xl md:text-5xl font-extrabold text-amber-400">€4.99</span>
                 <div class="text-left">
-                  <span class="text-xl md:text-2xl text-slate-400 block">/mese</span>
+                  <span class="text-lg md:text-xl text-slate-400 block">/mese</span>
                   <span class="text-xs text-slate-500">Fatturazione mensile</span>
                 </div>
               </div>
             </div>
             
             <!-- Features -->
-            <ul class="text-left mb-10 space-y-4 text-slate-300">
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <ul class="text-left mb-8 space-y-3 text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Accesso illimitato</strong> a tutti i contenuti premium</span>
+                <span class="text-sm md:text-base"><strong>Accesso illimitato</strong> a tutti i contenuti premium</span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Streak counter</strong> con statistiche dettagliate</span>
+                <span class="text-sm md:text-base"><strong>Streak counter</strong> con statistiche dettagliate</span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Frasi stoiche AI</strong> personalizzate ogni giorno</span>
+                <span class="text-sm md:text-base"><strong>Frasi stoiche AI</strong> personalizzate ogni giorno</span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Supporto prioritario</strong> via email</span>
+                <span class="text-sm md:text-base"><strong>Supporto prioritario</strong> via email</span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Cancella quando vuoi</strong>, nessun vincolo</span>
+                <span class="text-sm md:text-base"><strong>Cancella quando vuoi</strong>, nessun vincolo</span>
               </li>
             </ul>
             
             <!-- CTA Button -->
-            <button id="buyMonthly" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-900 font-bold py-4 md:py-5 px-8 rounded-xl text-base md:text-lg shadow-2xl hover:shadow-amber-500/50 transform hover:-translate-y-1 transition-all duration-300 border-2 border-amber-300 uppercase tracking-wider">
+            <button id="buyMonthly" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-900 font-bold py-3.5 md:py-4 px-6 rounded-xl text-sm md:text-base shadow-2xl hover:shadow-amber-500/50 transform hover:-translate-y-1 transition-all duration-300 border-2 border-amber-300 uppercase tracking-wider">
               <span class="flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                 </svg>
                 Attiva Ora - Mensile
@@ -202,71 +202,71 @@
         </div>
 
         <!-- ========== PIANO ANNUALE ========== -->
-        <div class="card-annual rounded-2xl p-6 md:p-10 group relative overflow-hidden">
+        <div class="card-annual rounded-2xl p-5 md:p-8 group relative overflow-hidden">
           <!-- Badge Risparmio -->
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-            <span class="bg-slate-900 text-emerald-400 px-4 py-2 rounded-full text-xs md:text-sm font-bold border-2 border-emerald-400 shadow-xl uppercase tracking-wider">
+          <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+            <span class="bg-slate-900 text-emerald-400 px-3 py-1.5 rounded-full text-xs md:text-sm font-bold border-2 border-emerald-400 shadow-xl uppercase tracking-wider">
               💎 Risparmia 17%
             </span>
           </div>
           
           <div class="text-center">
             <!-- Prezzo -->
-            <div class="mb-8 mt-4">
+            <div class="mb-6 mt-3">
               <div class="flex items-center justify-center gap-2">
-                <span id="annualPrice" class="font-cinzel text-5xl md:text-6xl font-extrabold text-emerald-400">€49.99</span>
+                <span id="annualPrice" class="font-cinzel text-4xl md:text-5xl font-extrabold text-emerald-400">€49.99</span>
                 <div class="text-left">
-                  <span class="text-xl md:text-2xl text-slate-400 block">/anno</span>
+                  <span class="text-lg md:text-xl text-slate-400 block">/anno</span>
                   <span class="text-xs text-slate-500">Fatturazione annuale</span>
                 </div>
               </div>
-              <p id="annualSavings" class="text-xl md:text-2xl font-bold text-emerald-400 mt-3">
-                Risparmi €9.89 all'anno
+              <p id="annualSavings" class="text-lg md:text-xl font-bold text-emerald-400 mt-2">
+                Risparmi €0.82/mese
               </p>
             </div>
             
             <!-- Features -->
-            <ul class="text-left mb-10 space-y-4 text-slate-300">
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+            <ul class="text-left mb-8 space-y-3 text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Tutto del piano mensile</strong></span>
+                <span class="text-sm md:text-base"><strong>Tutto del piano mensile</strong></span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong class="text-emerald-400">2 MESI GRATIS</strong> (17% di sconto)</span>
+                <span class="text-sm md:text-base"><strong class="text-emerald-400">2 MESI GRATIS</strong> (17% di sconto)</span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Solo €4.17/mese</strong> con pagamento annuale</span>
+                <span class="text-sm md:text-base"><strong>Solo €4.17/mese</strong> con pagamento annuale</span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Supporto prioritario premium</strong></span>
+                <span class="text-sm md:text-base"><strong>Supporto prioritario premium</strong></span>
               </li>
               
-              <li class="flex items-start gap-3">
-                <svg class="w-6 h-6 text-emerald-400 flex-shrink-0 feature-icon mt-1" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-5 h-5 text-emerald-400 flex-shrink-0 feature-icon mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                <span class="text-base md:text-lg"><strong>Fattura una volta sola</strong> all'anno</span>
+                <span class="text-sm md:text-base"><strong>Fattura una volta sola</strong> all'anno</span>
               </li>
             </ul>
             
             <!-- CTA Button -->
-            <button id="buyAnnual" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-900 font-bold py-4 md:py-5 px-8 rounded-xl text-base md:text-lg shadow-2xl hover:shadow-emerald-500/50 transform hover:-translate-y-1 transition-all duration-300 border-2 border-emerald-300 uppercase tracking-wider">
+            <button id="buyAnnual" class="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-900 font-bold py-3.5 md:py-4 px-6 rounded-xl text-sm md:text-base shadow-2xl hover:shadow-emerald-500/50 transform hover:-translate-y-1 transition-all duration-300 border-2 border-emerald-300 uppercase tracking-wider">
               <span class="flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                 </svg>
                 Risparmia Ora - Annuale
@@ -278,83 +278,47 @@
       </div>
 
       <!-- Garanzie e Trust Signals -->
-      <div class="bg-slate-800/50 rounded-2xl p-6 md:p-8 mb-8 border border-slate-700">
-        <div class="grid md:grid-cols-3 gap-6 text-center">
+      <div class="bg-slate-800/50 rounded-2xl p-5 md:p-6 mb-6 border border-slate-700">
+        <div class="grid md:grid-cols-3 gap-5 text-center">
           <!-- Sicurezza -->
-          <div class="flex flex-col items-center gap-3">
-            <div class="bg-emerald-500/20 p-4 rounded-full">
-              <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex flex-col items-center gap-2.5">
+            <div class="bg-emerald-500/20 p-3 rounded-full">
+              <svg class="w-7 h-7 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
               </svg>
             </div>
-            <h3 class="font-cinzel text-lg font-bold text-amber-400">Pagamento Sicuro</h3>
-            <p class="text-sm text-slate-400">Protetto da Stripe, leader mondiale nei pagamenti online</p>
+            <h3 class="font-cinzel text-base md:text-lg font-bold text-amber-400">Pagamento Sicuro</h3>
+            <p class="text-xs md:text-sm text-slate-400">Protetto da Stripe, leader mondiale nei pagamenti online</p>
           </div>
           
           <!-- Cancellazione -->
-          <div class="flex flex-col items-center gap-3">
-            <div class="bg-amber-500/20 p-4 rounded-full">
-              <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex flex-col items-center gap-2.5">
+            <div class="bg-amber-500/20 p-3 rounded-full">
+              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            <h3 class="font-cinzel text-lg font-bold text-amber-400">Cancella Quando Vuoi</h3>
-            <p class="text-sm text-slate-400">Nessun vincolo, cancellazione immediata dal tuo account</p>
+            <h3 class="font-cinzel text-base md:text-lg font-bold text-amber-400">Cancella Quando Vuoi</h3>
+            <p class="text-xs md:text-sm text-slate-400">Nessun vincolo, cancellazione immediata dal tuo account</p>
           </div>
           
           <!-- Supporto -->
-          <div class="flex flex-col items-center gap-3">
-            <div class="bg-blue-500/20 p-4 rounded-full">
-              <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="flex flex-col items-center gap-2.5">
+            <div class="bg-blue-500/20 p-3 rounded-full">
+              <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
               </svg>
             </div>
-            <h3 class="font-cinzel text-lg font-bold text-amber-400">Supporto Dedicato</h3>
-            <p class="text-sm text-slate-400">Team di supporto pronto ad aiutarti in ogni momento</p>
+            <h3 class="font-cinzel text-base md:text-lg font-bold text-amber-400">Supporto Dedicato</h3>
+            <p class="text-xs md:text-sm text-slate-400">Team di supporto pronto ad aiutarti in ogni momento</p>
           </div>
-        </div>
-      </div>
-
-      <!-- FAQ Rapide -->
-      <div class="mb-8">
-        <h3 class="font-cinzel text-2xl font-bold text-center text-amber-400 mb-6">Domande Frequenti</h3>
-        <div class="space-y-4">
-          <details class="bg-slate-800/50 rounded-xl p-5 border border-slate-700 group">
-            <summary class="font-bold text-slate-200 cursor-pointer flex justify-between items-center">
-              <span>Posso cambiare piano in qualsiasi momento?</span>
-              <svg class="w-5 h-5 text-amber-400 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </summary>
-            <p class="mt-3 text-slate-400 text-sm">Sì! Puoi passare da mensile ad annuale (o viceversa) in qualsiasi momento dalle impostazioni del tuo account.</p>
-          </details>
-          
-          <details class="bg-slate-800/50 rounded-xl p-5 border border-slate-700 group">
-            <summary class="font-bold text-slate-200 cursor-pointer flex justify-between items-center">
-              <span>Come funziona la cancellazione?</span>
-              <svg class="w-5 h-5 text-amber-400 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </summary>
-            <p class="mt-3 text-slate-400 text-sm">Puoi cancellare in qualsiasi momento dalle impostazioni. Continuerai ad avere accesso PRO fino alla fine del periodo pagato.</p>
-          </details>
-          
-          <details class="bg-slate-800/50 rounded-xl p-5 border border-slate-700 group">
-            <summary class="font-bold text-slate-200 cursor-pointer flex justify-between items-center">
-              <span>Il pagamento è davvero sicuro?</span>
-              <svg class="w-5 h-5 text-amber-400 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-              </svg>
-            </summary>
-            <p class="mt-3 text-slate-400 text-sm">Assolutamente! Utilizziamo Stripe, il sistema di pagamento più sicuro al mondo. Non conserviamo mai i tuoi dati di pagamento.</p>
-          </details>
         </div>
       </div>
 
       <!-- Footer Modal -->
-      <div class="text-center border-t border-slate-700 pt-8">
-        <p class="text-slate-400 text-sm md:text-base mb-6 flex items-center justify-center gap-2 flex-wrap">
-          <svg class="w-5 h-5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+      <div class="text-center border-t border-slate-700 pt-6">
+        <p class="text-slate-400 text-xs md:text-sm mb-5 flex items-center justify-center gap-2 flex-wrap">
+          <svg class="w-4 h-4 md:w-5 md:h-5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
           </svg>
           Pagamento sicuro con <span class="font-bold text-amber-400">Stripe</span>
@@ -362,8 +326,8 @@
           <span>Cancella in qualsiasi momento</span>
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button id="closeModal" class="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold rounded-xl transition-all duration-300 border border-slate-600 hover:border-slate-500">
+        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <button id="closeModal" class="px-6 py-2.5 bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold rounded-xl transition-all duration-300 border border-slate-600 hover:border-slate-500 text-sm md:text-base">
             ← Torna Indietro
           </button>
           
