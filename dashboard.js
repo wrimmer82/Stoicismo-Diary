@@ -349,5 +349,82 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'accedi.html';
     }
 });
+    } catch (err) {
+        console.error('💥 Errore init dashboard:', err);
+        window.location.href = 'accedi.html';
+    }
+});  // <-- Fine DOMContentLoaded
+
+// ========== ✅ STRIPE CUSTOMER PORTAL ==========
+async function openCustomerPortal() {
+  try {
+    // Mostra loading overlay
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'loading-overlay';
+    loadingOverlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);display:flex;align-items:center;justify-content:center;z-index:9999;flex-direction:column;gap:1rem;';
+    loadingOverlay.innerHTML = `
+      <div style="width:48px;height:48px;border:4px solid rgba(251,191,36,0.3);border-top-color:#fbbf24;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+      <div style="color:#fbbf24;font-size:18px;font-weight:600;">Apertura pannello gestione...</div>
+    `;
+    document.body.appendChild(loadingOverlay);
+
+    // Verifica autenticazione
+    const session = await getSessionRobusta();
+    
+    if (!session) {
+      loadingOverlay.remove();
+      showToast('Devi effettuare il login');
+      window.location.href = 'accedi.html';
+      return;
+    }
+
+    const user = session.user;
+    console.log('🔐 Opening portal for user:', user.id);
+
+    // Chiama Edge Function
+    const response = await fetch(
+      'https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-portal-session',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({ userId: user.id })
+      }
+    );
+
+    const data = await response.json();
+    
+    if (!response.ok) {
+      loadingOverlay.remove();
+      
+      if (data.error && data.error.includes('No active subscription')) {
+        showToast('Non hai un abbonamento attivo. Passa a PRO!');
+        // Reindirizza a pricing dopo 2 secondi
+        setTimeout(() => {
+          window.location.href = 'pricing-modal.html';
+        }, 2000);
+      } else {
+        throw new Error(data.error || 'Errore apertura portal');
+      }
+      return;
+    }
+
+    console.log('✅ Portal session created:', data.sessionId);
+
+    // Redirect a Stripe Customer Portal (stessa finestra)
+    window.location.href = data.url;
+
+  } catch (error) {
+    console.error('💥 Errore portal:', error);
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) overlay.remove();
+    showToast('Impossibile aprire il pannello. Riprova.');
+  }
+}
+
+// Esponi funzione globalmente per onclick
+window.openCustomerPortal = openCustomerPortal;
 
 
