@@ -4,75 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impostazioni - The Stoic Journey</title>
+    
     <meta name="description" content="Gestisci il tuo profilo e le preferenze - The Stoic Journey">
     <meta name="robots" content="noindex, nofollow">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
-        
+
         body {
-            background: linear-gradient(180deg, #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, #c49050 80%, #a8754a 90%, #1c1410 100%);
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
+                #c49050 80%, #a8754a 90%, #1c1410 100%
+            );
             min-height: 100vh;
             background-attachment: fixed;
         }
-        
+
         .parchment-card {
             background: rgba(245, 222, 179, 0.95);
             border: 2px solid rgba(146, 64, 14, 0.4);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
-        
+
         .parchment-card h3 {
             color: #92400e;
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
         }
-        
+
         .parchment-card label {
             color: #451a03;
             text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
         }
-        
+
         .parchment-input {
             background: rgba(255, 255, 255, 0.9);
             border: 2px solid rgba(146, 64, 14, 0.3);
             color: #451a03;
         }
-        
+
         .parchment-input:focus {
             border-color: #92400e;
             outline: none;
             box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.2);
         }
-        
+
         .parchment-input:disabled {
             background: rgba(229, 231, 235, 0.6);
             cursor: not-allowed;
         }
-        
+
         .parchment-input.error {
             border-color: #dc2626;
             box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
         }
-        
+
         .error-message {
             color: #dc2626;
             font-size: 0.75rem;
             margin-top: 0.25rem;
             display: none;
         }
-        
+
         .error-message.active {
             display: block;
         }
-        
+
         #mobileMenuOverlay {
             position: fixed;
             inset: 0;
@@ -83,12 +90,12 @@
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        
+
         #mobileMenuOverlay.active {
             opacity: 1;
             visibility: visible;
         }
-        
+
         #mobileSidebar {
             position: fixed;
             top: 0;
@@ -103,29 +110,33 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        
+
         #mobileSidebar::-webkit-scrollbar {
             display: none;
         }
-        
+
         #mobileSidebar.active {
             transform: translateX(0);
         }
-        
+
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            }
         }
-        
+
         .streak-glow {
             animation: pulse-glow 2s ease-in-out infinite;
         }
-        
+
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
+
         .spinner {
             display: inline-block;
             width: 16px;
@@ -135,16 +146,16 @@
             border-radius: 50%;
             animation: spin 0.6s linear infinite;
         }
-        
-        .toast {
+
+        #toast {
             transition: transform 0.3s ease, opacity 0.5s ease;
         }
-        
-        .toast.hiding {
+
+        #toast.hiding {
             opacity: 0;
         }
-        
-        /* Badge Ruoli */
+
+        /* NUOVO: Badge Ruoli */
         .role-badge {
             display: inline-flex;
             align-items: center;
@@ -157,88 +168,47 @@
             letter-spacing: 0.05em;
             transition: all 0.3s ease;
         }
-        
+
         .role-badge.master {
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             color: #78350f;
             box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
         }
-        
+
         .role-badge.pro {
             background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
             color: #ffffff;
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
-        
+
         .role-badge.vip {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: #ffffff;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
-        
+
         .role-badge.vip-expired {
             background: linear-gradient(135deg, #64748b 0%, #475569 100%);
             color: #f1f5f9;
             box-shadow: none;
         }
-        
-        .role-badge.vip-unlimited {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-        }
-        
-        /* Stili Admin Panel */
+
+        /* NUOVO: Stili Admin Panel */
         .admin-card {
             background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
             border: 2px solid rgba(251, 191, 36, 0.3);
             box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
         }
-        
+
         .user-row {
             transition: all 0.2s ease;
         }
-        
+
         .user-row:hover {
             background: rgba(251, 191, 36, 0.05);
             transform: translateX(4px);
         }
-        
-        /* Stili Abbonamento */
-        .subscription-card {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
-            border: 2px solid rgba(168, 85, 247, 0.3);
-        }
-        
-        .plan-card {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .plan-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(168, 85, 247, 0.3);
-        }
-        
-        .plan-card.recommended {
-            border: 3px solid #a855f7;
-            position: relative;
-        }
-        
-        .recommended-badge {
-            position: absolute;
-            top: -12px;
-            right: 12px;
-            background: linear-gradient(135deg, #a855f7, #7c3aed);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
+
         @media (max-width: 767px) {
             .mobile-btn {
                 min-height: 48px;
@@ -248,7 +218,7 @@
     </style>
 </head>
 <body class="font-inter text-slate-100">
-    
+
     <!-- HEADER -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -259,24 +229,27 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
                     </button>
+                    
                     <div class="flex items-center gap-3">
-                        <img src="sigma-logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
-                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
+                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">
+                            The Stoic Journey
+                        </span>
                     </div>
                 </div>
-                
+
                 <div class="flex items-center gap-4 md:gap-6">
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
                         <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
                         <span class="text-xs text-slate-900 font-medium">giorni</span>
                     </div>
-                    
-                    <!-- Badge Ruolo -->
+
+                    <!-- NUOVO: Badge Ruolo -->
                     <div id="roleBadge" class="hidden role-badge" title="Il tuo ruolo">
-                        <span id="roleIcon">🆓</span>
+                        <span id="roleIcon">👤</span>
                         <span id="roleText">VIP</span>
                     </div>
-                    
+
                     <div class="flex items-center gap-3">
                         <span class="hidden md:inline text-sm text-slate-300">
                             Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
@@ -289,10 +262,10 @@
             </div>
         </div>
     </header>
-    
+
     <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenuOverlay"></div>
-    
+
     <!-- MOBILE SIDEBAR -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
@@ -301,281 +274,222 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            
+
             <nav class="space-y-2">
                 <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
                     <span>Oggi</span>
                 </a>
                 <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
                     <span>Archivio</span>
                 </a>
                 <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
                     <span>Impostazioni</span>
                 </a>
-                <a href="#" onclick="(function(){const t=document.getElementById('toast');const m=document.getElementById('toastMessage');m.textContent='Funzionalità PRO in arrivo!';t.style.transform='translateY(0)';setTimeout(()=>t.style.transform='translateY(8rem)',3000);return false;})()" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                <a href="#" onclick="(function(){const t=document.getElementById('toast');const m=document.getElementById('toastMessage');m.textContent='✨ Funzionalità PRO in arrivo';t.style.transform='translateY(0)';setTimeout(()=>t.style.transform='translateY(8rem)',3000);})();return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
-            
+
             <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
                 <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
                 <div class="text-xs text-slate-400">giorni di streak</div>
             </div>
         </div>
     </aside>
-    
+
     <!-- DESKTOP SIDEBAR -->
     <div class="flex">
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
                     <span>Oggi</span>
                 </a>
                 <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
+                    </svg>
                     <span>Archivio</span>
                 </a>
                 <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
                     <span>Impostazioni</span>
                 </a>
-                <a href="#" onclick="(function(){const t=document.getElementById('toast');const m=document.getElementById('toastMessage');m.textContent='Funzionalità PRO in arrivo!';t.style.transform='translateY(0)';setTimeout(()=>t.style.transform='translateY(8rem)',3000);return false;})()" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                <a href="#" onclick="(function(){const t=document.getElementById('toast');const m=document.getElementById('toastMessage');m.textContent='✨ Funzionalità PRO in arrivo';t.style.transform='translateY(0)';setTimeout(()=>t.style.transform='translateY(8rem)',3000);})();return false;" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                    </svg>
                     <span>Passa a PRO</span>
                 </a>
             </nav>
         </aside>
-        
+
         <!-- MAIN CONTENT -->
         <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full">
-            <div class="mb-6">
-                <h1 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">Impostazioni</h1>
-                <p class="text-slate-400 text-sm md:text-base">Gestisci il tuo profilo, sicurezza e preferenze</p>
-            </div>
             
-            <!-- PANNELLO ADMIN (solo per master) -->
+            <div class="mb-6">
+                <h1 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">
+                    ⚙️ Impostazioni
+                </h1>
+                <p class="text-slate-400 text-sm md:text-base">
+                    Gestisci il tuo profilo, sicurezza e preferenze
+                </p>
+            </div>
+
+            <!-- NUOVO: PANNELLO ADMIN (solo per master) -->
             <div id="adminPanel" class="hidden mb-6">
                 <div class="admin-card rounded-lg p-6 md:p-8">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="text-4xl">👑</span>
                         <div>
-                            <h2 class="text-2xl font-cinzel font-bold text-amber-400 uppercase tracking-wide">Pannello Admin</h2>
+                            <h2 class="text-2xl font-cinzel font-bold text-amber-400 uppercase tracking-wide">
+                                Pannello Admin
+                            </h2>
                             <p class="text-amber-300 text-sm">Gestisci utenti e ruoli</p>
                         </div>
                     </div>
-                    
+
                     <!-- Lista Utenti -->
                     <div class="bg-slate-900/60 rounded-lg p-4 md:p-6 border border-amber-500/20">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
                                 Utenti Registrati
                             </h3>
                             <button id="refreshUsersBtn" class="text-amber-400 hover:text-amber-300 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
                             </button>
                         </div>
+
                         <div id="usersListContainer">
                             <div class="text-center py-8 text-slate-400">
-                                <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
                                 <p>Caricamento utenti...</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- CARD: PROFILO UTENTE -->
+
+            <!-- CARD PROFILO UTENTE -->
             <div class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
                 <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
                     Profilo Utente
                 </h3>
+                
                 <div class="space-y-3 md:space-y-4">
                     <div>
                         <label for="profileName" class="block text-sm font-semibold mb-2">Nome Visualizzato</label>
-                        <input type="text" id="profileName" placeholder="Es. Marco Aurelio o Emanuel82" maxlength="30" class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all">
+                        <input 
+                            type="text" 
+                            id="profileName" 
+                            placeholder="Es: Marco Aurelio o Emanuel82"
+                            maxlength="30"
+                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all"
+                        >
                         <p id="nameError" class="error-message"></p>
                         <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30. Puoi usare lettere, numeri, spazi, apostrofi e trattini</p>
                     </div>
+                    
                     <div>
                         <label for="profileEmail" class="block text-sm font-semibold mb-2">Email</label>
-                        <input type="email" id="profileEmail" disabled class="parchment-input w-full px-4 py-3 rounded-lg font-medium">
+                        <input 
+                            type="email" 
+                            id="profileEmail" 
+                            disabled
+                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium"
+                        >
                         <p class="text-xs text-amber-800 mt-1">L'email non può essere modificata direttamente</p>
                     </div>
+                    
                     <button id="saveProfileBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn disabled:opacity-50 disabled:cursor-not-allowed">
                         <span id="saveBtnText">💾 Salva Profilo</span>
                     </button>
                 </div>
             </div>
-            
-            <!-- CARD ABBONAMENTO (nascosta per master e vip_unlimited) -->
-            <div id="subscriptionSection" class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
-                <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    💎 Il Tuo Abbonamento
-                </h3>
-                
-                <!-- Status Corrente -->
-                <div id="subscriptionStatus" class="mb-6 p-4 md:p-6 subscription-card rounded-xl">
-                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-3 mb-2">
-                                <span id="subStatusIcon" class="text-3xl">🆓</span>
-                                <div>
-                                    <span id="subStatusText" class="text-xl md:text-2xl font-bold text-slate-900">VIP (Trial attivo)</span>
-                                    <p id="subStatusDetails" class="text-sm text-slate-700 mt-1">Trial termina tra 30 giorni</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Bottoni Azione -->
-                        <div class="flex flex-col sm:flex-row gap-3">
-                            <button id="upgradeBtn" class="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-3 rounded-xl font-bold shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 mobile-btn">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                                Passa a PRO
-                            </button>
-                            <button id="manageBtn" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-200 px-6 py-3 rounded-xl font-medium border border-slate-600 transition-all mobile-btn">
-                                ⚙️ Gestisci
-                            </button>
-                            <button id="cancelBtn" class="hidden bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-medium transition-all mobile-btn">
-                                ❌ Cancella
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Card Piani (nascosti se PRO) -->
-                <div id="pricingCards" class="grid md:grid-cols-2 gap-4 md:gap-6">
-                    <!-- Piano Mensile -->
-                    <div class="parchment-card p-6 md:p-8 text-center plan-card hover:shadow-2xl border-2 border-amber-200 hover:border-purple-400 rounded-xl relative">
-                        <div class="mb-4">
-                            <span class="bg-blue-500 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide">Mensile</span>
-                        </div>
-                        <div class="text-4xl md:text-5xl font-bold text-amber-800 mb-2">€4.99</div>
-                        <div class="text-sm text-amber-600 mb-6 uppercase tracking-wide">al mese</div>
-                        
-                        <ul class="text-left mb-8 space-y-2 text-amber-700 text-sm md:text-base">
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Accesso illimitato a tutte le riflessioni</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Statistiche avanzate e tracking</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Archivio completo senza limiti</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Supporto prioritario</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Cancellazione in qualsiasi momento</span>
-                            </li>
-                        </ul>
-                        
-                        <button onclick="window.subscribeToPlan('monthly')" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-lg font-bold transition-all transform hover:scale-105 mobile-btn">
-                            Scegli Mensile
-                        </button>
-                    </div>
-                    
-                    <!-- Piano Annuale (RECOMMENDED) -->
-                    <div class="parchment-card p-6 md:p-8 text-center plan-card recommended hover:shadow-2xl rounded-xl relative">
-                        <div class="recommended-badge">⭐ CONSIGLIATO</div>
-                        <div class="mb-4">
-                            <span class="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide">Annuale</span>
-                        </div>
-                        <div class="text-4xl md:text-5xl font-bold text-amber-800 mb-2">€49.99</div>
-                        <div class="text-sm text-amber-600 mb-2 uppercase tracking-wide">all'anno</div>
-                        <div class="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold mb-6">
-                            RISPARMIA €9.89 (17%)
-                        </div>
-                        
-                        <ul class="text-left mb-8 space-y-2 text-amber-700 text-sm md:text-base">
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span><strong>Tutti i vantaggi del piano mensile</strong></span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span><strong>2 mesi GRATIS</strong> (€9.89 di risparmio)</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Badge speciale "Supporter" ⭐</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Accesso anticipato nuove funzionalità</span>
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-                                <span>Un pagamento all'anno (praticità massima)</span>
-                            </li>
-                        </ul>
-                        
-                        <button onclick="window.subscribeToPlan('annual')" class="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-3 rounded-lg font-bold transition-all transform hover:scale-105 shadow-lg mobile-btn">
-                            🎉 Scegli Annuale
-                        </button>
-                    </div>
-                </div>
-                
-                <p class="text-xs text-amber-800 mt-4 text-center">
-                    🔒 Pagamenti sicuri elaborati da Stripe. Puoi cancellare in qualsiasi momento.
-                </p>
-            </div>
-            
-            <!-- CARD: SICUREZZA -->
+
+            <!-- CARD SICUREZZA -->
             <div class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
                 <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
                     Sicurezza
                 </h3>
+                
                 <div class="space-y-3 md:space-y-4">
                     <p class="text-sm text-amber-900">
                         Riceverai un'email con un link sicuro per reimpostare la tua password.
                     </p>
+                    
                     <div>
                         <label for="resetEmail" class="block text-sm font-semibold mb-2">Email per Reset Password</label>
-                        <input type="email" id="resetEmail" disabled class="parchment-input w-full px-4 py-3 rounded-lg font-medium">
+                        <input 
+                            type="email" 
+                            id="resetEmail" 
+                            disabled
+                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium"
+                        >
                     </div>
+                    
                     <button id="resetPasswordBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn">
                         📧 Invia Email per Cambio Password
                     </button>
                 </div>
             </div>
-            
-            <!-- CARD: PRIVACY & ACCOUNT -->
+
+            <!-- CARD PRIVACY & ACCOUNT -->
             <div class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
                 <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                    </svg>
                     Privacy & Gestione Dati
                 </h3>
+                
                 <div class="space-y-3 md:space-y-4">
                     <div class="bg-amber-50 border-l-4 border-amber-600 p-3 md:p-4 rounded">
                         <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>Dati Memorizzati:</strong><br>
+                            <strong>📋 Dati Memorizzati:</strong><br>
                             Raccogliamo e conserviamo: nome utente, indirizzo email, riflessioni quotidiane e data di registrazione. Questi dati sono utilizzati esclusivamente per il funzionamento dell'applicazione e per fornire il servizio richiesto.
                         </p>
                         <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>Base Giuridica GDPR:</strong><br>
+                            <strong>🔒 Base Giuridica (GDPR):</strong><br>
                             Il trattamento dei tuoi dati personali si basa sull'<strong>esecuzione del contratto</strong> (Art. 6.1.b Regolamento UE 2016/679) e sul <strong>consenso esplicito</strong> (Art. 6.1.a) fornito durante la registrazione.
                         </p>
                         <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>I Tuoi Diritti:</strong><br>
-                            Ai sensi degli articoli 15-22 del GDPR, hai diritto di <strong>accedere</strong> ai tuoi dati, <strong>rettificarli</strong>, <strong>cancellarli</strong> (diritto all'oblio), <strong>limitarne il trattamento</strong>, <strong>opporti al trattamento</strong> e richiedere la <strong>portabilità dei dati</strong>.
+                            <strong>⚖️ I Tuoi Diritti:</strong><br>
+                            Ai sensi degli articoli 15-22 del GDPR, hai diritto di: <strong>accedere</strong> ai tuoi dati, <strong>rettificarli</strong>, <strong>cancellarli</strong> (diritto all'oblio), <strong>limitarne il trattamento</strong>, <strong>opporti al trattamento</strong> e richiedere la <strong>portabilità dei dati</strong>.
                         </p>
                         <p class="text-sm text-amber-900 leading-relaxed">
-                            <strong>Conservazione:</strong><br>
+                            <strong>🗄️ Conservazione:</strong><br>
                             I dati sono conservati per tutta la durata dell'account attivo. Alla cancellazione dell'account, i dati vengono eliminati entro <strong>30 giorni</strong>, salvo obblighi di legge (Art. 17.3 GDPR).
                         </p>
                     </div>
@@ -590,768 +504,574 @@
                     </div>
                 </div>
             </div>
-            
+
         </main>
     </div>
-    
+
     <!-- TOAST NOTIFICATION -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
-    
+
     <!-- JAVASCRIPT -->
     <script>
-    (function() {
-        'use strict';
+(function() {
+    'use strict';
+    
+    const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let currentUser = null;
+    let currentUserRole = null;
+    let currentUserProfile = null;
+
+    // INIZIALIZZAZIONE
+    document.addEventListener('DOMContentLoaded', async () => {
+        console.log('⚙️ Impostazioni: Verifico autenticazione...');
         
-        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0.Dc4Q0NFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE-I';
-        
-        const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        let currentUser = null;
-        let currentUserRole = null;
-        let currentUserProfile = null;
-        let currentSubscription = null;
-        
-        // ============ INIZIALIZZAZIONE ============
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log('Impostazioni: Verifico autenticazione...');
+        try {
+            const { data: { session }, error } = await sbClient.auth.getSession();
             
-            try {
-                const { data: { session }, error } = await sbClient.auth.getSession();
-                
-                if (!session || error) {
-                    console.warn('Nessuna sessione attiva, redirect a login');
-                    window.location.href = 'accedi.html';
-                    return;
-                }
-                
-                currentUser = session.user;
-                console.log('✅ Utente autenticato:', currentUser.id);
-                
-                await loadUserData();
-                await loadSubscriptionData(); // CARICA DATI ABBONAMENTO
-                await loadProgressData(); // CARICA STREAK
-                setupEventListeners();
-                
-            } catch (error) {
-                console.error('❌ Errore verifica sessione:', error);
+            if (!session || error) {
+                console.warn('❌ Nessuna sessione attiva, redirect a login');
                 window.location.href = 'accedi.html';
+                return;
             }
-        });
-        
-        // ============ CARICA DATI UTENTE ============
-async function loadUserData() {
-    let displayName = 'Stoico';
-    
-    try {
-        const { data: profile, error } = await sbClient
-            .from('profiles')
-            .select('name, role, trial_ends_at, is_trial_expired')
-            .eq('id', currentUser.id)
-            .single();
-        
-        if (!error && profile) {
-            displayName = profile.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
-            currentUserProfile = profile;
-            currentUserRole = profile.role || 'vip';
+
+            currentUser = session.user;
+            console.log('✅ Utente autenticato:', currentUser.id);
+
+            await loadUserData();
+            loadProgressData();
+            setupEventListeners();
             
-            console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
-            
-            // Mostra badge ruolo
-            updateRoleBadge(currentUserRole, profile);
-            
-            // ========== FIX: MOSTRA PANNELLO ADMIN PER MASTER ==========
-            if (currentUserRole === 'master') {
-                console.log('👑 Utente MASTER - Attivo pannello admin');
-                const adminPanel = document.getElementById('adminPanel');
-                
-                if (adminPanel) {
-                    adminPanel.classList.remove('hidden');
-                    console.log('✅ Pannello admin reso visibile');
-                    
-                    // Carica lista utenti
-                    try {
-                        await loadAllUsers();
-                    } catch (err) {
-                        console.error('❌ Errore caricamento utenti:', err);
-                    }
-                } else {
-                    console.error('❌ Elemento #adminPanel NON trovato nel DOM!');
-                }
-            }
-            
-        } else {
-            console.error('❌ Errore caricamento profilo:', error);
-            displayName = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || 'Stoico';
+        } catch (error) {
+            console.error('❌ Errore verifica sessione:', error);
+            window.location.href = 'accedi.html';
         }
-    } catch (err) {
-        console.error('❌ CATCH Errore caricamento profilo:', err);
-        displayName = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
+    });
+
+    // CARICA DATI UTENTE CON RUOLO
+    async function loadUserData() {
+        let displayName = 'Stoico';
+        
+        try {
+            const { data: profile, error } = await sbClient
+                .from('profiles')
+                .select('name, role, trial_ends_at, is_trial_expired')
+                .eq('id', currentUser.id)
+                .single();
+            
+            if (!error && profile) {
+                displayName = profile.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
+                currentUserProfile = profile;
+                currentUserRole = profile.role || 'vip';
+                
+                console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
+                
+                // Mostra badge ruolo
+                updateRoleBadge(currentUserRole, profile);
+                
+                // ✅ MODIFICA CRITICA: Se è master, mostra pannello admin
+                if (currentUserRole === 'master') {
+                    console.log('🔓 Utente MASTER - Attivo pannello admin');
+                    document.getElementById('adminPanel').classList.remove('hidden');
+                    await loadAllUsers();
+                }
+            } else {
+                displayName = currentUser.user_metadata?.full_name || 
+                             currentUser.user_metadata?.name || 
+                             currentUser.email?.split('@')[0] || 
+                             'Stoico';
+                console.log('✅ Nome caricato da metadata:', displayName);
+            }
+        } catch (err) {
+            console.error('❌ Errore caricamento profilo:', err);
+            displayName = currentUser.user_metadata?.full_name || 
+                         currentUser.email?.split('@')[0] || 
+                         'Stoico';
+        }
+
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('profileName').value = displayName;
+        document.getElementById('profileEmail').value = currentUser.email;
+        document.getElementById('resetEmail').value = currentUser.email;
+
+        console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
     }
-    
-    document.getElementById('userName').textContent = displayName;
-    document.getElementById('profileName').value = displayName;
-    document.getElementById('profileEmail').value = currentUser.email;
-    document.getElementById('resetEmail').value = currentUser.email;
-    
-    console.log('📊 Dati UI caricati:', { displayName, email: currentUser.email, role: currentUserRole });
+
+    // NUOVO: Aggiorna badge ruolo
+    function updateRoleBadge(role, profile) {
+        const badgeContainer = document.getElementById('roleBadge');
+        const roleIcon = document.getElementById('roleIcon');
+        const roleText = document.getElementById('roleText');
+
+        if (!role) {
+            badgeContainer.classList.add('hidden');
+            return;
+        }
+
+        badgeContainer.classList.remove('master', 'pro', 'vip', 'vip-expired');
+
+        if (role === 'master') {
+            badgeContainer.classList.add('master');
+            roleIcon.textContent = '👑';
+            roleText.textContent = 'MASTER';
+        } else if (role === 'pro') {
+            badgeContainer.classList.add('pro');
+            roleIcon.textContent = '⭐';
+            roleText.textContent = 'PRO';
+        } else if (role === 'vip') {
+            if (profile?.is_trial_expired === true) {
+                badgeContainer.classList.add('vip-expired');
+                roleIcon.textContent = '⏰';
+                roleText.textContent = 'TRIAL SCADUTO';
+            } else {
+                badgeContainer.classList.add('vip');
+                roleIcon.textContent = '🎁';
+                roleText.textContent = 'VIP';
+            }
+        }
+
+        badgeContainer.classList.remove('hidden');
+    }
+
+    // NUOVO: Carica tutti gli utenti (solo master)
+   async function loadAllUsers() {
+  console.log("Caricamento utenti...");
+  try {
+    const { data: users, error } = await sbClient
+      .rpc('get_all_users');
+
+    if (error) throw error;
+    console.log('Utenti caricati:', users?.length || 0);
+    renderUsersList(users);
+  } catch (error) {
+    console.error('Errore caricamento utenti:', error);
+    document.getElementById('usersListContainer').innerHTML = `
+      <div class="text-center py-8 text-red-400">
+        <p>Errore caricamento utenti</p>
+        <p class="text-sm mt-2">${error.message}</p>
+      </div>
+    `;
+  }
 }
 
+
+    // NUOVO: Renderizza lista utenti
+    function renderUsersList(users) {
+        const container = document.getElementById('usersListContainer');
         
-        // ============ CARICA DATI ABBONAMENTO (CON LOGICA CONDIZIONALE) ============
-        async function loadSubscriptionData() {
-            console.log('📊 Caricamento dati abbonamento...');
-            
-            const role = currentUserProfile?.role || 'vip';
-            const trialEndsAt = currentUserProfile?.trial_ends_at;
-            
-            // ========== LOGICA MASTER & VIP ILLIMITATO ==========
-            if (role === 'master' || (role === 'vip' && !trialEndsAt)) {
-                console.log('👑 Utente privilegiato (master o vip_unlimited) - Nascondo sezione abbonamento');
-                document.getElementById('subscriptionSection').style.display = 'none';
-                return; // ESCE SUBITO, non mostra nulla
-            }
-            
-            // ========== LOGICA VIP TRIAL & PRO ==========
-            try {
-                const { data: subscription, error } = await sbClient
-                    .from('subscriptions')
-                    .select('*')
-                    .eq('user_id', currentUser.id)
-                    .single();
-                
-                currentSubscription = subscription;
-                
-                const isTrialExpired = currentUserProfile?.is_trial_expired || false;
-                
-                updateSubscriptionUI(role, isTrialExpired, trialEndsAt, subscription);
-                
-            } catch (error) {
-                console.error('❌ Errore caricamento abbonamento:', error);
-                updateSubscriptionUI(role, false, trialEndsAt, null);
-            }
+        if (users.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-8 text-slate-400">
+                    <p>Nessun utente registrato</p>
+                </div>
+            `;
+            return;
         }
-        
-        // ============ AGGIORNA UI ABBONAMENTO ============
-        function updateSubscriptionUI(role, isTrialExpired, trialEndsAt, subscription) {
-            const statusIcon = document.getElementById('subStatusIcon');
-            const statusText = document.getElementById('subStatusText');
-            const statusDetails = document.getElementById('subStatusDetails');
-            const upgradeBtn = document.getElementById('upgradeBtn');
-            const manageBtn = document.getElementById('manageBtn');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const pricingCards = document.getElementById('pricingCards');
+
+        const usersHTML = users.map(user => {
+            const roleIcons = {
+                master: '👑',
+                pro: '⭐',
+                vip: '🎁'
+            };
             
-            if (role === 'pro') {
-                // Utente PRO
-                statusIcon.textContent = '⭐';
-                
-                if (subscription) {
-                    const planName = subscription.plan === 'monthly' ? 'Mensile' : 'Annuale';
-                    const amount = subscription.amount || 0;
-                    const currency = subscription.currency?.toUpperCase() || 'EUR';
-                    
-                    statusText.textContent = `PRO - Piano ${planName}`;
-                    
-                    if (subscription.current_period_end) {
-                        const nextBilling = new Date(subscription.current_period_end);
-                        statusDetails.textContent = `Prossimo addebito: ${nextBilling.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} • €${amount}/${subscription.plan === 'monthly' ? 'mese' : 'anno'}`;
-                    } else {
-                        statusDetails.textContent = `€${amount}/${subscription.plan === 'monthly' ? 'mese' : 'anno'}`;
-                    }
-                } else {
-                    statusText.textContent = 'PRO - Abbonamento Attivo';
-                    statusDetails.textContent = 'Accesso illimitato a tutte le funzionalità';
-                }
-                
-                upgradeBtn.classList.add('hidden');
-                manageBtn.classList.remove('hidden');
-                cancelBtn.classList.remove('hidden');
-                pricingCards.classList.add('hidden');
-                
-            } else {
-                // VIP (trial)
-                statusIcon.textContent = '🆓';
-                
-                if (isTrialExpired) {
-                    statusText.textContent = 'VIP - Trial Terminato';
-                    statusDetails.innerHTML = '<span class="text-red-600 font-bold">Il tuo periodo di prova è scaduto. Passa a PRO per continuare!</span>';
-                } else if (trialEndsAt) {
-                    const daysLeft = Math.ceil((new Date(trialEndsAt) - new Date()) / (1000 * 60 * 60 * 24));
-                    statusText.textContent = 'VIP (Trial attivo)';
-                    statusDetails.textContent = daysLeft > 0 ? `Trial termina tra ${daysLeft} giorni` : 'Trial in scadenza';
-                } else {
-                    statusText.textContent = 'VIP (Trial attivo)';
-                    statusDetails.textContent = 'Stai utilizzando la versione trial';
-                }
-                
-                upgradeBtn.classList.remove('hidden');
-                manageBtn.classList.add('hidden');
-                cancelBtn.classList.add('hidden');
-                pricingCards.classList.remove('hidden');
-            }
-        }
-        
-        // ============ SOTTOSCRIZIONE PIANO ============
-        window.subscribeToPlan = async function(planType) {
-            console.log('💳 Avvio checkout per piano:', planType);
-            
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Caricamento...';
-            
-            try {
-                const priceIds = {
-                    monthly: 'price_1QjTaZL6b0i4d13w0oHVJNxz',
-                    annual: 'price_1QjTbaL6b0i4d13wkgIyZ4kf'
-                };
-                
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout-session`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({
-                        priceId: priceIds[planType],
-                        userId: currentUser.id,
-                        planType: planType
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (data.url) {
-                    console.log('✅ Reindirizzamento Stripe Checkout...');
-                    window.location.href = data.url;
-                } else {
-                    throw new Error(data.error || 'Errore creazione sessione');
-                }
-                
-            } catch (error) {
-                console.error('❌ Errore checkout:', error);
-                showToast(`Errore: ${error.message}`, 'error');
-                btn.disabled = false;
-                btn.innerHTML = originalText;
-            }
-        };
-        
-        // ============ GESTISCI ABBONAMENTO (Stripe Portal) ============
-        document.getElementById('manageBtn')?.addEventListener('click', async () => {
-            console.log('⚙️ Apertura Stripe Customer Portal...');
-            
-            const btn = document.getElementById('manageBtn');
-            const originalText = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Caricamento...';
-            
-            try {
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-portal-session`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({
-                        userId: currentUser.id
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (data.url) {
-                    console.log('✅ Reindirizzamento Stripe Portal...');
-                    window.location.href = data.url;
-                } else {
-                    throw new Error(data.error || 'Errore apertura portale');
-                }
-                
-            } catch (error) {
-                console.error('❌ Errore Stripe Portal:', error);
-                showToast(`Errore: ${error.message}`, 'error');
-                btn.disabled = false;
-                btn.innerHTML = originalText;
-            }
-        });
-        
-        // ============ CANCELLA ABBONAMENTO ============
-        document.getElementById('cancelBtn')?.addEventListener('click', async () => {
-            const confirm1 = window.confirm('⚠️ CANCELLAZIONE ABBONAMENTO\n\nSei sicuro di voler cancellare il tuo abbonamento PRO?\n\nPotrai continuare ad utilizzare il servizio fino alla fine del periodo di fatturazione corrente, dopodiché tornerai al piano VIP trial.\n\nVuoi procedere?');
-            
-            if (!confirm1) return;
-            
-            console.log('❌ Cancellazione abbonamento...');
-            
-            const btn = document.getElementById('cancelBtn');
-            const originalText = btn.innerHTML;
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Cancellazione...';
-            
-            try {
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/cancel-subscription`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({
-                        userId: currentUser.id
-                    })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    showToast('✅ Abbonamento cancellato. Potrai continuare fino alla fine del periodo corrente.', 'success');
-                    setTimeout(() => window.location.reload(), 2000);
-                } else {
-                    throw new Error(data.error || 'Errore cancellazione');
-                }
-                
-            } catch (error) {
-                console.error('❌ Errore cancellazione:', error);
-                showToast(`Errore: ${error.message}`, 'error');
-                btn.disabled = false;
-                btn.innerHTML = originalText;
-            }
-        });
-        
-        // ============ AGGIORNA BADGE RUOLO ============
-        function updateRoleBadge(role, profile) {
-            const badgeContainer = document.getElementById('roleBadge');
-            const roleIcon = document.getElementById('roleIcon');
-            const roleText = document.getElementById('roleText');
-            
-            if (!role) {
-                badgeContainer.classList.add('hidden');
-                return;
-            }
-            
-            badgeContainer.classList.remove('master', 'pro', 'vip', 'vip-expired', 'vip-unlimited');
-            
-            if (role === 'master') {
-                badgeContainer.classList.add('master');
-                roleIcon.textContent = '👑';
-                roleText.textContent = 'MASTER';
-                
-            } else if (role === 'pro') {
-                badgeContainer.classList.add('pro');
-                roleIcon.textContent = '⭐';
-                roleText.textContent = 'PRO';
-                
-            } else if (role === 'vip') {
-                // VIP ILLIMITATO (amici/parenti)
-                if (!profile?.trial_ends_at) {
-                    badgeContainer.classList.add('vip-unlimited');
-                    roleIcon.textContent = '♾️';
-                    roleText.textContent = 'VIP ILLIMITATO';
-                    
-                // VIP TRIAL SCADUTO
-                } else if (profile?.is_trial_expired === true) {
-                    badgeContainer.classList.add('vip-expired');
-                    roleIcon.textContent = '⏱️';
-                    roleText.textContent = 'TRIAL SCADUTO';
-                    
-                // VIP TRIAL ATTIVO
-                } else {
-                    badgeContainer.classList.add('vip');
-                    roleIcon.textContent = '🆓';
-                    
-                    // Calcola giorni rimanenti
-                    const daysLeft = Math.ceil((new Date(profile.trial_ends_at) - new Date()) / (1000 * 60 * 60 * 24));
-                    roleText.textContent = `VIP (${daysLeft}g)`;
-                }
-            }
-            
-            badgeContainer.classList.remove('hidden');
-        }
-        
-        // ============ CARICA TUTTI GLI UTENTI (solo master) ============
-        async function loadAllUsers() {
-            console.log('👥 Caricamento utenti...');
-            
-            try {
-                const { data: users, error } = await sbClient.rpc('get_all_users');
-                
-                if (error) throw error;
-                
-                console.log(`✅ Utenti caricati: ${users?.length || 0}`);
-                renderUsersList(users);
-                
-            } catch (error) {
-                console.error('❌ Errore caricamento utenti:', error);
-                document.getElementById('usersListContainer').innerHTML = `
-                    <div class="text-center py-8 text-red-400">
-                        <p>Errore caricamento utenti</p>
-                        <p class="text-sm mt-2">${error.message}</p>
-                    </div>
-                `;
-            }
-        }
-        
-        // ============ RENDERIZZA LISTA UTENTI ============
-        function renderUsersList(users) {
-            const container = document.getElementById('usersListContainer');
-            
-            if (!users || users.length === 0) {
-                container.innerHTML = '<div class="text-center py-8 text-slate-400"><p>Nessun utente registrato</p></div>';
-                return;
-            }
-            
-            const roleIcons = { master: '👑', pro: '⭐', vip: '🆓' };
-            const roleColors = { master: 'text-amber-400', pro: 'text-purple-400', vip: 'text-blue-400' };
-            
-            const usersHTML = users.map(user => {
-                const isExpired = user.role === 'vip' && user.is_trial_expired;
-                const trialInfo = user.trial_ends_at 
-                    ? `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">${isExpired ? '⏱️ Scaduto' : '✅ Attivo fino al ' + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}</span>` 
-                    : '<span class="text-xs text-green-500">♾️ Illimitato</span>';
-                
-                return `
-                    <div class="user-row flex items-center justify-between p-4 bg-slate-800/40 rounded-lg mb-3">
-                        <div class="flex-1">
-                            <div class="flex items-center gap-2 mb-1">
-                                <span class="text-2xl">${roleIcons[user.role]}</span>
-                                <span class="font-bold text-slate-200">${user.name || 'Utente senza nome'}</span>
-                                <span class="text-xs ${roleColors[user.role]} uppercase font-bold">${user.role}</span>
-                            </div>
-                            <div class="text-xs text-slate-400">
-                                ID: ${user.id.substring(0, 8)}... • ${trialInfo}
-                            </div>
+            const roleColors = {
+                master: 'text-amber-400',
+                pro: 'text-purple-400',
+                vip: 'text-blue-400'
+            };
+
+            const isExpired = user.role === 'vip' && user.is_trial_expired;
+            const trialInfo = user.trial_ends_at ? 
+                `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">
+                    ${isExpired ? '⏰ Scaduto' : '✅ Attivo fino al ' + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}
+                </span>` : 
+                '<span class="text-xs text-slate-500">Illimitato</span>';
+
+            return `
+                <div class="user-row flex items-center justify-between p-4 bg-slate-800/40 rounded-lg mb-3">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-2xl">${roleIcons[user.role]}</span>
+                            <span class="font-bold text-slate-200">${user.name || 'Utente senza nome'}</span>
+                            <span class="text-xs ${roleColors[user.role]} uppercase font-bold">${user.role}</span>
                         </div>
-                        ${user.id !== currentUser.id ? `
-                            <div class="flex gap-2">
-                                ${user.role !== 'pro' ? `<button onclick="window.changeUserRole('${user.id}', 'pro')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold transition-all" title="Promuovi a PRO">⭐ PRO</button>` : ''}
-                                ${user.role !== 'vip' ? `<button onclick="window.changeUserRole('${user.id}', 'vip')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold transition-all" title="Riporta a VIP">🆓 VIP</button>` : ''}
-                                ${user.trial_ends_at ? `<button onclick="window.setUnlimitedVIP('${user.id}')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-bold transition-all" title="VIP Illimitato (amici/parenti)">♾️ VIP</button>` : ''}
-                            </div>
-                        ` : '<span class="text-amber-400 text-xs font-bold">TU</span>'}
+                        <div class="text-xs text-slate-400">
+                            ID: ${user.id.substring(0, 8)}... • ${trialInfo}
+                        </div>
                     </div>
-                `;
-            }).join('');
-            
-            container.innerHTML = usersHTML;
+                    ${user.id !== currentUser.id ? `
+                        <div class="flex gap-2">
+                            ${user.role !== 'pro' ? `
+                                <button 
+                                    onclick="window.changeUserRole('${user.id}', 'pro')"
+                                    class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
+                                    title="Promuovi a PRO"
+                                >
+                                    ⭐ PRO
+                                </button>
+                            ` : ''}
+                            ${user.role !== 'vip' ? `
+                                <button 
+                                    onclick="window.changeUserRole('${user.id}', 'vip')"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
+                                    title="Riporta a VIP"
+                                >
+                                    🎁 VIP
+                                </button>
+                            ` : ''}
+                            ${user.trial_ends_at ? `
+                                <button 
+                                    onclick="window.setUnlimitedVIP('${user.id}')"
+                                    class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
+                                    title="VIP Illimitato (amici/parenti)"
+                                >
+                                    ♾️ VIP∞
+                                </button>
+                            ` : ''}
+                        </div>
+                    ` : `
+                        <span class="text-amber-400 text-xs font-bold">TU</span>
+                    `}
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = usersHTML;
+    }
+
+    // NUOVO: Cambia ruolo utente
+    window.changeUserRole = async function(userId, newRole) {
+        if (!confirm(`Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`)) {
+            return;
         }
-        
-        // ============ CAMBIA RUOLO UTENTE (master) ============
-        window.changeUserRole = async function(userId, newRole) {
-            if (!confirm(`Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`)) return;
-            
-            console.log('🔄 Cambio ruolo utente', userId, '→', newRole);
-            
-            try {
-                const { error } = await sbClient
-                    .from('profiles')
-                    .update({ 
-                        role: newRole,
-                        trial_ends_at: newRole === 'vip' ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() : null,
-                        is_trial_expired: false
-                    })
-                    .eq('id', userId);
-                
-                if (error) throw error;
-                
-                showToast(`✅ Ruolo aggiornato a ${newRole.toUpperCase()}!`, 'success');
-                await loadAllUsers();
-                
-            } catch (error) {
-                console.error('❌ Errore cambio ruolo:', error);
-                showToast(`Errore: ${error.message}`, 'error');
-            }
-        };
-        
-        // ============ IMPOSTA VIP ILLIMITATO (amici/parenti) ============
-        window.setUnlimitedVIP = async function(userId) {
-            if (!confirm('Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?')) return;
-            
-            console.log('♾️ Imposto VIP illimitato per', userId);
-            
-            try {
-                const { error } = await sbClient
-                    .from('profiles')
-                    .update({ 
-                        role: 'vip',
-                        trial_ends_at: null,
-                        is_trial_expired: false
-                    })
-                    .eq('id', userId);
-                
-                if (error) throw error;
-                
-                showToast('✅ Utente impostato come VIP ILLIMITATO!', 'success');
-                await loadAllUsers();
-                
-            } catch (error) {
-                console.error('❌ Errore:', error);
-                showToast(`Errore: ${error.message}`, 'error');
-            }
-        };
-        
-        // ============ CARICA STREAK ============
-        async function loadProgressData() {
-            try {
-                const { data: reflections, error } = await sbClient
-                    .from('reflections')
-                    .select('date')
-                    .eq('user_id', currentUser.id)
-                    .order('date', { ascending: false });
-                
-                if (error) {
-                    console.error('Errore caricamento reflections:', error);
-                    return;
-                }
-                
-                const streak = calculateStreak(reflections);
-                
-                // AGGIORNA tutti i badge streak
-                const headerStreak = document.getElementById('headerStreak');
-                const mobileStreak = document.getElementById('mobileStreak');
-                
-                if (headerStreak) headerStreak.textContent = streak;
-                if (mobileStreak) mobileStreak.textContent = streak;
-                
-                console.log('✅ Streak caricato:', streak);
-                
-            } catch (error) {
-                console.error('❌ Errore caricamento progresso:', error);
-            }
+
+        console.log(`🔄 Cambio ruolo utente ${userId} → ${newRole}`);
+
+        try {
+            const { error } = await sbClient
+                .from('profiles')
+                .update({ 
+                    role: newRole,
+                    trial_ends_at: null,
+                    is_trial_expired: false
+                })
+                .eq('id', userId);
+
+            if (error) throw error;
+
+            showToast(`✅ Ruolo aggiornato a ${newRole.toUpperCase()}!`, 'success');
+            await loadAllUsers();
+
+        } catch (error) {
+            console.error('❌ Errore cambio ruolo:', error);
+            showToast('❌ Errore: ' + error.message, 'error');
         }
-        
-        // ============ CALCOLA STREAK ============
-        function calculateStreak(reflections) {
-            if (!reflections || reflections.length === 0) return 0;
-            
-            const today = new Date().toISOString().split('T')[0];
-            const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-            
-            const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-            
-            if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
-            
-            let streak = 0;
-            let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-            
-            for (const dateStr of uniqueDates) {
-                const refDate = new Date(dateStr);
-                const expectedDate = new Date(currentDate);
-                
-                expectedDate.setHours(0, 0, 0, 0);
-                refDate.setHours(0, 0, 0, 0);
-                
-                if (refDate.getTime() === expectedDate.getTime()) {
-                    streak++;
-                    currentDate = new Date(currentDate.getTime() - 86400000);
-                } else {
-                    break;
-                }
-            }
-            
-            return streak;
+    };
+
+    // NUOVO: Imposta VIP illimitato (amici/parenti)
+    window.setUnlimitedVIP = async function(userId) {
+        if (!confirm('Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?')) {
+            return;
         }
-        
-        // ============ VALIDAZIONE NOME ============
-        function validateName(name) {
-            const nameInput = document.getElementById('profileName');
-            const errorMsg = document.getElementById('nameError');
-            
-            name = name.trim();
-            
-            if (name.length < 2) {
-                nameInput.classList.add('error');
-                errorMsg.textContent = 'Nome troppo corto (minimo 2 caratteri)';
-                errorMsg.classList.add('active');
-                return false;
-            }
-            
-            if (name.length > 30) {
-                nameInput.classList.add('error');
-                errorMsg.textContent = 'Nome troppo lungo (massimo 30 caratteri)';
-                errorMsg.classList.add('active');
-                return false;
-            }
-            
-            const regex = /^[a-zA-Z0-9\s'\-]+$/;
-            if (!regex.test(name)) {
-                nameInput.classList.add('error');
-                errorMsg.textContent = 'Solo lettere, numeri, spazi, apostrofi e trattini';
-                errorMsg.classList.add('active');
-                return false;
-            }
-            
-            nameInput.classList.remove('error');
-            errorMsg.classList.remove('active');
-            return true;
+
+        console.log(`♾️ Imposto VIP illimitato per ${userId}`);
+
+        try {
+            const { error } = await sbClient
+                .from('profiles')
+                .update({ 
+                    role: 'vip',
+                    trial_ends_at: null,
+                    is_trial_expired: false
+                })
+                .eq('id', userId);
+
+            if (error) throw error;
+
+            showToast('✅ Utente impostato come VIP ILLIMITATO!', 'success');
+            await loadAllUsers();
+
+        } catch (error) {
+            console.error('❌ Errore:', error);
+            showToast('❌ Errore: ' + error.message, 'error');
         }
-        
-        // ============ SETUP EVENT LISTENERS ============
-        function setupEventListeners() {
-            // Mobile menu
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const closeMobileMenu = document.getElementById('closeMobileMenu');
-            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-            const mobileSidebar = document.getElementById('mobileSidebar');
-            
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileSidebar.classList.add('active');
-                mobileMenuOverlay.classList.add('active');
-            });
-            
-            function closeMobileMenuFunc() {
-                mobileSidebar.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-            }
-            
-            closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-            mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
-            
-            // Logout
-            document.getElementById('logoutBtn').addEventListener('click', async () => {
-                console.log('Logout...');
-                await sbClient.auth.signOut();
-                window.location.href = 'index.html';
-            });
-            
-            // Validazione in tempo reale
-            document.getElementById('profileName').addEventListener('input', (e) => {
-                const name = e.target.value;
-                if (name.length > 0) {
-                    validateName(name);
-                } else {
-                    document.getElementById('profileName').classList.remove('error');
-                    document.getElementById('nameError').classList.remove('active');
-                }
-            });
-            
-            // Salva profilo
-            document.getElementById('saveProfileBtn').addEventListener('click', async () => {
-                const newName = document.getElementById('profileName').value.trim();
-                const saveBtn = document.getElementById('saveProfileBtn');
-                const saveBtnText = document.getElementById('saveBtnText');
-                
-                if (!newName) {
-                    showToast('Inserisci un nome', 'error');
-                    return;
-                }
-                
-                if (!validateName(newName)) {
-                    showToast('Correggi gli errori prima di salvare', 'error');
-                    return;
-                }
-                
-                try {
-                    saveBtn.disabled = true;
-                    saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
-                    
-                    console.log('Inizio salvataggio...');
-                    
-                    const { error } = await sbClient
-                        .from('profiles')
-                        .update({ name: newName })
-                        .eq('id', currentUser.id);
-                    
-                    if (error) throw error;
-                    
-                    console.log('✅ Nome salvato in profiles:', newName);
-                    document.getElementById('userName').textContent = newName;
-                    saveBtnText.textContent = '💾 Salva Profilo';
-                    saveBtn.disabled = false;
-                    showToast('✅ Profilo aggiornato con successo!', 'success');
-                    
-                } catch (error) {
-                    console.error('❌ Errore aggiornamento profilo:', error);
-                    saveBtnText.textContent = '💾 Salva Profilo';
-                    saveBtn.disabled = false;
-                    showToast(`Errore: ${error.message}`, 'error');
-                }
-            });
-            
-            // Reset password
-            document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
-                const email = currentUser.email;
-                const confirmReset = window.confirm(`Reset Password\n\nL'email sarà inviata a:\n${email}\n\nClicca OK per confermare.`);
-                
-                if (!confirmReset) {
-                    console.log('Reset password annullato dall\'utente');
-                    showToast('Operazione annullata', 'info');
-                    return;
-                }
-                
-                try {
-                    const { error } = await sbClient.auth.resetPasswordForEmail(email, {
-                        redirectTo: `${window.location.origin}/Stoicismo-Diary/accedi.html`
-                    });
-                    
-                    if (error) throw error;
-                    
-                    showToast('📧 Email inviata! Controlla la tua casella', 'success');
-                    console.log('✅ Email reset inviata a:', email);
-                    
-                } catch (error) {
-                    console.error('❌ Errore reset password:', error);
-                    showToast(`Errore: ${error.message}`, 'error');
-                }
-            });
-            
-            // Elimina account
-            document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-                const confirm1 = window.confirm('⚠️ ATTENZIONE: Cancellazione Account\n\nQuesta azione eliminerà permanentemente:\n• Il tuo profilo utente\n• Tutte le tue riflessioni\n• I tuoi progressi e statistiche\n\nQuesta operazione NON è reversibile.\n\nVuoi procedere?');
-                
-                if (confirm1) {
-                    const confirm2 = window.confirm('🚨 ULTIMA CONFERMA\n\nSei assolutamente sicuro di voler eliminare il tuo account?\n\nClicca OK per confermare la cancellazione definitiva.');
-                    
-                    if (confirm2) {
-                        showToast('📧 Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
-                        console.log('✉️ Richiesta eliminazione account per:', currentUser.email);
-                    }
-                }
-            });
-            
-            // Refresh utenti (solo master)
-            const refreshBtn = document.getElementById('refreshUsersBtn');
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', async () => {
-                    showToast('🔄 Aggiornamento lista utenti...', 'info');
-                    await loadAllUsers();
-                });
-            }
+    };
+
+    // CARICA STREAK
+    async function loadProgressData() {
+        try {
+            const { data: reflections, error } = await sbClient
+                .from('reflections')
+                .select('date')
+                .eq('user_id', currentUser.id)
+                .order('date', { ascending: false });
+
+            if (error) throw error;
+
+            const streak = calculateStreak(reflections || []);
+            document.getElementById('headerStreak').textContent = streak;
+            document.getElementById('mobileStreak').textContent = streak;
+
+        } catch (error) {
+            console.error('❌ Errore caricamento progresso:', error);
         }
+    }
+
+    // CALCOLA STREAK
+    function calculateStreak(reflections) {
+        if (!reflections || reflections.length === 0) return 0;
+
+        const today = new Date().toISOString().split('T')[0];
+        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
         
-        // ============ TOAST NOTIFICATION ============
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            if (type === 'error') {
-                toast.classList.remove('border-amber-500', 'text-amber-400');
-                toast.classList.add('border-red-500', 'text-red-400');
-            } else if (type === 'info') {
-                toast.classList.remove('border-amber-500', 'text-amber-400');
-                toast.classList.add('border-blue-500', 'text-blue-400');
+        const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+        
+        if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
+
+        let streak = 0;
+        let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+
+        for (const dateStr of uniqueDates) {
+            const refDate = new Date(dateStr);
+            const expectedDate = new Date(currentDate);
+            expectedDate.setHours(0, 0, 0, 0);
+            refDate.setHours(0, 0, 0, 0);
+
+            if (refDate.getTime() === expectedDate.getTime()) {
+                streak++;
+                currentDate = new Date(currentDate.getTime() - 86400000);
             } else {
-                toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
-                toast.classList.add('border-amber-500', 'text-amber-400');
+                break;
             }
-            
-            toastMessage.textContent = message;
-            toast.classList.remove('hiding');
-            toast.style.transform = 'translateY(0)';
-            
-            setTimeout(() => {
-                toast.classList.add('hiding');
-            }, 5500);
-            
-            setTimeout(() => {
-                toast.style.transform = 'translateY(8rem)';
-                toast.classList.remove('hiding');
-            }, 6000);
+        }
+
+        return streak;
+    }
+
+    // VALIDAZIONE NOME
+    function validateName(name) {
+        const nameInput = document.getElementById('profileName');
+        const errorMsg = document.getElementById('nameError');
+        
+        name = name.trim();
+        
+        if (name.length < 2) {
+            nameInput.classList.add('error');
+            errorMsg.textContent = '❌ Nome troppo corto (minimo 2 caratteri)';
+            errorMsg.classList.add('active');
+            return false;
         }
         
-        window.showToast = showToast;
+        if (name.length > 30) {
+            nameInput.classList.add('error');
+            errorMsg.textContent = '❌ Nome troppo lungo (massimo 30 caratteri)';
+            errorMsg.classList.add('active');
+            return false;
+        }
         
-    })();
+        const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
+        if (!regex.test(name)) {
+            nameInput.classList.add('error');
+            errorMsg.textContent = '❌ Solo lettere, numeri, spazi, apostrofi e trattini';
+            errorMsg.classList.add('active');
+            return false;
+        }
+        
+        nameInput.classList.remove('error');
+        errorMsg.classList.remove('active');
+        return true;
+    }
+
+    // SETUP EVENT LISTENERS
+    function setupEventListeners() {
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileSidebar.classList.add('active');
+            mobileMenuOverlay.classList.add('active');
+        });
+
+        function closeMobileMenuFunc() {
+            mobileSidebar.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+        }
+
+        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
+        mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            console.log('👋 Logout...');
+            await sbClient.auth.signOut();
+            window.location.href = 'index.html';
+        });
+
+        // Validazione in tempo reale
+        document.getElementById('profileName').addEventListener('input', (e) => {
+            const name = e.target.value;
+            if (name.length > 0) {
+                validateName(name);
+            } else {
+                document.getElementById('profileName').classList.remove('error');
+                document.getElementById('nameError').classList.remove('active');
+            }
+        });
+
+        // Salva profilo
+        document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+            const newName = document.getElementById('profileName').value.trim();
+            const saveBtn = document.getElementById('saveProfileBtn');
+            const saveBtnText = document.getElementById('saveBtnText');
+            
+            if (!newName) {
+                showToast('⚠️ Inserisci un nome', 'error');
+                return;
+            }
+            
+            if (!validateName(newName)) {
+                showToast('⚠️ Correggi gli errori prima di salvare', 'error');
+                return;
+            }
+
+            try {
+                saveBtn.disabled = true;
+                saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
+                console.log('⏳ Inizio salvataggio...');
+
+                const { error } = await sbClient
+                    .from('profiles')
+                    .update({ name: newName })
+                    .eq('id', currentUser.id);
+
+                if (error) throw error;
+
+                console.log('✅ Nome salvato in profiles:', newName);
+                document.getElementById('userName').textContent = newName;
+                
+                saveBtnText.textContent = '💾 Salva Profilo';
+                saveBtn.disabled = false;
+                
+                showToast('✅ Profilo aggiornato con successo!', 'success');
+
+            } catch (error) {
+                console.error('❌ Errore aggiornamento profilo:', error);
+                
+                saveBtnText.textContent = '💾 Salva Profilo';
+                saveBtn.disabled = false;
+                
+                showToast('❌ Errore: ' + error.message, 'error');
+            }
+        });
+
+        // Reset password con conferma
+        document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
+            const email = currentUser.email;
+            
+            const confirmReset = window.confirm(
+                `📧 Reset Password\n\n` +
+                `L'email sarà inviata a:\n${email}\n\n` +
+                `Clicca OK per confermare.`
+            );
+            
+            if (!confirmReset) {
+                console.log('⚠️ Reset password annullato dall\'utente');
+                showToast('❌ Operazione annullata', 'info');
+                return;
+            }
+            
+            try {
+                const { error } = await sbClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
+                });
+
+                if (error) throw error;
+
+                showToast('✅ Email inviata! Controlla la tua casella', 'success');
+                console.log('✅ Email reset inviata a:', email);
+
+            } catch (error) {
+                console.error('❌ Errore reset password:', error);
+                showToast('❌ Errore: ' + error.message, 'error');
+            }
+        });
+
+        // ELIMINA ACCOUNT CON DOPPIA CONFERMA
+        document.getElementById('deleteAccountBtn').addEventListener('click', () => {
+            const confirm1 = window.confirm(
+                '⚠️ ATTENZIONE: Cancellazione Account\n\n' +
+                'Questa azione eliminerà permanentemente:\n' +
+                '• Il tuo profilo utente\n' +
+                '• Tutte le tue riflessioni\n' +
+                '• I tuoi progressi e statistiche\n\n' +
+                'Questa operazione NON è reversibile.\n\n' +
+                'Vuoi procedere?'
+            );
+            
+            if (confirm1) {
+                const confirm2 = window.confirm(
+                    '❗ ULTIMA CONFERMA\n\n' +
+                    'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
+                    'Clicca OK per confermare la cancellazione definitiva.'
+                );
+                
+                if (confirm2) {
+                    showToast('🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
+                    console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
+                }
+            }
+        });
+
+        // NUOVO: Refresh utenti (solo master)
+        const refreshBtn = document.getElementById('refreshUsersBtn');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', async () => {
+                showToast('🔄 Aggiornamento lista utenti...', 'info');
+                await loadAllUsers();
+            });
+        }
+    }
+
+    // Toast
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        if (type === 'error') {
+            toast.classList.remove('border-amber-500', 'text-amber-400');
+            toast.classList.add('border-red-500', 'text-red-400');
+        } else if (type === 'info') {
+            toast.classList.remove('border-amber-500', 'text-amber-400');
+            toast.classList.add('border-blue-500', 'text-blue-400');
+        } else {
+            toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
+            toast.classList.add('border-amber-500', 'text-amber-400');
+        }
+        
+        toastMessage.textContent = message;
+        toast.classList.remove('hiding');
+        toast.style.transform = 'translateY(0)';
+        
+        setTimeout(() => {
+            toast.classList.add('hiding');
+        }, 5500);
+        
+        setTimeout(() => {
+            toast.style.transform = 'translateY(8rem)';
+            toast.classList.remove('hiding');
+        }, 6000);
+    }
+    
+    window.showToast = showToast;
+})();
     </script>
 </body>
 </html>
