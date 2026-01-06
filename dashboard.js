@@ -5,24 +5,24 @@ const dailyContents = {
         quote: "Non sono gli eventi che turbano gli uomini, ma le loro opinioni sugli eventi.",
         author: "Epitteto, Enchiridion",
         interpretation: "Il tuo disagio non viene dai fatti, ma da come li giudichi. Puoi sempre cambiare la tua prospettiva.",
-        challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale è realmente vera?"
+        challenge: "Identifica una situazione stressante oggi. Scrivi il fatto oggettivo separato dalla tua interpretazione. Quale Ã¨ realmente vera?"
     },
     tipo2: {
-        quote: "L'impedimento all'azione fa avanzare l'azione. Ciò che sta sulla via diventa la via.",
+        quote: "L'impedimento all'azione fa avanzare l'azione. CiÃ² che sta sulla via diventa la via.",
         author: "Marco Aurelio, Meditazioni V.20",
         interpretation: "Gli ostacoli non sono nemici da evitare, ma maestri che trasformano il tuo percorso.",
-        challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti più forte o saggio? Trova un lato positivo inaspettato."
+        challenge: "Pensa a un ostacolo attuale. Come potrebbe questo impedimento renderti piÃ¹ forte o saggio? Trova un lato positivo inaspettato."
     },
     tipo3: {
         quote: "Chi non prevede eventi lontani, si espone alle disgrazie vicine.",
         author: "Seneca, Lettere a Lucilio",
-        interpretation: "Immaginare il peggio non è pessimismo, ma preparazione mentale che disattiva l'ansia.",
-        challenge: "Visualizza la tua paura più grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
+        interpretation: "Immaginare il peggio non Ã¨ pessimismo, ma preparazione mentale che disattiva l'ansia.",
+        challenge: "Visualizza la tua paura piÃ¹ grande oggi. Cosa accadrebbe realmente? Sopravviveresti? Come? Scrivi un piano concreto."
     },
     tipo4: {
-        quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciò che fai, dici e pensi.",
+        quote: "Potresti lasciare la vita proprio ora. Lascia che questo determini ciÃ² che fai, dici e pensi.",
         author: "Marco Aurelio, Meditazioni II.11",
-        interpretation: "La consapevolezza della mortalità non paralizza, ma libera energia per ciò che conta davvero.",
+        interpretation: "La consapevolezza della mortalitÃ  non paralizza, ma libera energia per ciÃ² che conta davvero.",
         challenge: "Se oggi fosse l'ultimo giorno, quali tre cose faresti diversamente? Quale di queste puoi iniziare ora?"
     }
 };
@@ -35,7 +35,7 @@ function getDailyContentType() {
 
 function checkTrialStatus(profile) {
     if (!profile) {
-        console.warn('⚠️ Nessun profilo, accesso libero debug');
+        console.warn('âš ï¸ Nessun profilo, accesso libero debug');
         return { isExpired: false, isInTrial: false, reason: 'NO_PROFILE', trialEnd: null };
     }
 
@@ -96,7 +96,7 @@ function showTrialExpiredOverlay(trialInfo) {
             animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             font-family: 'Cinzel', serif;
         ">
-            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">⏳ Trial Terminato</h2>
+            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">â³ Trial Terminato</h2>
             
             <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
                 Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
@@ -110,7 +110,7 @@ function showTrialExpiredOverlay(trialInfo) {
                     background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
                     border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
                     cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
-                ">💎 Passa a PRO</button>
+                ">ðŸ’Ž Passa a PRO</button>
                 
                 <button id="btnEsci" style="
                     background: #757575; color: white; border: none; border-radius: 12px;
@@ -129,7 +129,7 @@ function showTrialExpiredOverlay(trialInfo) {
     document.body.appendChild(overlay);
 
     document.getElementById('btnPassaPRO').onclick = () => {
-        showToast('🚀 Presto potrai attivare il piano PRO da qui!');
+        showToast('ðŸš€ Presto potrai attivare il piano PRO da qui!');
     };
     document.getElementById('btnEsci').onclick = async () => {
         await sbClient.auth.signOut();
@@ -138,10 +138,10 @@ function showTrialExpiredOverlay(trialInfo) {
 }
 
 async function loadDailyContent() {
-    // ✅ FIX: Verifica session prima di caricare
+    // âœ… FIX: Verifica session prima di caricare
     const session = await getSessionRobusta();
     if (!session) {
-        console.error('❌ Nessuna session attiva - redirect a login');
+        console.error('âŒ Nessuna session attiva - redirect a login');
         window.location.href = 'accedi.html';
         return;
     }
@@ -150,7 +150,7 @@ async function loadDailyContent() {
     const dayRoman = arabicToRoman(dayOfYear);
     document.getElementById('dayOfYear').textContent = dayRoman;
 
-    console.log('📖 Carico sfida per giorno:', dayOfYear);
+    console.log('ðŸ“– Carico sfida per giorno:', dayOfYear);
 
     try {
         const { data, error } = await sbClient
@@ -160,19 +160,19 @@ async function loadDailyContent() {
             .single();
 
         if (error) {
-            console.error('❌ Errore caricamento sfida:', error);
+            console.error('âŒ Errore caricamento sfida:', error);
             useFallbackContent();
             return;
         }
 
         if (data) {
-            console.log('✅ Sfida caricata da Supabase:', data);
+            console.log('âœ… Sfida caricata da Supabase:', data);
             setTimeout(() => {
                 document.getElementById('contentSkeleton').classList.add('hidden');
                 document.getElementById('dailyContent').classList.remove('hidden');
 
                 document.getElementById('citazione-testo').textContent = data.citazione;
-                document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
+                document.getElementById('citazione-autore').textContent = `â€” ${data.autore}, ${data.opera}`;
                 document.getElementById('tema-badge').textContent = data.tema;
                 document.getElementById('interpretazione-testo').textContent = data.interpretazione;
                 document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
@@ -184,7 +184,7 @@ async function loadDailyContent() {
             }, 800);
         }
     } catch (err) {
-        console.error('❌ Errore imprevisto:', err);
+        console.error('âŒ Errore imprevisto:', err);
         useFallbackContent();
     }
 }
@@ -198,12 +198,12 @@ function useFallbackContent() {
         document.getElementById('dailyContent').classList.remove('hidden');
 
         document.getElementById('citazione-testo').textContent = content.quote;
-        document.getElementById('citazione-autore').textContent = `— ${content.author}`;
+        document.getElementById('citazione-autore').textContent = `â€” ${content.author}`;
         document.getElementById('interpretazione-testo').textContent = content.interpretation;
         document.getElementById('micro-sfida-testo').textContent = content.challenge;
         document.getElementById('tema-badge').textContent = 'Stoicismo';
         
-        // ✅ FIX: Nascondi badge difficoltà nel fallback
+        // âœ… FIX: Nascondi badge difficoltÃ  nel fallback
         document.getElementById('difficolta-badge').style.display = 'none';
     }, 800);
 }
@@ -221,15 +221,15 @@ function setupReflectionHandlers() {
     saveBtn.addEventListener('click', async () => {
         const text = textarea.value.trim();
         if (!text) {
-            showToast('✍️ Scrivi prima una riflessione!');
+            showToast('âœï¸ Scrivi prima una riflessione!');
             return;
         }
 
-        console.log('💾 Salvataggio riflessione...');
+        console.log('ðŸ’¾ Salvataggio riflessione...');
 
         const { data: session } = await sbClient.auth.getSession();
         if (!session?.session) {
-            showToast('❌ Errore: non autenticato');
+            showToast('âŒ Errore: non autenticato');
             window.location.href = 'accedi.html';
             return;
         }
@@ -242,11 +242,11 @@ function setupReflectionHandlers() {
         });
 
         if (error) {
-            console.error('❌ Errore salvataggio:', error);
-            showToast(`❌ Errore nel salvare: ${error.message}`);
+            console.error('âŒ Errore salvataggio:', error);
+            showToast(`âŒ Errore nel salvare: ${error.message}`);
         } else {
-            console.log('✅ Riflessione salvata!');
-            showToast('✅ Riflessione salvata!');
+            console.log('âœ… Riflessione salvata!');
+            showToast('âœ… Riflessione salvata!');
             textarea.value = '';
             charCount.textContent = '0';
             await loadProgressData(session.session.user.id);
@@ -256,10 +256,10 @@ function setupReflectionHandlers() {
     copyBtn.addEventListener('click', () => {
         const text = textarea.value;
         if (!text) {
-            return showToast('⚠️ Niente da copiare!');
+            return showToast('âš ï¸ Niente da copiare!');
         }
         navigator.clipboard.writeText(text).then(() => {
-            showToast('📋 Copiato!');
+            showToast('ðŸ“‹ Copiato!');
         });
     });
 }
@@ -279,7 +279,7 @@ function setupNavigation() {
                 return;
             }
             if (view === 'pro') {
-                showToast('✨ Funzionalità PRO in arrivo');
+                showToast('âœ¨ FunzionalitÃ  PRO in arrivo');
                 return;
             }
 
@@ -306,11 +306,11 @@ function setupBaseListeners() {
 
     setupMobileMenu();
 
-    console.log('✅ Base listeners attivati (modalità trial scaduto)');
+    console.log('âœ… Base listeners attivati (modalitÃ  trial scaduto)');
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('🚀 Inizializzazione dashboard con TRIAL...');
+    console.log('ðŸš€ Inizializzazione dashboard con TRIAL...');
 
     try {
         const session = await getSessionRobusta();
@@ -323,10 +323,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         await loadUserData(user);
 
         const trialStatus = checkTrialStatus(currentUserProfile);
-        console.log('🔍 Trial status:', trialStatus);
+        console.log('ðŸ” Trial status:', trialStatus);
 
         if (trialStatus.isExpired) {
-            console.warn('🚫 Trial scaduto → mostro overlay, non carico contenuti');
+            console.warn('ðŸš« Trial scaduto â†’ mostro overlay, non carico contenuti');
             showTrialExpiredOverlay(trialStatus);
             setupBaseListeners();
             return;
@@ -344,10 +344,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             logoutBtn.addEventListener('click', handleLogout);
         }
 
-        console.log('✅ Dashboard caricata con successo!');
+        console.log('âœ… Dashboard caricata con successo!');
 
     } catch (err) {
-        console.error('💥 Errore init dashboard:', err);
+        console.error('ðŸ’¥ Errore init dashboard:', err);
         window.location.href = 'accedi.html';
     }
 });
