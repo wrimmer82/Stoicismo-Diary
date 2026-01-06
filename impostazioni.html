@@ -642,48 +642,63 @@
         });
         
         // ============ CARICA DATI UTENTE ============
-        async function loadUserData() {
-            let displayName = 'Stoico';
+async function loadUserData() {
+    let displayName = 'Stoico';
+    
+    try {
+        const { data: profile, error } = await sbClient
+            .from('profiles')
+            .select('name, role, trial_ends_at, is_trial_expired')
+            .eq('id', currentUser.id)
+            .single();
+        
+        if (!error && profile) {
+            displayName = profile.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
+            currentUserProfile = profile;
+            currentUserRole = profile.role || 'vip';
             
-            try {
-                const { data: profile, error } = await sbClient
-                    .from('profiles')
-                    .select('name, role, trial_ends_at, is_trial_expired')
-                    .eq('id', currentUser.id)
-                    .single();
+            console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
+            
+            // Mostra badge ruolo
+            updateRoleBadge(currentUserRole, profile);
+            
+            // ========== FIX: MOSTRA PANNELLO ADMIN PER MASTER ==========
+            if (currentUserRole === 'master') {
+                console.log('👑 Utente MASTER - Attivo pannello admin');
+                const adminPanel = document.getElementById('adminPanel');
                 
-                if (!error && profile) {
-                    displayName = profile.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
-                    currentUserProfile = profile;
-                    currentUserRole = profile.role || 'vip';
+                if (adminPanel) {
+                    adminPanel.classList.remove('hidden');
+                    console.log('✅ Pannello admin reso visibile');
                     
-                    console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
-                    
-                    // Mostra badge ruolo
-                    updateRoleBadge(currentUserRole, profile);
-                    
-                    // Se master, mostra pannello admin
-                    if (currentUserRole === 'master') {
-                        console.log('👑 Utente MASTER - Attivo pannello admin');
-                        document.getElementById('adminPanel').classList.remove('hidden');
+                    // Carica lista utenti
+                    try {
                         await loadAllUsers();
+                    } catch (err) {
+                        console.error('❌ Errore caricamento utenti:', err);
                     }
                 } else {
-                    displayName = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || 'Stoico';
-                    console.log('Nome caricato da metadata:', displayName);
+                    console.error('❌ Elemento #adminPanel NON trovato nel DOM!');
                 }
-            } catch (err) {
-                console.error('❌ Errore caricamento profilo:', err);
-                displayName = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
             }
             
-            document.getElementById('userName').textContent = displayName;
-            document.getElementById('profileName').value = displayName;
-            document.getElementById('profileEmail').value = currentUser.email;
-            document.getElementById('resetEmail').value = currentUser.email;
-            
-            console.log('Dati caricati:', { displayName, email: currentUser.email });
+        } else {
+            console.error('❌ Errore caricamento profilo:', error);
+            displayName = currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || 'Stoico';
         }
+    } catch (err) {
+        console.error('❌ CATCH Errore caricamento profilo:', err);
+        displayName = currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
+    }
+    
+    document.getElementById('userName').textContent = displayName;
+    document.getElementById('profileName').value = displayName;
+    document.getElementById('profileEmail').value = currentUser.email;
+    document.getElementById('resetEmail').value = currentUser.email;
+    
+    console.log('📊 Dati UI caricati:', { displayName, email: currentUser.email, role: currentUserRole });
+}
+
         
         // ============ CARICA DATI ABBONAMENTO (CON LOGICA CONDIZIONALE) ============
         async function loadSubscriptionData() {
