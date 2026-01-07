@@ -351,3 +351,63 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'accedi.html';
     }
 });
+// =============================================================================
+// 💳 GESTIONE CUSTOMER PORTAL STRIPE
+// =============================================================================
+
+async function openCustomerPortal() {
+  try {
+    console.log('🔵 Apertura Customer Portal Stripe...');
+    
+    // Verifica autenticazione con sbClient (definito in common.js)
+    const { data: { user }, error: authError } = await sbClient.auth.getUser();
+    
+    if (authError || !user) {
+      console.error('❌ Errore autenticazione:', authError);
+      showToast('Devi effettuare il login', 'error');
+      return;
+    }
+
+    console.log('✅ User ID:', user.id);
+
+    // Chiama Edge Function per creare portal session
+    const response = await fetch('https://fayuadwpchhxafbdntw.supabase.co/functions/v1/create-portal-session', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify({ userId: user.id })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Errore apertura portal');
+    }
+
+    console.log('✅ Portal URL ricevuto:', data.url);
+    
+    // Redirect a Stripe Customer Portal
+    window.location.href = data.url;
+
+  } catch (error) {
+    console.error('❌ Errore portal:', error);
+    showToast('Impossibile aprire il pannello di gestione. Riprova.', 'error');
+  }
+}
+
+// Aggiungi listener ai bottoni "Gestione PRO"
+const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
+const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
+
+if (manageBtnDesktop) {
+  manageBtnDesktop.addEventListener('click', openCustomerPortal);
+  console.log('✅ Listener Desktop "Gestione PRO" attivato');
+}
+
+if (manageBtnMobile) {
+  manageBtnMobile.addEventListener('click', openCustomerPortal);
+  console.log('✅ Listener Mobile "Gestione PRO" attivato');
+}
+
