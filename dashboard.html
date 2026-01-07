@@ -513,55 +513,6 @@
     <script src="dashboard.js"></script>
 
     <script>
-        /* GESTIONE CUSTOMER PORTAL STRIPE */
-        async function openCustomerPortal() {
-            try {
-                showToast("Apertura pannello gestione...", "info");
-                
-                const { data: { user } } = await sbClient.auth.getUser();
-                if (!user) {
-                    showToast("Devi effettuare il login", "error");
-                    return;
-                }
-                
-                const response = await fetch('https://fayuadwpchhxafbdntw.supabase.co/functions/v1/create-portal-session', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({ userId: user.id })
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok) {
-                    throw new Error(data.error || 'Errore apertura portal');
-                }
-                
-                // Redirect a Stripe Customer Portal
-                window.location.href = data.url;
-                
-            } catch (error) {
-                console.error("Errore portal:", error);
-                showToast("Impossibile aprire il pannello di gestione. Riprova.", "error");
-            }
-        }
-        
-        // Aggiungi listener ai bottoni Gestione PRO
-        document.addEventListener('DOMContentLoaded', function() {
-            const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
-            const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
-            
-            if (manageBtnDesktop) {
-                manageBtnDesktop.addEventListener('click', openCustomerPortal);
-            }
-            
-            if (manageBtnMobile) {
-                manageBtnMobile.addEventListener('click', openCustomerPortal);
-            }
-        });
-    </script>
     
 </body>
 </html>
