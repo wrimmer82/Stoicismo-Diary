@@ -371,7 +371,7 @@ async function openCustomerPortal() {
     console.log('✅ User ID:', user.id);
 
     // Chiama Edge Function per creare portal session
-    const response = await fetch('https://fayuadwpchhxafbdntw.supabase.co/functions/v1/create-portal-session', {
+    const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-portal-session', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
