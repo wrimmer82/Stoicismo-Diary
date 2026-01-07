@@ -518,7 +518,7 @@
             try {
                 showToast("Apertura pannello gestione...", "info");
                 
-                const { data: { user } } = await supabase.auth.getUser();
+                const { data: { user } } = await sbClient.auth.getUser();
                 if (!user) {
                     showToast("Devi effettuare il login", "error");
                     return;
@@ -528,7 +528,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${supabaseAnonKey}`
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                     },
                     body: JSON.stringify({ userId: user.id })
                 });
