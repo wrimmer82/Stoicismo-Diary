@@ -39,7 +39,7 @@ async function loadUserData(user) {
             .single();
 
         if (error) {
-            console.error('❌ Errore caricamento profilo:', error);
+            console.error('âŒ Errore caricamento profilo:', error);
             const fallback = user.email?.split('@')[0] || 'Stoico';
             document.getElementById('userName').textContent = fallback;
             return;
@@ -54,7 +54,7 @@ async function loadUserData(user) {
                            user.email?.split('@')[0] || 
                            'Stoico';
 
-        console.log('✅ Profilo caricato:', { 
+        console.log('âœ… Profilo caricato:', { 
             name: displayName, 
             role: currentUserRole,
             trial_ends_at: profile?.trial_ends_at,
@@ -65,7 +65,7 @@ async function loadUserData(user) {
         updateRoleBadge(currentUserRole, profile);
 
     } catch (err) {
-        console.error('⚠️ Errore generale caricamento utente:', err);
+        console.error('âš ï¸ Errore generale caricamento utente:', err);
         const fallback = user.email?.split('@')[0] || 'Stoico';
         document.getElementById('userName').textContent = fallback;
     }
@@ -85,20 +85,20 @@ function updateRoleBadge(role, profile) {
 
     if (role === 'master') {
         badgeContainer.classList.add('master');
-        roleIcon.textContent = '♛';
+        roleIcon.textContent = 'â™›';
         roleText.textContent = 'MASTER';
     } else if (role === 'pro') {
         badgeContainer.classList.add('pro');
-        roleIcon.textContent = '💎';
+        roleIcon.textContent = 'ðŸ’Ž';
         roleText.textContent = 'PRO';
     } else if (role === 'vip') {
         if (profile?.is_trial_expired === true) {
             badgeContainer.classList.add('vip-expired');
-            roleIcon.textContent = '⌛';
+            roleIcon.textContent = 'âŒ›';
             roleText.textContent = 'TRIAL SCADUTO';
         } else {
             badgeContainer.classList.add('vip');
-            roleIcon.textContent = '★';
+            roleIcon.textContent = 'â˜…';
             roleText.textContent = 'VIP';
         }
     }
@@ -161,7 +161,7 @@ function calculateStreak(reflections) {
 }
 
 async function loadProgressData(userId) {
-    console.log('📊 Carico progresso per user:', userId);
+    console.log('ðŸ“Š Carico progresso per user:', userId);
     
     try {
         const { data: reflections, error: reflError } = await sbClient
@@ -171,7 +171,7 @@ async function loadProgressData(userId) {
             .order('date', { ascending: false });
 
         if (reflError) {
-            console.error('❌ Errore caricamento riflessioni:', reflError);
+            console.error('âŒ Errore caricamento riflessioni:', reflError);
             updateProgressUI({
                 streak: 0,
                 totalReflections: 0,
@@ -181,7 +181,7 @@ async function loadProgressData(userId) {
             return;
         }
 
-        console.log('✅ Riflessioni caricate:', reflections?.length || 0);
+        console.log('âœ… Riflessioni caricate:', reflections?.length || 0);
 
         const streak = calculateStreak(reflections);
         const totalReflections = reflections?.length || 0;
@@ -194,7 +194,7 @@ async function loadProgressData(userId) {
         });
 
     } catch (error) {
-        console.error('❌ Errore generale:', error);
+        console.error('âŒ Errore generale:', error);
         updateProgressUI({
             streak: 0,
             totalReflections: 0,
@@ -281,7 +281,7 @@ function setupMobileMenu() {
 }
 
 async function handleLogout() {
-    console.log('👋 Logout...');
+    console.log('ðŸ‘‹ Logout...');
     await sbClient.auth.signOut();
     window.location.href = 'index.html';
 }
