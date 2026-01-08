@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('ðŸ” Trial status:', trialStatus);
 
         if (trialStatus.isExpired) {
-            console.warn('ðŸš« Trial scaduto â†’ mostro overlay, non carico contenuti');
+            console.warn('« Trial scaduto mostro overlay, non carico contenuti');
             showTrialExpiredOverlay(trialStatus);
             setupBaseListeners();
             return;
