@@ -222,11 +222,25 @@ function updateProgressUI(data) {
     document.getElementById('progressPercentageDesktop').textContent = `${percentage}%`;
 }
 
-function showToast(message) {
+function showToast(message, type = 'success') {
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
     
     if (!toast || !toastMessage) return;
+    
+    // Determina colori in base al tipo
+    let borderColor, textColor;
+    
+    if (type === 'error') {
+        borderColor = '#ef4444'; // Rosso
+        textColor = '#fca5a5';
+    } else if (type === 'info') {
+        borderColor = '#3b82f6'; // Blu
+        textColor = '#93c5fd';
+    } else {
+        borderColor = '#fbbf24'; // Ambra (default)
+        textColor = '#fbbf24';
+    }
     
     toastMessage.textContent = message;
     toast.style.cssText = `
@@ -234,8 +248,8 @@ function showToast(message) {
         bottom: 1.5rem;
         right: 1.5rem;
         background: #1e293b;
-        border: 1px solid #fbbf24;
-        color: #fbbf24;
+        border: 1px solid ${borderColor};
+        color: ${textColor};
         padding: 0.75rem 1.5rem;
         border-radius: 0.5rem;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -251,6 +265,7 @@ function showToast(message) {
         toast.style.transform = 'translateY(8rem)';
     }, 3000);
 }
+
 
 function setupMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
