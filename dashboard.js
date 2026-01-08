@@ -96,7 +96,7 @@ function showTrialExpiredOverlay(trialInfo) {
             animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             font-family: 'Cinzel', serif;
         ">
-            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);"> Trial Terminato</h2>
+            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">â³ Trial Terminato</h2>
             
             <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
                 Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
@@ -110,7 +110,7 @@ function showTrialExpiredOverlay(trialInfo) {
                     background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
                     border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
                     cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
-                ">  Passa a PRO</button>
+                ">ðŸ’Ž Passa a PRO</button>
                 
                 <button id="btnEsci" style="
                     background: #757575; color: white; border: none; border-radius: 12px;
@@ -294,16 +294,9 @@ function setupNavigation() {
 }
 
 function switchView(viewName) {
-    // ✅ CONTROLLO DI SICUREZZA AGGIUNTO
-    if (!viewName || typeof viewName !== 'string') {
-        console.error('⚠️ switchView: viewName non valido', viewName);
-        viewName = 'oggi'; // Default fallback
-    }
-    
     document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-    document.getElementById('view' + viewName.charAt(0).toUpperCase() + viewName.slice(1)).classList.remove('hidden');
+    document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
 }
-
 
 function setupBaseListeners() {
     const logoutBtn = document.getElementById('logoutBtn');
@@ -332,81 +325,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         const trialStatus = checkTrialStatus(currentUserProfile);
         console.log('ðŸ” Trial status:', trialStatus);
 
- // SEZIONE OVERLAY TRIAL SCADUTO in dashboard.js
-if (trialStatus.isExpired) {
-  console.log('⚠️ Trial scaduto - mostro overlay, non carico contenuti');
-  
-  // Mostra overlay
-  const overlay = document.getElementById('trialExpiredOverlay');
-  if (overlay) {
-    overlay.style.display = 'flex';
-    
- // ✅ AGGIUNGI QUESTO BLOCCO PER IL BOTTONE "PASSA A PRO"
-    const passaProBtn = overlay.querySelector('.passa-pro-btn');
-    if (passaProBtn) {
-      passaProBtn.addEventListener('click', async function(e) {
-        e.preventDefault();
-        
-        console.log('🚀 Click su Passa a PRO - Apertura Stripe Checkout');
-        
-        try {
-          // Ottieni l'utente corrente
-          const { data: { user } } = await sbClient.auth.getUser();
-          if (!user) {
-            showToast('Errore: utente non autenticato', 'error');
+        if (trialStatus.isExpired) {
+            console.warn('ðŸš« Trial scaduto â†’ mostro overlay, non carico contenuti');
+            showTrialExpiredOverlay(trialStatus);
+            setupBaseListeners();
             return;
-          }
-          
-          // Chiamata Edge Function per creare sessione Stripe Checkout
-          const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout-session`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-            },
-            body: JSON.stringify({
-              userId: user.id,
-              priceId: 'price_1SlUMSL6b0i4d13wLWNao0ac', 
-              mode: 'subscription'
-            })
-          });
-          
-          const data = await response.json();
-          
-          if (!response.ok) {
-            throw new Error(data.error || 'Errore creazione sessione Stripe');
-          }
-          
-          // Redirect a Stripe Checkout
-          console.log('✅ Redirect a Stripe Checkout:', data.url);
-          window.location.href = data.url;
-          
-        } catch (error) {
-          console.error('❌ Errore apertura Stripe:', error);
-          showToast('Impossibile aprire la pagina di pagamento. Riprova.', 'error');
         }
-      });
-    }
-    
-    // ✅ LISTENER PER BOTTONE "ESCI"
-    const esciBtn = overlay.querySelector('.esci-btn');
-    if (esciBtn) {
-      esciBtn.addEventListener('click', async function(e) {
-        e.preventDefault();
-        
-        console.log('👋 Click su Esci - Logout utente');
-        
-        await sbClient.auth.signOut();
-        window.location.href = '/';
-      });
-    }
-  }
-  
-  // Base listeners attivati (modalità trial scaduto)
-  console.log('✅ Base listeners attivati (modalità trial scaduto)');
-  return; // Non caricare contenuti dashboard
-}
-
 
         await loadDailyContent();
         await loadProgressData(user.id);
@@ -473,5 +397,16 @@ async function openCustomerPortal() {
   }
 }
 
+// Aggiungi listener ai bottoni "Gestione PRO"
+const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
+const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
 
+if (manageBtnDesktop) {
+  manageBtnDesktop.addEventListener('click', openCustomerPortal);
+  console.log('✅ Listener Desktop "Gestione PRO" attivato');
+}
 
+if (manageBtnMobile) {
+  manageBtnMobile.addEventListener('click', openCustomerPortal);
+  console.log('✅ Listener Mobile "Gestione PRO" attivato');
+}
