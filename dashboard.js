@@ -128,9 +128,11 @@ function showTrialExpiredOverlay(trialInfo) {
 
     document.body.appendChild(overlay);
 
-    document.getElementById('btnPassaPRO').onclick = () => {
-        showToast('ðŸš€ Presto potrai attivare il piano PRO da qui!');
-    };
+document.getElementById('btnPassaPRO').onclick = () => {
+    console.log('🚀 Redirect a pagina prezzi');
+    window.location.href = '/#pricing';
+};
+
     document.getElementById('btnEsci').onclick = async () => {
         await sbClient.auth.signOut();
         window.location.href = 'index.html';
