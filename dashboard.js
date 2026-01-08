@@ -96,7 +96,7 @@ function showTrialExpiredOverlay(trialInfo) {
             animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             font-family: 'Cinzel', serif;
         ">
-            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">â³ Trial Terminato</h2>
+            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);"> Trial Terminato</h2>
             
             <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
                 Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
@@ -110,7 +110,7 @@ function showTrialExpiredOverlay(trialInfo) {
                     background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
                     border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
                     cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
-                ">ðŸ’Ž Passa a PRO</button>
+                ">  Passa a PRO</button>
                 
                 <button id="btnEsci" style="
                     background: #757575; color: white; border: none; border-radius: 12px;
