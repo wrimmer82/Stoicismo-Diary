@@ -397,17 +397,5 @@ async function openCustomerPortal() {
   }
 }
 
-// Aggiungi listener ai bottoni "Gestione PRO"
-const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
-const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
 
-if (manageBtnDesktop) {
-  manageBtnDesktop.addEventListener('click', openCustomerPortal);
-  console.log('✅ Listener Desktop "Gestione PRO" attivato');
-}
-
-if (manageBtnMobile) {
-  manageBtnMobile.addEventListener('click', openCustomerPortal);
-  console.log('✅ Listener Mobile "Gestione PRO" attivato');
-}
 
