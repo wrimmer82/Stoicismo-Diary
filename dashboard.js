@@ -128,9 +128,11 @@ function showTrialExpiredOverlay(trialInfo) {
 
     document.body.appendChild(overlay);
 
-    document.getElementById('btnPassaPRO').onclick = () => {
-        showToast('ðŸš€ Presto potrai attivare il piano PRO da qui!');
-    };
+document.getElementById('btnPassaPRO').onclick = async () => {
+    console.log('Click PASSA A PRO - apro Stripe');
+    await openCustomerPortal();
+};
+
     document.getElementById('btnEsci').onclick = async () => {
         await sbClient.auth.signOut();
         window.location.href = 'index.html';
@@ -184,7 +186,7 @@ async function loadDailyContent() {
             }, 800);
         }
     } catch (err) {
-        console.error('âŒ Errore imprevisto:', err);
+        console.error(' Errore imprevisto:', err);
         useFallbackContent();
     }
 }
