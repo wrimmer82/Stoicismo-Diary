@@ -135,6 +135,7 @@ function showTrialExpiredOverlay(trialInfo) {
         await sbClient.auth.signOut();
         window.location.href = 'index.html';
     };
+}
 
 async function loadDailyContent() {
     // âœ… FIX: Verifica session prima di caricare
