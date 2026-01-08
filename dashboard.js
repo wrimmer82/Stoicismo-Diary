@@ -96,7 +96,7 @@ function showTrialExpiredOverlay(trialInfo) {
             animation: scaleIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             font-family: 'Cinzel', serif;
         ">
-            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);"> Trial Terminato</h2>
+            <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">â³ Trial Terminato</h2>
             
             <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
                 Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
@@ -110,7 +110,7 @@ function showTrialExpiredOverlay(trialInfo) {
                     background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
                     border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
                     cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
-                "> Passa a PRO</button>
+                ">ðŸ’Ž Passa a PRO</button>
                 
                 <button id="btnEsci" style="
                     background: #757575; color: white; border: none; border-radius: 12px;
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('ðŸ” Trial status:', trialStatus);
 
         if (trialStatus.isExpired) {
-            console.warn('« Trial scaduto mostro overlay, non carico contenuti');
+            console.warn('ðŸš« Trial scaduto â†’ mostro overlay, non carico contenuti');
             showTrialExpiredOverlay(trialStatus);
             setupBaseListeners();
             return;
@@ -351,62 +351,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'accedi.html';
     }
 });
-// =============================================================================
-// 💳 GESTIONE CUSTOMER PORTAL STRIPE
-// =============================================================================
-
-async function openCustomerPortal() {
-  try {
-    console.log('🔵 Apertura Customer Portal Stripe...');
-    
-    // Verifica autenticazione con sbClient (definito in common.js)
-    const { data: { user }, error: authError } = await sbClient.auth.getUser();
-    
-    if (authError || !user) {
-      console.error('❌ Errore autenticazione:', authError);
-      showToast('Devi effettuare il login', 'error');
-      return;
-    }
-
-    console.log('✅ User ID:', user.id);
-
-    // Chiama Edge Function per creare portal session
-    const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-portal-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      },
-      body: JSON.stringify({ userId: user.id })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Errore apertura portal');
-    }
-
-    console.log('✅ Portal URL ricevuto:', data.url);
-    
-    // Redirect a Stripe Customer Portal
-    window.location.href = data.url;
-
-  } catch (error) {
-    console.error('❌ Errore portal:', error);
-    showToast('Impossibile aprire il pannello di gestione. Riprova.', 'error');
-  }
-}
-
-// Aggiungi listener ai bottoni "Gestione PRO"
-const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
-const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
-
-if (manageBtnDesktop) {
-  manageBtnDesktop.addEventListener('click', openCustomerPortal);
-  console.log('✅ Listener Desktop "Gestione PRO" attivato');
-}
-
-if (manageBtnMobile) {
-  manageBtnMobile.addEventListener('click', openCustomerPortal);
-  console.log('✅ Listener Mobile "Gestione PRO" attivato');
-}
