@@ -341,35 +341,69 @@ if (trialStatus.isExpired) {
   if (overlay) {
     overlay.style.display = 'flex';
     
-    // ✅ FIX: Testo senza emoji corrotte
-    const overlayTitle = overlay.querySelector('h2');
-    if (overlayTitle) {
-      overlayTitle.textContent = 'TRIAL TERMINATO';
-    }
-    
-    // ✅ FIX: Bottone "Passa a PRO" con listener
+ // ✅ AGGIUNGI QUESTO BLOCCO PER IL BOTTONE "PASSA A PRO"
     const passaProBtn = overlay.querySelector('.passa-pro-btn');
     if (passaProBtn) {
-      passaProBtn.textContent = 'Passa a PRO';
-      
-      // ✅ AGGIUNTO: Redirect a pagina prezzi
-      passaProBtn.addEventListener('click', function(e) {
+      passaProBtn.addEventListener('click', async function(e) {
         e.preventDefault();
-        window.location.href = '/#pricing?reason=trial_expired';
+        
+        console.log('🚀 Click su Passa a PRO - Apertura Stripe Checkout');
+        
+        try {
+          // Ottieni l'utente corrente
+          const { data: { user } } = await sbClient.auth.getUser();
+          if (!user) {
+            showToast('Errore: utente non autenticato', 'error');
+            return;
+          }
+          
+          // Chiamata Edge Function per creare sessione Stripe Checkout
+          const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout-session`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+            },
+            body: JSON.stringify({
+              userId: user.id,
+              priceId: 'price_1SlUMSL6b0i4d13wLWNao0ac', 
+              mode: 'subscription'
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.error || 'Errore creazione sessione Stripe');
+          }
+          
+          // Redirect a Stripe Checkout
+          console.log('✅ Redirect a Stripe Checkout:', data.url);
+          window.location.href = data.url;
+          
+        } catch (error) {
+          console.error('❌ Errore apertura Stripe:', error);
+          showToast('Impossibile aprire la pagina di pagamento. Riprova.', 'error');
+        }
       });
     }
     
-    // Bottone "Esci"
+    // ✅ LISTENER PER BOTTONE "ESCI"
     const esciBtn = overlay.querySelector('.esci-btn');
     if (esciBtn) {
       esciBtn.addEventListener('click', async function(e) {
         e.preventDefault();
+        
+        console.log('👋 Click su Esci - Logout utente');
+        
         await sbClient.auth.signOut();
         window.location.href = '/';
       });
     }
   }
   
+  // Base listeners attivati (modalità trial scaduto)
+  console.log('✅ Base listeners attivati (modalità trial scaduto)');
   return; // Non caricare contenuti dashboard
 }
 
