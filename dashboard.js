@@ -294,9 +294,16 @@ function setupNavigation() {
 }
 
 function switchView(viewName) {
+    // ✅ CONTROLLO DI SICUREZZA AGGIUNTO
+    if (!viewName || typeof viewName !== 'string') {
+        console.error('⚠️ switchView: viewName non valido', viewName);
+        viewName = 'oggi'; // Default fallback
+    }
+    
     document.querySelectorAll('.view-container').forEach(v => v.classList.add('hidden'));
-    document.getElementById(`view${viewName.charAt(0).toUpperCase() + viewName.slice(1)}`).classList.remove('hidden');
+    document.getElementById('view' + viewName.charAt(0).toUpperCase() + viewName.slice(1)).classList.remove('hidden');
 }
+
 
 function setupBaseListeners() {
     const logoutBtn = document.getElementById('logoutBtn');
