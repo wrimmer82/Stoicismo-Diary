@@ -133,6 +133,9 @@ document.getElementById('btnPassaPRO').onclick = () => {
     window.location.href = '/#pricing';
 };
 
+    window.location.href = '/#pricing';
+};
+
     document.getElementById('btnEsci').onclick = async () => {
         await sbClient.auth.signOut();
         window.location.href = 'index.html';
