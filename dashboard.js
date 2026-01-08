@@ -332,12 +332,47 @@ document.addEventListener('DOMContentLoaded', async () => {
         const trialStatus = checkTrialStatus(currentUserProfile);
         console.log('ðŸ” Trial status:', trialStatus);
 
-        if (trialStatus.isExpired) {
-            console.warn('ðŸš« Trial scaduto â†’ mostro overlay, non carico contenuti');
-            showTrialExpiredOverlay(trialStatus);
-            setupBaseListeners();
-            return;
-        }
+ // SEZIONE OVERLAY TRIAL SCADUTO in dashboard.js
+if (trialStatus.isExpired) {
+  console.log('⚠️ Trial scaduto - mostro overlay, non carico contenuti');
+  
+  // Mostra overlay
+  const overlay = document.getElementById('trialExpiredOverlay');
+  if (overlay) {
+    overlay.style.display = 'flex';
+    
+    // ✅ FIX: Testo senza emoji corrotte
+    const overlayTitle = overlay.querySelector('h2');
+    if (overlayTitle) {
+      overlayTitle.textContent = 'TRIAL TERMINATO';
+    }
+    
+    // ✅ FIX: Bottone "Passa a PRO" con listener
+    const passaProBtn = overlay.querySelector('.passa-pro-btn');
+    if (passaProBtn) {
+      passaProBtn.textContent = 'Passa a PRO';
+      
+      // ✅ AGGIUNTO: Redirect a pagina prezzi
+      passaProBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = '/#pricing?reason=trial_expired';
+      });
+    }
+    
+    // Bottone "Esci"
+    const esciBtn = overlay.querySelector('.esci-btn');
+    if (esciBtn) {
+      esciBtn.addEventListener('click', async function(e) {
+        e.preventDefault();
+        await sbClient.auth.signOut();
+        window.location.href = '/';
+      });
+    }
+  }
+  
+  return; // Non caricare contenuti dashboard
+}
+
 
         await loadDailyContent();
         await loadProgressData(user.id);
