@@ -512,7 +512,115 @@
     <script src="common.js"></script>
     <script src="dashboard.js"></script>
 
-    <script>
-    
+async function openCustomerPortal() {
+    try {
+      showToast('Verifica accesso...', 'info');
+      
+      // Ottieni utente corrente
+      const { data: { user } } = await sbClient.auth.getUser();
+      if (!user) {
+        showToast('Devi effettuare il login', 'error');
+        return;
+      }
+
+      // 🆕 CARICA PROFILO UTENTE PER VERIFICARE RUOLO
+      const { data: profile, error: profileError } = await sbClient
+        .from('profiles')
+        .select('role, trial_ends_at, is_trial_expired, stripe_customer_id')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError || !profile) {
+        console.error('Errore caricamento profilo:', profileError);
+        showToast('Impossibile verificare il tuo profilo', 'error');
+        return;
+      }
+
+      // 🆕 BLOCCO SPECIFICO PER UTENTI VIP IN TRIAL
+      if (profile.role === 'vip' && profile.trial_ends_at && !profile.is_trial_expired) {
+        showToast('Funzione disponibile solo dopo il passaggio a PRO', 'info');
+        console.log('🔷 Utente VIP in trial - Gestione PRO non disponibile');
+        return; // ← BLOCCA QUI
+      }
+
+      // 🆕 BLOCCO PER TRIAL SCADUTI
+      if (profile.role === 'vip' && profile.is_trial_expired) {
+        showToast('Trial terminato. Passa a PRO per gestire il tuo abbonamento.', 'error');
+        return;
+      }
+
+      // ✅ SOLO UTENTI PRO/MASTER POSSONO PROCEDERE
+      if (!profile.stripe_customer_id) {
+        showToast('Nessun abbonamento attivo da gestire', 'error');
+        console.log('❌ Nessun stripe_customer_id trovato');
+        return;
+      }
+
+      // Apri Customer Portal Stripe
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/create-portal-session`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({ userId: user.id })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Errore apertura portal');
+      }
+
+      // Redirect a Stripe Customer Portal
+      window.location.href = data.url;
+
+    } catch (error) {
+      console.error('Errore portal:', error);
+      showToast('Impossibile aprire il pannello di gestione. Riprova.', 'error');
+    }
+  }
+
+  // Aggiungi listener ai bottoni "Gestione PRO"
+  document.addEventListener('DOMContentLoaded', function() {
+    const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
+    const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
+
+    if (manageBtnDesktop) {
+      manageBtnDesktop.addEventListener('click', openCustomerPortal);
+    }
+    if (manageBtnMobile) {
+      manageBtnMobile.addEventListener('click', openCustomerPortal);
+    }
+  });
+</script>
+
 </body>
+</html>
+📋 STRUTTURA FINALE (Ultimi 15 righe del file)
+Dopo la modifica, la fine del tuo file dovrebbe apparire così:
+
+xml
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
+        <p id="toastMessage" class="text-sm font-medium"></p>
+    </div>
+
+    <script src="common.js"></script>
+    <script src="dashboard.js"></script>
+
+    <!-- 🆕 GESTIONE CUSTOMER PORTAL STRIPE -->
+    <script>
+      async function openCustomerPortal() {
+        // ... tutto il codice qui ...
+      }
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        // ... listener bottoni ...
+      });
+    </script>
+
+</body>
+</html>
+
 </html>
