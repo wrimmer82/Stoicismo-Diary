@@ -100,36 +100,56 @@ function showTrialExpiredOverlay(trialInfo) {
             
             <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
                 Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
-                Per continuare il tuo cammino stoico, passa al piano <strong>PRO</strong>.
+                Per continuare il tuo cammino stoico, scegli il piano <strong>PRO</strong>.
             </p>
 
             ${dataScadenza ? `<p style="font-size: 0.95rem; color: #6d4c41; margin: 0 0 32px; font-style: italic;">Scaduto il ${dataScadenza}</p>` : ''}
 
-            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                <button id="btnPassaPRO" style="
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+                <button id="btnMensile" style="
                     background: linear-gradient(135deg, #d84315 0%, #bf360c 100%); color: white;
-                    border: none; border-radius: 12px; padding: 16px 32px; font-size: 1.125rem; font-weight: bold;
+                    border: none; border-radius: 12px; padding: 20px 28px; font-size: 1rem; font-weight: bold;
                     cursor: pointer; box-shadow: 0 6px 20px rgba(216,67,21,0.4); transition: all 0.3s;
-                ">🚀 Passa a PRO</button>
+                    flex: 1; min-width: 200px; max-width: 280px;
+                ">
+                    💳 <strong>Mensile</strong><br>
+                    <span style="font-size: 2rem; display: block; margin: 8px 0;">€4,99</span>
+                    <span style="font-size: 0.85rem; opacity: 0.9;">al mese</span>
+                </button>
                 
-                <button id="btnEsci" style="
-                    background: #757575; color: white; border: none; border-radius: 12px;
-                    padding: 16px 32px; font-size: 1.125rem; font-weight: 600; cursor: pointer;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s;
-                ">Esci</button>
+                <button id="btnAnnuale" style="
+                    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); color: white;
+                    border: none; border-radius: 12px; padding: 20px 28px; font-size: 1rem; font-weight: bold;
+                    cursor: pointer; box-shadow: 0 6px 20px rgba(46,125,50,0.4); transition: all 0.3s;
+                    position: relative; flex: 1; min-width: 200px; max-width: 280px;
+                ">
+                    <span style="position: absolute; top: -10px; right: -10px; background: #ffc107; color: #000; 
+                          padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; 
+                          box-shadow: 0 2px 8px rgba(0,0,0,0.3);">-17%</span>
+                    🎁 <strong>Annuale</strong><br>
+                    <span style="font-size: 2rem; display: block; margin: 8px 0;">€49,99</span>
+                    <span style="font-size: 0.85rem; opacity: 0.9;">all'anno</span>
+                </button>
             </div>
+
+            <button id="btnEsci" style="
+                background: #757575; color: white; border: none; border-radius: 12px;
+                padding: 12px 28px; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s;
+            ">Esci</button>
 
             <style>
                 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
                 @keyframes scaleIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+                #btnMensile:hover, #btnAnnuale:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
             </style>
         </div>
     `;
 
     document.body.appendChild(overlay);
 
-    // ✅ FIX: Redirect a Stripe Checkout (solo userId)
-    document.getElementById('btnPassaPRO').onclick = async () => {
+    // ✅ Funzione per aprire Stripe Checkout
+    async function openCheckout(priceId, planName) {
         try {
             const { data: { user } } = await sbClient.auth.getUser();
             if (!user) {
@@ -137,15 +157,21 @@ function showTrialExpiredOverlay(trialInfo) {
                 return;
             }
 
-            console.log('🔵 Click PASSA A PRO - User ID:', user.id);
+            console.log(`🔵 Click ${planName} - User ID:`, user.id);
+            console.log(`🔵 Price ID:`, priceId);
             
-            // Mostra loading
-            const btn = document.getElementById('btnPassaPRO');
-            const originalText = btn.textContent;
-            btn.textContent = '⏳ Caricamento...';
-            btn.disabled = true;
+            // Disabilita bottoni
+            const btnMensile = document.getElementById('btnMensile');
+            const btnAnnuale = document.getElementById('btnAnnuale');
+            if (btnMensile) {
+                btnMensile.innerHTML = '⏳ Caricamento...';
+                btnMensile.disabled = true;
+            }
+            if (btnAnnuale) {
+                btnAnnuale.innerHTML = '⏳ Caricamento...';
+                btnAnnuale.disabled = true;
+            }
 
-            // Chiama create-checkout-session (solo userId)
             const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-checkout-session', {
                 method: 'POST',
                 headers: {
@@ -154,7 +180,7 @@ function showTrialExpiredOverlay(trialInfo) {
                 },
                 body: JSON.stringify({
                     userId: user.id,
-                    planType: 'monthly' // Default mensile
+                    priceId: priceId
                 })
             });
 
@@ -166,23 +192,37 @@ function showTrialExpiredOverlay(trialInfo) {
             }
 
             console.log('✅ Checkout URL ricevuto:', data.url);
-            
-            // Redirect a Stripe Checkout
             window.location.href = data.url;
 
         } catch (error) {
             console.error('❌ Errore completo:', error);
             showToast('❌ Errore apertura checkout. Riprova.');
             
-            // Reset bottone
-            const btn = document.getElementById('btnPassaPRO');
-            if (btn) {
-                btn.textContent = '🚀 Passa a PRO';
-                btn.disabled = false;
+            // Reset bottoni
+            const btnMensile = document.getElementById('btnMensile');
+            const btnAnnuale = document.getElementById('btnAnnuale');
+            if (btnMensile) {
+                btnMensile.innerHTML = '💳 <strong>Mensile</strong><br><span style="font-size: 2rem; display: block; margin: 8px 0;">€4,99</span><span style="font-size: 0.85rem; opacity: 0.9;">al mese</span>';
+                btnMensile.disabled = false;
+            }
+            if (btnAnnuale) {
+                btnAnnuale.innerHTML = '<span style="position: absolute; top: -10px; right: -10px; background: #ffc107; color: #000; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">-17%</span>🎁 <strong>Annuale</strong><br><span style="font-size: 2rem; display: block; margin: 8px 0;">€49,99</span><span style="font-size: 0.85rem; opacity: 0.9;">all\'anno</span>';
+                btnAnnuale.disabled = false;
             }
         }
+    }
+
+    // Listener bottone Mensile
+    document.getElementById('btnMensile').onclick = () => {
+        openCheckout('price_1SlUMSL6b0i4d13wLWNao0ac', 'Piano MENSILE');
     };
 
+    // Listener bottone Annuale
+    document.getElementById('btnAnnuale').onclick = () => {
+        openCheckout('price_1SlUNYL6b0i4d13w8MHVXKrp', 'Piano ANNUALE');
+    };
+
+    // Listener bottone Esci
     document.getElementById('btnEsci').onclick = async () => {
         await sbClient.auth.signOut();
         window.location.href = 'index.html';
@@ -190,7 +230,6 @@ function showTrialExpiredOverlay(trialInfo) {
 }
 
 async function loadDailyContent() {
-    // ✅ FIX: Verifica session prima di caricare
     const session = await getSessionRobusta();
     if (!session) {
         console.error('❌ Nessuna session attiva - redirect a login');
@@ -254,8 +293,6 @@ function useFallbackContent() {
         document.getElementById('interpretazione-testo').textContent = content.interpretation;
         document.getElementById('micro-sfida-testo').textContent = content.challenge;
         document.getElementById('tema-badge').textContent = 'Stoicismo';
-        
-        // ✅ FIX: Nascondi badge difficoltà nel fallback
         document.getElementById('difficolta-badge').style.display = 'none';
     }, 800);
 }
@@ -357,7 +394,6 @@ function setupBaseListeners() {
     }
 
     setupMobileMenu();
-
     console.log('✅ Base listeners attivati (modalità trial scaduto)');
 }
 
@@ -412,7 +448,6 @@ async function openCustomerPortal() {
   try {
     console.log('🔵 Apertura Customer Portal Stripe...');
     
-    // Verifica autenticazione con sbClient (definito in common.js)
     const { data: { user }, error: authError } = await sbClient.auth.getUser();
     
     if (authError || !user) {
@@ -423,7 +458,6 @@ async function openCustomerPortal() {
 
     console.log('✅ User ID:', user.id);
 
-    // Chiama Edge Function per creare portal session
     const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-portal-session', {
       method: 'POST',
       headers: {
@@ -440,8 +474,6 @@ async function openCustomerPortal() {
     }
 
     console.log('✅ Portal URL ricevuto:', data.url);
-    
-    // Redirect a Stripe Customer Portal
     window.location.href = data.url;
 
   } catch (error) {
@@ -450,7 +482,6 @@ async function openCustomerPortal() {
   }
 }
 
-// Aggiungi listener ai bottoni "Gestione PRO"
 const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
 const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
 
