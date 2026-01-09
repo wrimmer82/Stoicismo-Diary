@@ -71,7 +71,7 @@ function checkTrialStatus(profile) {
     };
 }
 
-function showTrialExpiredOverlay(trialInfo) {
+function showTrialExpiredOverlay(trialInfo, userEmail) {
     if (document.getElementById('trialOverlay')) return;
 
     const dataScadenza = trialInfo.trialEnd
@@ -148,8 +148,8 @@ function showTrialExpiredOverlay(trialInfo) {
 
     document.body.appendChild(overlay);
 
-    // ✅ Funzione per aprire Stripe Checkout
-    async function openCheckout(priceId, planName) {
+    // ✅ Funzione per aprire Stripe Checkout con parametri CORRETTI
+    async function openCheckout(planType, planName) {
         try {
             const { data: { user } } = await sbClient.auth.getUser();
             if (!user) {
@@ -157,8 +157,8 @@ function showTrialExpiredOverlay(trialInfo) {
                 return;
             }
 
-            console.log(`🔵 Click ${planName} - User ID:`, user.id);
-            console.log(`🔵 Price ID:`, priceId);
+            console.log(`🔵 Click ${planName}`);
+            console.log('📦 Parametri:', { userId: user.id, planType, userEmail });
             
             // Disabilita bottoni
             const btnMensile = document.getElementById('btnMensile');
@@ -172,6 +172,7 @@ function showTrialExpiredOverlay(trialInfo) {
                 btnAnnuale.disabled = true;
             }
 
+            // ✅ PARAMETRI CORRETTI: planType, userId, userEmail
             const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-checkout-session', {
                 method: 'POST',
                 headers: {
@@ -179,8 +180,9 @@ function showTrialExpiredOverlay(trialInfo) {
                     'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                 },
                 body: JSON.stringify({
+                    planType: planType,      // 'monthly' o 'annual'
                     userId: user.id,
-                    priceId: priceId
+                    userEmail: userEmail     // ✅ AGGIUNTO!
                 })
             });
 
@@ -214,12 +216,12 @@ function showTrialExpiredOverlay(trialInfo) {
 
     // Listener bottone Mensile
     document.getElementById('btnMensile').onclick = () => {
-        openCheckout('price_1SlUMSL6b0i4d13wLWNao0ac', 'Piano MENSILE');
+        openCheckout('monthly', 'Piano MENSILE');
     };
 
     // Listener bottone Annuale
     document.getElementById('btnAnnuale').onclick = () => {
-        openCheckout('price_1SlUNYL6b0i4d13w8MHVXKrp', 'Piano ANNUALE');
+        openCheckout('annual', 'Piano ANNUALE');
     };
 
     // Listener bottone Esci
@@ -397,6 +399,79 @@ function setupBaseListeners() {
     console.log('✅ Base listeners attivati (modalità trial scaduto)');
 }
 
+// ✅ GESTIONE BOTTONE "Gestione PRO"
+function setupManageSubscriptionButton(profile) {
+    const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
+    const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
+    
+    const role = profile?.role?.toLowerCase() || 'vip';
+
+    // ✅ Se NON è PRO, mostra tooltip informativo
+    if (role !== 'pro') {
+        [manageBtnDesktop, manageBtnMobile].forEach(btn => {
+            if (btn) {
+                btn.style.opacity = '0.6';
+                btn.style.cursor = 'not-allowed';
+                btn.title = 'Disponibile solo per utenti PRO';
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showToast('✨ Funzione disponibile solo per utenti PRO');
+                });
+            }
+        });
+        return;
+    }
+
+    // ✅ Se è PRO, apre Customer Portal
+    async function openCustomerPortal() {
+        try {
+            console.log('🔵 Apertura Customer Portal Stripe...');
+            
+            const { data: { user }, error: authError } = await sbClient.auth.getUser();
+            
+            if (authError || !user) {
+                console.error('❌ Errore autenticazione:', authError);
+                showToast('Devi effettuare il login');
+                return;
+            }
+
+            console.log('✅ User ID:', user.id);
+
+            const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-portal-session', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                },
+                body: JSON.stringify({ userId: user.id })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Errore apertura portal');
+            }
+
+            console.log('✅ Portal URL ricevuto:', data.url);
+            window.location.href = data.url;
+
+        } catch (error) {
+            console.error('❌ Errore portal:', error);
+            showToast('Impossibile aprire il pannello di gestione. Riprova.');
+        }
+    }
+
+    if (manageBtnDesktop) {
+        manageBtnDesktop.addEventListener('click', openCustomerPortal);
+        console.log('✅ Listener Desktop "Gestione PRO" attivato');
+    }
+
+    if (manageBtnMobile) {
+        manageBtnMobile.addEventListener('click', openCustomerPortal);
+        console.log('✅ Listener Mobile "Gestione PRO" attivato');
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Inizializzazione dashboard con TRIAL...');
 
@@ -413,9 +488,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         const trialStatus = checkTrialStatus(currentUserProfile);
         console.log('🔍 Trial status:', trialStatus);
 
+        // ✅ Setup bottone "Gestione PRO"
+        setupManageSubscriptionButton(currentUserProfile);
+
         if (trialStatus.isExpired) {
             console.warn('🚫 Trial scaduto → mostro overlay, non carico contenuti');
-            showTrialExpiredOverlay(trialStatus);
+            showTrialExpiredOverlay(trialStatus, user.email);
             setupBaseListeners();
             return;
         }
@@ -439,58 +517,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'accedi.html';
     }
 });
-
-// =============================================================================
-// 💳 GESTIONE CUSTOMER PORTAL STRIPE (per utenti già PRO)
-// =============================================================================
-
-async function openCustomerPortal() {
-  try {
-    console.log('🔵 Apertura Customer Portal Stripe...');
-    
-    const { data: { user }, error: authError } = await sbClient.auth.getUser();
-    
-    if (authError || !user) {
-      console.error('❌ Errore autenticazione:', authError);
-      showToast('Devi effettuare il login', 'error');
-      return;
-    }
-
-    console.log('✅ User ID:', user.id);
-
-    const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-portal-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      },
-      body: JSON.stringify({ userId: user.id })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.error || 'Errore apertura portal');
-    }
-
-    console.log('✅ Portal URL ricevuto:', data.url);
-    window.location.href = data.url;
-
-  } catch (error) {
-    console.error('❌ Errore portal:', error);
-    showToast('Impossibile aprire il pannello di gestione. Riprova.', 'error');
-  }
-}
-
-const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
-const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
-
-if (manageBtnDesktop) {
-  manageBtnDesktop.addEventListener('click', openCustomerPortal);
-  console.log('✅ Listener Desktop "Gestione PRO" attivato');
-}
-
-if (manageBtnMobile) {
-  manageBtnMobile.addEventListener('click', openCustomerPortal);
-  console.log('✅ Listener Mobile "Gestione PRO" attivato');
-}
