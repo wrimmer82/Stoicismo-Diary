@@ -106,6 +106,13 @@
                 font-size: 16px;
             }
         }
+
+        /* Riduzione font testo card su schermi molto piccoli */
+        @media (max-width: 360px) {
+            .parchment-card p {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body class="font-inter text-slate-100">
@@ -140,7 +147,7 @@
     </header>
 
     <div class="flex">
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR DESKTOP -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400 transition-colors">
@@ -163,13 +170,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     <span>Impostazioni</span>
-                </a>
-                
-                <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="nav-link bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 font-semibold hover:from-amber-600 hover:to-orange-600 transition-all mt-4">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                    </svg>
-                    <span>Passa a PRO</span>
                 </a>
             </nav>
         </aside>
@@ -297,13 +297,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                 </svg>
                 <span class="text-xs">Impostazioni</span>
-            </a>
-            
-            <a href="#" onclick="showToast('Funzionalità PRO in arrivo!'); return false;" class="flex flex-col items-center gap-1 px-3 py-2 text-orange-400 hover:text-orange-300 transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
-                </svg>
-                <span class="text-xs">PRO</span>
             </a>
         </div>
     </nav>
@@ -487,7 +480,7 @@
         }
         
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
-               const end = start + ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
         const paginatedItems = filteredReflections.slice(start, end);
         
         container.innerHTML = paginatedItems.map(renderReflectionCard).join('');
