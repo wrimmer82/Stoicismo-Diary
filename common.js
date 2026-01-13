@@ -537,25 +537,8 @@ async function redirectToCustomerPortal() {
             return;
         }
 
-        const { data: profile } = await sbClient
-            .from('profiles')
-            .select('stripe_customer_id')
-            .eq('id', user.id)
-            .single();
-
-        if (!profile?.stripe_customer_id) {
-            console.error('❌ Nessun stripe_customer_id trovato');
-            return;
-        }
-
-        console.log('✅ Customer ID:', profile.stripe_customer_id);
-
-        // Chiama Edge Function create-portal-session
         const { data, error } = await sbClient.functions.invoke('create-portal-session', {
-            body: { 
-                customerId: profile.stripe_customer_id,
-                returnUrl: window.location.origin + '/dashboard.html'
-            }
+            body: { userId: user.id }
         });
 
         if (error) {
@@ -564,7 +547,7 @@ async function redirectToCustomerPortal() {
         }
 
         if (data?.url) {
-            console.log('✅ Redirect a Stripe Portal:', data.url);
+            console.log('✅ Redirect a Stripe Portal');
             window.location.href = data.url;
         }
 
