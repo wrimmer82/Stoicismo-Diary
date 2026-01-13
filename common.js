@@ -403,7 +403,7 @@ function showPaymentBlockedOverlay() {
                 Aggiorna il metodo di pagamento per continuare.
             </p>
 
-            <button onclick="window.location.href='/customer-portal.html'" style="
+            <button onclick="redirectToCustomerPortal()" style="
                 background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
                 color: white;
                 border: none;
@@ -524,6 +524,53 @@ function showCancellationNoticeBanner(endDate, daysLeft) {
     
     const bodyPadding = parseInt(window.getComputedStyle(document.body).paddingTop) || 0;
     document.body.style.paddingTop = (bodyPadding + 65) + 'px';
+}
+
+// ===== REDIRECT A STRIPE CUSTOMER PORTAL =====
+async function redirectToCustomerPortal() {
+    try {
+        console.log('🔧 Redirect a Customer Portal...');
+
+        const { data: { user } } = await sbClient.auth.getUser();
+        if (!user) {
+            console.error('❌ Utente non loggato');
+            return;
+        }
+
+        const { data: profile } = await sbClient
+            .from('profiles')
+            .select('stripe_customer_id')
+            .eq('id', user.id)
+            .single();
+
+        if (!profile?.stripe_customer_id) {
+            console.error('❌ Nessun stripe_customer_id trovato');
+            return;
+        }
+
+        console.log('✅ Customer ID:', profile.stripe_customer_id);
+
+        // Chiama Edge Function create-portal-session
+        const { data, error } = await sbClient.functions.invoke('create-portal-session', {
+            body: { 
+                customerId: profile.stripe_customer_id,
+                returnUrl: window.location.origin + '/dashboard.html'
+            }
+        });
+
+        if (error) {
+            console.error('❌ Errore portal session:', error);
+            return;
+        }
+
+        if (data?.url) {
+            console.log('✅ Redirect a Stripe Portal:', data.url);
+            window.location.href = data.url;
+        }
+
+    } catch (err) {
+        console.error('❌ Errore redirectToCustomerPortal:', err);
+    }
 }
 
 // ===== INIZIALIZZAZIONE ALLA FINE DEL FILE =====
