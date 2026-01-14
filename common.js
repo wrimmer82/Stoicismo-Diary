@@ -285,3 +285,306 @@ async function handleLogout() {
     await sbClient.auth.signOut();
     window.location.href = 'index.html';
 }
+
+// ===== NUOVA IMPLEMENTAZIONE: CONTROLLO SUBSCRIPTION STATUS =====
+async function checkSubscriptionStatus() {
+    try {
+        const { data: { user } } = await sbClient.auth.getUser();
+        if (!user) return;
+
+        const { data: profile, error: profileError } = await sbClient
+            .from('profiles')
+            .select('role, subscription_status')
+            .eq('id', user.id)
+            .single();
+
+        if (profileError || !profile) {
+            console.error('❌ Errore caricamento profilo subscription:', profileError);
+            return;
+        }
+
+        if (profile.role !== 'pro') {
+            return;
+        }
+
+        console.log('🔍 Controllo subscription:', profile.subscription_status);
+
+        // BLOCCO IMMEDIATO SE PAST_DUE
+        if (profile.subscription_status === 'past_due') {
+            console.error('❌ BLOCCO: Subscription in stato past_due');
+            showPaymentBlockedOverlay();
+            return;
+        }
+
+        // NOTICE SE CANCELED (ma ancora valido)
+        if (profile.subscription_status === 'canceled') {
+            const { data: subscription } = await sbClient
+                .from('subscriptions')
+                .select('current_period_end')
+                .eq('user_id', user.id)
+                .single();
+
+            if (subscription) {
+                const endDate = new Date(subscription.current_period_end);
+                const now = new Date();
+
+                if (endDate > now) {
+                    const daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+                    console.log('🔔 Subscription cancellata, valida per', daysLeft, 'giorni');
+                    showCancellationNoticeBanner(endDate, daysLeft);
+                } else {
+                    console.error('❌ Subscription scaduta - Redirect a pricing');
+                    window.location.href = '/pricing.html';
+                }
+            }
+        }
+
+    } catch (error) {
+        console.error('❌ Errore checkSubscriptionStatus:', error);
+    }
+}
+
+// OVERLAY BLOCCO PAGAMENTO FALLITO
+function showPaymentBlockedOverlay() {
+    const existing = document.getElementById('payment-blocked-overlay');
+    if (existing) return;
+
+    console.log('🚨 Mostra overlay blocco pagamento');
+
+    const overlay = document.createElement('div');
+    overlay.id = 'payment-blocked-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+    `;
+
+    overlay.innerHTML = `
+        <div style="
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s ease;
+        ">
+            <div style="
+                font-size: 80px; 
+                margin-bottom: 20px;
+                line-height: 1;
+            ">⚠️</div>
+            
+            <h2 style="
+                font-size: 24px;
+                color: #1f2937;
+                margin-bottom: 12px;
+                font-weight: 700;
+                font-family: 'Inter', -apple-system, sans-serif;
+            ">Pagamento Non Riuscito</h2>
+            
+            <p style="
+                font-size: 15px;
+                color: #6b7280;
+                margin-bottom: 28px;
+                line-height: 1.5;
+                font-family: 'Inter', -apple-system, sans-serif;
+            ">
+                Il rinnovo del tuo abbonamento è fallito.<br>
+                Aggiorna il metodo di pagamento per continuare.
+            </p>
+
+            <button onclick="redirectToCustomerPortal()" style="
+                background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+                color: white;
+                border: none;
+                padding: 16px 40px;
+                font-size: 16px;
+                font-weight: 700;
+                border-radius: 10px;
+                cursor: pointer;
+                width: 100%;
+                margin-bottom: 16px;
+                transition: all 0.2s;
+                font-family: 'Inter', -apple-system, sans-serif;
+                box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            " 
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(220, 38, 38, 0.4)'" 
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(220, 38, 38, 0.3)'">
+                🔧 Aggiorna Metodo di Pagamento
+            </button>
+
+            <a href="mailto:support@thestoicjourney.app" style="
+                display: block;
+                color: #9ca3af;
+                font-size: 13px;
+                text-decoration: none;
+                margin-top: 12px;
+                font-family: 'Inter', -apple-system, sans-serif;
+                transition: color 0.2s;
+            " onmouseover="this.style.color='#6b7280'" onmouseout="this.style.color='#9ca3af'">
+                Hai bisogno di aiuto? Contatta il supporto
+            </a>
+        </div>
+
+        <style>
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes slideUp {
+                from { 
+                    transform: translateY(30px); 
+                    opacity: 0; 
+                }
+                to { 
+                    transform: translateY(0); 
+                    opacity: 1; 
+                }
+            }
+        </style>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+}
+
+// BANNER CANCELLAZIONE (solo informativo)
+function showCancellationNoticeBanner(endDate, daysLeft) {
+    const existing = document.getElementById('cancellation-notice');
+    if (existing) return;
+
+    const endDateStr = endDate.toLocaleDateString('it-IT');
+    console.log('🔔 Mostra banner cancellazione -', daysLeft, 'giorni rimasti');
+
+    const notice = document.createElement('div');
+    notice.id = 'cancellation-notice';
+    notice.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        color: white;
+        padding: 14px;
+        text-align: center;
+        z-index: 99999;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        animation: slideDown 0.4s ease;
+    `;
+
+    notice.innerHTML = `
+        <div style="
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            flex-wrap: wrap;
+            font-family: 'Inter', -apple-system, sans-serif;
+        ">
+            <span style="font-size: 20px;">🔔</span>
+            <span style="font-size: 15px; font-weight: 600;">
+                Abbonamento cancellato. Accesso fino al <strong>${endDateStr}</strong> (${daysLeft} ${daysLeft === 1 ? 'giorno' : 'giorni'})
+            </span>
+            <button onclick="window.location.href='/pricing.html'" style="
+                background: white;
+                color: #3b82f6;
+                border: none;
+                padding: 8px 20px;
+                border-radius: 8px;
+                font-weight: 700;
+                cursor: pointer;
+                font-size: 14px;
+                transition: transform 0.2s;
+                font-family: 'Inter', -apple-system, sans-serif;
+            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                Riattiva
+            </button>
+        </div>
+        <style>
+            @keyframes slideDown {
+                from { transform: translateY(-100%); }
+                to { transform: translateY(0); }
+            }
+        </style>
+    `;
+
+    document.body.prepend(notice);
+    
+    const bodyPadding = parseInt(window.getComputedStyle(document.body).paddingTop) || 0;
+    document.body.style.paddingTop = (bodyPadding + 65) + 'px';
+}
+
+// ===== REDIRECT A STRIPE CUSTOMER PORTAL =====
+async function redirectToCustomerPortal() {
+    try {
+        console.log('🔧 Redirect a Customer Portal...');
+
+        const { data: { user } } = await sbClient.auth.getUser();
+        if (!user) {
+            console.error('❌ Utente non loggato');
+            return;
+        }
+
+        const { data, error } = await sbClient.functions.invoke('create-portal-session', {
+            body: { userId: user.id }
+        });
+
+        if (error) {
+            console.error('❌ Errore portal session:', error);
+            return;
+        }
+
+        if (data?.url) {
+            console.log('✅ Redirect a Stripe Portal');
+            window.location.href = data.url;
+        }
+
+    } catch (err) {
+        console.error('❌ Errore redirectToCustomerPortal:', err);
+    }
+}
+
+// ===== INIZIALIZZAZIONE ALLA FINE DEL FILE =====
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('🚀 Inizializzazione dashboard...');
+    
+    const session = await getSessionRobusta();
+    
+    if (!session || !session.user) {
+        console.log('❌ Nessuna sessione, redirect a login');
+        window.location.href = 'login.html';
+        return;
+    }
+
+    console.log('✅ Sessione valida:', session.user.email);
+
+    await loadUserData(session.user);
+    await loadProgressData(session.user.id);
+    await checkSubscriptionStatus(); // ✅ CONTROLLO SUBSCRIPTION
+    
+    setupMobileMenu();
+    
+    const logoutBtn = document.getElementById('logoutBtn');
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', handleLogout);
+    }
+    if (mobileLogoutBtn) {
+        mobileLogoutBtn.addEventListener('click', handleLogout);
+    }
+    
+    console.log('✅ Dashboard inizializzata con successo');
+});
