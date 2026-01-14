@@ -1,4 +1,4 @@
-// common.js - Estratto chirurgicamente dall'originale
+// common.js - Gestione completa dashboard con subscription management
 
 'use strict';
 
@@ -290,7 +290,6 @@ async function handleLogout() {
 function checkIfReturningFromStripe() {
     const urlParams = new URLSearchParams(window.location.search);
     
-    // Se URL contiene parametro di ritorno da Stripe, forza refresh status
     if (document.referrer.includes('stripe.com') || 
         urlParams.has('session_id') || 
         sessionStorage.getItem('returning_from_stripe') === 'true') {
@@ -298,42 +297,58 @@ function checkIfReturningFromStripe() {
         console.log('🔄 Ritorno da Stripe Portal, ricarico status...');
         sessionStorage.removeItem('returning_from_stripe');
         
-        // Aspetta 2 secondi per dare tempo al webhook di processare
         setTimeout(async () => {
             console.log('🔄 Verifico aggiornamento subscription...');
             
-            // Rimuovi overlay se esiste
             const overlay = document.getElementById('payment-blocked-overlay');
             if (overlay) {
                 overlay.remove();
                 document.body.style.overflow = '';
             }
             
-            // Verifica status subscription
-            const { data: { user } } = await sbClient.auth.getUser();
-            if (user) {
-                const { data: profile } = await sbClient
-                    .from('profiles')
-                    .select('subscription_status')
-                    .eq('id', user.id)
-                    .single();
-                
-                if (profile?.subscription_status === 'active') {
-                    console.log('✅ Subscription attivata! Ricarico pagina...');
-                    window.location.reload();
-                } else if (profile?.subscription_status === 'past_due') {
-                    console.log('⚠️ Subscription ancora past_due, mostro overlay...');
-                    await checkSubscriptionStatus();
-                } else {
-                    console.log('🔄 Status:', profile?.subscription_status);
-                    await checkSubscriptionStatus();
-                }
-            }
-        }, 2000);
+            await checkSubscriptionWithRetry(3, 3000);
+            
+        }, 5000);
     }
 }
 
-// ===== NUOVA IMPLEMENTAZIONE: CONTROLLO SUBSCRIPTION STATUS =====
+// ===== VERIFICA SUBSCRIPTION CON RETRY =====
+async function checkSubscriptionWithRetry(maxRetries = 3, retryDelay = 3000) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        console.log(`🔄 Tentativo ${attempt}/${maxRetries} - Verifico status subscription...`);
+        
+        const { data: { user } } = await sbClient.auth.getUser();
+        if (!user) {
+            console.error('❌ User non trovato');
+            return;
+        }
+        
+        const { data: profile } = await sbClient
+            .from('profiles')
+            .select('subscription_status, role')
+            .eq('id', user.id)
+            .single();
+        
+        console.log(`   Status attuale: ${profile?.subscription_status}`);
+        
+        if (profile?.subscription_status === 'active') {
+            console.log('✅ Subscription attivata! Ricarico pagina...');
+            window.location.reload();
+            return;
+        }
+        
+        if (profile?.subscription_status === 'past_due' && attempt < maxRetries) {
+            console.log(`⏳ Ancora past_due, riprovo tra ${retryDelay/1000} secondi...`);
+            await new Promise(resolve => setTimeout(resolve, retryDelay));
+        } else if (profile?.subscription_status === 'past_due' && attempt === maxRetries) {
+            console.error('❌ Subscription ancora past_due dopo tutti i tentativi');
+            console.log('🔄 Mostro overlay e chiedo di riprovare manualmente');
+            await checkSubscriptionStatus();
+        }
+    }
+}
+
+// ===== CONTROLLO SUBSCRIPTION STATUS =====
 async function checkSubscriptionStatus() {
     try {
         const { data: { user } } = await sbClient.auth.getUser();
@@ -356,14 +371,12 @@ async function checkSubscriptionStatus() {
 
         console.log('🔍 Controllo subscription:', profile.subscription_status);
 
-        // BLOCCO IMMEDIATO SE PAST_DUE
         if (profile.subscription_status === 'past_due') {
             console.error('🚨 BLOCCO: Subscription in stato past_due');
             showPaymentBlockedOverlay();
             return;
         }
 
-        // NOTICE SE CANCELED (ma ancora valido)
         if (profile.subscription_status === 'canceled') {
             const { data: subscription } = await sbClient
                 .from('subscriptions')
@@ -391,7 +404,7 @@ async function checkSubscriptionStatus() {
     }
 }
 
-// OVERLAY BLOCCO PAGAMENTO FALLITO
+// ===== OVERLAY BLOCCO PAGAMENTO FALLITO =====
 function showPaymentBlockedOverlay() {
     const existing = document.getElementById('payment-blocked-overlay');
     if (existing) return;
@@ -487,7 +500,7 @@ function showPaymentBlockedOverlay() {
             " 
             onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.4)'" 
             onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(16, 185, 129, 0.3)'">
-                ✅ Ho Aggiornato - Riprova Pagamento
+                ✅ Ho Aggiornato - Verifica Ora
             </button>
 
             <a href="mailto:support@thestoicjourney.app" style="
@@ -525,7 +538,7 @@ function showPaymentBlockedOverlay() {
     document.body.style.overflow = 'hidden';
 }
 
-// BANNER CANCELLAZIONE (solo informativo)
+// ===== BANNER CANCELLAZIONE =====
 function showCancellationNoticeBanner(endDate, daysLeft) {
     const existing = document.getElementById('cancellation-notice');
     if (existing) return;
@@ -604,7 +617,6 @@ async function redirectToCustomerPortal() {
             return;
         }
 
-        // Marca che stiamo andando su Stripe
         sessionStorage.setItem('returning_from_stripe', 'true');
 
         const { data, error } = await sbClient.functions.invoke('create-portal-session', {
@@ -630,57 +642,75 @@ async function redirectToCustomerPortal() {
     }
 }
 
-// ===== RIPROVA PAGAMENTO - VERSIONE SEMPLIFICATA (REDIRECT A STRIPE) =====
+// ===== VERIFICA PAGAMENTO - VERSIONE AGGIORNATA =====
 async function retryPaymentNow() {
     try {
-        console.log('💳 Redirect a pagina pagamento Stripe...');
+        console.log('🔄 Verifica status pagamento...');
         
         const button = event.target;
         button.disabled = true;
-        button.textContent = '⏳ Caricamento...';
+        button.textContent = '⏳ Verifica in corso...';
 
         const { data: { user } } = await sbClient.auth.getUser();
         if (!user) {
             console.error('❌ Utente non loggato');
             button.disabled = false;
-            button.textContent = '✅ Ho Aggiornato - Riprova Pagamento';
-            return;
-        }
-
-        console.log('✅ User trovato, redirect a Stripe Portal...');
-
-        // Marca che stiamo andando su Stripe
-        sessionStorage.setItem('returning_from_stripe', 'true');
-
-        const { data, error } = await sbClient.functions.invoke('create-portal-session', {
-            body: { userId: user.id }
-        });
-
-        if (error || !data?.url) {
-            console.error('❌ Errore portal session:', error);
-            sessionStorage.removeItem('returning_from_stripe');
-            button.disabled = false;
             button.textContent = '❌ Errore - Riprova';
-            alert('Impossibile aprire il portale. Riprova tra qualche secondo.');
             return;
         }
 
-        console.log('✅ Redirect a Stripe Portal per completare pagamento');
-        window.location.href = data.url;
+        console.log('✅ Verifico subscription nel database...');
+
+        // Verifica subscription con 3 tentativi
+        let subscriptionActive = false;
+        
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            console.log(`🔄 Tentativo ${attempt}/3 - Verifico DB...`);
+            
+            const { data: profile } = await sbClient
+                .from('profiles')
+                .select('subscription_status, role')
+                .eq('id', user.id)
+                .single();
+            
+            console.log(`   Status attuale: ${profile?.subscription_status}`);
+            
+            if (profile?.subscription_status === 'active') {
+                subscriptionActive = true;
+                break;
+            }
+            
+            if (attempt < 3) {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+        }
+
+        if (subscriptionActive) {
+            console.log('✅ Pagamento confermato! Ricarico dashboard...');
+            button.textContent = '✅ Pagamento Confermato!';
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        } else {
+            console.log('⚠️ Pagamento non ancora processato');
+            button.disabled = false;
+            button.textContent = '⏳ In elaborazione - Riprova tra 1 min';
+            
+            alert('Pagamento in elaborazione. Attendi 1 minuto e clicca nuovamente "Verifica Ora", oppure ricarica la pagina manualmente.');
+        }
 
     } catch (err) {
         console.error('❌ Errore retryPaymentNow:', err);
-        sessionStorage.removeItem('returning_from_stripe');
-        alert('Errore imprevisto. Riprova tra qualche secondo.');
         const button = event.target;
         if (button) {
             button.disabled = false;
             button.textContent = '❌ Errore - Riprova';
         }
+        alert('Errore verifica. Ricarica la pagina manualmente o contatta il supporto.');
     }
 }
 
-// ===== INIZIALIZZAZIONE ALLA FINE DEL FILE =====
+// ===== INIZIALIZZAZIONE =====
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Inizializzazione dashboard...');
     
@@ -697,7 +727,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadUserData(session.user);
     await loadProgressData(session.user.id);
     
-    // ✅ VERIFICA SE TORNIAMO DA STRIPE
     checkIfReturningFromStripe();
     
     await checkSubscriptionStatus();
@@ -716,3 +745,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     console.log('✅ Dashboard inizializzata con successo');
 });
+
