@@ -563,6 +563,7 @@ async function redirectToCustomerPortal() {
 
         if (error) {
             console.error('❌ Errore portal session:', error);
+            alert('Errore apertura portale. Riprova tra qualche secondo.');
             return;
         }
 
@@ -573,17 +574,18 @@ async function redirectToCustomerPortal() {
 
     } catch (err) {
         console.error('❌ Errore redirectToCustomerPortal:', err);
+        alert('Errore imprevisto. Contatta il supporto.');
     }
 }
 
-// ===== RIPROVA PAGAMENTO DOPO AGGIORNAMENTO CARTA =====
+// ===== RIPROVA PAGAMENTO - VERSIONE SEMPLIFICATA (REDIRECT A STRIPE) =====
 async function retryPaymentNow() {
     try {
-        console.log('💳 Riprova pagamento...');
+        console.log('💳 Redirect a pagina pagamento Stripe...');
         
         const button = event.target;
         button.disabled = true;
-        button.textContent = '⏳ Elaborazione...';
+        button.textContent = '⏳ Caricamento...';
 
         const { data: { user } } = await sbClient.auth.getUser();
         if (!user) {
@@ -593,39 +595,32 @@ async function retryPaymentNow() {
             return;
         }
 
-        const { data, error } = await sbClient.functions.invoke('retry-payment', {
+        console.log('✅ User trovato, redirect a Stripe Portal...');
+
+        // Redirect a Stripe Portal dove user può pagare invoice manualmente
+        const { data, error } = await sbClient.functions.invoke('create-portal-session', {
             body: { userId: user.id }
         });
 
-        if (error) {
-            console.error('❌ Errore retry payment:', error);
+        if (error || !data?.url) {
+            console.error('❌ Errore portal session:', error);
             button.disabled = false;
             button.textContent = '❌ Errore - Riprova';
-            alert('Errore durante il pagamento. Verifica che la carta sia valida.');
+            alert('Impossibile aprire il portale. Riprova tra qualche secondo.');
             return;
         }
 
-        if (data?.success) {
-            console.log('✅ Pagamento completato!');
-            button.textContent = '✅ Pagamento Riuscito!';
-            
-            setTimeout(() => {
-                const overlay = document.getElementById('payment-blocked-overlay');
-                if (overlay) overlay.remove();
-                window.location.reload();
-            }, 1500);
-        } else {
-            console.error('❌ Pagamento fallito:', data);
-            button.disabled = false;
-            button.textContent = '❌ Pagamento Fallito - Riprova';
-            alert('Pagamento non riuscito. Verifica i dati della carta.');
-        }
+        console.log('✅ Redirect a Stripe Portal per completare pagamento');
+        window.location.href = data.url;
 
     } catch (err) {
         console.error('❌ Errore retryPaymentNow:', err);
-        button.disabled = false;
-        button.textContent = '❌ Errore - Riprova';
         alert('Errore imprevisto. Riprova tra qualche secondo.');
+        const button = event.target;
+        if (button) {
+            button.disabled = false;
+            button.textContent = '❌ Errore - Riprova';
+        }
     }
 }
 
