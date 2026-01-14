@@ -286,6 +286,53 @@ async function handleLogout() {
     window.location.href = 'index.html';
 }
 
+// ===== VERIFICA SE TORNIAMO DA STRIPE PORTAL =====
+function checkIfReturningFromStripe() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Se URL contiene parametro di ritorno da Stripe, forza refresh status
+    if (document.referrer.includes('stripe.com') || 
+        urlParams.has('session_id') || 
+        sessionStorage.getItem('returning_from_stripe') === 'true') {
+        
+        console.log('🔄 Ritorno da Stripe Portal, ricarico status...');
+        sessionStorage.removeItem('returning_from_stripe');
+        
+        // Aspetta 2 secondi per dare tempo al webhook di processare
+        setTimeout(async () => {
+            console.log('🔄 Verifico aggiornamento subscription...');
+            
+            // Rimuovi overlay se esiste
+            const overlay = document.getElementById('payment-blocked-overlay');
+            if (overlay) {
+                overlay.remove();
+                document.body.style.overflow = '';
+            }
+            
+            // Verifica status subscription
+            const { data: { user } } = await sbClient.auth.getUser();
+            if (user) {
+                const { data: profile } = await sbClient
+                    .from('profiles')
+                    .select('subscription_status')
+                    .eq('id', user.id)
+                    .single();
+                
+                if (profile?.subscription_status === 'active') {
+                    console.log('✅ Subscription attivata! Ricarico pagina...');
+                    window.location.reload();
+                } else if (profile?.subscription_status === 'past_due') {
+                    console.log('⚠️ Subscription ancora past_due, mostro overlay...');
+                    await checkSubscriptionStatus();
+                } else {
+                    console.log('🔄 Status:', profile?.subscription_status);
+                    await checkSubscriptionStatus();
+                }
+            }
+        }, 2000);
+    }
+}
+
 // ===== NUOVA IMPLEMENTAZIONE: CONTROLLO SUBSCRIPTION STATUS =====
 async function checkSubscriptionStatus() {
     try {
@@ -557,12 +604,16 @@ async function redirectToCustomerPortal() {
             return;
         }
 
+        // Marca che stiamo andando su Stripe
+        sessionStorage.setItem('returning_from_stripe', 'true');
+
         const { data, error } = await sbClient.functions.invoke('create-portal-session', {
             body: { userId: user.id }
         });
 
         if (error) {
             console.error('❌ Errore portal session:', error);
+            sessionStorage.removeItem('returning_from_stripe');
             alert('Errore apertura portale. Riprova tra qualche secondo.');
             return;
         }
@@ -574,6 +625,7 @@ async function redirectToCustomerPortal() {
 
     } catch (err) {
         console.error('❌ Errore redirectToCustomerPortal:', err);
+        sessionStorage.removeItem('returning_from_stripe');
         alert('Errore imprevisto. Contatta il supporto.');
     }
 }
@@ -597,13 +649,16 @@ async function retryPaymentNow() {
 
         console.log('✅ User trovato, redirect a Stripe Portal...');
 
-        // Redirect a Stripe Portal dove user può pagare invoice manualmente
+        // Marca che stiamo andando su Stripe
+        sessionStorage.setItem('returning_from_stripe', 'true');
+
         const { data, error } = await sbClient.functions.invoke('create-portal-session', {
             body: { userId: user.id }
         });
 
         if (error || !data?.url) {
             console.error('❌ Errore portal session:', error);
+            sessionStorage.removeItem('returning_from_stripe');
             button.disabled = false;
             button.textContent = '❌ Errore - Riprova';
             alert('Impossibile aprire il portale. Riprova tra qualche secondo.');
@@ -615,6 +670,7 @@ async function retryPaymentNow() {
 
     } catch (err) {
         console.error('❌ Errore retryPaymentNow:', err);
+        sessionStorage.removeItem('returning_from_stripe');
         alert('Errore imprevisto. Riprova tra qualche secondo.');
         const button = event.target;
         if (button) {
@@ -640,6 +696,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await loadUserData(session.user);
     await loadProgressData(session.user.id);
+    
+    // ✅ VERIFICA SE TORNIAMO DA STRIPE
+    checkIfReturningFromStripe();
+    
     await checkSubscriptionStatus();
     
     setupMobileMenu();
