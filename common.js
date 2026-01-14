@@ -403,7 +403,7 @@ function showPaymentBlockedOverlay() {
                 Aggiorna il metodo di pagamento per continuare.
             </p>
 
-            <button onclick="redirectToCustomerPortal()" style="
+            <button onclick="window.location.href='/customer-portal.html'" style="
                 background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
                 color: white;
                 border: none;
@@ -524,36 +524,6 @@ function showCancellationNoticeBanner(endDate, daysLeft) {
     
     const bodyPadding = parseInt(window.getComputedStyle(document.body).paddingTop) || 0;
     document.body.style.paddingTop = (bodyPadding + 65) + 'px';
-}
-
-// ===== REDIRECT A STRIPE CUSTOMER PORTAL =====
-async function redirectToCustomerPortal() {
-    try {
-        console.log('🔧 Redirect a Customer Portal...');
-
-        const { data: { user } } = await sbClient.auth.getUser();
-        if (!user) {
-            console.error('❌ Utente non loggato');
-            return;
-        }
-
-        const { data, error } = await sbClient.functions.invoke('create-portal-session', {
-            body: { userId: user.id }
-        });
-
-        if (error) {
-            console.error('❌ Errore portal session:', error);
-            return;
-        }
-
-        if (data?.url) {
-            console.log('✅ Redirect a Stripe Portal');
-            window.location.href = data.url;
-        }
-
-    } catch (err) {
-        console.error('❌ Errore redirectToCustomerPortal:', err);
-    }
 }
 
 // ===== INIZIALIZZAZIONE ALLA FINE DEL FILE =====
