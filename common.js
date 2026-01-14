@@ -311,7 +311,7 @@ async function checkSubscriptionStatus() {
 
         // BLOCCO IMMEDIATO SE PAST_DUE
         if (profile.subscription_status === 'past_due') {
-            console.error('❌ BLOCCO: Subscription in stato past_due');
+            console.error('🚨 BLOCCO: Subscription in stato past_due');
             showPaymentBlockedOverlay();
             return;
         }
@@ -403,8 +403,28 @@ function showPaymentBlockedOverlay() {
                 Aggiorna il metodo di pagamento per continuare.
             </p>
 
-            <button onclick="window.location.href='/customer-portal.html'" style="
+            <button onclick="redirectToCustomerPortal()" style="
                 background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+                color: white;
+                border: none;
+                padding: 16px 40px;
+                font-size: 16px;
+                font-weight: 700;
+                border-radius: 10px;
+                cursor: pointer;
+                width: 100%;
+                margin-bottom: 12px;
+                transition: all 0.2s;
+                font-family: 'Inter', -apple-system, sans-serif;
+                box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+            " 
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(220, 38, 38, 0.4)'" 
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(220, 38, 38, 0.3)'">
+                🔧 Aggiorna Metodo di Pagamento
+            </button>
+
+            <button onclick="retryPaymentNow()" style="
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
                 color: white;
                 border: none;
                 padding: 16px 40px;
@@ -416,11 +436,11 @@ function showPaymentBlockedOverlay() {
                 margin-bottom: 16px;
                 transition: all 0.2s;
                 font-family: 'Inter', -apple-system, sans-serif;
-                box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
             " 
-            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(220, 38, 38, 0.4)'" 
-            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(220, 38, 38, 0.3)'">
-                🔧 Aggiorna Metodo di Pagamento
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(16, 185, 129, 0.4)'" 
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(16, 185, 129, 0.3)'">
+                ✅ Ho Aggiornato - Riprova Pagamento
             </button>
 
             <a href="mailto:support@thestoicjourney.app" style="
@@ -526,6 +546,89 @@ function showCancellationNoticeBanner(endDate, daysLeft) {
     document.body.style.paddingTop = (bodyPadding + 65) + 'px';
 }
 
+// ===== REDIRECT A STRIPE CUSTOMER PORTAL =====
+async function redirectToCustomerPortal() {
+    try {
+        console.log('🔧 Redirect a Customer Portal...');
+
+        const { data: { user } } = await sbClient.auth.getUser();
+        if (!user) {
+            console.error('❌ Utente non loggato');
+            return;
+        }
+
+        const { data, error } = await sbClient.functions.invoke('create-portal-session', {
+            body: { userId: user.id }
+        });
+
+        if (error) {
+            console.error('❌ Errore portal session:', error);
+            return;
+        }
+
+        if (data?.url) {
+            console.log('✅ Redirect a Stripe Portal');
+            window.location.href = data.url;
+        }
+
+    } catch (err) {
+        console.error('❌ Errore redirectToCustomerPortal:', err);
+    }
+}
+
+// ===== RIPROVA PAGAMENTO DOPO AGGIORNAMENTO CARTA =====
+async function retryPaymentNow() {
+    try {
+        console.log('💳 Riprova pagamento...');
+        
+        const button = event.target;
+        button.disabled = true;
+        button.textContent = '⏳ Elaborazione...';
+
+        const { data: { user } } = await sbClient.auth.getUser();
+        if (!user) {
+            console.error('❌ Utente non loggato');
+            button.disabled = false;
+            button.textContent = '✅ Ho Aggiornato - Riprova Pagamento';
+            return;
+        }
+
+        const { data, error } = await sbClient.functions.invoke('retry-payment', {
+            body: { userId: user.id }
+        });
+
+        if (error) {
+            console.error('❌ Errore retry payment:', error);
+            button.disabled = false;
+            button.textContent = '❌ Errore - Riprova';
+            alert('Errore durante il pagamento. Verifica che la carta sia valida.');
+            return;
+        }
+
+        if (data?.success) {
+            console.log('✅ Pagamento completato!');
+            button.textContent = '✅ Pagamento Riuscito!';
+            
+            setTimeout(() => {
+                const overlay = document.getElementById('payment-blocked-overlay');
+                if (overlay) overlay.remove();
+                window.location.reload();
+            }, 1500);
+        } else {
+            console.error('❌ Pagamento fallito:', data);
+            button.disabled = false;
+            button.textContent = '❌ Pagamento Fallito - Riprova';
+            alert('Pagamento non riuscito. Verifica i dati della carta.');
+        }
+
+    } catch (err) {
+        console.error('❌ Errore retryPaymentNow:', err);
+        button.disabled = false;
+        button.textContent = '❌ Errore - Riprova';
+        alert('Errore imprevisto. Riprova tra qualche secondo.');
+    }
+}
+
 // ===== INIZIALIZZAZIONE ALLA FINE DEL FILE =====
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Inizializzazione dashboard...');
@@ -542,7 +645,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await loadUserData(session.user);
     await loadProgressData(session.user.id);
-    await checkSubscriptionStatus(); // ✅ CONTROLLO SUBSCRIPTION
+    await checkSubscriptionStatus();
     
     setupMobileMenu();
     
