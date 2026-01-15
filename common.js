@@ -286,7 +286,6 @@ async function handleLogout() {
     window.location.href = 'index.html';
 }
 
-// ===== VERIFICA SE TORNIAMO DA STRIPE PORTAL =====
 function checkIfReturningFromStripe() {
     const urlParams = new URLSearchParams(window.location.search);
     
@@ -312,7 +311,6 @@ function checkIfReturningFromStripe() {
     }
 }
 
-// ===== VERIFICA SUBSCRIPTION CON RETRY =====
 async function checkSubscriptionWithRetry(maxRetries = 3, retryDelay = 3000) {
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         console.log(`🔄 Tentativo ${attempt}/${maxRetries} - Verifico status subscription...`);
@@ -348,7 +346,6 @@ async function checkSubscriptionWithRetry(maxRetries = 3, retryDelay = 3000) {
     }
 }
 
-// ===== CONTROLLO SUBSCRIPTION STATUS =====
 async function checkSubscriptionStatus() {
     try {
         const { data: { user } } = await sbClient.auth.getUser();
@@ -393,7 +390,19 @@ async function checkSubscriptionStatus() {
                     console.log('🔔 Subscription cancellata, valida per', daysLeft, 'giorni');
                     showCancellationNoticeBanner(endDate, daysLeft);
                 } else {
-                    console.error('❌ Subscription scaduta - Redirect a pricing');
+                    console.log('⏰ Subscription scaduta, downgrade a VIP');
+                    
+                    const { error: updateError } = await sbClient
+                        .from('profiles')
+                        .update({ role: 'vip' })
+                        .eq('id', user.id);
+                    
+                    if (updateError) {
+                        console.error('❌ Errore downgrade:', updateError);
+                    } else {
+                        console.log('✅ User downgraded a VIP');
+                    }
+                    
                     window.location.href = '/pricing.html';
                 }
             }
@@ -404,7 +413,6 @@ async function checkSubscriptionStatus() {
     }
 }
 
-// ===== OVERLAY BLOCCO PAGAMENTO FALLITO =====
 function showPaymentBlockedOverlay() {
     const existing = document.getElementById('payment-blocked-overlay');
     if (existing) return;
@@ -538,7 +546,6 @@ function showPaymentBlockedOverlay() {
     document.body.style.overflow = 'hidden';
 }
 
-// ===== BANNER CANCELLAZIONE =====
 function showCancellationNoticeBanner(endDate, daysLeft) {
     const existing = document.getElementById('cancellation-notice');
     if (existing) return;
@@ -606,7 +613,6 @@ function showCancellationNoticeBanner(endDate, daysLeft) {
     document.body.style.paddingTop = (bodyPadding + 65) + 'px';
 }
 
-// ===== REDIRECT A STRIPE CUSTOMER PORTAL =====
 async function redirectToCustomerPortal() {
     try {
         console.log('🔧 Redirect a Customer Portal...');
@@ -642,7 +648,6 @@ async function redirectToCustomerPortal() {
     }
 }
 
-// ===== VERIFICA PAGAMENTO - VERSIONE AGGIORNATA =====
 async function retryPaymentNow() {
     try {
         console.log('🔄 Verifica status pagamento...');
@@ -661,7 +666,6 @@ async function retryPaymentNow() {
 
         console.log('✅ Verifico subscription nel database...');
 
-        // Verifica subscription con 3 tentativi
         let subscriptionActive = false;
         
         for (let attempt = 1; attempt <= 3; attempt++) {
@@ -710,7 +714,6 @@ async function retryPaymentNow() {
     }
 }
 
-// ===== INIZIALIZZAZIONE =====
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Inizializzazione dashboard...');
     
@@ -745,4 +748,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     console.log('✅ Dashboard inizializzata con successo');
 });
-
