@@ -41,7 +41,16 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">    
+  
+  <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#f59e0b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Stoic Journey">
+
+  
 
     <!-- Cookie Consent Banner -->
     <link rel="stylesheet" href="silktide-consent-manager.css">
@@ -1514,6 +1523,17 @@ document.getElementById('cookiePreferencesModal').addEventListener('click', func
     closeCookiePreferences();
   }
 });
+</script>
+
+  <!-- PWA Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('✅ PWA attiva'))
+      .catch(err => console.log('❌ Errore PWA:', err));
+  });
+}
 </script>
 
 </body>
