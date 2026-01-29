@@ -7,9 +7,9 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-GW6CH5RG1R');
 </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Stoic Journey - Crescita Personale con AI Stoica | Marco Aurelio, Epitteto, Seneca</title>
@@ -38,19 +38,17 @@
     <link rel="canonical" href="https://thestoicjourney.app">
 
     <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">    
   
-  <!-- PWA Manifest -->
+    <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#f59e0b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Stoic Journey">
-
-  
 
     <!-- Cookie Consent Banner -->
     <link rel="stylesheet" href="silktide-consent-manager.css">
@@ -103,13 +101,12 @@
           preferencesButtonText: "Gestisci preferenze",
           preferencesButtonAccessibleLabel: "Gestisci preferenze"
         },
-preferences: {
-  title: "Customize your cookie preferences",
-  description: "<p><i>Rispettiamo la tua privacy. Puoi scegliere quali cookie attivare. Le tue preferenze si applicheranno su tutto il sito.</i></p><p><i>Maggiori informazioni nella <a href='/cookie-policy.html' target='_blank' style='color: #3b82f6; text-decoration: underline;'>Cookie Policy</a>.</i></p><div><br></div>",
-  creditLinkText: "",
-  creditLinkAccessibleLabel: ""
-}
-
+        preferences: {
+          title: "Customize your cookie preferences",
+          description: "<p><i>Rispettiamo la tua privacy. Puoi scegliere quali cookie attivare. Le tue preferenze si applicheranno su tutto il sito.</i></p><p><i>Maggiori informazioni nella <a href='/cookie-policy.html' target='_blank' style='color: #3b82f6; text-decoration: underline;'>Cookie Policy</a>.</i></p><div><br></div>",
+          creditLinkText: "",
+          creditLinkAccessibleLabel: ""
+        }
       }
     });
     </script>
@@ -560,7 +557,142 @@ preferences: {
             }
         }
 
-        
+        /* ========================================
+           LANGUAGE SWITCHER - HOMEPAGE
+           ======================================== */
+
+        .language-switcher-header {
+            position: relative;
+            z-index: 100;
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(251, 191, 36, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .language-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .language-dropdown-home {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            background: rgba(30, 41, 59, 0.98);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            min-width: 160px;
+            overflow: hidden;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-dropdown-home.hidden {
+            display: none;
+        }
+
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lang-option:hover {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+        }
+
+        .lang-option.active {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .lang-option .flag {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .lang-option .check {
+            width: 1rem;
+            height: 1rem;
+            margin-left: auto;
+            color: #10b981;
+            flex-shrink: 0;
+        }
+
+        .lang-option .check.hidden {
+            display: none;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .language-btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.8125rem;
+            }
+            
+            .language-btn svg {
+                width: 1rem;
+                height: 1rem;
+            }
+            
+            .language-dropdown-home {
+                right: 0;
+                min-width: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .language-btn span#currentLangHome {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
@@ -569,203 +701,61 @@ preferences: {
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
         <div class="absolute top-8 left-8 right-8 z-20">
-    <div class="flex justify-between items-center">
-        <!-- Logo (sinistra) -->
-        <div class="flex items-center gap-3 animate-fadeIn">
-            <img src="sigma_logo.png"
-                 alt="The Stoic Journey Logo - Crescita personale stoica"
-                 class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
-            <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black-strong hidden sm:inline">
-                The Stoic Journey
-            </span>/* ========================================
-   LANGUAGE SWITCHER - HOMEPAGE (Aggiornato)
-   ======================================== */
-
-.language-switcher-header {
-    position: relative;
-    z-index: 100;
-}
-
-.language-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 0.5rem;
-    color: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.875rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    white-space: nowrap;
-}
-
-.language-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(251, 191, 36, 0.5);
-    transform: translateY(-1px);
-}
-
-.language-btn svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-}
-
-.language-dropdown-home {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    right: 0;
-    background: rgba(30, 41, 59, 0.98);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(251, 191, 36, 0.3);
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    min-width: 160px;
-    overflow: hidden;
-    animation: slideDown 0.2s ease-out;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.language-dropdown-home.hidden {
-    display: none;
-}
-
-.lang-option {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    padding: 0.75rem 1rem;
-    background: transparent;
-    border: none;
-    color: #cbd5e1;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.875rem;
-    text-align: left;
-    font-family: 'Inter', sans-serif;
-}
-
-.lang-option:hover {
-    background: rgba(251, 191, 36, 0.1);
-    color: #fbbf24;
-}
-
-.lang-option.active {
-    background: rgba(251, 191, 36, 0.15);
-    color: #fbbf24;
-    font-weight: 600;
-}
-
-.lang-option .flag {
-    font-size: 1.25rem;
-    line-height: 1;
-}
-
-.lang-option .check {
-    width: 1rem;
-    height: 1rem;
-    margin-left: auto;
-    color: #10b981;
-    flex-shrink: 0;
-}
-
-.lang-option .check.hidden {
-    display: none;
-}
-
-/* Mobile Responsive */
-@media (max-width: 640px) {
-    .language-btn {
-        padding: 0.375rem 0.75rem;
-        font-size: 0.8125rem;
-    }
-    
-    .language-btn svg {
-        width: 1rem;
-        height: 1rem;
-    }
-    
-    .language-dropdown-home {
-        right: 0;
-        min-width: 140px;
-    }
-}
-
-@media (max-width: 480px) {
-    .language-btn span#currentLangHome {
-        display: none;
-    }
-}
-        </div>
-        
-        <!-- Menu centrale (solo desktop) -->
-        <div class="hidden md:flex absolute left-1/2 top-0 transform -translate-x-1/2 gap-4 items-center">
-            <a href="cosa-e-stoicismo.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap" data-i18n="nav.whatIsStoicism">
-                Cos'è lo Stoicismo
-            </a>
-        </div>
-        
-        <!-- Sezione destra: Language Switcher + CTA -->
-        <div class="flex items-center gap-3">
-            <!-- Language Switcher -->
-            <div class="language-switcher-header">
-                <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                              d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                    </svg>
-                    <span id="currentLangHome" class="font-semibold hidden sm:inline">IT</span>
-                </button>
-                
-                <!-- Dropdown -->
-                <div id="languageDropdownHome" class="language-dropdown-home hidden">
-                    <button class="lang-option active" data-lang="it">
-                        <span class="flag">🇮🇹</span>
-                        <span>Italiano</span>
-                        <svg class="check" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                    </button>
-                    <button class="lang-option" data-lang="en">
-                        <span class="flag">🇬🇧</span>
-                        <span>English</span>
-                        <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                    </button>
+            <div class="flex justify-between items-center">
+                <!-- Logo (sinistra) -->
+                <div class="flex items-center gap-3 animate-fadeIn">
+                    <img src="sigma_logo.png"
+                         alt="The Stoic Journey Logo - Crescita personale stoica"
+                         class="h-12 w-12 md:h-14 md:w-14 object-contain drop-shadow-2xl">
+                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black-strong hidden sm:inline">
+                        The Stoic Journey
+                    </span>
                 </div>
-            </div>
-            
-            <!-- CTA Button -->
-            <a href="accedi.html" class="bg-amber-500 text-slate-900 px-4 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-sm sm:text-base whitespace-nowrap" data-i18n="home.cta">
-                <span class="cta-text-short">Entra</span>
-                <span class="cta-text-full">Entra Nel Viaggio Stoico</span>
-            </a>
-        </div>
-    </div>
-
-            
-            <div class="absolute left-1/2 top-0 transform -translate-x-1/2">
-                <a href="cosa-e-stoicismo.html" class="hidden md:block bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap" data-i18n="nav.whatIsStoicism">
-                    Cos'è lo Stoicismo
-                </a>
+                
+                <!-- Menu centrale (solo desktop) -->
+                <div class="hidden md:flex absolute left-1/2 top-0 transform -translate-x-1/2">
+                    <a href="cosa-e-stoicismo.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap" data-i18n="nav.whatIsStoicism">
+                        Cos'è lo Stoicismo
+                    </a>
+                </div>
+                
+                <!-- Sezione destra: Language Switcher + CTA -->
+                <div class="flex items-center gap-3">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher-header">
+                        <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                            </svg>
+                            <span id="currentLangHome" class="font-semibold hidden sm:inline">IT</span>
+                        </button>
+                        
+                        <!-- Dropdown -->
+                        <div id="languageDropdownHome" class="language-dropdown-home hidden">
+                            <button class="lang-option active" data-lang="it">
+                                <span class="flag">🇮🇹</span>
+                                <span>Italiano</span>
+                                <svg class="check" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <button class="lang-option" data-lang="en">
+                                <span class="flag">🇬🇧</span>
+                                <span>English</span>
+                                <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <a href="accedi.html" class="bg-amber-500 text-slate-900 px-4 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-sm sm:text-base whitespace-nowrap">
+                        <span class="cta-text-short" data-i18n="home.ctaShort">Entra</span>
+                        <span class="cta-text-full" data-i18n="home.cta">Entra Nel Viaggio Stoico</span>
+                    </a>
+                </div>
             </div>
         </div>
         
@@ -992,10 +982,10 @@ preferences: {
     <!-- FAQ + CONTACT FORM - Layout 2 Colonne Desktop, Stack Mobile -->
     <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50" id="contatti">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900">
+            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900" data-i18n="home.faq.title">
                 Domande & Contatti
             </h2>
-            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter text-sm md:text-base">
+            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter text-sm md:text-base" data-i18n="home.faq.subtitle">
                 Trova risposte o scrivici direttamente
             </p>
 
@@ -1006,13 +996,13 @@ preferences: {
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
                     <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
                         <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1" data-i18n="home.faq.q1">
                                 Devo conoscere la filosofia stoica per iniziare?
                             </h3>
                             <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm" data-i18n="home.faq.a1">
                                 No, ti guidiamo passo dopo passo. L'AI introduce i concetti stoici attraverso esercizi pratici applicati alla tua vita quotidiana.
                             </p>
                         </div>
@@ -1020,13 +1010,13 @@ preferences: {
 
                     <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
                         <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1" data-i18n="home.faq.q2">
                                 Quanto tempo devo dedicare ogni giorno?
                             </h3>
                             <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm" data-i18n="home.faq.a2">
                                 Bastano 5-10 minuti. Scrivi una riflessione e l'AI genera immediatamente la tua sfida personalizzata da applicare durante la giornata.
                             </p>
                         </div>
@@ -1034,13 +1024,13 @@ preferences: {
 
                     <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
                         <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1" data-i18n="home.faq.q3">
                                 I miei dati personali sono al sicuro?
                             </h3>
                             <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm" data-i18n="home.faq.a3">
                                 Assolutamente sì. Le tue riflessioni sono criptate end-to-end e mai condivise. L'AI elabora i contenuti in modo anonimo (GDPR compliant).
                             </p>
                         </div>
@@ -1048,13 +1038,13 @@ preferences: {
 
                     <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
                         <div class="faq-question">
-                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1">
+                            <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1" data-i18n="home.faq.q4">
                                 Posso provare gratuitamente prima di abbonarmi?
                             </h3>
                             <span class="faq-icon">+</span>
                         </div>
                         <div class="faq-answer">
-                            <p class="text-slate-700 leading-relaxed font-inter text-sm">
+                            <p class="text-slate-700 leading-relaxed font-inter text-sm" data-i18n="home.faq.a4">
                                 Sì, 30 giorni di prova gratuita con accesso completo. Nessuna carta richiesta per iniziare. Dopo la prova, passa a PRO per mantenere i tuoi dati; altrimenti verranno eliminati dopo 60 giorni di inattività.
                             </p>
                         </div>
@@ -1062,110 +1052,54 @@ preferences: {
                 </div>
 
                 <!-- COLONNA DESTRA: Contact Form -->
-<div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8 lg:sticky lg:top-8">
-    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 text-center">
-        CONTATTACI
-    </h3>
-    <p class="text-sm text-slate-600 mb-6 text-center font-inter">
-        Hai bisogno di aiuto? Scrivici!
-    </p>
-    
-    <form action="https://formspree.io/f/mojqzeno" method="POST" class="space-y-4" id="contact-form">
-        <div>
-            <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Nome</label>
-            <input 
-                type="text" 
-                id="name" 
-                name="name" 
-                required 
-                class="contact-form-input"
-                placeholder="Il tuo nome">
-        </div>
-        
-        <div>
-            <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Email</label>
-            <input 
-                type="email" 
-                id="email" 
-                name="_replyto" 
-                required 
-                class="contact-form-input"
-                placeholder="tua@email.com">
-        </div>
-        
-        <div>
-            <label for="message" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter">Messaggio</label>
-            <textarea 
-                id="message" 
-                name="message" 
-                required 
-                rows="4"
-                class="contact-form-textarea"
-                placeholder="Come possiamo aiutarti?"></textarea>
-        </div>
-        
-        <!-- Hidden field per subject personalizzato -->
-        <input type="hidden" name="_subject" value="Nuovo Contatto da The Stoic Journey">
-        
-        <button 
-            type="submit" 
-            class="contact-form-button font-inter">
-            Invia Messaggio
-        </button>
-        
-        <!-- Status Message -->
-        <p id="form-status" class="text-sm text-center font-inter mt-3"></p>
-    </form>
-    
-    <p class="text-xs text-slate-500 mt-4 text-center font-inter">
-        Risponderemo entro 24 ore
-    </p>
-</div>
+                <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8 lg:sticky lg:top-8">
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 text-center" data-i18n="home.contact.title">
+                        CONTATTACI
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-6 text-center font-inter" data-i18n="home.contact.subtitle">
+                        Hai bisogno di aiuto? Scrivici!
+                    </p>
 
-<script>
-// Formspree Form Handling con Messaggi in Italiano
-document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById("contact-form");
-    var status = document.getElementById("form-status");
+                    <form action="https://formspree.io/f/mojqzeno" method="POST" class="space-y-4" id="contact-form">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter" data-i18n="home.contact.name">Nome</label>
+                            <input type="text" id="name" name="name" required 
+                                   class="contact-form-input" 
+                                   data-i18n-placeholder="home.contact.namePlaceholder"
+                                   placeholder="Il tuo nome">
+                        </div>
 
-    if (form) {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            var data = new FormData(form);
-            
-            fetch(form.action, {
-                method: form.method,
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    status.innerHTML = "✅ Messaggio inviato con successo! Ti risponderemo presto.";
-                    status.style.color = "#22c55e";
-                    status.style.fontWeight = "600";
-                    form.reset();
-                } else {
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            status.innerHTML = "❌ " + data["errors"].map(error => error["message"]).join(", ");
-                        } else {
-                            status.innerHTML = "❌ Errore nell'invio. Riprova tra qualche minuto.";
-                        }
-                        status.style.color = "#ef4444";
-                        status.style.fontWeight = "600";
-                    })
-                }
-            }).catch(error => {
-                status.innerHTML = "❌ Errore di connessione. Verifica la tua rete.";
-                status.style.color = "#ef4444";
-                status.style.fontWeight = "600";
-            });
-        });
-    }
-});
-</script>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter" data-i18n="home.contact.email">Email</label>
+                            <input type="email" id="email" name="_replyto" required 
+                                   class="contact-form-input" 
+                                   data-i18n-placeholder="home.contact.emailPlaceholder"
+                                   placeholder="tuaemail@example.com">
+                        </div>
 
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-700 mb-1.5 font-inter" data-i18n="home.contact.message">Messaggio</label>
+                            <textarea id="message" name="message" required rows="4" 
+                                      class="contact-form-textarea" 
+                                      data-i18n-placeholder="home.contact.messagePlaceholder"
+                                      placeholder="Come possiamo aiutarti?"></textarea>
+                        </div>
+
+                        <!-- Hidden field per subject personalizzato -->
+                        <input type="hidden" name="_subject" value="Nuovo Contatto da The Stoic Journey">
+
+                        <button type="submit" class="contact-form-button font-inter" data-i18n="home.contact.send">
+                            Invia Messaggio
+                        </button>
+
+                        <!-- Status Message -->
+                        <p id="form-status" class="text-sm text-center font-inter mt-3"></p>
+                    </form>
+
+                    <p class="text-xs text-slate-500 mt-4 text-center font-inter" data-i18n="home.contact.note">
+                        Risponderemo entro 24 ore
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -1179,27 +1113,27 @@ document.addEventListener('DOMContentLoaded', function() {
                         <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-7 w-7 object-contain">
                         The Stoic Journey
                     </h4>
-                    <p class="text-gray-400">La tua guida quotidiana alla saggezza stoica.</p>
+                    <p class="text-gray-400" data-i18n="footer.tagline">La tua guida quotidiana alla saggezza stoica.</p>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-3">Risorse</h5>
+                    <h5 class="font-semibold mb-3" data-i18n="footer.resources">Risorse</h5>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="cosa-e-stoicismo.html" class="hover:text-white">Cos'è lo Stoicismo</a></li>
-                        <li><a href="https://stoicjourneyofficial.substack.com" target="_blank" class="hover:text-white">Blog</a></li>
-                        <li><a href="#" class="hover:text-white">Community</a></li>
+                        <li><a href="cosa-e-stoicismo.html" class="hover:text-white" data-i18n="footer.whatIsStoicism">Cos'è lo Stoicismo</a></li>
+                        <li><a href="https://stoicjourneyofficial.substack.com" target="_blank" class="hover:text-white" data-i18n="footer.blog">Blog</a></li>
+                        <li><a href="#" class="hover:text-white" data-i18n="footer.community">Community</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="font-semibold mb-3">Legale</h5>
+                    <h5 class="font-semibold mb-3" data-i18n="footer.legal">Legale</h5>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="privacy-policy.html" class="hover:text-white">Privacy Policy</a></li>
-                        <li><a href="terms-of-service.html" class="hover:text-white">Termini di Servizio</a></li>
-                        <li><a href="cookie-policy.html" class="hover:text-white">Cookie Policy</a></li>
+                        <li><a href="privacy-policy.html" class="hover:text-white" data-i18n="footer.privacy">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="hover:text-white" data-i18n="footer.terms">Termini di Servizio</a></li>
+                        <li><a href="cookie-policy.html" class="hover:text-white" data-i18n="footer.cookies">Cookie Policy</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 The Stoic Journey. Tutti i diritti riservati.</p>
+                <p data-i18n="footer.copyright">&copy; 2025 The Stoic Journey. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
@@ -1207,42 +1141,96 @@ document.addEventListener('DOMContentLoaded', function() {
     <!-- Scroll to Top Button -->
     <div class="scroll-to-top" id="scrollToTop">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7" />
         </svg>
     </div>
 
+    <!-- 1. CARICA TRANSLATIONS.JS PER PRIMO -->
+    <script src="translations.js"></script>
+
+    <!-- 2. LANGUAGE SWITCHER SCRIPT -->
+    <script>
+        // Language switcher functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const switcher = document.getElementById('languageSwitcherHome');
+            const dropdown = document.getElementById('languageDropdownHome');
+            const currentLang = document.getElementById('currentLangHome');
+            
+            if (switcher && dropdown) {
+                switcher.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('hidden');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function() {
+                    dropdown.classList.add('hidden');
+                });
+                
+                // Language options
+                const langOptions = dropdown.querySelectorAll('.lang-option');
+                langOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const lang = this.getAttribute('data-lang');
+                        changeLanguage(lang);
+                        currentLang.textContent = lang.toUpperCase();
+                        dropdown.classList.add('hidden');
+                        
+                        // Update active state
+                        langOptions.forEach(opt => {
+                            opt.classList.remove('active');
+                            opt.querySelector('.check').classList.add('hidden');
+                        });
+                        this.classList.add('active');
+                        this.querySelector('.check').classList.remove('hidden');
+                    });
+                });
+                
+                // Set initial active state
+                const savedLang = getCurrentLanguage();
+                currentLang.textContent = savedLang.toUpperCase();
+                langOptions.forEach(option => {
+                    if (option.getAttribute('data-lang') === savedLang) {
+                        option.classList.add('active');
+                        option.querySelector('.check').classList.remove('hidden');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- 3. ALTRI SCRIPT -->
     <script>
         // Effetto zoom parallax su scroll
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxBg = document.getElementById('parallaxBg');
-            
             const maxScroll = window.innerHeight;
             const scrollFraction = Math.min(scrolled / maxScroll, 1);
             
-            const scaleValue = 2 + (scrollFraction * 0.5);
+            const scaleValue = 2 - (scrollFraction * 0.5);
             const translateZ = -1 - (scrollFraction * 0.3);
             
             parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
         });
 
-        // Reveal effect script
-        document.addEventListener("DOMContentLoaded", function() {
+        // Reveal effect
+        document.addEventListener('DOMContentLoaded', function() {
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
                     var rect = el.getBoundingClientRect(),
                         windowHeight = (window.innerHeight || document.documentElement.clientHeight);
                     if (rect.top <= windowHeight - 60) {
-                        el.classList.add("visible");
+                        el.classList.add('visible');
                     }
                 });
             }
-            window.addEventListener("scroll", revealOnScroll);
+            
+            window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
             // IntersectionObserver per Memento Mori fade-in
             const fadeElements = document.querySelectorAll('.fade-in-scroll');
-            
             const fadeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -1260,7 +1248,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // FAQ Accordion Toggle
             const faqItems = document.querySelectorAll('.faq-item');
-            
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
                 
@@ -1268,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     toggleFAQ(item);
                 });
-
+                
                 question.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -1309,7 +1296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     scrollToTopBtn.classList.remove('visible');
                 }
             });
-
+            
             scrollToTopBtn.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
@@ -1317,402 +1304,58 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
+
+        // Formspree Form Handling con Messaggi in Italiano
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById("contact-form");
+            var status = document.getElementById("form-status");
+            
+            if (form) {
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    var data = new FormData(form);
+                    fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            status.innerHTML = "✅ Messaggio inviato con successo! Ti risponderemo presto.";
+                            status.style.color = "#22c55e";
+                            status.style.fontWeight = "600";
+                            form.reset();
+                        } else {
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                                } else {
+                                    status.innerHTML = "❌ Errore nell'invio. Riprova tra qualche minuto.";
+                                }
+                                status.style.color = "#ef4444";
+                                status.style.fontWeight = "600";
+                            });
+                        }
+                    }).catch(error => {
+                        status.innerHTML = "❌ Errore di connessione. Verifica la tua rete.";
+                        status.style.color = "#ef4444";
+                        status.style.fontWeight = "600";
+                    });
+                });
+            }
+        });
     </script>
-<!-- Cookie Consent Banner - Nativo -->
-<style>
-/* Cookie Banner Styles */
-.cookie-banner {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-  color: white;
-  padding: 1.5rem;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-  display: none;
-  border-top: 2px solid #f59e0b;
-}
 
-.cookie-banner.show {
-  display: block;
-}
-
-.cookie-banner-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.cookie-banner-text {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #e2e8f0;
-}
-
-.cookie-banner-text a {
-  color: #fbbf24;
-  text-decoration: underline;
-}
-
-.cookie-banner-buttons {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.cookie-btn {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.95rem;
-}
-
-.cookie-btn-accept {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #0f172a;
-}
-
-.cookie-btn-accept:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
-}
-
-.cookie-btn-reject {
-  background: transparent;
-  color: white;
-  border: 2px solid #64748b;
-}
-
-.cookie-btn-reject:hover {
-  background: rgba(100, 116, 139, 0.2);
-  border-color: #94a3b8;
-}
-
-.cookie-btn-preferences {
-  background: transparent;
-  color: #fbbf24;
-  border: 2px solid #fbbf24;
-}
-
-.cookie-btn-preferences:hover {
-  background: rgba(251, 191, 36, 0.1);
-}
-
-/* Cookie Preferences Modal */
-.cookie-preferences-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 10000;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.cookie-preferences-modal.show {
-  display: flex;
-}
-
-.cookie-preferences-content {
-  background: white;
-  border-radius: 1rem;
-  padding: 2rem;
-  max-width: 600px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-}
-
-.cookie-preferences-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #64748b;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-}
-
-.cookie-preferences-close:hover {
-  background: #f1f5f9;
-  color: #0f172a;
-}
-
-.cookie-preferences-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 1rem;
-}
-
-.cookie-preferences-desc {
-  color: #64748b;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-.cookie-preferences-desc a {
-  color: #3b82f6;
-  text-decoration: underline;
-}
-
-.cookie-type {
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.cookie-type-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.cookie-type-name {
-  font-weight: 600;
-  color: #0f172a;
-  font-size: 1.1rem;
-}
-
-.cookie-toggle {
-  position: relative;
-  width: 50px;
-  height: 26px;
-}
-
-.cookie-toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.cookie-toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #cbd5e1;
-  transition: 0.3s;
-  border-radius: 26px;
-}
-
-.cookie-toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.3s;
-  border-radius: 50%;
-}
-
-.cookie-toggle input:checked + .cookie-toggle-slider {
-  background-color: #3b82f6;
-}
-
-.cookie-toggle input:checked + .cookie-toggle-slider:before {
-  transform: translateX(24px);
-}
-
-.cookie-toggle input:disabled + .cookie-toggle-slider {
-  background-color: #94a3b8;
-  cursor: not-allowed;
-}
-
-.cookie-type-desc {
-  color: #64748b;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.cookie-preferences-actions {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  .cookie-banner-buttons {
-    flex-direction: column;
-  }
-  
-  .cookie-btn {
-    width: 100%;
-  }
-  
-  .cookie-preferences-content {
-    padding: 1.5rem;
-  }
-}
-</style>
-
-<!-- Cookie Banner HTML -->
-<div id="cookieBanner" class="cookie-banner">
-  <div class="cookie-banner-content">
-    <div class="cookie-banner-text">
-      <p><i>Utilizziamo cookie tecnici necessari e analytics (opzionali) per migliorare la tua esperienza. Puoi gestire le tue preferenze qui sotto.</i> 
-      <a href="/cookie-policy.html" target="_blank">Leggi la Cookie Policy</a></p>
-    </div>
-    <div class="cookie-banner-buttons">
-      <button class="cookie-btn cookie-btn-accept" onclick="acceptAllCookies()">Accetta tutti</button>
-      <button class="cookie-btn cookie-btn-reject" onclick="rejectNonEssentialCookies()">Solo necessari</button>
-      <button class="cookie-btn cookie-btn-preferences" onclick="openCookiePreferences()">Gestisci preferenze</button>
-    </div>
-  </div>
-</div>
-
-<!-- Cookie Preferences Modal -->
-<div id="cookiePreferencesModal" class="cookie-preferences-modal">
-  <div class="cookie-preferences-content">
-    <button class="cookie-preferences-close" onclick="closeCookiePreferences()">×</button>
-    
-    <h2 class="cookie-preferences-title">Gestisci le tue preferenze cookie</h2>
-    <p class="cookie-preferences-desc">
-      <i>Rispettiamo la tua privacy. Puoi scegliere quali cookie attivare. Le tue preferenze si applicheranno su tutto il sito.</i><br>
-      <i>Maggiori informazioni nella <a href="/cookie-policy.html" target="_blank">Cookie Policy</a>.</i>
-    </p>
-    
-    <div class="cookie-type">
-      <div class="cookie-type-header">
-        <span class="cookie-type-name">Necessary</span>
-        <label class="cookie-toggle">
-          <input type="checkbox" id="cookieNecessary" checked disabled>
-          <span class="cookie-toggle-slider"></span>
-        </label>
-      </div>
-      <p class="cookie-type-desc">These cookies are necessary for the website to function properly and cannot be switched off. They help with things like logging in and setting your privacy preferences.</p>
-    </div>
-    
-    <div class="cookie-type">
-      <div class="cookie-type-header">
-        <span class="cookie-type-name">Analytics</span>
-        <label class="cookie-toggle">
-          <input type="checkbox" id="cookieAnalytics">
-          <span class="cookie-toggle-slider"></span>
-        </label>
-      </div>
-      <p class="cookie-type-desc"><i>Ci aiutano a migliorare il sito analizzando come lo usi. Puoi rifiutarli senza problemi.</i></p>
-    </div>
-    
-    <div class="cookie-preferences-actions">
-      <button class="cookie-btn cookie-btn-accept" onclick="savePreferences()">Accetta tutti</button>
-      <button class="cookie-btn cookie-btn-reject" onclick="savePreferences(true)">Solo necessari</button>
-    </div>
-  </div>
-</div>
-
-<!-- Cookie Banner JavaScript -->
-<script>
-// Cookie management functions
-function setCookie(name, value, days) {
-  const expires = new Date();
-  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-  document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
-}
-
-function getCookie(name) {
-  const nameEQ = name + '=';
-  const ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
-
-function acceptAllCookies() {
-  setCookie('cookieConsent', 'all', 365);
-  document.getElementById('cookieBanner').classList.remove('show');
-  console.log('Cookie analytics accettati');
-  // Qui puoi attivare Google Analytics quando lo implementerai
-}
-
-function rejectNonEssentialCookies() {
-  setCookie('cookieConsent', 'necessary', 365);
-  document.getElementById('cookieBanner').classList.remove('show');
-  console.log('Cookie analytics rifiutati');
-}
-
-function openCookiePreferences() {
-  document.getElementById('cookiePreferencesModal').classList.add('show');
-  
-  // Carica preferenze salvate
-  const consent = getCookie('cookieConsent');
-  if (consent === 'all') {
-    document.getElementById('cookieAnalytics').checked = true;
-  }
-}
-
-function closeCookiePreferences() {
-  document.getElementById('cookiePreferencesModal').classList.remove('show');
-}
-
-function savePreferences(rejectAll = false) {
-  if (rejectAll) {
-    setCookie('cookieConsent', 'necessary', 365);
-    console.log('Cookie analytics rifiutati');
-  } else {
-    const analytics = document.getElementById('cookieAnalytics').checked;
-    setCookie('cookieConsent', analytics ? 'all' : 'necessary', 365);
-    console.log(analytics ? 'Cookie analytics accettati' : 'Cookie analytics rifiutati');
-  }
-  
-  closeCookiePreferences();
-  document.getElementById('cookieBanner').classList.remove('show');
-}
-
-// Show banner on page load if consent not given
-window.addEventListener('DOMContentLoaded', function() {
-  const consent = getCookie('cookieConsent');
-  if (!consent) {
-    document.getElementById('cookieBanner').classList.add('show');
-  }
-});
-
-// Close modal when clicking outside
-document.getElementById('cookiePreferencesModal').addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeCookiePreferences();
-  }
-});
-</script>
-
-  <!-- PWA Service Worker -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(reg => console.log('✅ PWA attiva'))
-      .catch(err => console.log('❌ Errore PWA:', err));
-  });
-}
-</script>
-
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('PWA attiva'))
+                    .catch(err => console.log('Errore PWA', err));
+            });
+        }
+    </script>
 </body>
 </html>
