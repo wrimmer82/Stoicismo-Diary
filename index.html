@@ -577,8 +577,37 @@ preferences: {
                         The Stoic Journey
                     </span>
                 </div>
-                
-                <a href="accedi.html" class="bg-amber-500 text-slate-900 px-4 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-sm sm:text-base whitespace-nowrap">
+              <!-- Language Switcher -->
+        <div class="language-switcher-header">
+            <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                </svg>
+                <span id="currentLangHome" class="font-semibold">IT</span>
+            </button>
+            
+            <!-- Dropdown -->
+            <div id="languageDropdownHome" class="language-dropdown-home hidden">
+                <button class="lang-option" data-lang="it">
+                    <span class="flag">🇮🇹</span>
+                    <span>Italiano</span>
+                    <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="lang-option" data-lang="en">
+                    <span class="flag">🇬🇧</span>
+                    <span>English</span>
+                    <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- CTA Button -->
+  <a href="accedi.html" class="bg-amber-500 text-slate-900 px-4 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-sm sm:text-base whitespace-nowrap">
                     <span class="cta-text-short">Entra</span>
                     <span class="cta-text-full">Entra Nel Viaggio Stoico</span>
                 </a>
