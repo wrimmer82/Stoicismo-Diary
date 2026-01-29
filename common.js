@@ -748,3 +748,134 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     console.log('✅ Dashboard inizializzata con successo');
 });
+
+
+
+
+// ========================================
+// SISTEMA MULTILINGUA
+// Aggiunto: 29 Gennaio 2026
+// ========================================
+
+// Rileva lingua browser dell'utente
+function detectBrowserLanguage() {
+    const browserLang = navigator.language || navigator.userLanguage;
+    // Se browser è IT -> italiano, altrimenti inglese
+    return browserLang.toLowerCase().startsWith('it') ? 'it' : 'en';
+}
+
+// Ottieni lingua corrente (localStorage > browser > default IT)
+function getCurrentLanguage() {
+    return localStorage.getItem('siteLanguage') || detectBrowserLanguage() || 'it';
+}
+
+// Imposta lingua e ricarica traduzioni
+function setLanguage(lang) {
+    if (lang !== 'it' && lang !== 'en') {
+        console.warn('⚠️ Lingua non supportata:', lang, '- default: IT');
+        lang = 'it';
+    }
+    
+    localStorage.setItem('siteLanguage', lang);
+    console.log('🌍 Lingua impostata:', lang.toUpperCase());
+    
+    // Aggiorna attributo HTML lang
+    document.documentElement.lang = lang;
+    
+    // Carica traduzioni
+    loadLanguage(lang);
+    
+    // Aggiorna flag attivo nello switch
+    updateLanguageSwitchUI(lang);
+}
+
+// Carica traduzioni per lingua specificata
+function loadLanguage(lang) {
+    if (typeof translations === 'undefined') {
+        console.error('❌ File translations.js non caricato!');
+        return;
+    }
+    
+    const t = translations[lang];
+    if (!t) {
+        console.error('❌ Traduzioni non trovate per:', lang);
+        return;
+    }
+    
+    // Trova tutti gli elementi con data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const translation = t[key];
+        
+        if (translation) {
+            // Se è input/textarea, traduci placeholder
+            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                if (element.hasAttribute('placeholder')) {
+                    element.placeholder = translation;
+                }
+            }
+            // Se è button/link, traduci textContent
+            else if (element.tagName === 'BUTTON' || element.tagName === 'A') {
+                element.textContent = translation;
+            }
+            // Per altri tag, traduci innerHTML (supporta HTML)
+            else {
+                element.innerHTML = translation;
+            }
+        } else {
+            console.warn('⚠️ Traduzione mancante per chiave:', key, 'in lingua:', lang);
+        }
+    });
+    
+    console.log('✅ Traduzioni caricate:', lang.toUpperCase());
+}
+
+// Aggiorna UI dello switch lingua (evidenzia flag attivo)
+function updateLanguageSwitchUI(lang) {
+    const itFlag = document.getElementById('flagIT');
+    const enFlag = document.getElementById('flagEN');
+    
+    if (itFlag && enFlag) {
+        if (lang === 'it') {
+            itFlag.classList.add('active');
+            enFlag.classList.remove('active');
+        } else {
+            enFlag.classList.add('active');
+            itFlag.classList.remove('active');
+        }
+    }
+}
+
+// Inizializza sistema multilingua al caricamento pagina
+function initLanguageSystem() {
+    const currentLang = getCurrentLanguage();
+    console.log('🌍 Inizializzazione lingua:', currentLang.toUpperCase());
+    
+    // Imposta attributo HTML lang
+    document.documentElement.lang = currentLang;
+    
+    // Carica traduzioni
+    loadLanguage(currentLang);
+    
+    // Aggiorna UI switch
+    updateLanguageSwitchUI(currentLang);
+    
+    // Setup listener per switch lingua
+    const itFlag = document.getElementById('flagIT');
+    const enFlag = document.getElementById('flagEN');
+    
+    if (itFlag) {
+        itFlag.addEventListener('click', () => setLanguage('it'));
+    }
+    if (enFlag) {
+        enFlag.addEventListener('click', () => setLanguage('en'));
+    }
+}
+
+// Esegui inizializzazione quando DOM è pronto
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSystem);
+} else {
+    initLanguageSystem();
+}
+
