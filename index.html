@@ -1383,5 +1383,40 @@
             });
         }
     </script>
+         FIX: FORCE LANGUAGE SWITCHER VISIBILITY
+         ======================================== -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait for all scripts to load
+        setTimeout(() => {
+            const btn = document.getElementById('languageSwitcherHome');
+            const dropdown = document.getElementById('languageDropdownHome');
+            const currentLang = document.getElementById('currentLangHome');
+            
+            if (!btn || !dropdown || !currentLang) {
+                console.error('⚠️ Language switcher elements missing!');
+                return;
+            }
+            
+            // Force visibility
+            btn.style.display = 'flex';
+            btn.style.visibility = 'visible';
+            btn.style.opacity = '1';
+            
+            // Load saved language
+            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+            currentLang.textContent = savedLang.toUpperCase();
+            
+            console.log('✅ Language Switcher initialized:', savedLang);
+            
+            // Re-bind click events (in case they failed to bind)
+            btn.onclick = function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('hidden');
+            };
+        }, 150);
+    });
+    </script>
+
 </body>
 </html>
