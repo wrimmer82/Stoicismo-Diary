@@ -149,20 +149,25 @@
                 transform: translateY(0);
             }
         }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+
         .animate-fadeInUp {
             animation: fadeInUp 1s ease-out forwards;
         }
+
         .animate-fadeIn {
             animation: fadeIn 1.5s ease-out forwards;
         }
+
         .delay-300 { animation-delay: 0.3s; opacity: 0; }
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .delay-900 { animation-delay: 0.9s; opacity: 0; }
         
+        /* Parallax */
         .parallax-zoom-container {
             position: relative;
             height: 100vh;
@@ -183,10 +188,12 @@
             transition: transform 0.1s ease-out;
         }
         
+        /* Fonts */
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
+        /* Text stroke */
         .text-stroke-black-strong {
             text-shadow: 
                 -2px -2px 0 #000,
@@ -225,17 +232,20 @@
                 1px 1px 4px rgba(0,0,0,0.3);
         }
 
+        /* Reveal on scroll */
         .reveal {
             opacity: 0;
             transform: translateY(60px);
             transition: all 0.95s cubic-bezier(0.23, 1, 0.32, 1);
             will-change: transform, opacity;
         }
+
         .reveal.visible {
             opacity: 1;
             transform: none;
         }
 
+        /* Card 3D effect */
         .card-3d {
             perspective: 1000px;
             transform-style: preserve-3d;
@@ -262,16 +272,19 @@
             opacity: 1;
         }
 
+        /* Fade scroll */
         .fade-in-scroll {
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 1.2s ease-out, transform 1.2s ease-out;
         }
+
         .fade-in-scroll.show {
             opacity: 1;
             transform: translateY(0);
         }
 
+        /* 3D text */
         .text-3d {
             text-shadow: 
                 1px 1px 0 #c49050,
@@ -286,6 +299,7 @@
             letter-spacing: 0.05em;
         }
 
+        /* Sunset gradient */
         .sunset-gradient {
             background: linear-gradient(180deg, 
                 #1a0f1f 0%,
@@ -299,77 +313,7 @@
             );
         }
 
-        .step-number {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #0f172a;
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
-            margin: 0 auto 1rem auto;
-            flex-shrink: 0;
-        }
-
-        @media (min-width: 768px) {
-            .step-number {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-                margin-bottom: 1.5rem;
-            }
-        }
-
-        .step-card {
-            transition: transform 0.3s ease;
-        }
-
-        .step-card:hover .step-number {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.5);
-        }
-
-        @media (min-width: 768px) {
-            .step-card:hover {
-                transform: translateY(-8px);
-            }
-        }
-
-        .arrow-connector {
-            color: #f59e0b;
-            font-size: 2.5rem;
-            opacity: 0.6;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-
-        @media (max-width: 767px) {
-            .mobile-step {
-                display: flex;
-                align-items: flex-start;
-                gap: 1rem;
-                text-align: left;
-            }
-            
-            .mobile-step-content h3 {
-                font-size: 1.125rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .mobile-step-content p {
-                font-size: 0.875rem;
-                line-height: 1.5;
-            }
-        }
-
+        /* FAQ */
         .faq-item {
             border-bottom: 1px solid rgba(251, 191, 36, 0.2);
             transition: all 0.3s ease;
@@ -377,31 +321,25 @@
 
         .faq-question {
             cursor: pointer;
-            padding: 1rem;
+            padding: 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 0.75rem;
-            min-height: 56px;
+            gap: 1rem;
             transition: background-color 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
         }
 
         .faq-question:hover {
             background-color: rgba(251, 191, 36, 0.05);
         }
 
-        .faq-question:active {
-            background-color: rgba(251, 191, 36, 0.1);
-        }
-
         .faq-icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             flex-shrink: 0;
             transition: transform 0.3s ease;
             color: #f59e0b;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
         }
 
@@ -413,25 +351,25 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
         }
 
         .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding: 0 1rem 1rem 1rem;
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
         }
 
+        /* Contact form */
         .contact-form-input,
         .contact-form-textarea {
             width: 100%;
-            padding: 0.875rem 1rem;
+            padding: 0.875rem;
             border: 1px solid #cbd5e1;
             border-radius: 0.5rem;
-            font-size: 0.9375rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
-            min-height: 48px;
         }
 
         .contact-form-input:focus,
@@ -443,7 +381,7 @@
 
         .contact-form-textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
 
         .contact-form-button {
@@ -457,7 +395,6 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 1rem;
-            min-height: 48px;
             box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
         }
 
@@ -470,16 +407,18 @@
             transform: translateY(0);
         }
 
+        /* Responsive FAQ/Contact grid */
         @media (max-width: 1023px) {
             .faq-contact-grid {
                 display: block !important;
             }
             
             .faq-contact-grid > div:first-child {
-                margin-bottom: 2.5rem;
+                margin-bottom: 3rem;
             }
         }
 
+        /* CTA text responsive */
         .cta-text-full {
             display: none;
         }
@@ -498,6 +437,7 @@
             }
         }
 
+        /* Scroll to top button */
         .scroll-to-top {
             position: fixed;
             bottom: 2rem;
@@ -542,6 +482,7 @@
             }
         }
 
+        /* 🔥 LANGUAGE SWITCHER - FIX DEFINITIVO */
         .language-switcher-header {
             position: relative;
             z-index: 150;
@@ -552,7 +493,7 @@
             display: flex !important;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem 0.75rem;
+            padding: 0.625rem 0.875rem;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(8px);
             border: 2px solid rgba(255, 255, 255, 0.5);
@@ -564,8 +505,8 @@
             font-family: 'Inter', sans-serif;
             font-weight: 700;
             white-space: nowrap;
-            min-width: 48px;
-            min-height: 40px;
+            min-width: 52px;
+            min-height: 44px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             visibility: visible !important;
             opacity: 1 !important;
@@ -583,7 +524,7 @@
         }
 
         .language-btn #currentLangHome {
-            font-size: 1rem;
+            font-size: 1.0625rem;
             letter-spacing: 0.05em;
             font-weight: 700;
         }
@@ -598,7 +539,7 @@
             border-radius: 0.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            min-width: 160px;
+            min-width: 150px;
             overflow: hidden;
             animation: slideDown 0.2s ease-out;
         }
@@ -669,20 +610,20 @@
 
         @media (max-width: 640px) {
             .language-btn {
-                padding: 0.625rem 0.875rem;
+                padding: 0.5rem 0.75rem;
                 font-size: 0.875rem;
-                min-width: 52px;
-                min-height: 44px;
+                min-width: 48px;
+                min-height: 40px;
                 border-width: 2px;
             }
             
             .language-btn #currentLangHome {
-                font-size: 1.0625rem;
+                font-size: 1rem;
             }
             
             .language-dropdown-home {
                 right: 0;
-                min-width: 150px;
+                min-width: 140px;
             }
         }
 
@@ -700,11 +641,14 @@
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
+    <!-- Hero Section -->
     <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
+        <!-- Header -->
         <div class="absolute top-4 left-4 right-4 z-20">
             <div class="flex justify-between items-center gap-2">
+                <!-- Logo -->
                 <div class="flex items-center gap-2 animate-fadeIn flex-shrink-0">
                     <img src="sigma_logo.png"
                          alt="The Stoic Journey Logo"
@@ -714,13 +658,16 @@
                     </span>
                 </div>
                 
+                <!-- Desktop nav button -->
                 <div class="hidden lg:flex absolute left-1/2 top-0 transform -translate-x-1/2">
                     <a href="cosa-e-stoicismo.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap" data-i18n="nav.whatIsStoicism">
                         Cos'è lo Stoicismo
                     </a>
                 </div>
                 
+                <!-- Language + CTA -->
                 <div class="flex items-center gap-2 flex-shrink-0">
+                    <!-- Language Switcher -->
                     <div class="language-switcher-header">
                         <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
                             <span id="currentLangHome" class="font-semibold">IT</span>
@@ -744,6 +691,7 @@
                         </div>
                     </div>
                     
+                    <!-- CTA Button -->
                     <a href="accedi.html" class="bg-amber-500 text-slate-900 px-3 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-xs sm:text-base whitespace-nowrap">
                         <span class="cta-text-short" data-i18n="home.ctaShort">Entra</span>
                         <span class="cta-text-full" data-i18n="home.cta">Entra Nel Viaggio Stoico</span>
@@ -752,6 +700,7 @@
             </div>
         </div>
         
+        <!-- Hero content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 
                     md:pb-20 md:mt-auto
                     pb-8 mt-auto">
@@ -776,69 +725,64 @@
             </div>
         </div>
     </section>
-
-    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-slate-100">
+    <!-- Come Funziona Section -->
+    <section class="py-20 bg-gradient-to-b from-slate-50 to-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-5xl font-cinzel font-bold text-center mb-4 md:mb-6 text-slate-900" data-i18n="home.howItWorks.title">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-6 text-slate-900" data-i18n="home.howItWorks.title">
                 Come Funziona
             </h2>
-            <p class="text-base md:text-lg text-center text-slate-600 mb-10 md:mb-16 max-w-2xl mx-auto font-inter" data-i18n="home.howItWorks.subtitle">
+            <p class="text-lg text-center text-slate-600 mb-16 max-w-2xl mx-auto font-inter" data-i18n="home.howItWorks.subtitle">
                 Il tuo percorso di crescita stoica in tre semplici passi
             </p>
             
-            <div class="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-12 md:items-start">
-                <div class="step-card reveal mobile-step md:block">
-                    <div class="step-number font-cinzel">1</div>
-                    <div class="mobile-step-content md:text-center">
-                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4" data-i18n="home.howItWorks.step1.title">
-                            Scrivi riflessione
-                        </h3>
-                        <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step1.description">
-                            Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale.
-                        </p>
+            <div class="grid md:grid-cols-3 gap-12 items-start">
+                <div class="text-center reveal">
+                    <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-4xl font-bold text-white mx-auto mb-6 shadow-lg font-cinzel">
+                        1
                     </div>
+                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4" data-i18n="home.howItWorks.step1.title">
+                        Scrivi riflessione
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step1.description">
+                        Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale.
+                    </p>
                 </div>
 
-                <div class="hidden md:flex justify-center items-start pt-8">
-                    <span class="arrow-connector">→</span>
-                </div>
-
-                <div class="step-card reveal delay-300 mobile-step md:block">
-                    <div class="step-number font-cinzel">2</div>
-                    <div class="mobile-step-content md:text-center">
-                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4" data-i18n="home.howItWorks.step2.title">
-                            Sfida personalizzata
-                        </h3>
-                        <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step2.description">
-                            L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca.
-                        </p>
+                <div class="text-center reveal delay-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-4xl font-bold text-white mx-auto mb-6 shadow-lg font-cinzel">
+                        2
                     </div>
+                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4" data-i18n="home.howItWorks.step2.title">
+                        Sfida personalizzata
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step2.description">
+                        L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca.
+                    </p>
                 </div>
 
-                <div class="hidden md:flex justify-center items-start pt-8">
-                    <span class="arrow-connector">→</span>
-                </div>
-
-                <div class="step-card reveal delay-600 mobile-step md:block">
-                    <div class="step-number font-cinzel">3</div>
-                    <div class="mobile-step-content md:text-center">
-                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4" data-i18n="home.howItWorks.step3.title">
-                            Traccia progresso
-                        </h3>
-                        <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step3.description">
-                            Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern.
-                        </p>
+                <div class="text-center reveal delay-600">
+                    <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-4xl font-bold text-white mx-auto mb-6 shadow-lg font-cinzel">
+                        3
                     </div>
+                    <h3 class="text-2xl font-cinzel font-bold text-slate-900 mb-4" data-i18n="home.howItWorks.step3.title">
+                        Traccia progresso
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step3.description">
+                        Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Filosofi Section -->
     <section class="py-20 sunset-gradient">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d" data-i18n="home.philosophers.title">
                I Tre Pilastri della Saggezza Stoica
            </h2>
           <div class="grid md:grid-cols-3 gap-10">
+            <!-- Marco Aurelio -->
             <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
               <div class="relative mb-6 z-10">
                 <div class="absolute inset-0 translate-y-6">
@@ -872,6 +816,7 @@
               </p>
             </div>
 
+            <!-- Epitteto -->
             <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
               <div class="relative mb-6 z-10">
                 <div class="absolute inset-0 translate-y-6">
@@ -905,6 +850,7 @@
               </p>
             </div>
 
+            <!-- Seneca -->
             <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
               <div class="relative mb-6 z-10">
                 <div class="absolute inset-0 translate-y-6">
@@ -941,6 +887,7 @@
         </div>
     </section>
 
+    <!-- Memento Mori Section -->
     <section class="py-20 bg-gradient-to-b from-slate-900 to-slate-950 text-white overflow-hidden">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-scroll">
             <div class="mb-8">
@@ -957,9 +904,11 @@
         </div>
     </section>
 
-    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-white">
+    <!-- FAQ + Contact Section -->
+    <section class="py-20 bg-gradient-to-b from-slate-50 to-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="faq-contact-grid lg:grid lg:grid-cols-2 lg:gap-12">
+                <!-- FAQ -->
                 <div>
                     <h2 class="text-3xl md:text-4xl font-cinzel font-bold mb-8 text-slate-900 text-center lg:text-left" data-i18n="home.faq.title">
                         Domande Frequenti
@@ -967,8 +916,8 @@
                     
                     <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
                         <div class="faq-item">
-                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
-                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q1.question">
+                            <div class="faq-question">
+                                <h3 class="text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q1.question">
                                     Cos'è The Stoic Journey?
                                 </h3>
                                 <span class="faq-icon">+</span>
@@ -981,8 +930,8 @@
                         </div>
 
                         <div class="faq-item">
-                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
-                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q2.question">
+                            <div class="faq-question">
+                                <h3 class="text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q2.question">
                                     Come funziona l'AI?
                                 </h3>
                                 <span class="faq-icon">+</span>
@@ -995,8 +944,8 @@
                         </div>
 
                         <div class="faq-item">
-                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
-                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q3.question">
+                            <div class="faq-question">
+                                <h3 class="text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q3.question">
                                     È gratuito?
                                 </h3>
                                 <span class="faq-icon">+</span>
@@ -1009,8 +958,8 @@
                         </div>
 
                         <div class="faq-item">
-                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
-                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q4.question">
+                            <div class="faq-question">
+                                <h3 class="text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q4.question">
                                     Posso usarlo senza conoscere lo stoicismo?
                                 </h3>
                                 <span class="faq-icon">+</span>
@@ -1024,12 +973,13 @@
                     </div>
                 </div>
 
+                <!-- Contact Form -->
                 <div>
                     <h2 class="text-3xl md:text-4xl font-cinzel font-bold mb-8 text-slate-900 text-center lg:text-left" data-i18n="home.contact.title">
                         Contattaci
                     </h2>
                     
-                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-slate-200">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
                         <form id="contact-form" action="https://formspree.io/f/xpwabnoo" method="POST">
                             <div class="mb-4">
                                 <label for="name" class="block text-sm font-semibold text-slate-700 mb-2 font-inter" data-i18n="home.contact.name">
@@ -1070,6 +1020,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="bg-slate-900 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-3 gap-8 mb-8">
@@ -1114,15 +1065,18 @@
         </div>
     </footer>
 
+    <!-- Scroll to Top Button -->
     <div class="scroll-to-top" id="scrollToTop">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
         </svg>
     </div>
 
+    <!-- Scripts -->
     <script src="translations.js"></script>
     <script src="common.js"></script>
 
+    <!-- 🔥 LANGUAGE SWITCHER SCRIPT - FIX DEFINITIVO -->
     <script>
         (function() {
             console.log('🚀 Language Switcher Initialization Start...');
@@ -1136,22 +1090,26 @@
                 return;
             }
 
+            // Force visibility
             switcher.style.display = 'flex';
             switcher.style.visibility = 'visible';
             switcher.style.opacity = '1';
             
             console.log('✅ Language switcher visibility forced');
             
+            // Toggle dropdown
             switcher.addEventListener('click', function(e) {
                 e.stopPropagation();
                 dropdown.classList.toggle('hidden');
                 console.log('🔽 Dropdown toggled');
             });
             
+            // Close dropdown on outside click
             document.addEventListener('click', function() {
                 dropdown.classList.add('hidden');
             });
             
+            // Language selection
             const langOptions = dropdown.querySelectorAll('.lang-option');
             langOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -1159,13 +1117,16 @@
                     
                     console.log('🌐 Language changed to:', lang);
                     
+                    // Change language using common.js function
                     if (typeof changeLanguage === 'function') {
                         changeLanguage(lang);
                     }
                     
+                    // Update button text
                     currentLang.textContent = lang.toUpperCase();
                     dropdown.classList.add('hidden');
                     
+                    // Update active state
                     langOptions.forEach(opt => {
                         opt.classList.remove('active');
                         opt.querySelector('.check').classList.add('hidden');
@@ -1175,6 +1136,7 @@
                 });
             });
             
+            // Set initial language
             const savedLang = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'it';
             currentLang.textContent = savedLang.toUpperCase();
             langOptions.forEach(option => {
@@ -1189,6 +1151,7 @@
     </script>
 
     <script>
+        // Parallax effect
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxBg = document.getElementById('parallaxBg');
@@ -1202,6 +1165,7 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Reveal on scroll
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
                     var rect = el.getBoundingClientRect(),
@@ -1215,6 +1179,7 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
+            // Fade in scroll
             const fadeElements = document.querySelectorAll('.fade-in-scroll');
             const fadeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1231,43 +1196,28 @@
                 fadeObserver.observe(element);
             });
 
+            // FAQ accordion
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
-                
-                question.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleFAQ(item);
-                });
-                
-                question.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleFAQ(item);
+                question.addEventListener('click', function() {
+                    const isActive = item.classList.contains('active');
+                    
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    if (isActive) {
+                        item.classList.remove('active');
+                    } else {
+                        item.classList.add('active');
                     }
                 });
             });
 
-            function toggleFAQ(item) {
-                const isActive = item.classList.contains('active');
-                const question = item.querySelector('.faq-question');
-                
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                        otherItem.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                
-                if (isActive) {
-                    item.classList.remove('active');
-                    question.setAttribute('aria-expanded', 'false');
-                } else {
-                    item.classList.add('active');
-                    question.setAttribute('aria-expanded', 'true');
-                }
-            }
-
+            // Scroll to top button
             const scrollToTopBtn = document.getElementById('scrollToTop');
             
             window.addEventListener('scroll', function() {
@@ -1286,6 +1236,7 @@
             });
         });
 
+        // Contact form submission
         document.addEventListener("DOMContentLoaded", function() {
             var form = document.getElementById("contact-form");
             var status = document.getElementById("form-status");
@@ -1327,6 +1278,7 @@
         });
     </script>
 
+    <!-- PWA Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
