@@ -558,7 +558,7 @@
         }
 
         /* ========================================
-           LANGUAGE SWITCHER - HOMEPAGE
+           LANGUAGE SWITCHER - HOMEPAGE (Semplificato)
            ======================================== */
 
         .language-switcher-header {
@@ -569,31 +569,33 @@
         .language-btn {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
+            justify-content: center;
+            gap: 0.25rem;
+            padding: 0.5rem 0.875rem;
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 0.5rem;
             color: white;
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 0.875rem;
             font-family: 'Inter', sans-serif;
-            font-weight: 500;
+            font-weight: 600;
             white-space: nowrap;
+            min-width: 50px;
         }
 
         .language-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(251, 191, 36, 0.6);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
         }
 
-        .language-btn svg {
-            width: 1.25rem;
-            height: 1.25rem;
-            flex-shrink: 0;
+        .language-btn #currentLangHome {
+            font-size: 0.9375rem;
+            letter-spacing: 0.05em;
         }
 
         .language-dropdown-home {
@@ -670,27 +672,17 @@
             display: none;
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive - SEMPRE VISIBILE */
         @media (max-width: 640px) {
             .language-btn {
-                padding: 0.375rem 0.75rem;
+                padding: 0.5rem 0.75rem;
                 font-size: 0.8125rem;
-            }
-            
-            .language-btn svg {
-                width: 1rem;
-                height: 1rem;
+                min-width: 45px;
             }
             
             .language-dropdown-home {
                 right: 0;
-                min-width: 140px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .language-btn span#currentLangHome {
-                display: none;
+                min-width: 150px;
             }
         }
     </style>
@@ -724,11 +716,7 @@
                     <!-- Language Switcher -->
                     <div class="language-switcher-header">
                         <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                      d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
-                            </svg>
-                            <span id="currentLangHome" class="font-semibold hidden sm:inline">IT</span>
+                            <span id="currentLangHome" class="font-semibold">IT</span>
                         </button>
                         
                         <!-- Dropdown -->
@@ -849,8 +837,8 @@
     <!-- Features Section con gradiente tramonto -->
     <section class="py-20 sunset-gradient">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d">
-               I Pilastri della Crescita Stoica
+           <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d" data-i18n="home.philosophers.title">
+               I Tre Pilastri della Saggezza Stoica
            </h2>
           <div class="grid md:grid-cols-3 gap-10">
             <!-- MARCO AURELIO -->
@@ -863,26 +851,26 @@
                      alt="Marco Aurelio - Filosofo stoico imperatore romano"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.marcus.name">
                 Marco Aurelio
               </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principle">
                 Impedimentum Via Est
               </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principleTranslation">
                 Il cammino attraverso gli ostacoli
               </div>
               <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quote">
                 «Quod obstat viae, via fit.»
               </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quoteTranslation">
                 "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
               </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.description">
                 Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
               </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.marcus.ai">
                 Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
               </p>
             </div>
@@ -897,26 +885,26 @@
                      alt="Epitteto - Filosofo stoico maestro della dicotomia del controllo"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.epictetus.name">
                 Epitteto
               </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principle">
                 In Nostra Potestate
               </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principleTranslation">
                 La dicotomia del controllo
               </div>
               <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quote">
                 «En tois eph' hemin kai en tois ouk eph' hemin»
               </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quoteTranslation">
                 La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
               </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.description">
                 Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
               </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.epictetus.ai">
                 L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
               </p>
             </div>
@@ -931,26 +919,26 @@
                      alt="Seneca - Filosofo stoico maestro della praemeditatio malorum"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10">
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.seneca.name">
                 Seneca
               </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10">
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principle">
                 Praemeditatio Malorum
               </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10">
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principleTranslation">
                 Prepararsi al peggio per vivere meglio
               </div>
               <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10">
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quote">
                 «Qui omnia timet, nihil cogitat»
               </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quoteTranslation">
                 La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
               </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.description">
                 Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
               </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10">
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.seneca.ai">
                 L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
               </p>
             </div>
@@ -961,19 +949,19 @@
     <!-- Memento Mori Section -->
     <section class="py-20 sunset-gradient">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide fade-in-scroll">
+            <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide fade-in-scroll" data-i18n="home.mementoMori.title">
                 MEMENTO MORI
             </h3>
-            <p class="text-xl md:text-2xl text-yellow-500/90 font-cinzel italic mb-8 leading-relaxed fade-in-scroll">
+            <p class="text-xl md:text-2xl text-yellow-500/90 font-cinzel italic mb-8 leading-relaxed fade-in-scroll" data-i18n="home.mementoMori.subtitle">
                 "Ricordati che devi morire"
             </p>
             <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8 fade-in-scroll"></div>
             
-            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide fade-in-scroll">
+            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide fade-in-scroll" data-i18n="home.mementoMori.text1">
                 La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
             </p>
             
-            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide fade-in-scroll">
+            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide fade-in-scroll" data-i18n="home.mementoMori.text2">
                 Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero.
             </p>
         </div>
@@ -1148,7 +1136,10 @@
     <!-- 1. CARICA TRANSLATIONS.JS PER PRIMO -->
     <script src="translations.js"></script>
 
-    <!-- 2. LANGUAGE SWITCHER SCRIPT -->
+    <!-- 2. CARICA COMMON.JS (sistema di traduzione) -->
+    <script src="common.js"></script>
+
+    <!-- 3. LANGUAGE SWITCHER SCRIPT -->
     <script>
         // Language switcher functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -1172,7 +1163,12 @@
                 langOptions.forEach(option => {
                     option.addEventListener('click', function() {
                         const lang = this.getAttribute('data-lang');
-                        changeLanguage(lang);
+                        
+                        // Usa la funzione changeLanguage da common.js
+                        if (typeof changeLanguage === 'function') {
+                            changeLanguage(lang);
+                        }
+                        
                         currentLang.textContent = lang.toUpperCase();
                         dropdown.classList.add('hidden');
                         
@@ -1187,7 +1183,7 @@
                 });
                 
                 // Set initial active state
-                const savedLang = getCurrentLanguage();
+                const savedLang = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'it';
                 currentLang.textContent = savedLang.toUpperCase();
                 langOptions.forEach(option => {
                     if (option.getAttribute('data-lang') === savedLang) {
@@ -1199,7 +1195,7 @@
         });
     </script>
 
-    <!-- 3. ALTRI SCRIPT -->
+    <!-- 4. ALTRI SCRIPT -->
     <script>
         // Effetto zoom parallax su scroll
         window.addEventListener('scroll', function() {
