@@ -163,7 +163,6 @@
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .delay-900 { animation-delay: 0.9s; opacity: 0; }
         
-        /* Parallax con effetto zoom prospettico */
         .parallax-zoom-container {
             position: relative;
             height: 100vh;
@@ -188,7 +187,6 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* Bordo nero per testo hero - FORTE */
         .text-stroke-black-strong {
             text-shadow: 
                 -2px -2px 0 #000,
@@ -203,7 +201,6 @@
                 2px 2px 8px rgba(0,0,0,0.6);
         }
 
-        /* Bordo nero per testo hero - MEDIO */
         .text-stroke-black-medium {
             text-shadow: 
                 -1.5px -1.5px 0 #000,
@@ -218,7 +215,6 @@
                 1px 1px 6px rgba(0,0,0,0.4);
         }
 
-        /* Bordo nero per testo hero - LEGGERO */
         .text-stroke-black-light {
             text-shadow: 
                 -1px -1px 0 #000,
@@ -229,7 +225,6 @@
                 1px 1px 4px rgba(0,0,0,0.3);
         }
 
-        /* Reveal Animation */
         .reveal {
             opacity: 0;
             transform: translateY(60px);
@@ -241,7 +236,6 @@
             transform: none;
         }
 
-        /* Effetto rotazione 3D per card filosofi */
         .card-3d {
             perspective: 1000px;
             transform-style: preserve-3d;
@@ -268,7 +262,6 @@
             opacity: 1;
         }
 
-        /* Fade-in on scroll per Memento Mori */
         .fade-in-scroll {
             opacity: 0;
             transform: translateY(50px);
@@ -279,7 +272,6 @@
             transform: translateY(0);
         }
 
-        /* Effetto 3D per titolo sezione */
         .text-3d {
             text-shadow: 
                 1px 1px 0 #c49050,
@@ -294,7 +286,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* Gradiente tramonto continuo */
         .sunset-gradient {
             background: linear-gradient(180deg, 
                 #1a0f1f 0%,
@@ -308,7 +299,6 @@
             );
         }
 
-        /* Icone numerate per Come Funziona */
         .step-number {
             width: 56px;
             height: 56px;
@@ -380,7 +370,6 @@
             }
         }
 
-        /* FAQ Accordion - Compatto */
         .faq-item {
             border-bottom: 1px solid rgba(251, 191, 36, 0.2);
             transition: all 0.3s ease;
@@ -432,7 +421,6 @@
             padding: 0 1rem 1rem 1rem;
         }
 
-        /* Contact Form Styling - Mobile First */
         .contact-form-input,
         .contact-form-textarea {
             width: 100%;
@@ -482,7 +470,6 @@
             transform: translateY(0);
         }
 
-        /* Layout 2 Colonne Desktop, Stack Mobile */
         @media (max-width: 1023px) {
             .faq-contact-grid {
                 display: block !important;
@@ -493,7 +480,6 @@
             }
         }
 
-        /* Testo responsive per CTA Header */
         .cta-text-full {
             display: none;
         }
@@ -512,7 +498,6 @@
             }
         }
 
-        /* Scroll to Top Button */
         .scroll-to-top {
             position: fixed;
             bottom: 2rem;
@@ -556,10 +541,6 @@
                 height: 3rem;
             }
         }
-
-        /* ========================================
-           LANGUAGE SWITCHER - HOMEPAGE (Mobile Fix)
-           ======================================== */
 
         .language-switcher-header {
             position: relative;
@@ -686,7 +667,6 @@
             display: none;
         }
 
-        /* Mobile Responsive - SEMPRE VISIBILE E PIÙ GRANDE */
         @media (max-width: 640px) {
             .language-btn {
                 padding: 0.625rem 0.875rem;
@@ -720,13 +700,11 @@
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
-    <!-- Hero Section con effetto zoom parallax -->
     <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
         <div class="parallax-zoom-bg" id="parallaxBg"></div>
         
         <div class="absolute top-4 left-4 right-4 z-20">
             <div class="flex justify-between items-center gap-2">
-                <!-- Logo (sinistra) -->
                 <div class="flex items-center gap-2 animate-fadeIn flex-shrink-0">
                     <img src="sigma_logo.png"
                          alt="The Stoic Journey Logo"
@@ -736,22 +714,18 @@
                     </span>
                 </div>
                 
-                <!-- Menu centrale (solo desktop) -->
                 <div class="hidden lg:flex absolute left-1/2 top-0 transform -translate-x-1/2">
                     <a href="cosa-e-stoicismo.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap" data-i18n="nav.whatIsStoicism">
                         Cos'è lo Stoicismo
                     </a>
                 </div>
                 
-                <!-- Sezione destra: Language Switcher + CTA -->
                 <div class="flex items-center gap-2 flex-shrink-0">
-                    <!-- Language Switcher -->
                     <div class="language-switcher-header">
                         <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
                             <span id="currentLangHome" class="font-semibold">IT</span>
                         </button>
                         
-                        <!-- Dropdown -->
                         <div id="languageDropdownHome" class="language-dropdown-home hidden">
                             <button class="lang-option active" data-lang="it">
                                 <span class="flag">🇮🇹</span>
@@ -770,7 +744,6 @@
                         </div>
                     </div>
                     
-                    <!-- CTA Button -->
                     <a href="accedi.html" class="bg-amber-500 text-slate-900 px-3 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-xs sm:text-base whitespace-nowrap">
                         <span class="cta-text-short" data-i18n="home.ctaShort">Entra</span>
                         <span class="cta-text-full" data-i18n="home.cta">Entra Nel Viaggio Stoico</span>
@@ -779,22 +752,18 @@
             </div>
         </div>
         
-        <!-- CONTENUTO HERO: Desktop centrato, Mobile in basso -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 
                     md:pb-20 md:mt-auto
                     pb-8 mt-auto">
             <div class="text-base sm:text-2xl md:text-3xl max-w-3xl mx-auto animate-fadeInUp delay-300 leading-relaxed">
-                <!-- PARTE 1: PIÙ EVIDENTE - Cinzel Bold -->
                 <span class="font-cinzel font-bold text-white text-stroke-black-strong block mb-2 sm:mb-3 text-lg sm:text-2xl md:text-3xl" data-i18n="home.hero.title">
                     Trasforma la tua vita quotidiana con i principi degli antichi filosofi.
                 </span>
                 
-                <!-- PARTE 2: MENO EVIDENTE - Trajan Pro Normal -->
                 <span class="font-trajan font-normal text-white/85 text-stroke-black-medium block mb-1 sm:mb-2 text-base sm:text-xl md:text-2xl" data-i18n="home.hero.subtitle">
                     Riflessioni per costruire consapevolezza e serenità,
                 </span>
                 
-                <!-- PARTE 3: ANCORA MENO EVIDENTE - Inter Light -->
                 <span class="font-inter font-light text-white/65 text-stroke-black-light block text-sm sm:text-lg md:text-xl" data-i18n="home.hero.ai">
                     con approfondimenti analitici potenziati dall'AI.
                 </span>
@@ -808,19 +777,353 @@
         </div>
     </section>
 
-    <!-- RESTO DEL CONTENUTO RIMANE IDENTICO... -->
-    <!-- Per motivi di spazio, includo solo le sezioni critiche. 
-         Il resto del file HTML continua con le sezioni già presenti. -->
+    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-5xl font-cinzel font-bold text-center mb-4 md:mb-6 text-slate-900" data-i18n="home.howItWorks.title">
+                Come Funziona
+            </h2>
+            <p class="text-base md:text-lg text-center text-slate-600 mb-10 md:mb-16 max-w-2xl mx-auto font-inter" data-i18n="home.howItWorks.subtitle">
+                Il tuo percorso di crescita stoica in tre semplici passi
+            </p>
+            
+            <div class="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-12 md:items-start">
+                <div class="step-card reveal mobile-step md:block">
+                    <div class="step-number font-cinzel">1</div>
+                    <div class="mobile-step-content md:text-center">
+                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4" data-i18n="home.howItWorks.step1.title">
+                            Scrivi riflessione
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step1.description">
+                            Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale.
+                        </p>
+                    </div>
+                </div>
 
-    <!-- 1. CARICA TRANSLATIONS.JS PER PRIMO -->
+                <div class="hidden md:flex justify-center items-start pt-8">
+                    <span class="arrow-connector">→</span>
+                </div>
+
+                <div class="step-card reveal delay-300 mobile-step md:block">
+                    <div class="step-number font-cinzel">2</div>
+                    <div class="mobile-step-content md:text-center">
+                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4" data-i18n="home.howItWorks.step2.title">
+                            Sfida personalizzata
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step2.description">
+                            L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex justify-center items-start pt-8">
+                    <span class="arrow-connector">→</span>
+                </div>
+
+                <div class="step-card reveal delay-600 mobile-step md:block">
+                    <div class="step-number font-cinzel">3</div>
+                    <div class="mobile-step-content md:text-center">
+                        <h3 class="text-xl md:text-2xl font-cinzel font-bold text-slate-900 mb-2 md:mb-4" data-i18n="home.howItWorks.step3.title">
+                            Traccia progresso
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed font-inter" data-i18n="home.howItWorks.step3.description">
+                            Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-20 sunset-gradient">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d" data-i18n="home.philosophers.title">
+               I Tre Pilastri della Saggezza Stoica
+           </h2>
+          <div class="grid md:grid-cols-3 gap-10">
+            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
+              <div class="relative mb-6 z-10">
+                <div class="absolute inset-0 translate-y-6">
+                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+                </div>
+                <img src="busto_1_spalle.png"
+                     alt="Marco Aurelio - Filosofo stoico imperatore romano"
+                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
+              </div>
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.marcus.name">
+                Marco Aurelio
+              </div>
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principle">
+                Impedimentum Via Est
+              </div>
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principleTranslation">
+                Il cammino attraverso gli ostacoli
+              </div>
+              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quote">
+                «Quod obstat viae, via fit.»
+              </div>
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quoteTranslation">
+                "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
+              </p>
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.description">
+                Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
+              </p>
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.marcus.ai">
+                Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
+              </p>
+            </div>
+
+            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
+              <div class="relative mb-6 z-10">
+                <div class="absolute inset-0 translate-y-6">
+                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+                </div>
+                <img src="busto_2_semplice.png"
+                     alt="Epitteto - Filosofo stoico maestro della dicotomia del controllo"
+                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
+              </div>
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.epictetus.name">
+                Epitteto
+              </div>
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principle">
+                In Nostra Potestate
+              </div>
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principleTranslation">
+                La dicotomia del controllo
+              </div>
+              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quote">
+                «En tois eph' hemin kai en tois ouk eph' hemin»
+              </div>
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quoteTranslation">
+                La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
+              </p>
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.description">
+                Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
+              </p>
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.epictetus.ai">
+                L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
+              </p>
+            </div>
+
+            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
+              <div class="relative mb-6 z-10">
+                <div class="absolute inset-0 translate-y-6">
+                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+                </div>
+                <img src="busto_3_semplice.png"
+                     alt="Seneca - Filosofo stoico maestro della preparazione mentale"
+                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
+              </div>
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.seneca.name">
+                Seneca
+              </div>
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principle">
+                Praemeditatio Malorum
+              </div>
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principleTranslation">
+                Visualizzazione negativa
+              </div>
+              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quote">
+                «Ille miser non est cui nihil deest»
+              </div>
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quoteTranslation">
+                "Non è povero chi ha poco, ma chi desidera sempre di più."
+              </p>
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.description">
+                Immaginare in anticipo le difficoltà non è pessimismo, ma preparazione. Quando visualizziamo ciò che potrebbe andare storto, riduciamo l'impatto emotivo degli eventi negativi e rafforziamo la nostra resilienza.
+              </p>
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.seneca.ai">
+                L'AI ti aiuta a praticare la visualizzazione negativa in modo costruttivo, trasformando l'ansia anticipatoria in preparazione strategica.
+              </p>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gradient-to-b from-slate-900 to-slate-950 text-white overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-scroll">
+            <div class="mb-8">
+                <svg class="w-16 h-16 mx-auto text-amber-400 opacity-80" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-cinzel font-bold mb-6 tracking-wide" data-i18n="home.mementoMori.title">
+                Memento Mori
+            </h2>
+            <p class="text-lg md:text-xl text-slate-300 leading-relaxed font-trajan italic tracking-wide" data-i18n="home.mementoMori.quote">
+                «Ricordati che devi morire. Non per vivere con paura, ma per dare valore ad ogni istante e scegliere consapevolmente come spendere il tuo tempo.»
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="faq-contact-grid lg:grid lg:grid-cols-2 lg:gap-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-cinzel font-bold mb-8 text-slate-900 text-center lg:text-left" data-i18n="home.faq.title">
+                        Domande Frequenti
+                    </h2>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q1.question">
+                                    Cos'è The Stoic Journey?
+                                </h3>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-slate-600 font-inter" data-i18n="home.faq.q1.answer">
+                                    È una piattaforma di crescita personale che combina l'antica saggezza stoica con l'intelligenza artificiale moderna per offrirti riflessioni quotidiane personalizzate.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q2.question">
+                                    Come funziona l'AI?
+                                </h3>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-slate-600 font-inter" data-i18n="home.faq.q2.answer">
+                                    L'AI analizza le tue riflessioni e genera micro-sfide stoiche personalizzate basate sui principi di Marco Aurelio, Epitteto e Seneca.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q3.question">
+                                    È gratuito?
+                                </h3>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-slate-600 font-inter" data-i18n="home.faq.q3.answer">
+                                    Offriamo un periodo di prova gratuito. Poi puoi scegliere tra diversi piani in base alle tue esigenze.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+                                <h3 class="text-base md:text-lg font-semibold text-slate-900 font-cinzel" data-i18n="home.faq.q4.question">
+                                    Posso usarlo senza conoscere lo stoicismo?
+                                </h3>
+                                <span class="faq-icon">+</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p class="text-slate-600 font-inter" data-i18n="home.faq.q4.answer">
+                                    Assolutamente sì! La piattaforma è pensata sia per principianti che per esperti. Ti guideremo passo dopo passo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-cinzel font-bold mb-8 text-slate-900 text-center lg:text-left" data-i18n="home.contact.title">
+                        Contattaci
+                    </h2>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 border border-slate-200">
+                        <form id="contact-form" action="https://formspree.io/f/xpwabnoo" method="POST">
+                            <div class="mb-4">
+                                <label for="name" class="block text-sm font-semibold text-slate-700 mb-2 font-inter" data-i18n="home.contact.name">
+                                    Nome
+                                </label>
+                                <input type="text" id="name" name="name" required
+                                       class="contact-form-input"
+                                       placeholder="Il tuo nome">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block text-sm font-semibold text-slate-700 mb-2 font-inter" data-i18n="home.contact.email">
+                                    Email
+                                </label>
+                                <input type="email" id="email" name="email" required
+                                       class="contact-form-input"
+                                       placeholder="tua@email.com">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-sm font-semibold text-slate-700 mb-2 font-inter" data-i18n="home.contact.message">
+                                    Messaggio
+                                </label>
+                                <textarea id="message" name="message" rows="4" required
+                                          class="contact-form-textarea"
+                                          placeholder="Scrivi il tuo messaggio..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="contact-form-button" data-i18n="home.contact.send">
+                                Invia Messaggio
+                            </button>
+                            
+                            <p id="form-status" class="mt-4 text-sm text-center"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-cinzel font-bold mb-4" data-i18n="footer.about.title">Chi Siamo</h3>
+                    <p class="text-slate-400 font-inter" data-i18n="footer.about.description">
+                        The Stoic Journey è una piattaforma dedicata alla crescita personale attraverso i principi della filosofia stoica, potenziata dall'intelligenza artificiale.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-cinzel font-bold mb-4" data-i18n="footer.links.title">Link Utili</h3>
+                    <ul class="space-y-2 font-inter">
+                        <li><a href="cosa-e-stoicismo.html" class="text-slate-400 hover:text-amber-400 transition-colors" data-i18n="footer.links.stoicism">Cos'è lo Stoicismo</a></li>
+                        <li><a href="privacy-policy.html" class="text-slate-400 hover:text-amber-400 transition-colors" data-i18n="footer.links.privacy">Privacy Policy</a></li>
+                        <li><a href="cookie-policy.html" class="text-slate-400 hover:text-amber-400 transition-colors" data-i18n="footer.links.cookies">Cookie Policy</a></li>
+                        <li><a href="terms.html" class="text-slate-400 hover:text-amber-400 transition-colors" data-i18n="footer.links.terms">Termini e Condizioni</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-cinzel font-bold mb-4" data-i18n="footer.social.title">Seguici</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-amber-400 transition-colors" aria-label="Facebook">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-amber-400 transition-colors" aria-label="Twitter">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-amber-400 transition-colors" aria-label="Instagram">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 pt-8 text-center">
+                <p class="text-slate-400 font-inter" data-i18n="footer.copyright">
+                    © 2025 The Stoic Journey. Tutti i diritti riservati.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-to-top" id="scrollToTop">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </div>
+
     <script src="translations.js"></script>
-
-    <!-- 2. CARICA COMMON.JS (sistema di traduzione) -->
     <script src="common.js"></script>
 
-    <!-- 3. LANGUAGE SWITCHER SCRIPT - VERSIONE FISSA -->
     <script>
-        // Language switcher functionality
         (function() {
             console.log('🚀 Language Switcher Initialization Start...');
             
@@ -833,7 +1136,6 @@
                 return;
             }
 
-            // FORCE VISIBILITY (FIX MOBILE)
             switcher.style.display = 'flex';
             switcher.style.visibility = 'visible';
             switcher.style.opacity = '1';
@@ -846,12 +1148,10 @@
                 console.log('🔽 Dropdown toggled');
             });
             
-            // Close dropdown when clicking outside
             document.addEventListener('click', function() {
                 dropdown.classList.add('hidden');
             });
             
-            // Language options
             const langOptions = dropdown.querySelectorAll('.lang-option');
             langOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -859,7 +1159,6 @@
                     
                     console.log('🌐 Language changed to:', lang);
                     
-                    // Usa la funzione changeLanguage da common.js
                     if (typeof changeLanguage === 'function') {
                         changeLanguage(lang);
                     }
@@ -867,7 +1166,6 @@
                     currentLang.textContent = lang.toUpperCase();
                     dropdown.classList.add('hidden');
                     
-                    // Update active state
                     langOptions.forEach(opt => {
                         opt.classList.remove('active');
                         opt.querySelector('.check').classList.add('hidden');
@@ -877,7 +1175,6 @@
                 });
             });
             
-            // Set initial active state
             const savedLang = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'it';
             currentLang.textContent = savedLang.toUpperCase();
             langOptions.forEach(option => {
@@ -891,9 +1188,7 @@
         })();
     </script>
 
-    <!-- 4. ALTRI SCRIPT -->
     <script>
-        // Effetto zoom parallax su scroll
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxBg = document.getElementById('parallaxBg');
@@ -906,7 +1201,6 @@
             parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
         });
 
-        // Reveal effect
         document.addEventListener('DOMContentLoaded', function() {
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
@@ -921,7 +1215,6 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
-            // IntersectionObserver per Memento Mori fade-in
             const fadeElements = document.querySelectorAll('.fade-in-scroll');
             const fadeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -938,7 +1231,6 @@
                 fadeObserver.observe(element);
             });
 
-            // FAQ Accordion Toggle
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
@@ -960,7 +1252,6 @@
                 const isActive = item.classList.contains('active');
                 const question = item.querySelector('.faq-question');
                 
-                // Chiudi altri item
                 faqItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
@@ -968,7 +1259,6 @@
                     }
                 });
                 
-                // Toggle corrente
                 if (isActive) {
                     item.classList.remove('active');
                     question.setAttribute('aria-expanded', 'false');
@@ -978,7 +1268,6 @@
                 }
             }
 
-            // Scroll to Top Button
             const scrollToTopBtn = document.getElementById('scrollToTop');
             
             window.addEventListener('scroll', function() {
@@ -997,7 +1286,6 @@
             });
         });
 
-        // Formspree Form Handling con Messaggi in Italiano
         document.addEventListener("DOMContentLoaded", function() {
             var form = document.getElementById("contact-form");
             var status = document.getElementById("form-status");
@@ -1039,7 +1327,6 @@
         });
     </script>
 
-    <!-- PWA Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
