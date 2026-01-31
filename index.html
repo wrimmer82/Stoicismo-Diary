@@ -50,6 +50,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Stoic Journey">
 
+    <!-- Preload translations.js con priorità alta -->
+    <link rel="preload" href="translations.js?v=2.0" as="script">
+
     <!-- Cookie Consent Banner -->
     <link rel="stylesheet" href="silktide-consent-manager.css">
     <script src="silktide-consent-manager.js"></script>
@@ -584,6 +587,15 @@
             min-width: 52px;
             min-height: 44px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            /* Nascosto durante caricamento */
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Mostra quando pronto */
+        .language-btn.ready {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .language-btn:hover {
@@ -1153,15 +1165,27 @@
         </svg>
     </div>
 
-    <!-- SCRIPTS: ORDINE CORRETTO -->
+    <!-- ========================================
+         SCRIPTS: ORDINE OTTIMIZZATO
+         ======================================== -->
     
-    <!-- 1. TRANSLATIONS.JS (dati traduzioni) -->
-    <script src="translations.js"></script>
-
-    <!-- 2. LANGUAGE SWITCHER (standalone, non dipende da common.js) -->
+    <!-- 1. CARICA translations.js in modo sincrono -->
+    <script src="translations.js?v=2.0"></script>
+    
+    <!-- 2. LANGUAGE SWITCHER (esegue DOPO che translations è caricato) -->
     <script>
     (function() {
         'use strict';
+        
+        // Aspetta che translations sia disponibile
+        function waitForTranslations(callback) {
+            if (window.translations) {
+                callback();
+            } else {
+                console.warn('⏳ Aspettando translations.js...');
+                setTimeout(() => waitForTranslations(callback), 50);
+            }
+        }
         
         // Funzione per applicare traduzioni
         function applyTranslations(lang) {
@@ -1185,6 +1209,8 @@
                     } else {
                         el.textContent = value;
                     }
+                } else {
+                    console.warn(`⚠️ Traduzione mancante: ${key}`);
                 }
             });
             
@@ -1206,7 +1232,7 @@
             console.log('✅ Traduzioni applicate con successo');
         }
         
-        // Helper per chiavi nidificate (es: "home.hero.title")
+        // Helper per chiavi nidificate
         function getNestedTranslation(obj, path) {
             return path.split('.').reduce((curr, key) => curr?.[key], obj);
         }
@@ -1221,6 +1247,9 @@
                 console.warn('⚠️ Elementi language switcher non trovati');
                 return;
             }
+            
+            // Mostra bottone (era nascosto per evitare flash)
+            switcher.classList.add('ready');
             
             // Toggle dropdown
             switcher.addEventListener('click', function(e) {
@@ -1275,12 +1304,8 @@
             console.log('✅ Language switcher inizializzato');
         }
         
-        // Init al caricamento DOM
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
-        } else {
-            initLanguageSwitcher();
-        }
+        // Init dopo che translations.js è caricato
+        waitForTranslations(initLanguageSwitcher);
     })();
     </script>
 
