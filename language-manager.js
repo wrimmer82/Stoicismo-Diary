@@ -1,37 +1,23 @@
-/**
- * LANGUAGE MANAGER GLOBALE - The Stoic Journey
- * Gestisce traduzioni e language switcher per tutte le pagine
- * Version: 1.0
- */
+// ============================================
+// 🌍 GLOBAL LANGUAGE MANAGER
+// File: language-manager.js
+// Versione: 1.0
+// ============================================
 
 (function() {
     'use strict';
     
-    console.log('🌍 Language Manager: Inizializzazione...');
+    console.log('🌍 GLOBAL Language Manager: Loading...');
     
     // ============================================
-    // DATABASE TRADUZIONI GLOBALE
+    // PARTE 1: TRANSLATIONS DATABASE
     // ============================================
     
     const TRANSLATIONS = {
         it: {
             nav: {
                 whatIsStoicism: "Cos'è lo Stoicismo",
-                login: "Accedi",
-                home: "Home",
-                dashboard: "Dashboard",
-                settings: "Impostazioni"
-            },
-            common: {
-                loading: "Caricamento...",
-                error: "Errore",
-                success: "Successo",
-                cancel: "Annulla",
-                confirm: "Conferma",
-                save: "Salva",
-                delete: "Elimina",
-                edit: "Modifica",
-                close: "Chiudi"
+                login: "Accedi"
             },
             home: {
                 ctaShort: "Entra",
@@ -45,9 +31,18 @@
                 howItWorks: {
                     title: "Come Funziona",
                     subtitle: "Il tuo percorso di crescita stoica in tre semplici passi",
-                    step1: { title: "Scrivi riflessione", description: "Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale." },
-                    step2: { title: "Sfida personalizzata", description: "L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca." },
-                    step3: { title: "Traccia progresso", description: "Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern." }
+                    step1: {
+                        title: "Scrivi riflessione",
+                        description: "Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale."
+                    },
+                    step2: {
+                        title: "Sfida personalizzata",
+                        description: "L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca."
+                    },
+                    step3: {
+                        title: "Traccia progresso",
+                        description: "Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern."
+                    }
                 },
                 philosophers: {
                     title: "I Tre Pilastri della Saggezza Stoica",
@@ -81,7 +76,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: '"Ricordati che devi morire"',
+                    subtitle: "\"Ricordati che devi morire\"",
                     text1: "La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.",
                     text2: "Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero."
                 },
@@ -110,34 +105,6 @@
                     note: "Risponderemo entro 24 ore"
                 }
             },
-            auth: {
-                login: {
-                    title: "Accedi",
-                    email: "Email",
-                    password: "Password",
-                    forgotPassword: "Password dimenticata?",
-                    submit: "Accedi",
-                    noAccount: "Non hai un account?",
-                    signUp: "Registrati"
-                },
-                register: {
-                    title: "Registrati",
-                    name: "Nome",
-                    email: "Email",
-                    password: "Password",
-                    confirmPassword: "Conferma Password",
-                    submit: "Registrati",
-                    hasAccount: "Hai già un account?",
-                    login: "Accedi"
-                }
-            },
-            dashboard: {
-                welcome: "Benvenuto",
-                reflections: "Riflessioni",
-                challenges: "Sfide",
-                progress: "Progresso",
-                settings: "Impostazioni"
-            },
             footer: {
                 tagline: "La tua guida quotidiana alla saggezza stoica.",
                 resources: "Risorse",
@@ -154,21 +121,7 @@
         en: {
             nav: {
                 whatIsStoicism: "What is Stoicism",
-                login: "Login",
-                home: "Home",
-                dashboard: "Dashboard",
-                settings: "Settings"
-            },
-            common: {
-                loading: "Loading...",
-                error: "Error",
-                success: "Success",
-                cancel: "Cancel",
-                confirm: "Confirm",
-                save: "Save",
-                delete: "Delete",
-                edit: "Edit",
-                close: "Close"
+                login: "Login"
             },
             home: {
                 ctaShort: "Enter",
@@ -182,9 +135,18 @@
                 howItWorks: {
                     title: "How It Works",
                     subtitle: "Your stoic growth journey in three simple steps",
-                    step1: { title: "Write reflection", description: "Dedicate a few minutes each day to write thoughts and challenges in your personal stoic journal." },
-                    step2: { title: "Personalized challenge", description: "AI generates a custom stoic micro-challenge based on Marcus Aurelius, Epictetus, and Seneca." },
-                    step3: { title: "Track progress", description: "Monitor your evolution through intuitive dashboards and visualize your patterns." }
+                    step1: {
+                        title: "Write reflection",
+                        description: "Dedicate a few minutes each day to write thoughts and challenges in your personal stoic journal."
+                    },
+                    step2: {
+                        title: "Personalized challenge",
+                        description: "AI generates a custom stoic micro-challenge based on Marcus Aurelius, Epictetus, and Seneca."
+                    },
+                    step3: {
+                        title: "Track progress",
+                        description: "Monitor your evolution through intuitive dashboards and visualize your patterns."
+                    }
                 },
                 philosophers: {
                     title: "The Three Pillars of Stoic Wisdom",
@@ -218,7 +180,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: '"Remember you must die"',
+                    subtitle: "\"Remember you must die\"",
                     text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
                     text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
                 },
@@ -247,34 +209,6 @@
                     note: "We will respond within 24 hours"
                 }
             },
-            auth: {
-                login: {
-                    title: "Login",
-                    email: "Email",
-                    password: "Password",
-                    forgotPassword: "Forgot password?",
-                    submit: "Login",
-                    noAccount: "Don't have an account?",
-                    signUp: "Sign Up"
-                },
-                register: {
-                    title: "Sign Up",
-                    name: "Name",
-                    email: "Email",
-                    password: "Password",
-                    confirmPassword: "Confirm Password",
-                    submit: "Sign Up",
-                    hasAccount: "Already have an account?",
-                    login: "Login"
-                }
-            },
-            dashboard: {
-                welcome: "Welcome",
-                reflections: "Reflections",
-                challenges: "Challenges",
-                progress: "Progress",
-                settings: "Settings"
-            },
             footer: {
                 tagline: "Your daily guide to stoic wisdom.",
                 resources: "Resources",
@@ -291,7 +225,7 @@
     };
     
     // ============================================
-    // FUNZIONI HELPER
+    // PARTE 2: FUNZIONI HELPER
     // ============================================
     
     function getNestedTranslation(obj, path) {
@@ -307,7 +241,7 @@
         
         console.log('🌍 Applicazione traduzioni:', lang);
         
-        // Traduci elementi con data-i18n
+        // Traduci data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             const value = getNestedTranslation(t, key);
@@ -332,7 +266,7 @@
             }
         });
         
-        // Aggiorna attributo lang
+        // Aggiorna HTML lang
         document.documentElement.lang = lang;
         
         // Salva preferenza
@@ -342,25 +276,29 @@
     }
     
     // ============================================
-    // LANGUAGE SWITCHER UI
+    // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER
     // ============================================
     
     function initLanguageSwitcher() {
-        const switcher = document.querySelector('[data-language-switcher]');
+        // Cerca switcher nella home
+        let switcher = document.getElementById('languageSwitcherHome');
+        let dropdown = document.getElementById('languageDropdownHome');
+        let currentLangEl = document.getElementById('currentLangHome');
+        
+        // Se non trovati, cerca switcher generici (altre pagine)
         if (!switcher) {
-            console.warn('⚠️ Language switcher non trovato');
+            switcher = document.getElementById('languageSwitcher');
+            dropdown = document.getElementById('languageDropdown');
+            currentLangEl = document.getElementById('currentLang');
+        }
+        
+        if (!switcher || !dropdown || !currentLangEl) {
+            console.warn('⚠️ Elementi language switcher non trovati - retry in 100ms');
+            setTimeout(initLanguageSwitcher, 100);
             return;
         }
         
-        const dropdown = switcher.querySelector('[data-language-dropdown]');
-        const currentLangEl = switcher.querySelector('[data-current-lang]');
-        
-        if (!dropdown || !currentLangEl) {
-            console.warn('⚠️ Elementi switcher incompleti');
-            return;
-        }
-        
-        console.log('🎯 Language switcher trovato');
+        console.log('🎯 Language switcher trovato - inizializzazione...');
         
         // Toggle dropdown
         switcher.addEventListener('click', function(e) {
@@ -374,7 +312,7 @@
         });
         
         // Gestione cambio lingua
-        const langOptions = dropdown.querySelectorAll('[data-lang]');
+        const langOptions = dropdown.querySelectorAll('.lang-option');
         langOptions.forEach(option => {
             option.addEventListener('click', function(e) {
                 e.stopPropagation();
@@ -390,10 +328,7 @@
                 langOptions.forEach(opt => {
                     const isActive = opt.getAttribute('data-lang') === lang;
                     opt.classList.toggle('active', isActive);
-                    const check = opt.querySelector('.check');
-                    if (check) {
-                        check.classList.toggle('hidden', !isActive);
-                    }
+                    opt.querySelector('.check').classList.toggle('hidden', !isActive);
                 });
                 
                 // Chiudi dropdown
@@ -412,34 +347,22 @@
         langOptions.forEach(option => {
             const isActive = option.getAttribute('data-lang') === savedLang;
             option.classList.toggle('active', isActive);
-            const check = option.querySelector('.check');
-            if (check) {
-                check.classList.toggle('hidden', !isActive);
-            }
+            option.querySelector('.check').classList.toggle('hidden', !isActive);
         });
         
-        console.log('✅ Language switcher attivo');
+        console.log('✅ GLOBAL Language Manager: Attivo!');
     }
     
     // ============================================
-    // AUTO-INIT
+    // PARTE 4: AVVIO AUTOMATICO
     // ============================================
     
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            // Applica lingua salvata
-            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
-            applyTranslations(savedLang);
-            
-            // Inizializza switcher
-            initLanguageSwitcher();
-        });
+        document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
     } else {
-        const savedLang = localStorage.getItem('preferredLanguage') || 'it';
-        applyTranslations(savedLang);
         initLanguageSwitcher();
     }
     
-    console.log('✅ Language Manager caricato');
+    console.log('✅ GLOBAL Language Manager: Script caricato - waiting for DOM');
     
 })();
