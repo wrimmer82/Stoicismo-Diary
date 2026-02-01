@@ -1,7 +1,7 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 2.0 
+// Versione: 3.0 - Traduzioni complete Cos'è lo Stoicismo
 // ============================================
 
 (function() {
@@ -17,7 +17,11 @@
         it: {
             nav: {
                 whatIsStoicism: "Cos'è lo Stoicismo",
-                login: "Accedi"
+                login: "Accedi",
+                origins: "Origini",
+                philosophers: "Filosofi",
+                principles: "Principi",
+                today: "Oggi"
             },
             home: {
                 ctaShort: "Entra",
@@ -110,12 +114,6 @@
                     title: "Cos'è lo Stoicismo: Guida Completa alla Filosofia Stoica",
                     subtitle: "Una filosofia di 2300 anni più attuale che mai"
                 },
-                nav: {
-                    origins: "Origini",
-                    philosophers: "Filosofi",
-                    principles: "Principi",
-                    today: "Oggi"
-                },
                 intro: {
                     p1: "Lo stoicismo è una filosofia pratica fondata ad Atene intorno al 300 a.C. da <strong>Zenone di Cizio</strong>. Non è una teoria astratta, ma un sistema di vita che ha aiutato imperatori, schiavi, scrittori e persone comuni ad affrontare le sfide dell'esistenza con lucidità e serenità.",
                     p2: "Oggi, oltre 2000 anni dopo, lo stoicismo sta vivendo una straordinaria rinascita perché offre strumenti concreti per gestire ansia, stress e incertezza nella vita moderna."
@@ -156,65 +154,125 @@
                     epictetus: {
                         name: "Epitteto",
                         dates: "50 - 138 d.C.",
-                        bio: "Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class='text-amber-300'>Manuale (Enchiridion)</strong> condensa la saggezza stoica in precetti pratici immediatamente applicabili.",
-                        quote: "\"Non sono gli eventi a turbarci, ma il giudizio che diamo di essi.\""
+                        bio: "Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class='text-amber-300'>Manuale</strong> è un vademecum tascabile di saggezza pratica. Insegna la distinzione tra ciò che dipende da noi e ciò che non dipende.",
+                        quote: "\"Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile.\""
                     },
                     marcus: {
                         name: "Marco Aurelio",
                         dates: "121 - 180 d.C.",
-                        bio: "Imperatore romano e filosofo. Le sue <strong class='text-amber-300'>Meditazioni</strong> (Τὰ εἰς ἑαυτόν) sono appunti personali mai destinati alla pubblicazione: un dialogo intimo con se stesso sulla condotta morale.",
+                        bio: "Imperatore di Roma, l'uomo più potente del mondo che medita sulla vanità del potere. I suoi <strong class='text-amber-300'>Colloqui con sé stesso</strong> sono un diario filosofico scritto durante le campagne militari.",
                         quote: "\"Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza.\""
                     }
                 },
+                cta1: {
+                    text: "Vuoi riflettere ogni giorno come Marco Aurelio?",
+                    button: "Prova Gratis The Stoic Journey"
+                },
                 principles: {
-                    title: "I Principi Fondamentali dello Stoicismo",
-                    subtitle: "Le idee chiave che hanno attraversato i millenni",
+                    title: "I Principi che Cambiano la Vita",
                     dichotomy: {
                         title: "La Dicotomia del Controllo",
-                        text: "Il principio cardine: distinguere tra <strong class='text-amber-600'>ciò che dipende da noi</strong> (opinioni, desideri, giudizi, azioni) e <strong class='text-amber-600'>ciò che non dipende da noi</strong> (eventi esterni, opinioni altrui, corpo, morte).",
-                        practice: "<strong>Applicazione pratica:</strong> Smetti di sprecare energia su ciò che non puoi controllare. Concentrati solo su ciò che è in tuo potere: i tuoi pensieri e le tue azioni."
-                    },
-                    nature: {
-                        title: "Vivere secondo Natura",
-                        text: "Seguire la <strong class='text-green-600'>natura razionale</strong> dell'essere umano. Significa usare la ragione per comprendere l'ordine del mondo e agire virtuosamente, accettando che tutto ciò che accade fa parte di un disegno più ampio.",
-                        practice: "<strong>Applicazione pratica:</strong> Accetta che le difficoltà sono parte naturale della vita. Non lottare contro ciò che non puoi cambiare; adattati con saggezza."
+                        description: "Il principio fondamentale insegnato da Epitteto: distinguere con lucidità ciò che dipende da noi dalle cose che non possiamo controllare.",
+                        dependsOnYou: "Dipende da te",
+                        notDependsOnYou: "Non dipende da te",
+                        list1: {
+                            item1: "• Le tue opinioni e giudizi",
+                            item2: "• I tuoi desideri e avversioni",
+                            item3: "• Le tue scelte e azioni",
+                            item4: "• Il tuo atteggiamento"
+                        },
+                        list2: {
+                            item1: "• Gli eventi esterni",
+                            item2: "• Le opinioni altrui",
+                            item3: "• I risultati finali",
+                            item4: "• Il corpo e la salute"
+                        },
+                        application: "Applicazione oggi: Invece di stressarti per il traffico (non controlli), concentrati su come reagisci (controlli). Questa distinzione libera energia mentale enorme.",
+                        ctaText: "Metti in pratica questi principi ogni giorno",
+                        ctaButton: "Scopri The Stoic Journey PRO"
                     },
                     virtues: {
                         title: "Le Quattro Virtù Cardinali",
-                        wisdom: "<strong class='text-blue-600'>Saggezza (Sophia):</strong> Conoscere ciò che è bene e male, distinguere ciò che ha valore",
-                        courage: "<strong class='text-blue-600'>Coraggio (Andreia):</strong> Resistere alle paure e affrontare le difficoltà",
-                        justice: "<strong class='text-blue-600'>Giustizia (Dikaiosyne):</strong> Trattare gli altri con equità e contribuire al bene comune",
-                        temperance: "<strong class='text-blue-600'>Temperanza (Sophrosyne):</strong> Controllo dei desideri e moderazione",
-                        practice: "<strong>Applicazione pratica:</strong> Le virtù non sono astratte. Si praticano quotidianamente nelle piccole scelte: essere onesti anche quando nessuno ti guarda, resistere alle tentazioni, aiutare chi è in difficoltà."
+                        description: "Per gli stoici, la felicità autentica deriva dalla virtù, non dalle circostanze esterne. Queste quattro qualità sono il fondamento della vita degna di essere vissuta.",
+                        wisdom: {
+                            title: "Saggezza",
+                            text: "Giudizio corretto, capacità di discernere il bene dal male, comprensione della realtà così com'è."
+                        },
+                        courage: {
+                            title: "Coraggio",
+                            text: "Resistenza fisica e morale, perseveranza nelle difficoltà, agire rettamente nonostante la paura."
+                        },
+                        justice: {
+                            title: "Giustizia",
+                            text: "Rispetto dei doveri verso gli altri, equità, riconoscimento della comune umanità, cittadinanza cosmica."
+                        },
+                        temperance: {
+                            title: "Temperanza",
+                            text: "Autocontrollo, moderazione, ordine interiore, libertà dagli impulsi distruttivi."
+                        }
                     },
-                    amorFati: {
-                        title: "Amor Fati",
-                        text: "<strong class='text-purple-600'>\"Amore del destino\"</strong> - non solo accettare ciò che accade, ma abbracciarlo con gioia. Ogni evento, anche doloroso, è un'opportunità di crescita e fa parte del percorso necessario per diventare chi siamo.",
-                        practice: "<strong>Applicazione pratica:</strong> Quando accade qualcosa di negativo, chiediti: \"Come posso usare questo evento per crescere?\". Trasforma gli ostacoli in carburante per il tuo sviluppo personale."
+                    nature: {
+                        title: "Vivere Secondo Natura",
+                        description: "Il fine ultimo dello stoicismo è <em>\"vivere in accordo con la natura\"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
+                        p1: "Non si tratta di \"tornare alla natura selvaggia\", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
+                        p2: "Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi."
                     }
                 },
                 today: {
-                    title: "Lo Stoicismo nel XXI Secolo",
-                    why: {
-                        title: "Perché è più attuale che mai",
-                        anxiety: "<strong class='text-amber-300'>Gestione dell'ansia:</strong> Lo stoicismo insegna a distinguere preoccupazioni reali da quelle inutili",
-                        focus: "<strong class='text-amber-300'>Focus e produttività:</strong> Concentrarsi solo su ciò che dipende da noi elimina distrazioni",
-                        resilience: "<strong class='text-amber-300'>Resilienza emotiva:</strong> Le tecniche stoiche prevengono il burnout e rafforzano la mente",
-                        relationships: "<strong class='text-amber-300'>Relazioni migliori:</strong> Accettare che non possiamo controllare gli altri riduce conflitti"
+                    title: "Perché lo Stoicismo è Così Attuale Oggi",
+                    subtitle: "2300 anni dopo, più rilevante che mai",
+                    anxiety: {
+                        title: "Gestione di Ansia e Stress",
+                        p1: "La <strong class='text-amber-200'>Terapia Cognitivo-Comportamentale</strong> (CBT), uno dei trattamenti più efficaci per ansia e depressione, deriva direttamente dallo stoicismo. Il suo fondatore, Albert Ellis, citava esplicitamente Epitteto.",
+                        p2: "<strong class='text-amber-300'>Principio chiave:</strong> Non sono gli eventi che ci turbano, ma i nostri giudizi sugli eventi. Cambiando i pensieri automatici negativi, trasformiamo le emozioni."
                     },
-                    who: {
-                        title: "Chi lo pratica oggi",
-                        intro: "Lo stoicismo è diventato una filosofia di riferimento per:",
-                        entrepreneurs: "<strong>Imprenditori e CEO</strong> - per decisioni lucide sotto pressione",
-                        athletes: "<strong>Atleti professionisti</strong> - per controllo mentale e gestione fallimenti",
-                        therapists: "<strong>Psicologi e terapeuti</strong> - come base della terapia cognitivo-comportamentale",
-                        people: "<strong>Persone comuni</strong> - che cercano serenità nella vita quotidiana"
+                    performance: {
+                        title: "Performance e Resilienza",
+                        p1: "Atleti olimpici, imprenditori della Silicon Valley, militari d'élite utilizzano tecniche stoiche per mantenere lucidità sotto pressione e trasformare ostacoli in opportunità.",
+                        p2: "<strong class='text-amber-300'>Applicazione moderna:</strong> La premeditazione delle avversità (premeditatio malorum) prepara mentalmente a scenari peggiori, riducendo ansia e aumentando preparazione."
                     },
-                    cta: {
-                        title: "Inizia il Tuo Viaggio Stoico",
-                        text: "Trasforma i principi antichi in strumenti pratici per la vita moderna. Unisciti a migliaia di persone che stanno costruendo resilienza, serenità e saggezza.",
-                        button: "Inizia Gratis per 30 Giorni"
+                    wisdom: {
+                        title: "La Saggezza Antica per la Vita Moderna",
+                        intro: "In un'epoca di <strong class='text-amber-300'>sovraccarico informativo</strong>, <strong class='text-amber-300'>confronto sociale continuo</strong> (social media) e <strong class='text-amber-300'>incertezza economica</strong>, lo stoicismo offre:",
+                        item1: "<strong class='text-amber-300'>Chiarezza mentale</strong> su cosa conta davvero",
+                        item2: "<strong class='text-amber-300'>Strumenti pratici</strong> per decisioni difficili",
+                        item3: "<strong class='text-amber-300'>Resilienza emotiva</strong> nei momenti di crisi",
+                        item4: "<strong class='text-amber-300'>Libertà interiore</strong> dalle pressioni esterne"
+                    },
+                    practice: {
+                        title: "Come Praticare lo Stoicismo Oggi",
+                        readings: {
+                            title: "Letture Fondamentali",
+                            item1: "• <strong class='text-amber-200'>Manuale</strong> di Epitteto",
+                            item2: "• <strong class='text-amber-200'>Colloqui</strong> di Marco Aurelio",
+                            item3: "• <strong class='text-amber-200'>Lettere a Lucilio</strong> di Seneca",
+                            item4: "• <strong class='text-amber-200'>De Brevitate Vitae</strong> di Seneca"
+                        },
+                        journal: {
+                            title: "Diario Stoico",
+                            intro: "Marco Aurelio teneva un diario filosofico. Anche tu puoi:",
+                            item1: "• Esame mattutino delle sfide",
+                            item2: "• Riflessioni durante il giorno",
+                            item3: "• Revisione serale delle azioni"
+                        },
+                        daily: {
+                            title: "Pratiche Quotidiane",
+                            item1: "• Meditazione sulla mortalità",
+                            item2: "• Premeditazione avversità",
+                            item3: "• Esercizio del distanziamento",
+                            item4: "• Visualizzazione della giornata"
+                        },
+                        note: {
+                            title: "Il diario cartaceo è fondamentale",
+                            text: "Scrivere a mano rallenta il pensiero, favorisce riflessione profonda e consolida l'apprendimento. Marco Aurelio scriveva i suoi <em>Colloqui</em> durante le campagne militari, in condizioni estreme. Il diario è il tuo campo di allenamento filosofico quotidiano."
+                        }
                     }
+                },
+                ctaFinal: {
+                    title: "Inizia il Tuo Viaggio Stoico",
+                    text: "The Stoic Journey ti accompagna con sfide quotidiane personalizzate, riflessioni guidate dall'AI e una community di praticanti moderni.",
+                    button1: "Inizia Gratis Oggi",
+                    button2: "Torna alla Home"
                 }
             },
             footer: {
@@ -233,7 +291,11 @@
         en: {
             nav: {
                 whatIsStoicism: "What is Stoicism",
-                login: "Login"
+                login: "Login",
+                origins: "Origins",
+                philosophers: "Philosophers",
+                principles: "Principles",
+                today: "Today"
             },
             home: {
                 ctaShort: "Enter",
@@ -326,12 +388,6 @@
                     title: "What is Stoicism: Complete Guide to Stoic Philosophy",
                     subtitle: "A 2300-year-old philosophy more relevant than ever"
                 },
-                nav: {
-                    origins: "Origins",
-                    philosophers: "Philosophers",
-                    principles: "Principles",
-                    today: "Today"
-                },
                 intro: {
                     p1: "Stoicism is a practical philosophy founded in Athens around 300 BC by <strong>Zeno of Citium</strong>. It is not an abstract theory, but a life system that has helped emperors, slaves, writers, and ordinary people face the challenges of existence with clarity and serenity.",
                     p2: "Today, over 2000 years later, Stoicism is experiencing an extraordinary renaissance because it offers concrete tools to manage anxiety, stress, and uncertainty in modern life."
@@ -372,65 +428,125 @@
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
-                        bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook (Enchiridion)</strong> condenses Stoic wisdom into practical precepts immediately applicable.",
-                        quote: "\"It is not events that disturb us, but the judgment we give them.\""
+                        bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
+                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\""
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
-                        bio: "Roman emperor and philosopher. His <strong class='text-amber-300'>Meditations</strong> (Τὰ εἰς ἑαυτόν) are personal notes never intended for publication: an intimate dialogue with himself on moral conduct.",
+                        bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
                         quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\""
                     }
                 },
+                cta1: {
+                    text: "Want to reflect every day like Marcus Aurelius?",
+                    button: "Try The Stoic Journey for Free"
+                },
                 principles: {
-                    title: "The Fundamental Principles of Stoicism",
-                    subtitle: "The key ideas that have crossed millennia",
+                    title: "The Principles That Change Your Life",
                     dichotomy: {
                         title: "The Dichotomy of Control",
-                        text: "The cardinal principle: distinguish between <strong class='text-amber-600'>what depends on us</strong> (opinions, desires, judgments, actions) and <strong class='text-amber-600'>what does not depend on us</strong> (external events, others' opinions, body, death).",
-                        practice: "<strong>Practical application:</strong> Stop wasting energy on what you cannot control. Focus only on what is in your power: your thoughts and actions."
-                    },
-                    nature: {
-                        title: "Living According to Nature",
-                        text: "Following the <strong class='text-green-600'>rational nature</strong> of the human being. It means using reason to understand the order of the world and act virtuously, accepting that everything that happens is part of a larger design.",
-                        practice: "<strong>Practical application:</strong> Accept that difficulties are a natural part of life. Don't fight what you cannot change; adapt wisely."
+                        description: "The fundamental principle taught by Epictetus: clearly distinguish what depends on us from things we cannot control.",
+                        dependsOnYou: "Depends on you",
+                        notDependsOnYou: "Does not depend on you",
+                        list1: {
+                            item1: "• Your opinions and judgments",
+                            item2: "• Your desires and aversions",
+                            item3: "• Your choices and actions",
+                            item4: "• Your attitude"
+                        },
+                        list2: {
+                            item1: "• External events",
+                            item2: "• Others' opinions",
+                            item3: "• Final results",
+                            item4: "• Body and health"
+                        },
+                        application: "Application today: Instead of stressing about traffic (don't control), focus on how you react (control). This distinction frees enormous mental energy.",
+                        ctaText: "Put these principles into practice every day",
+                        ctaButton: "Discover The Stoic Journey PRO"
                     },
                     virtues: {
                         title: "The Four Cardinal Virtues",
-                        wisdom: "<strong class='text-blue-600'>Wisdom (Sophia):</strong> Knowing what is good and evil, distinguishing what has value",
-                        courage: "<strong class='text-blue-600'>Courage (Andreia):</strong> Resisting fears and facing difficulties",
-                        justice: "<strong class='text-blue-600'>Justice (Dikaiosyne):</strong> Treating others fairly and contributing to the common good",
-                        temperance: "<strong class='text-blue-600'>Temperance (Sophrosyne):</strong> Control of desires and moderation",
-                        practice: "<strong>Practical application:</strong> Virtues are not abstract. They are practiced daily in small choices: being honest even when no one is watching, resisting temptations, helping those in difficulty."
+                        description: "For the Stoics, authentic happiness derives from virtue, not from external circumstances. These four qualities are the foundation of a life worth living.",
+                        wisdom: {
+                            title: "Wisdom",
+                            text: "Correct judgment, ability to discern good from evil, understanding reality as it is."
+                        },
+                        courage: {
+                            title: "Courage",
+                            text: "Physical and moral resistance, perseverance in difficulties, acting righteously despite fear."
+                        },
+                        justice: {
+                            title: "Justice",
+                            text: "Respect for duties toward others, fairness, recognition of common humanity, cosmic citizenship."
+                        },
+                        temperance: {
+                            title: "Temperance",
+                            text: "Self-control, moderation, inner order, freedom from destructive impulses."
+                        }
                     },
-                    amorFati: {
-                        title: "Amor Fati",
-                        text: "<strong class='text-purple-600'>\"Love of fate\"</strong> - not just accepting what happens, but embracing it with joy. Every event, even painful, is an opportunity for growth and part of the necessary path to become who we are.",
-                        practice: "<strong>Practical application:</strong> When something negative happens, ask yourself: \"How can I use this event to grow?\". Transform obstacles into fuel for your personal development."
+                    nature: {
+                        title: "Living According to Nature",
+                        description: "The ultimate goal of Stoicism is <em>\"to live in accordance with nature\"</em> - which means living according to reason, because human nature is fundamentally rational.",
+                        p1: "It's not about \"returning to wild nature\", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
+                        p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
                     }
                 },
                 today: {
-                    title: "Stoicism in the 21st Century",
-                    why: {
-                        title: "Why it is more relevant than ever",
-                        anxiety: "<strong class='text-amber-300'>Anxiety management:</strong> Stoicism teaches to distinguish real worries from useless ones",
-                        focus: "<strong class='text-amber-300'>Focus and productivity:</strong> Concentrating only on what depends on us eliminates distractions",
-                        resilience: "<strong class='text-amber-300'>Emotional resilience:</strong> Stoic techniques prevent burnout and strengthen the mind",
-                        relationships: "<strong class='text-amber-300'>Better relationships:</strong> Accepting that we cannot control others reduces conflicts"
+                    title: "Why Stoicism is So Relevant Today",
+                    subtitle: "2300 years later, more relevant than ever",
+                    anxiety: {
+                        title: "Managing Anxiety and Stress",
+                        p1: "<strong class='text-amber-200'>Cognitive Behavioral Therapy</strong> (CBT), one of the most effective treatments for anxiety and depression, derives directly from Stoicism. Its founder, Albert Ellis, explicitly cited Epictetus.",
+                        p2: "<strong class='text-amber-300'>Key principle:</strong> It is not events that disturb us, but our judgments about events. By changing negative automatic thoughts, we transform emotions."
                     },
-                    who: {
-                        title: "Who practices it today",
-                        intro: "Stoicism has become a reference philosophy for:",
-                        entrepreneurs: "<strong>Entrepreneurs and CEOs</strong> - for clear decisions under pressure",
-                        athletes: "<strong>Professional athletes</strong> - for mental control and failure management",
-                        therapists: "<strong>Psychologists and therapists</strong> - as the basis of cognitive-behavioral therapy",
-                        people: "<strong>Ordinary people</strong> - seeking serenity in daily life"
+                    performance: {
+                        title: "Performance and Resilience",
+                        p1: "Olympic athletes, Silicon Valley entrepreneurs, elite military use Stoic techniques to maintain clarity under pressure and transform obstacles into opportunities.",
+                        p2: "<strong class='text-amber-300'>Modern application:</strong> Premeditation of adversities (premeditatio malorum) mentally prepares for worst-case scenarios, reducing anxiety and increasing preparation."
                     },
-                    cta: {
-                        title: "Start Your Stoic Journey",
-                        text: "Transform ancient principles into practical tools for modern life. Join thousands of people building resilience, serenity, and wisdom.",
-                        button: "Start Free for 30 Days"
+                    wisdom: {
+                        title: "Ancient Wisdom for Modern Life",
+                        intro: "In an era of <strong class='text-amber-300'>information overload</strong>, <strong class='text-amber-300'>continuous social comparison</strong> (social media), and <strong class='text-amber-300'>economic uncertainty</strong>, Stoicism offers:",
+                        item1: "<strong class='text-amber-300'>Mental clarity</strong> about what truly matters",
+                        item2: "<strong class='text-amber-300'>Practical tools</strong> for difficult decisions",
+                        item3: "<strong class='text-amber-300'>Emotional resilience</strong> in moments of crisis",
+                        item4: "<strong class='text-amber-300'>Inner freedom</strong> from external pressures"
+                    },
+                    practice: {
+                        title: "How to Practice Stoicism Today",
+                        readings: {
+                            title: "Essential Readings",
+                            item1: "• <strong class='text-amber-200'>Handbook</strong> by Epictetus",
+                            item2: "• <strong class='text-amber-200'>Meditations</strong> by Marcus Aurelius",
+                            item3: "• <strong class='text-amber-200'>Letters to Lucilius</strong> by Seneca",
+                            item4: "• <strong class='text-amber-200'>On the Shortness of Life</strong> by Seneca"
+                        },
+                        journal: {
+                            title: "Stoic Journal",
+                            intro: "Marcus Aurelius kept a philosophical journal. You can too:",
+                            item1: "• Morning examination of challenges",
+                            item2: "• Reflections during the day",
+                            item3: "• Evening review of actions"
+                        },
+                        daily: {
+                            title: "Daily Practices",
+                            item1: "• Meditation on mortality",
+                            item2: "• Premeditation of adversities",
+                            item3: "• Distancing exercise",
+                            item4: "• Day visualization"
+                        },
+                        note: {
+                            title: "The paper journal is essential",
+                            text: "Writing by hand slows down thinking, promotes deep reflection, and consolidates learning. Marcus Aurelius wrote his <em>Meditations</em> during military campaigns, in extreme conditions. The journal is your daily philosophical training ground."
+                        }
                     }
+                },
+                ctaFinal: {
+                    title: "Start Your Stoic Journey",
+                    text: "The Stoic Journey accompanies you with personalized daily challenges, AI-guided reflections, and a community of modern practitioners.",
+                    button1: "Start Free Today",
+                    button2: "Back to Home"
                 }
             },
             footer: {
