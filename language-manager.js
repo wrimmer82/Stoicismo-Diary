@@ -1,7 +1,7 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 2.0 - Con traduzioni Cos'è lo Stoicismo
+// Versione: 2.0 
 // ============================================
 
 (function() {
