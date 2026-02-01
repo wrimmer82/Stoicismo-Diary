@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" data-version="nuclear-3.0">
+<html lang="it" data-version="global-lang-1.0">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GW6CH5RG1R"></script>
@@ -50,368 +50,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Stoic Journey">
 
-    <!-- ========================================
-         🚀 SOLUZIONE NUCLEARE - ZERO DIPENDENZE
-         Translations + Language Switcher INLINE
-         Esecuzione IMMEDIATA - No race conditions
-         ======================================== -->
-    
-    <script>
-    // ============================================
-    // PARTE 1: TRANSLATIONS DATABASE INLINE
-    // ============================================
-    (function() {
-        'use strict';
-        
-        console.log('🚀 NUCLEAR MODE: Translations loading...');
-        
-        // Oggetto traduzioni DIRETTAMENTE nel codice
-        const TRANSLATIONS = {
-            it: {
-                nav: {
-                    whatIsStoicism: "Cos'è lo Stoicismo",
-                    login: "Accedi"
-                },
-                home: {
-                    ctaShort: "Entra",
-                    cta: "Entra Nel Viaggio Stoico",
-                    hero: {
-                        title: "Trasforma la tua vita quotidiana con i principi degli antichi filosofi.",
-                        subtitle: "Riflessioni per costruire consapevolezza e serenità,",
-                        ai: "con approfondimenti analitici potenziati dall'AI.",
-                        startNow: "Inizia Ora"
-                    },
-                    howItWorks: {
-                        title: "Come Funziona",
-                        subtitle: "Il tuo percorso di crescita stoica in tre semplici passi",
-                        step1: {
-                            title: "Scrivi riflessione",
-                            description: "Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale."
-                        },
-                        step2: {
-                            title: "Sfida personalizzata",
-                            description: "L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca."
-                        },
-                        step3: {
-                            title: "Traccia progresso",
-                            description: "Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern."
-                        }
-                    },
-                    philosophers: {
-                        title: "I Tre Pilastri della Saggezza Stoica",
-                        marcus: {
-                            name: "Marco Aurelio",
-                            principle: "Impedimentum Via Est",
-                            principleTranslation: "Il cammino attraverso gli ostacoli",
-                            quote: "«Quod obstat viae, via fit.»",
-                            quoteTranslation: '"Ciò che ostacola l\'azione fa avanzare l\'azione. E ciò che sta sulla via, questo è la via."',
-                            description: "Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.",
-                            ai: "Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali."
-                        },
-                        epictetus: {
-                            name: "Epitteto",
-                            principle: "In Nostra Potestate",
-                            principleTranslation: "La dicotomia del controllo",
-                            quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
-                            quoteTranslation: "La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.",
-                            description: "Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.",
-                            ai: "L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace."
-                        },
-                        seneca: {
-                            name: "Seneca",
-                            principle: "Praemeditatio Malorum",
-                            principleTranslation: "Prepararsi al peggio per vivere meglio",
-                            quote: "«Qui omnia timet, nihil cogitat»",
-                            quoteTranslation: "La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.",
-                            description: "Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.",
-                            ai: "L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio."
-                        }
-                    },
-                    mementoMori: {
-                        title: "MEMENTO MORI",
-                        subtitle: "\"Ricordati che devi morire\"",
-                        text1: "La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.",
-                        text2: "Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero."
-                    },
-                    faq: {
-                        title: "Domande & Contatti",
-                        subtitle: "Trova risposte o scrivici direttamente",
-                        q1: "Devo conoscere la filosofia stoica per iniziare?",
-                        a1: "No, ti guidiamo passo dopo passo. L'AI introduce i concetti stoici attraverso esercizi pratici applicati alla tua vita quotidiana.",
-                        q2: "Quanto tempo devo dedicare ogni giorno?",
-                        a2: "Bastano 5-10 minuti. Scrivi una riflessione e l'AI genera immediatamente la tua sfida personalizzata da applicare durante la giornata.",
-                        q3: "I miei dati personali sono al sicuro?",
-                        a3: "Assolutamente sì. Le tue riflessioni sono criptate end-to-end e mai condivise. L'AI elabora i contenuti in modo anonimo (GDPR compliant).",
-                        q4: "Posso provare gratuitamente prima di abbonarmi?",
-                        a4: "Sì, 30 giorni di prova gratuita con accesso completo. Nessuna carta richiesta per iniziare. Dopo la prova, passa a PRO per mantenere i tuoi dati; altrimenti verranno eliminati dopo 60 giorni di inattività."
-                    },
-                    contact: {
-                        title: "CONTATTACI",
-                        subtitle: "Hai bisogno di aiuto? Scrivici!",
-                        name: "Nome",
-                        namePlaceholder: "Il tuo nome",
-                        email: "Email",
-                        emailPlaceholder: "tuaemail@example.com",
-                        message: "Messaggio",
-                        messagePlaceholder: "Come possiamo aiutarti?",
-                        send: "Invia Messaggio",
-                        note: "Risponderemo entro 24 ore"
-                    }
-                },
-                footer: {
-                    tagline: "La tua guida quotidiana alla saggezza stoica.",
-                    resources: "Risorse",
-                    whatIsStoicism: "Cos'è lo Stoicismo",
-                    blog: "Blog",
-                    community: "Community",
-                    legal: "Legale",
-                    privacy: "Privacy Policy",
-                    terms: "Termini di Servizio",
-                    cookies: "Cookie Policy",
-                    copyright: "© 2025 The Stoic Journey. Tutti i diritti riservati."
-                }
-            },
-            en: {
-                nav: {
-                    whatIsStoicism: "What is Stoicism",
-                    login: "Login"
-                },
-                home: {
-                    ctaShort: "Enter",
-                    cta: "Start Your Stoic Journey",
-                    hero: {
-                        title: "Transform your daily life with principles from ancient philosophers.",
-                        subtitle: "Reflections to build awareness and serenity,",
-                        ai: "with AI-powered analytical insights.",
-                        startNow: "Start Now"
-                    },
-                    howItWorks: {
-                        title: "How It Works",
-                        subtitle: "Your stoic growth journey in three simple steps",
-                        step1: {
-                            title: "Write reflection",
-                            description: "Dedicate a few minutes each day to write thoughts and challenges in your personal stoic journal."
-                        },
-                        step2: {
-                            title: "Personalized challenge",
-                            description: "AI generates a custom stoic micro-challenge based on Marcus Aurelius, Epictetus, and Seneca."
-                        },
-                        step3: {
-                            title: "Track progress",
-                            description: "Monitor your evolution through intuitive dashboards and visualize your patterns."
-                        }
-                    },
-                    philosophers: {
-                        title: "The Three Pillars of Stoic Wisdom",
-                        marcus: {
-                            name: "Marcus Aurelius",
-                            principle: "Impedimentum Via Est",
-                            principleTranslation: "The path through obstacles",
-                            quote: "«Quod obstat viae, via fit.»",
-                            quoteTranslation: '"What stands in the way becomes the way. And what lies on the path, this is the path."',
-                            description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
-                            ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
-                        },
-                        epictetus: {
-                            name: "Epictetus",
-                            principle: "In Nostra Potestate",
-                            principleTranslation: "The dichotomy of control",
-                            quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
-                            quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
-                            description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
-                            ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
-                        },
-                        seneca: {
-                            name: "Seneca",
-                            principle: "Praemeditatio Malorum",
-                            principleTranslation: "Preparing for the worst to live better",
-                            quote: "«Qui omnia timet, nihil cogitat»",
-                            quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
-                            description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
-                            ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
-                        }
-                    },
-                    mementoMori: {
-                        title: "MEMENTO MORI",
-                        subtitle: "\"Remember you must die\"",
-                        text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
-                        text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
-                    },
-                    faq: {
-                        title: "Questions & Contacts",
-                        subtitle: "Find answers or write to us directly",
-                        q1: "Do I need to know stoic philosophy to start?",
-                        a1: "No, we guide you step by step. AI introduces stoic concepts through practical exercises applied to your daily life.",
-                        q2: "How much time should I dedicate each day?",
-                        a2: "Just 5-10 minutes. Write a reflection and AI immediately generates your personalized challenge to apply during the day.",
-                        q3: "Are my personal data safe?",
-                        a3: "Absolutely yes. Your reflections are end-to-end encrypted and never shared. AI processes content anonymously (GDPR compliant).",
-                        q4: "Can I try for free before subscribing?",
-                        a4: "Yes, 30 days free trial with full access. No card required to start. After the trial, upgrade to PRO to keep your data; otherwise they will be deleted after 60 days of inactivity."
-                    },
-                    contact: {
-                        title: "CONTACT US",
-                        subtitle: "Need help? Write to us!",
-                        name: "Name",
-                        namePlaceholder: "Your name",
-                        email: "Email",
-                        emailPlaceholder: "youremail@example.com",
-                        message: "Message",
-                        messagePlaceholder: "How can we help you?",
-                        send: "Send Message",
-                        note: "We will respond within 24 hours"
-                    }
-                },
-                footer: {
-                    tagline: "Your daily guide to stoic wisdom.",
-                    resources: "Resources",
-                    whatIsStoicism: "What is Stoicism",
-                    blog: "Blog",
-                    community: "Community",
-                    legal: "Legal",
-                    privacy: "Privacy Policy",
-                    terms: "Terms of Service",
-                    cookies: "Cookie Policy",
-                    copyright: "© 2025 The Stoic Journey. All rights reserved."
-                }
-            }
-        };
-        
-        // ============================================
-        // PARTE 2: FUNZIONI HELPER
-        // ============================================
-        
-        function getNestedTranslation(obj, path) {
-            return path.split('.').reduce((curr, key) => curr?.[key], obj);
-        }
-        
-        function applyTranslations(lang) {
-            const t = TRANSLATIONS[lang];
-            if (!t) {
-                console.error('❌ Lingua non supportata:', lang);
-                return;
-            }
-            
-            console.log('🌍 Applicazione traduzioni:', lang);
-            
-            // Traduci data-i18n
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                const value = getNestedTranslation(t, key);
-                
-                if (value) {
-                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                        if (el.hasAttribute('placeholder')) {
-                            el.placeholder = value;
-                        }
-                    } else {
-                        el.textContent = value;
-                    }
-                }
-            });
-            
-            // Traduci placeholder
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                const value = getNestedTranslation(t, key);
-                if (value) {
-                    el.placeholder = value;
-                }
-            });
-            
-            // Aggiorna HTML lang
-            document.documentElement.lang = lang;
-            
-            // Salva preferenza
-            localStorage.setItem('preferredLanguage', lang);
-            
-            console.log('✅ Traduzioni applicate');
-        }
-        
-        // ============================================
-        // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER
-        // ============================================
-        
-        function initLanguageSwitcher() {
-            const switcher = document.getElementById('languageSwitcherHome');
-            const dropdown = document.getElementById('languageDropdownHome');
-            const currentLangEl = document.getElementById('currentLangHome');
-            
-            if (!switcher || !dropdown || !currentLangEl) {
-                console.warn('⚠️ Elementi language switcher non trovati - retry in 100ms');
-                setTimeout(initLanguageSwitcher, 100);
-                return;
-            }
-            
-            console.log('🎯 Language switcher trovato - inizializzazione...');
-            
-            // Toggle dropdown
-            switcher.addEventListener('click', function(e) {
-                e.stopPropagation();
-                dropdown.classList.toggle('hidden');
-            });
-            
-            // Chiudi dropdown al click fuori
-            document.addEventListener('click', function() {
-                dropdown.classList.add('hidden');
-            });
-            
-            // Gestione cambio lingua
-            const langOptions = dropdown.querySelectorAll('.lang-option');
-            langOptions.forEach(option => {
-                option.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const lang = this.getAttribute('data-lang');
-                    
-                    // Applica traduzioni
-                    applyTranslations(lang);
-                    
-                    // Aggiorna UI
-                    currentLangEl.textContent = lang.toUpperCase();
-                    
-                    // Aggiorna check marks
-                    langOptions.forEach(opt => {
-                        const isActive = opt.getAttribute('data-lang') === lang;
-                        opt.classList.toggle('active', isActive);
-                        opt.querySelector('.check').classList.toggle('hidden', !isActive);
-                    });
-                    
-                    // Chiudi dropdown
-                    dropdown.classList.add('hidden');
-                    
-                    console.log('✅ Lingua cambiata:', lang.toUpperCase());
-                });
-            });
-            
-            // Carica lingua salvata
-            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
-            applyTranslations(savedLang);
-            currentLangEl.textContent = savedLang.toUpperCase();
-            
-            // Imposta stato iniziale dropdown
-            langOptions.forEach(option => {
-                const isActive = option.getAttribute('data-lang') === savedLang;
-                option.classList.toggle('active', isActive);
-                option.querySelector('.check').classList.toggle('hidden', !isActive);
-            });
-            
-            console.log('✅ NUCLEAR MODE: Language switcher attivo!');
-        }
-        
-        // ============================================
-        // PARTE 4: AVVIO AUTOMATICO
-        // ============================================
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
-        } else {
-            initLanguageSwitcher();
-        }
-        
-        console.log('✅ NUCLEAR MODE: Script caricato - waiting for DOM');
-        
-    })();
-    </script>
+    <!-- Language Manager (GLOBAL) -->
+    <script src="language-manager.js" defer></script>
 
     <!-- Cookie Consent Banner -->
     <link rel="stylesheet" href="silktide-consent-manager.css">
@@ -960,7 +600,7 @@
             transform: translateY(0);
         }
 
-        .language-btn #currentLangHome {
+        .language-btn [data-current-lang] {
             font-size: 1.0625rem;
             letter-spacing: 0.05em;
             font-weight: 700;
@@ -1055,7 +695,7 @@
                 border-width: 2px;
             }
             
-            .language-btn #currentLangHome {
+            .language-btn [data-current-lang] {
                 font-size: 1.0625rem;
             }
             
@@ -1064,100 +704,81 @@
                 min-width: 150px;
             }
         }
-
-        @media (max-width: 400px) {
-            .language-btn {
-                padding: 0.5rem 0.75rem;
-                min-width: 48px;
-                min-height: 40px;
-            }
-            
-            .language-btn #currentLangHome {
-                font-size: 1rem;
-            }
-        }
     </style>
 </head>
-<body class="bg-gray-50 font-inter">
-    <!-- Hero Section con effetto zoom parallax -->
-    <section class="parallax-zoom-container relative text-white py-20 flex flex-col justify-between">
-        <div class="parallax-zoom-bg" id="parallaxBg"></div>
-        
-        <div class="absolute top-4 left-4 right-4 z-20">
-            <div class="flex justify-between items-center gap-2">
-                <!-- Logo (sinistra) -->
-                <div class="flex items-center gap-2 animate-fadeIn flex-shrink-0">
-                    <img src="sigma_logo.png"
-                         alt="The Stoic Journey Logo"
-                         class="h-10 w-10 md:h-14 md:w-14 object-contain drop-shadow-2xl">
-                    <span class="text-base md:text-2xl font-bold font-cinzel tracking-wider text-white text-stroke-black-strong hidden sm:inline">
+
+<body class="font-inter bg-slate-50">
+    <!-- Header Fisso -->
+    <header class="fixed w-full top-0 left-0 z-50 bg-gradient-to-r from-slate-900/95 to-slate-800/95 backdrop-blur-md shadow-xl border-b border-amber-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3 md:py-4">
+                <div class="flex items-center gap-3">
+                    <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain">
+                    <h1 class="text-lg sm:text-xl md:text-2xl font-cinzel font-bold text-white tracking-wide">
                         The Stoic Journey
-                    </span>
+                    </h1>
                 </div>
                 
-                <!-- Menu centrale (solo desktop) -->
-                <div class="hidden lg:flex absolute left-1/2 top-0 transform -translate-x-1/2">
-                    <a href="cosa-e-stoicismo.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-2 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold whitespace-nowrap" data-i18n="nav.whatIsStoicism">
-                        Cos'è lo Stoicismo
-                    </a>
-                </div>
-                
-                <!-- Sezione destra: Language Switcher + CTA -->
-                <div class="flex items-center gap-2 flex-shrink-0">
+                <nav class="flex items-center gap-2 sm:gap-3 md:gap-4">
                     <!-- Language Switcher -->
-                    <div class="language-switcher-header">
-                        <button id="languageSwitcherHome" class="language-btn" aria-label="Change Language">
-                            <span id="currentLangHome" class="font-semibold">IT</span>
+                    <div class="language-switcher-header" data-language-switcher>
+                        <button class="language-btn" aria-label="Cambia lingua">
+                            <span data-current-lang>IT</span>
                         </button>
                         
-                        <!-- Dropdown -->
-                        <div id="languageDropdownHome" class="language-dropdown-home hidden">
+                        <div class="language-dropdown-home hidden" data-language-dropdown>
                             <button class="lang-option active" data-lang="it">
                                 <span class="flag">🇮🇹</span>
                                 <span>Italiano</span>
-                                <svg class="check" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                                <span class="check">✓</span>
                             </button>
                             <button class="lang-option" data-lang="en">
                                 <span class="flag">🇬🇧</span>
                                 <span>English</span>
-                                <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
+                                <span class="check hidden">✓</span>
                             </button>
                         </div>
                     </div>
+
+                    <a href="cosa-e-stoicismo.html" 
+                       class="hidden md:inline-block px-4 py-2 text-white/90 hover:text-amber-400 transition-colors font-medium text-sm md:text-base whitespace-nowrap"
+                       data-i18n="nav.whatIsStoicism">
+                        Cos'è lo Stoicismo
+                    </a>
                     
-                    <!-- CTA Button -->
-                    <a href="accedi.html" class="bg-amber-500 text-slate-900 px-3 sm:px-6 py-2 rounded-lg hover:bg-amber-400 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl text-xs sm:text-base whitespace-nowrap">
+                    <a href="accedi.html" 
+                       class="px-4 sm:px-5 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-semibold rounded-lg transition-all duration-300 shadow-lg hover:shadow-amber-500/30 hover:scale-105 text-sm md:text-base whitespace-nowrap">
                         <span class="cta-text-short" data-i18n="home.ctaShort">Entra</span>
                         <span class="cta-text-full" data-i18n="home.cta">Entra Nel Viaggio Stoico</span>
                     </a>
-                </div>
+                </nav>
             </div>
         </div>
+    </header>
+
+    <!-- SEZIONE: Hero con Parallax -->
+    <section class="parallax-zoom-container relative overflow-hidden">
+        <div class="parallax-zoom-bg"></div>
         
-        <!-- CONTENUTO HERO -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 md:pb-20 md:mt-auto pb-8 mt-auto">
-            <div class="text-base sm:text-2xl md:text-3xl max-w-3xl mx-auto animate-fadeInUp delay-300 leading-relaxed">
-                <span class="font-cinzel font-bold text-white text-stroke-black-strong block mb-2 sm:mb-3 text-lg sm:text-2xl md:text-3xl" data-i18n="home.hero.title">
+        <div class="relative z-10 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-5xl mx-auto space-y-6 md:space-y-8">
+                <h2 class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-cinzel font-bold text-white leading-tight text-stroke-black-strong animate-fadeInUp px-4"
+                    data-i18n="home.hero.title">
                     Trasforma la tua vita quotidiana con i principi degli antichi filosofi.
-                </span>
+                </h2>
                 
-                <span class="font-trajan font-normal text-white/85 text-stroke-black-medium block mb-1 sm:mb-2 text-base sm:text-xl md:text-2xl" data-i18n="home.hero.subtitle">
-                    Riflessioni per costruire consapevolezza e serenità,
-                </span>
+                <p class="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 leading-relaxed text-stroke-black-medium animate-fadeInUp delay-300 px-4">
+                    <span data-i18n="home.hero.subtitle">Riflessioni per costruire consapevolezza e serenità,</span><br>
+                    <span class="text-amber-300 font-semibold" data-i18n="home.hero.ai">con approfondimenti analitici potenziati dall'AI.</span>
+                </p>
                 
-                <span class="font-inter font-light text-white/65 text-stroke-black-light block text-sm sm:text-lg md:text-xl" data-i18n="home.hero.ai">
-                    con approfondimenti analitici potenziati dall'AI.
-                </span>
-            </div>
-            
-            <div class="flex justify-center animate-fadeInUp delay-600 mt-6 sm:mt-8">
-                <a href="registrazione.html" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 sm:px-10 py-3 sm:py-4 rounded-lg hover:bg-white/20 transition-all duration-300 font-semibold text-base sm:text-lg" data-i18n="home.hero.startNow">
-                    Inizia Ora
-                </a>
+                <div class="flex justify-center animate-fadeInUp delay-600">
+                    <a href="accedi.html" 
+                       class="inline-block px-8 sm:px-10 md:px-12 py-3 sm:py-4 md:py-5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 font-bold rounded-xl transition-all duration-300 shadow-2xl hover:shadow-amber-500/50 hover:scale-110 text-base sm:text-lg md:text-xl font-cinzel"
+                       data-i18n="home.hero.startNow">
+                        Inizia Ora
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -1220,153 +841,162 @@
         </div>
     </section>
 
-    <!-- Features Section con gradiente tramonto -->
-    <section class="py-20 sunset-gradient">
+    <!-- SEZIONE: I Tre Pilastri -->
+    <section class="py-20 bg-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-100 text-3d" data-i18n="home.philosophers.title">
-               I Tre Pilastri della Saggezza Stoica
-           </h2>
-          <div class="grid md:grid-cols-3 gap-10">
-            <!-- MARCO AURELIO -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
-              <div class="relative mb-6 z-10">
-                <div class="absolute inset-0 translate-y-6">
-                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-center mb-16 text-slate-900 reveal" data-i18n="home.philosophers.title">
+                I Tre Pilastri della Saggezza Stoica
+            </h2>
+            
+            <div class="space-y-12">
+                <!-- Marco Aurelio -->
+                <div class="card-3d bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-amber-100 reveal">
+                    <div class="flex items-start gap-6 mb-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+                                <span class="text-3xl md:text-4xl font-cinzel font-bold text-slate-900">MA</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-slate-900 mb-2" data-i18n="home.philosophers.marcus.name">Marco Aurelio</h3>
+                            <p class="text-lg md:text-xl text-amber-600 font-semibold italic mb-1" data-i18n="home.philosophers.marcus.principle">Impedimentum Via Est</p>
+                            <p class="text-sm md:text-base text-slate-600 italic" data-i18n="home.philosophers.marcus.principleTranslation">Il cammino attraverso gli ostacoli</p>
+                        </div>
+                    </div>
+                    
+                    <blockquote class="border-l-4 border-amber-500 pl-6 mb-6 italic text-lg md:text-xl text-slate-700 font-serif">
+                        <p class="mb-2" data-i18n="home.philosophers.marcus.quote">«Quod obstat viae, via fit.»</p>
+                        <p class="text-base md:text-lg text-slate-600 not-italic" data-i18n="home.philosophers.marcus.quoteTranslation">"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."</p>
+                    </blockquote>
+                    
+                    <p class="text-slate-700 leading-relaxed mb-4 text-base md:text-lg" data-i18n="home.philosophers.marcus.description">
+                        Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
+                    </p>
+                    
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                        <p class="text-sm md:text-base text-slate-700 font-medium" data-i18n="home.philosophers.marcus.ai">
+                            Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
+                        </p>
+                    </div>
                 </div>
-                <img src="busto_1_spalle.png"
-                     alt="Marco Aurelio - Filosofo stoico imperatore romano"
-                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
-              </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.marcus.name">
-                Marco Aurelio
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principle">
-                Impedimentum Via Est
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principleTranslation">
-                Il cammino attraverso gli ostacoli
-              </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quote">
-                «Quod obstat viae, via fit.»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quoteTranslation">
-                "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.description">
-                Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.marcus.ai">
-                Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
-              </p>
-            </div>
 
-            <!-- EPITTETO -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
-              <div class="relative mb-6 z-10">
-                <div class="absolute inset-0 translate-y-6">
-                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+                <!-- Epitteto -->
+                <div class="card-3d bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-amber-100 reveal">
+                    <div class="flex items-start gap-6 mb-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+                                <span class="text-3xl md:text-4xl font-cinzel font-bold text-slate-900">E</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-slate-900 mb-2" data-i18n="home.philosophers.epictetus.name">Epitteto</h3>
+                            <p class="text-lg md:text-xl text-amber-600 font-semibold italic mb-1" data-i18n="home.philosophers.epictetus.principle">In Nostra Potestate</p>
+                            <p class="text-sm md:text-base text-slate-600 italic" data-i18n="home.philosophers.epictetus.principleTranslation">La dicotomia del controllo</p>
+                        </div>
+                    </div>
+                    
+                    <blockquote class="border-l-4 border-amber-500 pl-6 mb-6 italic text-lg md:text-xl text-slate-700 font-serif">
+                        <p class="mb-2" data-i18n="home.philosophers.epictetus.quote">«En tois eph' hemin kai en tois ouk eph' hemin»</p>
+                        <p class="text-base md:text-lg text-slate-600 not-italic" data-i18n="home.philosophers.epictetus.quoteTranslation">
+                            La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
+                        </p>
+                    </blockquote>
+                    
+                    <p class="text-slate-700 leading-relaxed mb-4 text-base md:text-lg" data-i18n="home.philosophers.epictetus.description">
+                        Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
+                    </p>
+                    
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                        <p class="text-sm md:text-base text-slate-700 font-medium" data-i18n="home.philosophers.epictetus.ai">
+                            L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
+                        </p>
+                    </div>
                 </div>
-                <img src="busto_2_semplice.png"
-                     alt="Epitteto - Filosofo stoico maestro della dicotomia del controllo"
-                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
-              </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.epictetus.name">
-                Epitteto
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principle">
-                In Nostra Potestate
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principleTranslation">
-                La dicotomia del controllo
-              </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quote">
-                «En tois eph' hemin kai en tois ouk eph' hemin»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quoteTranslation">
-                La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.description">
-                Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.epictetus.ai">
-                L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
-              </p>
-            </div>
 
-            <!-- SENECA -->
-            <div class="bg-gradient-to-b from-slate-900/80 via-slate-900/95 to-slate-950 border border-amber-400/50 rounded-3xl shadow-2xl shadow-black/70 overflow-hidden flex flex-col items-center text-center px-6 pt-8 pb-8 reveal card-3d relative">
-              <div class="relative mb-6 z-10">
-                <div class="absolute inset-0 translate-y-6">
-                  <div class="w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full bg-gradient-to-b from-slate-900 to-slate-950 shadow-[0_0_40px_rgba(0,0,0,0.9)]"></div>
+                <!-- Seneca -->
+                <div class="card-3d bg-white rounded-3xl shadow-xl p-8 md:p-10 border border-amber-100 reveal">
+                    <div class="flex items-start gap-6 mb-6">
+                        <div class="flex-shrink-0">
+                            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg">
+                                <span class="text-3xl md:text-4xl font-cinzel font-bold text-slate-900">S</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-2xl md:text-3xl font-cinzel font-bold text-slate-900 mb-2" data-i18n="home.philosophers.seneca.name">Seneca</h3>
+                            <p class="text-lg md:text-xl text-amber-600 font-semibold italic mb-1" data-i18n="home.philosophers.seneca.principle">Praemeditatio Malorum</p>
+                            <p class="text-sm md:text-base text-slate-600 italic" data-i18n="home.philosophers.seneca.principleTranslation">Prepararsi al peggio per vivere meglio</p>
+                        </div>
+                    </div>
+                    
+                    <blockquote class="border-l-4 border-amber-500 pl-6 mb-6 italic text-lg md:text-xl text-slate-700 font-serif">
+                        <p class="mb-2" data-i18n="home.philosophers.seneca.quote">«Qui omnia timet, nihil cogitat»</p>
+                        <p class="text-base md:text-lg text-slate-600 not-italic" data-i18n="home.philosophers.seneca.quoteTranslation">
+                            La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
+                        </p>
+                    </blockquote>
+                    
+                    <p class="text-slate-700 leading-relaxed mb-4 text-base md:text-lg" data-i18n="home.philosophers.seneca.description">
+                        Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
+                    </p>
+                    
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                        <p class="text-sm md:text-base text-slate-700 font-medium" data-i18n="home.philosophers.seneca.ai">
+                            L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
+                        </p>
+                    </div>
                 </div>
-                <img src="busto_3_semplice.png"
-                     alt="Seneca - Filosofo stoico maestro della praemeditatio malorum"
-                     class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
-              </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.seneca.name">
-                Seneca
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principle">
-                Praemeditatio Malorum
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principleTranslation">
-                Prepararsi al peggio per vivere meglio
-              </div>
-              <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quote">
-                «Qui omnia timet, nihil cogitat»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quoteTranslation">
-                La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.description">
-                Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.seneca.ai">
-                L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
-              </p>
             </div>
-        </div>
         </div>
     </section>
 
-    <!-- Memento Mori Section -->
-    <section class="py-20 sunset-gradient">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h3 class="text-3xl md:text-5xl font-cinzel font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-600 mb-6 tracking-wide fade-in-scroll" data-i18n="home.mementoMori.title">
-                MEMENTO MORI
-            </h3>
-            <p class="text-xl md:text-2xl text-yellow-500/90 font-cinzel italic mb-8 leading-relaxed fade-in-scroll" data-i18n="home.mementoMori.subtitle">
-                "Ricordati che devi morire"
-            </p>
-            <div class="w-32 h-px bg-gradient-to-r from-transparent via-yellow-600 to-transparent mx-auto mb-8 fade-in-scroll"></div>
-            
-            <p class="text-lg md:text-2xl text-amber-200 leading-relaxed max-w-3xl mx-auto mb-8 font-trajan tracking-wide fade-in-scroll" data-i18n="home.mementoMori.text1">
-                La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
-            </p>
-            
-            <p class="text-base md:text-xl text-amber-300/90 leading-relaxed max-w-2xl mx-auto font-trajan tracking-wide fade-in-scroll" data-i18n="home.mementoMori.text2">
-                Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero.
-            </p>
+    <!-- SEZIONE: Memento Mori -->
+    <section class="py-20 sunset-gradient relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 z-0"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="fade-in-scroll">
+                <h2 class="text-5xl md:text-7xl font-cinzel font-bold text-amber-400 mb-6 text-3d tracking-wider" data-i18n="home.mementoMori.title">
+                    MEMENTO MORI
+                </h2>
+                
+                <p class="text-2xl md:text-3xl text-amber-200 italic mb-8 font-serif" data-i18n="home.mementoMori.subtitle">
+                    "Ricordati che devi morire"
+                </p>
+                
+                <div class="space-y-6 text-white/95 text-lg md:text-xl leading-relaxed">
+                    <p data-i18n="home.mementoMori.text1">
+                        La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.
+                    </p>
+                    
+                    <p data-i18n="home.mementoMori.text2">
+                        Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero.
+                    </p>
+                </div>
+                
+                <div class="mt-12">
+                    <a href="accedi.html" 
+                       class="inline-block px-10 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-900 font-bold rounded-xl transition-all duration-300 shadow-2xl hover:shadow-amber-500/50 hover:scale-110 text-xl font-cinzel"
+                       data-i18n="home.hero.startNow">
+                        Inizia Ora
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- FAQ + CONTACT FORM -->
-    <section class="py-16 md:py-20 bg-gradient-to-b from-slate-100 to-slate-50" id="contatti">
+    <!-- SEZIONE: FAQ + Contact Form -->
+    <section class="py-16 md:py-20 bg-slate-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-cinzel font-bold text-center mb-2 text-slate-900" data-i18n="home.faq.title">
+            <h2 class="text-3xl md:text-5xl font-cinzel font-bold text-center mb-4 text-slate-900" data-i18n="home.faq.title">
                 Domande & Contatti
             </h2>
-            <p class="text-center text-slate-600 mb-10 md:mb-12 font-inter text-sm md:text-base" data-i18n="home.faq.subtitle">
+            <p class="text-base md:text-lg text-center text-slate-600 mb-10 md:mb-16 max-w-2xl mx-auto font-inter" data-i18n="home.faq.subtitle">
                 Trova risposte o scrivici direttamente
             </p>
-
-            <div class="faq-contact-grid grid lg:grid-cols-[60%_40%] gap-8 lg:gap-10 items-start">
-                
-                <!-- FAQ -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-200">
+            
+            <div class="faq-contact-grid grid lg:grid-cols-2 gap-8">
+                <!-- FAQ Column -->
+                <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
                     <div class="faq-item" role="button" tabindex="0" aria-expanded="false">
                         <div class="faq-question">
                             <h3 class="text-sm md:text-base font-semibold text-slate-900 font-inter flex-1" data-i18n="home.faq.q1">
@@ -1511,171 +1141,138 @@
 
     <!-- Scroll to Top Button -->
     <div class="scroll-to-top" id="scrollToTop">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 15l7-7 7 7" />
         </svg>
     </div>
 
-    <!-- ========================================
-         ALTRI SCRIPT (parallax, reveal, FAQ, ecc.)
-         ======================================== -->
     <script>
-        // Effetto zoom parallax su scroll
+        // Parallax Effect
         window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallaxBg = document.getElementById('parallaxBg');
-            const maxScroll = window.innerHeight;
-            const scrollFraction = Math.min(scrolled / maxScroll, 1);
-            
-            const scaleValue = 2 - (scrollFraction * 0.5);
-            const translateZ = -1 - (scrollFraction * 0.3);
-            
-            parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
+            const parallaxBg = document.querySelector('.parallax-zoom-bg');
+            if (parallaxBg) {
+                let scrolled = window.pageYOffset;
+                let rate = scrolled * 0.5;
+                parallaxBg.style.transform = `translateZ(-1px) scale(2) translateY(${rate}px)`;
+            }
         });
 
-        // Reveal effect
-        document.addEventListener('DOMContentLoaded', function() {
-            function revealOnScroll() {
-                document.querySelectorAll('.reveal').forEach(function(el) {
-                    var rect = el.getBoundingClientRect(),
-                        windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-                    if (rect.top <= windowHeight - 60) {
-                        el.classList.add('visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', revealOnScroll);
-            revealOnScroll();
-
-            // IntersectionObserver per Memento Mori fade-in
-            const fadeElements = document.querySelectorAll('.fade-in-scroll');
-            const fadeObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, {
-                threshold: 0.2,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            fadeElements.forEach(element => {
-                fadeObserver.observe(element);
-            });
-
-            // FAQ Accordion Toggle
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
+        // Reveal on Scroll
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
                 
-                question.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    toggleFAQ(item);
-                });
-                
-                question.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleFAQ(item);
-                    }
-                });
-            });
-
-            function toggleFAQ(item) {
-                const isActive = item.classList.contains('active');
-                const question = item.querySelector('.faq-question');
-                
-                // Chiudi altri item
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                        otherItem.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                
-                // Toggle corrente
-                if (isActive) {
-                    item.classList.remove('active');
-                    question.setAttribute('aria-expanded', 'false');
-                } else {
-                    item.classList.add('active');
-                    question.setAttribute('aria-expanded', 'true');
-                }
-            }
-
-            // Scroll to Top Button
-            const scrollToTopBtn = document.getElementById('scrollToTop');
-            
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    scrollToTopBtn.classList.add('visible');
-                } else {
-                    scrollToTopBtn.classList.remove('visible');
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('visible');
                 }
             });
-            
-            scrollToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+        }
+        
+        window.addEventListener('scroll', reveal);
+        reveal();
+
+        // Memento Mori Fade-in on Scroll
+        const mementoMoriObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const mementoMoriElements = document.querySelectorAll('.fade-in-scroll');
+        mementoMoriElements.forEach(el => mementoMoriObserver.observe(el));
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const isActive = this.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('active');
+                    faq.setAttribute('aria-expanded', 'false');
                 });
+                
+                if (!isActive) {
+                    this.classList.add('active');
+                    this.setAttribute('aria-expanded', 'true');
+                }
             });
         });
 
-        // Formspree Form Handling
-        document.addEventListener("DOMContentLoaded", function() {
-            var form = document.getElementById("contact-form");
-            var status = document.getElementById("form-status");
-            
-            if (form) {
-                form.addEventListener("submit", function(e) {
-                    e.preventDefault();
-                    var data = new FormData(form);
-                    fetch(form.action, {
-                        method: form.method,
-                        body: data,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    }).then(response => {
-                        if (response.ok) {
-                            status.innerHTML = "✅ Messaggio inviato con successo! Ti risponderemo presto.";
-                            status.style.color = "#22c55e";
-                            status.style.fontWeight = "600";
-                            form.reset();
-                        } else {
-                            response.json().then(data => {
-                                if (Object.hasOwn(data, 'errors')) {
-                                    status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
-                                } else {
-                                    status.innerHTML = "❌ Errore nell'invio. Riprova tra qualche minuto.";
-                                }
-                                status.style.color = "#ef4444";
-                                status.style.fontWeight = "600";
-                            });
-                        }
-                    }).catch(error => {
-                        status.innerHTML = "❌ Errore di connessione. Verifica la tua rete.";
-                        status.style.color = "#ef4444";
-                        status.style.fontWeight = "600";
-                    });
-                });
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
             }
         });
-    </script>
+        
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
 
-    <!-- PWA Service Worker -->
-    <script>
+        // Contact Form Handler
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(contactForm);
+            
+            fetch(contactForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    formStatus.textContent = '✅ Messaggio inviato con successo!';
+                    formStatus.className = 'text-sm text-center font-inter mt-3 text-green-600';
+                    contactForm.reset();
+                } else {
+                    formStatus.textContent = '❌ Errore nell\'invio. Riprova.';
+                    formStatus.className = 'text-sm text-center font-inter mt-3 text-red-600';
+                }
+            })
+            .catch(error => {
+                formStatus.textContent = '❌ Errore di connessione. Riprova.';
+                formStatus.className = 'text-sm text-center font-inter mt-3 text-red-600';
+            });
+        });
+
+        // PWA Install Prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('PWA installabile');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installata con successo');
+            deferredPrompt = null;
+        });
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(reg => console.log('PWA attiva'))
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registrato', reg))
                     .catch(err => console.log('Errore PWA', err));
             });
         }
     </script>
 </body>
 </html>
-
