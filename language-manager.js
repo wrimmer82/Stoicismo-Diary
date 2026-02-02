@@ -55,7 +55,7 @@
                         principle: "Impedimentum Via Est",
                         principleTranslation: "Il cammino attraverso gli ostacoli",
                         quote: "Quod obstat viae, via fit.",
-                        quoteTranslation: "\"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via.\"",
+                        quoteTranslation: "\"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via.\",
                         description: "Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.",
                         ai: "Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali."
                     },
@@ -63,7 +63,7 @@
                         name: "Epitteto",
                         principle: "In Nostra Potestate",
                         principleTranslation: "La dicotomia del controllo",
-                        quote: ""En tois eph' hemin kai en tois ouk eph' hemin"",
+                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
                         quoteTranslation: "La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.",
                         description: "Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.",
                         ai: "L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace."
@@ -72,7 +72,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Prepararsi al peggio per vivere meglio",
-                        quote: ""Qui omnia timet, nihil cogitat"",
+                        quote: "Qui omnia timet, nihil cogitat",
                         quoteTranslation: "La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.",
                         description: "Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.",
                         ai: "L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio."
@@ -80,7 +80,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "\"Ricordati che devi morire\"",
+                    subtitle: "\"Ricordati che devi morire\",
                     text1: "La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.",
                     text2: "Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero."
                 },
@@ -139,7 +139,7 @@
                         title: "Perché Nacque lo Stoicismo",
                         p1: "Lo stoicismo emerge nell'<strong class='text-amber-300'>età ellenistica</strong>, dopo la morte di Alessandro Magno (323 a.C.). Il mondo greco vive una crisi profonda: le città-stato perdono indipendenza, l'incertezza politica è costante, gli individui si sentono impotenti davanti a forze più grandi.",
                         p2: "In questo contesto di crisi, le persone non cercavano speculazioni astratte, ma <strong class='text-amber-300'>guide pratiche per vivere bene</strong> nonostante le avversità. Lo stoicismo risponde offrendo strumenti concreti per trovare serenità interiore indipendentemente dalle circostanze esterne.",
-                        quote: "\"Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta.\""
+                        quote: "\"Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta.\"
                     }
                 },
                 philosophers: {
@@ -149,19 +149,19 @@
                         name: "Seneca",
                         dates: "4 a.C. - 65 d.C.",
                         bio: "Filosofo, drammaturgo e consigliere dell'imperatore Nerone. Le sue <strong class='text-amber-300'>Lettere a Lucilio</strong> sono una guida spirituale progressiva che accompagna il lettore verso la saggezza.",
-                        quote: "\"Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi.\""
+                        quote: "\"Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi.\"
                     },
                     epictetus: {
                         name: "Epitteto",
                         dates: "50 - 138 d.C.",
                         bio: "Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class='text-amber-300'>Manuale</strong> è un vademecum tascabile di saggezza pratica. Insegna la distinzione tra ciò che dipende da noi e ciò che non dipende.",
-                        quote: "\"Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile.\""
+                        quote: "\"Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile.\"
                     },
                     marcus: {
                         name: "Marco Aurelio",
                         dates: "121 - 180 d.C.",
                         bio: "Imperatore di Roma, l'uomo più potente del mondo che medita sulla vanità del potere. I suoi <strong class='text-amber-300'>Colloqui con sé stesso</strong> sono un diario filosofico scritto durante le campagne militari.",
-                        quote: "\"Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza.\""
+                        quote: "\"Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza.\"
                     }
                 },
                 cta1: {
@@ -340,7 +340,7 @@
             },
             login: {
                 loading: "Accesso in corso...",
-                quote: "\"La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno\"",
+                quote: "\"La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno\",
                 author: "— Epitteto",
                 title: "Bentornato",
                 subtitle: "Accedi al tuo diario stoico personale",
@@ -426,8 +426,8 @@
                         name: "Marcus Aurelius",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
-                        quote: ""Quod obstat viae, via fit."",
-                        quoteTranslation: "\"What stands in the way becomes the way. And what lies on the path, this is the path.\"",
+                        quote: "Quod obstat viae, via fit.",
+                        quoteTranslation: "\"What stands in the way becomes the way. And what lies on the path, this is the path.\",
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
                     },
@@ -435,7 +435,7 @@
                         name: "Epictetus",
                         principle: "In Nostra Potestate",
                         principleTranslation: "The dichotomy of control",
-                        quote: ""En tois eph' hemin kai en tois ouk eph' hemin"",
+                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
                         quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
                         description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
                         ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
@@ -444,7 +444,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Preparing for the worst to live better",
-                        quote: ""Qui omnia timet, nihil cogitat"",
+                        quote: "Qui omnia timet, nihil cogitat",
                         quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
                         description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
                         ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
@@ -452,7 +452,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "\"Remember you must die\"",
+                    subtitle: "\"Remember you must die\",
                     text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
                     text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
                 },
@@ -511,7 +511,7 @@
                         title: "Why Stoicism Was Born",
                         p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
                         p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "\"Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\""
+                        quote: "\"Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\"
                     }
                 },
                 philosophers: {
@@ -521,19 +521,19 @@
                         name: "Seneca",
                         dates: "4 BC - 65 AD",
                         bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "\"We do not receive a short life, we make it so. We are not poor in time, but wasteful.\""
+                        quote: "\"We do not receive a short life, we make it so. We are not poor in time, but wasteful.\"
                     },
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
                         bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\""
+                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\"
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
                         bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\""
+                        quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\"
                     }
                 },
                 cta1: {
@@ -766,7 +766,7 @@
                         name: "Marcus Aurelius",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
-                        quote: ""Quod obstat viae, via fit."",
+                        quote: "Quod obstat viae, via fit.",
                         quoteTranslation: '"What stands in the way becomes the way. And what lies on the path, this is the path."',
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
@@ -775,7 +775,7 @@
                         name: "Epictetus",
                         principle: "In Nostra Potestate",
                         principleTranslation: "The dichotomy of control",
-                        quote: ""En tois eph' hemin kai en tois ouk eph' hemin"",
+                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
                         quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
                         description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
                         ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
@@ -784,7 +784,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Preparing for the worst to live better",
-                        quote: ""Qui omnia timet, nihil cogitat"",
+                        quote: "Qui omnia timet, nihil cogitat",
                         quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
                         description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
                         ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
@@ -792,7 +792,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "\"Remember you must die\"",
+                    subtitle: "\"Remember you must die\",
                     text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
                     text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
                 },
@@ -851,7 +851,7 @@
                         title: "Why Stoicism Was Born",
                         p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
                         p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "\"Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\""
+                        quote: "\"Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\"
                     }
                 },
                 philosophers: {
@@ -861,19 +861,19 @@
                         name: "Seneca",
                         dates: "4 BC - 65 AD",
                         bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "\"We do not receive a short life, we make it so. We are not poor in time, but wasteful.\""
+                        quote: "\"We do not receive a short life, we make it so. We are not poor in time, but wasteful.\"
                     },
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
                         bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\""
+                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\"
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
                         bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\""
+                        quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\"
                     }
                 },
                 cta1: {
