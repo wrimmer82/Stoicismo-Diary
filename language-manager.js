@@ -1,7 +1,7 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 3.0 - Aggiunto Registration
+// Versione: 3.1 - Fixed Registrazione (No Switcher Pages)
 // ============================================
 
 (function() {
@@ -745,7 +745,7 @@
     }
     
     // ============================================
-    // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER
+    // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER (FIXED)
     // ============================================
     
     function initLanguageSwitcher() {
@@ -761,10 +761,16 @@
             currentLangEl = document.getElementById('currentLang');
         }
         
+        // Se NON ci sono switcher (es. registrazione, login), applica solo traduzioni
         if (!switcher || !dropdown || !currentLangEl) {
-            console.warn('⚠️ Elementi language switcher non trovati - retry in 100ms');
-            setTimeout(initLanguageSwitcher, 100);
-            return;
+            console.log('⚠️ Nessun language switcher trovato - Pagina senza switcher (Registrazione/Login)');
+            
+            // Carica lingua salvata e applica traduzioni
+            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+            applyTranslations(savedLang);
+            
+            console.log('✅ GLOBAL Language Manager: Traduzioni applicate senza switcher - Lingua:', savedLang.toUpperCase());
+            return; // ESCI - niente switcher da inizializzare
         }
         
         console.log('🎯 Language switcher trovato - inizializzazione...');
@@ -819,7 +825,7 @@
             option.querySelector('.check').classList.toggle('hidden', !isActive);
         });
         
-        console.log('✅ GLOBAL Language Manager: Attivo!');
+        console.log('✅ GLOBAL Language Manager: Attivo con switcher!');
     }
     
     // ============================================
