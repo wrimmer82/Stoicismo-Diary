@@ -80,7 +80,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "Ricordati che devi morire\",
+                    subtitle: "Ricordati che devi morire",
                     text1: "La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.",
                     text2: "Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero."
                 },
