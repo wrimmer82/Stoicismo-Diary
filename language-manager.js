@@ -1,13 +1,13 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 3.2.1 - Fixed All Italian Apostrophes
+// Versione: 3.2.2 - Fixed All Apostrophes and Quotes
 // ============================================
 
 (function() {
-    'use strict';
+    "use strict";
     
-    console.log('🌍 GLOBAL Language Manager: Loading...');
+    console.log("🌍 GLOBAL Language Manager: Loading...");
     
     // ============================================
     // PARTE 1: TRANSLATIONS DATABASE
@@ -124,11 +124,11 @@
                         title: "Il Viaggio attraverso i Secoli",
                         period1: {
                             date: "300 a.C. - Atene",
-                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome 'stoicismo'. Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
+                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome \"stoicismo\". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
                         },
                         period2: {
                             date: "280-206 a.C.",
-                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. 'Senza Crisippo non ci sarebbe la Stoà' - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
+                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. \"Senza Crisippo non ci sarebbe la Stoà\" - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
                         },
                         period3: {
                             date: "I-II sec. d.C. - Roma",
@@ -213,8 +213,8 @@
                     },
                     nature: {
                         title: "Vivere Secondo Natura",
-                        description: "Il fine ultimo dello stoicismo è <em>"vivere in accordo con la natura"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
-                        p1: "Non si tratta di "tornare alla natura selvaggia", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
+                        description: "Il fine ultimo dello stoicismo è <em>\"vivere in accordo con la natura\"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
+                        p1: "Non si tratta di \"tornare alla natura selvaggia\", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
                         p2: "Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi."
                     }
                 },
@@ -340,7 +340,7 @@
             },
             login: {
                 loading: "Accesso in corso...",
-                quote: "La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno",
+                quote: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
                 author: "— Epitteto",
                 title: "Bentornato",
                 subtitle: "Accedi al tuo diario stoico personale",
@@ -496,11 +496,11 @@
                         title: "The Journey Through the Centuries",
                         period1: {
                             date: "300 BC - Athens",
-                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name "Stoicism" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
+                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name \"Stoicism\" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
                         },
                         period2: {
                             date: "280-206 BC",
-                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. "Without Chrysippus there would be no Stoa" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
+                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. \"Without Chrysippus there would be no Stoa\" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
                         },
                         period3: {
                             date: "1st-2nd century AD - Rome",
@@ -585,348 +585,8 @@
                     },
                     nature: {
                         title: "Living According to Nature",
-                        description: "The ultimate goal of Stoicism is <em>"to live in accordance with nature"</em> - which means living according to reason, because human nature is fundamentally rational.",
-                        p1: "It's not about "returning to wild nature", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
-                        p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
-                    }
-                },
-                today: {
-                    title: "Why Stoicism is So Relevant Today",
-                    subtitle: "2300 years later, more relevant than ever",
-                    anxiety: {
-                        title: "Managing Anxiety and Stress",
-                        p1: "<strong class='text-amber-200'>Cognitive Behavioral Therapy</strong> (CBT), one of the most effective treatments for anxiety and depression, derives directly from Stoicism. Its founder, Albert Ellis, explicitly cited Epictetus.",
-                        p2: "<strong class='text-amber-300'>Key principle:</strong> It is not events that disturb us, but our judgments about events. By changing negative automatic thoughts, we transform emotions."
-                    },
-                    performance: {
-                        title: "Performance and Resilience",
-                        p1: "Olympic athletes, Silicon Valley entrepreneurs, elite military use Stoic techniques to maintain clarity under pressure and transform obstacles into opportunities.",
-                        p2: "<strong class='text-amber-300'>Modern application:</strong> Premeditation of adversities (premeditatio malorum) mentally prepares for worst-case scenarios, reducing anxiety and increasing preparation."
-                    },
-                    wisdom: {
-                        title: "Ancient Wisdom for Modern Life",
-                        intro: "In an era of <strong class='text-amber-300'>information overload</strong>, <strong class='text-amber-300'>continuous social comparison</strong> (social media), and <strong class='text-amber-300'>economic uncertainty</strong>, Stoicism offers:",
-                        item1: "<strong class='text-amber-300'>Mental clarity</strong> about what truly matters",
-                        item2: "<strong class='text-amber-300'>Practical tools</strong> for difficult decisions",
-                        item3: "<strong class='text-amber-300'>Emotional resilience</strong> in moments of crisis",
-                        item4: "<strong class='text-amber-300'>Inner freedom</strong> from external pressures"
-                    },
-                    practice: {
-                        title: "How to Practice Stoicism Today",
-                        readings: {
-                            title: "Essential Readings",
-                            item1: "• <strong class='text-amber-200'>Handbook</strong> by Epictetus",
-                            item2: "• <strong class='text-amber-200'>Meditations</strong> by Marcus Aurelius",
-                            item3: "• <strong class='text-amber-200'>Letters to Lucilius</strong> by Seneca",
-                            item4: "• <strong class='text-amber-200'>On the Shortness of Life</strong> by Seneca"
-                        },
-                        journal: {
-                            title: "Stoic Journal",
-                            intro: "Marcus Aurelius kept a philosophical journal. You can too:",
-                            item1: "• Morning examination of challenges",
-                            item2: "• Reflections during the day",
-                            item3: "• Evening review of actions"
-                        },
-                        daily: {
-                            title: "Daily Practices",
-                            item1: "• Meditation on mortality",
-                            item2: "• Premeditation of adversities",
-                            item3: "• Distancing exercise",
-                            item4: "• Day visualization"
-                        },
-                        note: {
-                            title: "The paper journal is essential",
-                            text: "Writing by hand slows down thinking, promotes deep reflection, and consolidates learning. Marcus Aurelius wrote his <em>Meditations</em> during military campaigns, in extreme conditions. The journal is your daily philosophical training ground."
-                        }
-                    }
-                },
-                ctaFinal: {
-                    title: "Start Your Stoic Journey",
-                    text: "The Stoic Journey accompanies you with personalized daily challenges, AI-guided reflections, and a community of modern practitioners.",
-                    button1: "Start Free Today",
-                    button2: "Back to Home"
-                }
-            },
-            registration: {
-                loading: "Creating account...",
-                title: "Start Your Journey",
-                subtitle: "Join thousands of modern stoicism practitioners",
-                googleBtn: "Continue with Google",
-                googleRedirecting: "Redirecting...",
-                divider: "or with email",
-                form: {
-                    nameLabel: "Full name",
-                    optional: "(optional)",
-                    namePlaceholder: "e.g. Marcus Aurelius",
-                    nameHint: "We'll call you this in emails",
-                    emailLabel: "Email *",
-                    emailPlaceholder: "stoic@example.com",
-                    emailSuccess: "✓ Valid email",
-                    passwordLabel: "Password *",
-                    passwordPlaceholder: "Minimum 8 characters",
-                    passwordReq: {
-                        title: "Password must contain:",
-                        length: "At least 8 characters",
-                        uppercase: "One uppercase letter",
-                        lowercase: "One lowercase letter",
-                        number: "One number"
-                    },
-                    confirmPasswordLabel: "Confirm password *",
-                    confirmPasswordPlaceholder: "Repeat password",
-                    confirmPasswordSuccess: "✓ Passwords match",
-                    privacyText1: "I accept the",
-                    terms: "Terms of Service",
-                    privacyText2: "and the",
-                    privacy: "Privacy Policy",
-                    newsletter: "I want to receive weekly stoic reflections via email",
-                    submitBtn: "Accept the Challenge"
-                },
-                loginText: "Already have an account?",
-                loginLink: "Login here",
-                badges: {
-                    free: "Free forever",
-                    noCard: "No card required",
-                    cancel: "Instant cancellation",
-                    secure: "Your data is protected and encrypted"
-                },
-                validation: {
-                    emailRequired: "Email is required",
-                    emailInvalid: "Even Epictetus would verify this email",
-                    confirmRequired: "Confirm password",
-                    passwordMismatch: "Passwords do not match"
-                },
-                strength: {
-                    weak: "Slave to weak passwords",
-                    medium: "On the path to security",
-                    strong: "Emperor of security"
-                },
-                errors: {
-                    formErrors: "Fix form errors before continuing",
-                    privacyRequired: "You must accept the Terms of Service and Privacy Policy",
-                    googleOAuth: "Error during Google authentication. Try again.",
-                    generic: "An error occurred. Try again.",
-                    emailExists: "This email is already registered. Try logging in.",
-                    weakPassword: "Password does not meet minimum security requirements"
-                },
-                success: "✅ Account created! Check your email to confirm."
-            },
-            login: {
-                loading: "Signing in...",
-                quote: `The mind that finds no rest in itself seeks happiness in vain from outside`,
-                author: "— Epictetus",
-                title: "Welcome Back",
-                subtitle: "Access your personal stoic journal",
-                googleBtn: "Continue with Google",
-                googleRedirecting: "Redirecting...",
-                divider: "or with email",
-                form: {
-                    emailLabel: "Email",
-                    emailPlaceholder: "stoic@example.com",
-                    passwordLabel: "Password",
-                    passwordPlaceholder: "Your password",
-                    rememberMe: "Remember me",
-
- en: {
-            nav: {
-                whatIsStoicism: "What is Stoicism",
-                login: "Login",
-                origins: "Origins",
-                philosophers: "Philosophers",
-                principles: "Principles",
-                today: "Today"
-            },
-            home: {
-                ctaShort: "Enter",
-                cta: "Start Your Stoic Journey",
-                hero: {
-                    title: "Transform your daily life with principles from ancient philosophers.",
-                    subtitle: "Reflections to build awareness and serenity,",
-                    ai: "with AI-powered analytical insights.",
-                    startNow: "Start Now"
-                },
-                howItWorks: {
-                    title: "How It Works",
-                    subtitle: "Your stoic growth journey in three simple steps",
-                    step1: {
-                        title: "Write reflection",
-                        description: "Dedicate a few minutes each day to write thoughts and challenges in your personal stoic journal."
-                    },
-                    step2: {
-                        title: "Personalized challenge",
-                        description: "AI generates a custom stoic micro-challenge based on Marcus Aurelius, Epictetus, and Seneca."
-                    },
-                    step3: {
-                        title: "Track progress",
-                        description: "Monitor your evolution through intuitive dashboards and visualize your patterns."
-                    }
-                },
-                philosophers: {
-                    title: "The Three Pillars of Stoic Wisdom",
-                    marcus: {
-                        name: "Marcus Aurelius",
-                        principle: "Impedimentum Via Est",
-                        principleTranslation: "The path through obstacles",
-                        quote: "Quod obstat viae, via fit.",
-                        quoteTranslation: '"What stands in the way becomes the way. And what lies on the path, this is the path."',
-                        description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
-                        ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
-                    },
-                    epictetus: {
-                        name: "Epictetus",
-                        principle: "In Nostra Potestate",
-                        principleTranslation: "The dichotomy of control",
-                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
-                        quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
-                        description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
-                        ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
-                    },
-                    seneca: {
-                        name: "Seneca",
-                        principle: "Praemeditatio Malorum",
-                        principleTranslation: "Preparing for the worst to live better",
-                        quote: "Qui omnia timet, nihil cogitat",
-                        quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
-                        description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
-                        ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
-                    }
-                },
-                mementoMori: {
-                    title: "MEMENTO MORI",
-                    subtitle: "Remember you must die",
-                    text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
-                    text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
-                },
-                faq: {
-                    title: "Questions & Contacts",
-                    subtitle: "Find answers or write to us directly",
-                    q1: "Do I need to know stoic philosophy to start?",
-                    a1: "No, we guide you step by step. AI introduces stoic concepts through practical exercises applied to your daily life.",
-                    q2: "How much time should I dedicate each day?",
-                    a2: "Just 5-10 minutes. Write a reflection and AI immediately generates your personalized challenge to apply during the day.",
-                    q3: "Are my personal data safe?",
-                    a3: "Absolutely yes. Your reflections are end-to-end encrypted and never shared. AI processes content anonymously (GDPR compliant).",
-                    q4: "Can I try for free before subscribing?",
-                    a4: "Yes, 30 days free trial with full access. No card required to start. After the trial, upgrade to PRO to keep your data; otherwise they will be deleted after 60 days of inactivity."
-                },
-                contact: {
-                    title: "CONTACT US",
-                    subtitle: "Need help? Write to us!",
-                    name: "Name",
-                    namePlaceholder: "Your name",
-                    email: "Email",
-                    emailPlaceholder: "youremail@example.com",
-                    message: "Message",
-                    messagePlaceholder: "How can we help you?",
-                    send: "Send Message",
-                    note: "We will respond within 24 hours"
-                }
-            },
-            stoicism: {
-                hero: {
-                    title: "What is Stoicism: Complete Guide to Stoic Philosophy",
-                    subtitle: "A 2300-year-old philosophy more relevant than ever"
-                },
-                intro: {
-                    p1: "Stoicism is a practical philosophy founded in Athens around 300 BC by <strong>Zeno of Citium</strong>. It is not an abstract theory, but a life system that has helped emperors, slaves, writers, and ordinary people face the challenges of existence with clarity and serenity.",
-                    p2: "Today, over 2000 years later, Stoicism is experiencing an extraordinary renaissance because it offers concrete tools to manage anxiety, stress, and uncertainty in modern life."
-                },
-                origins: {
-                    title: "From Greek Origins to Imperial Rome",
-                    timeline: {
-                        title: "The Journey Through the Centuries",
-                        period1: {
-                            date: "300 BC - Athens",
-                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name "Stoicism" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
-                        },
-                        period2: {
-                            date: "280-206 BC",
-                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. "Without Chrysippus there would be no Stoa" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
-                        },
-                        period3: {
-                            date: "1st-2nd century AD - Rome",
-                            text: "Stoicism reached its peak in Imperial Rome with three extraordinary figures: <strong class='text-amber-300'>Seneca</strong> (philosopher and advisor), <strong class='text-amber-300'>Epictetus</strong> (former slave turned teacher), and <strong class='text-amber-300'>Marcus Aurelius</strong> (philosopher emperor)."
-                        }
-                    },
-                    why: {
-                        title: "Why Stoicism Was Born",
-                        p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
-                        p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living."
-                    }
-                },
-                philosophers: {
-                    title: "The Three Masters of Roman Stoicism",
-                    subtitle: "Three different lives, one same wisdom",
-                    seneca: {
-                        name: "Seneca",
-                        dates: "4 BC - 65 AD",
-                        bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful."
-                    },
-                    epictetus: {
-                        name: "Epictetus",
-                        dates: "50 - 138 AD",
-                        bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible."
-                    },
-                    marcus: {
-                        name: "Marcus Aurelius",
-                        dates: "121 - 180 AD",
-                        bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "You have power over your mind, not external events. Realize this, and you will find strength."
-                    }
-                },
-                cta1: {
-                    text: "Want to reflect every day like Marcus Aurelius?",
-                    button: "Try The Stoic Journey for Free"
-                },
-                principles: {
-                    title: "The Principles That Change Your Life",
-                    dichotomy: {
-                        title: "The Dichotomy of Control",
-                        description: "The fundamental principle taught by Epictetus: clearly distinguish what depends on us from things we cannot control.",
-                        dependsOnYou: "Depends on you",
-                        notDependsOnYou: "Does not depend on you",
-                        list1: {
-                            item1: "• Your opinions and judgments",
-                            item2: "• Your desires and aversions",
-                            item3: "• Your choices and actions",
-                            item4: "• Your attitude"
-                        },
-                        list2: {
-                            item1: "• External events",
-                            item2: "• Others' opinions",
-                            item3: "• Final results",
-                            item4: "• Body and health"
-                        },
-                        application: "Application today: Instead of stressing about traffic (don't control), focus on how you react (control). This distinction frees enormous mental energy.",
-                        ctaText: "Put these principles into practice every day",
-                        ctaButton: "Discover The Stoic Journey PRO"
-                    },
-                    virtues: {
-                        title: "The Four Cardinal Virtues",
-                        description: "For the Stoics, authentic happiness derives from virtue, not from external circumstances. These four qualities are the foundation of a life worth living.",
-                        wisdom: {
-                            title: "Wisdom",
-                            text: "Correct judgment, ability to discern good from evil, understanding reality as it is."
-                        },
-                        courage: {
-                            title: "Courage",
-                            text: "Physical and moral resistance, perseverance in difficulties, acting righteously despite fear."
-                        },
-                        justice: {
-                            title: "Justice",
-                            text: "Respect for duties toward others, fairness, recognition of common humanity, cosmic citizenship."
-                        },
-                        temperance: {
-                            title: "Temperance",
-                            text: "Self-control, moderation, inner order, freedom from destructive impulses."
-                        }
-                    },
-                    nature: {
-                        title: "Living According to Nature",
-                        description: "The ultimate goal of Stoicism is <em>"to live in accordance with nature"</em> - which means living according to reason, because human nature is fundamentally rational.",
-                        p1: "It's not about "returning to wild nature", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
+                        description: "The ultimate goal of Stoicism is <em>\"to live in accordance with nature\"</em> - which means living according to reason, because human nature is fundamentally rational.",
+                        p1: "It's not about \"returning to wild nature\", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
                         p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
                     }
                 },
@@ -1108,26 +768,26 @@
     // ============================================
     
     function getNestedTranslation(obj, path) {
-        return path.split('.').reduce((curr, key) => curr?.[key], obj);
+        return path.split(".").reduce((curr, key) => curr?.[key], obj);
     }
     
     function applyTranslations(lang) {
         const t = TRANSLATIONS[lang];
         if (!t) {
-            console.error('❌ Lingua non supportata:', lang);
+            console.error("❌ Lingua non supportata:", lang);
             return;
         }
         
-        console.log('🌍 Applicazione traduzioni:', lang);
+        console.log("🌍 Applicazione traduzioni:", lang);
         
         // Traduci data-i18n
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
             const value = getNestedTranslation(t, key);
             
             if (value) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    if (el.hasAttribute('placeholder')) {
+                if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                    if (el.hasAttribute("placeholder")) {
                         el.placeholder = value;
                     }
                 } else {
@@ -1137,8 +797,8 @@
         });
         
         // Traduci placeholder
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+            const key = el.getAttribute("data-i18n-placeholder");
             const value = getNestedTranslation(t, key);
             if (value) {
                 el.placeholder = value;
@@ -1149,9 +809,9 @@
         document.documentElement.lang = lang;
         
         // Salva preferenza
-        localStorage.setItem('preferredLanguage', lang);
+        localStorage.setItem("preferredLanguage", lang);
         
-        console.log('✅ Traduzioni applicate');
+        console.log("✅ Traduzioni applicate");
     }
     
     // ============================================
@@ -1160,48 +820,48 @@
     
     function initLanguageSwitcher() {
         // Cerca switcher nella home
-        let switcher = document.getElementById('languageSwitcherHome');
-        let dropdown = document.getElementById('languageDropdownHome');
-        let currentLangEl = document.getElementById('currentLangHome');
+        let switcher = document.getElementById("languageSwitcherHome");
+        let dropdown = document.getElementById("languageDropdownHome");
+        let currentLangEl = document.getElementById("currentLangHome");
         
         // Se non trovati, cerca switcher generici (altre pagine)
         if (!switcher) {
-            switcher = document.getElementById('languageSwitcher');
-            dropdown = document.getElementById('languageDropdown');
-            currentLangEl = document.getElementById('currentLang');
+            switcher = document.getElementById("languageSwitcher");
+            dropdown = document.getElementById("languageDropdown");
+            currentLangEl = document.getElementById("currentLang");
         }
         
         // Se NON ci sono switcher (es. registrazione, login), applica solo traduzioni
         if (!switcher || !dropdown || !currentLangEl) {
-            console.log('⚠️ Nessun language switcher trovato - Pagina senza switcher (Registrazione/Login)');
+            console.log("⚠️ Nessun language switcher trovato - Pagina senza switcher (Registrazione/Login)");
             
             // Carica lingua salvata e applica traduzioni
-            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+            const savedLang = localStorage.getItem("preferredLanguage") || "it";
             applyTranslations(savedLang);
             
-            console.log('✅ GLOBAL Language Manager: Traduzioni applicate senza switcher - Lingua:', savedLang.toUpperCase());
+            console.log("✅ GLOBAL Language Manager: Traduzioni applicate senza switcher - Lingua:", savedLang.toUpperCase());
             return; // ESCI - niente switcher da inizializzare
         }
         
-        console.log('🎯 Language switcher trovato - inizializzazione...');
+        console.log("🎯 Language switcher trovato - inizializzazione...");
         
         // Toggle dropdown
-        switcher.addEventListener('click', function(e) {
+        switcher.addEventListener("click", function(e) {
             e.stopPropagation();
-            dropdown.classList.toggle('hidden');
+            dropdown.classList.toggle("hidden");
         });
         
         // Chiudi dropdown al click fuori
-        document.addEventListener('click', function() {
-            dropdown.classList.add('hidden');
+        document.addEventListener("click", function() {
+            dropdown.classList.add("hidden");
         });
         
         // Gestione cambio lingua
-        const langOptions = dropdown.querySelectorAll('.lang-option');
+        const langOptions = dropdown.querySelectorAll(".lang-option");
         langOptions.forEach(option => {
-            option.addEventListener('click', function(e) {
+            option.addEventListener("click", function(e) {
                 e.stopPropagation();
-                const lang = this.getAttribute('data-lang');
+                const lang = this.getAttribute("data-lang");
                 
                 // Applica traduzioni
                 applyTranslations(lang);
@@ -1211,43 +871,43 @@
                 
                 // Aggiorna check marks
                 langOptions.forEach(opt => {
-                    const isActive = opt.getAttribute('data-lang') === lang;
-                    opt.classList.toggle('active', isActive);
-                    opt.querySelector('.check').classList.toggle('hidden', !isActive);
+                    const isActive = opt.getAttribute("data-lang") === lang;
+                    opt.classList.toggle("active", isActive);
+                    opt.querySelector(".check").classList.toggle("hidden", !isActive);
                 });
                 
                 // Chiudi dropdown
-                dropdown.classList.add('hidden');
+                dropdown.classList.add("hidden");
                 
-                console.log('✅ Lingua cambiata:', lang.toUpperCase());
+                console.log("✅ Lingua cambiata:", lang.toUpperCase());
             });
         });
         
         // Carica lingua salvata
-        const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+        const savedLang = localStorage.getItem("preferredLanguage") || "it";
         applyTranslations(savedLang);
         currentLangEl.textContent = savedLang.toUpperCase();
         
         // Imposta stato iniziale dropdown
         langOptions.forEach(option => {
-            const isActive = option.getAttribute('data-lang') === savedLang;
-            option.classList.toggle('active', isActive);
-            option.querySelector('.check').classList.toggle('hidden', !isActive);
+            const isActive = option.getAttribute("data-lang") === savedLang;
+            option.classList.toggle("active", isActive);
+            option.querySelector(".check").classList.toggle("hidden", !isActive);
         });
         
-        console.log('✅ GLOBAL Language Manager: Attivo con switcher!');
+        console.log("✅ GLOBAL Language Manager: Attivo con switcher!");
     }
     
     // ============================================
     // PARTE 4: AVVIO AUTOMATICO
     // ============================================
     
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLanguageSwitcher);
     } else {
         initLanguageSwitcher();
     }
     
-    console.log('✅ GLOBAL Language Manager: Script caricato - waiting for DOM');
+    console.log("✅ GLOBAL Language Manager: Script caricato - waiting for DOM");
     
 })();
