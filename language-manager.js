@@ -128,7 +128,7 @@
                         },
                         period2: {
                             date: "280-206 a.C.",
-                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. "Senza Crisippo non ci sarebbe la Stoà" - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
+                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. 'Senza Crisippo non ci sarebbe la Stoà' - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
                         },
                         period3: {
                             date: "I-II sec. d.C. - Roma",
