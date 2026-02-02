@@ -712,7 +712,7 @@
             },
             login: {
                 loading: "Signing in...",
-                quote: "\"The mind that finds no rest in itself seeks happiness in vain from outside\"",
+                quote: ""The mind that finds no rest in itself seeks happiness in vain from outside"",
                 author: "— Epictetus",
                 title: "Welcome Back",
                 subtitle: "Access your personal stoic journal",
