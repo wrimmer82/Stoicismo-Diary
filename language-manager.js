@@ -1,7 +1,7 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 3.0 - Traduzioni complete Cos'è lo Stoicismo
+// Versione: 3.0 - Aggiunto Registration
 // ============================================
 
 (function() {
@@ -274,6 +274,69 @@
                     button1: "Inizia Gratis Oggi",
                     button2: "Torna alla Home"
                 }
+            },
+            registration: {
+                loading: "Creazione account...",
+                title: "Inizia il Tuo Viaggio",
+                subtitle: "Unisciti a migliaia di praticanti moderni dello stoicismo",
+                googleBtn: "Continua con Google",
+                googleRedirecting: "Reindirizzamento...",
+                divider: "oppure con email",
+                form: {
+                    nameLabel: "Nome completo",
+                    optional: "(opzionale)",
+                    namePlaceholder: "es. Marco Aurelio",
+                    nameHint: "Ti chiameremo così nelle email",
+                    emailLabel: "Email *",
+                    emailPlaceholder: "stoico@esempio.com",
+                    emailSuccess: "✓ Email valida",
+                    passwordLabel: "Password *",
+                    passwordPlaceholder: "Minimo 8 caratteri",
+                    passwordReq: {
+                        title: "La password deve contenere:",
+                        length: "Almeno 8 caratteri",
+                        uppercase: "Una lettera maiuscola",
+                        lowercase: "Una lettera minuscola",
+                        number: "Un numero"
+                    },
+                    confirmPasswordLabel: "Conferma password *",
+                    confirmPasswordPlaceholder: "Ripeti la password",
+                    confirmPasswordSuccess: "✓ Le password coincidono",
+                    privacyText1: "Accetto i",
+                    terms: "Termini di Servizio",
+                    privacyText2: "e la",
+                    privacy: "Privacy Policy",
+                    newsletter: "Voglio ricevere riflessioni stoiche settimanali via email",
+                    submitBtn: "Accetta la Sfida"
+                },
+                loginText: "Hai già un account?",
+                loginLink: "Accedi qui",
+                badges: {
+                    free: "Gratis per sempre",
+                    noCard: "Nessuna carta richiesta",
+                    cancel: "Cancellazione istantanea",
+                    secure: "I tuoi dati sono protetti e crittografati"
+                },
+                validation: {
+                    emailRequired: "L'email è obbligatoria",
+                    emailInvalid: "Anche Epitteto avrebbe verificato questa email",
+                    confirmRequired: "Conferma la password",
+                    passwordMismatch: "Le password non coincidono"
+                },
+                strength: {
+                    weak: "Schiavo delle password deboli",
+                    medium: "Sulla via della sicurezza",
+                    strong: "Imperatore della sicurezza"
+                },
+                errors: {
+                    formErrors: "Correggi gli errori nel form prima di continuare",
+                    privacyRequired: "Devi accettare i Termini di Servizio e la Privacy Policy",
+                    googleOAuth: "Errore durante l'autenticazione con Google. Riprova.",
+                    generic: "Si è verificato un errore. Riprova.",
+                    emailExists: "Questa email è già registrata. Prova ad accedere.",
+                    weakPassword: "La password non rispetta i requisiti minimi di sicurezza"
+                },
+                success: "✅ Account creato! Controlla la tua email per confermare."
             },
             footer: {
                 tagline: "La tua guida quotidiana alla saggezza stoica.",
@@ -549,6 +612,69 @@
                     button2: "Back to Home"
                 }
             },
+            registration: {
+                loading: "Creating account...",
+                title: "Start Your Journey",
+                subtitle: "Join thousands of modern stoicism practitioners",
+                googleBtn: "Continue with Google",
+                googleRedirecting: "Redirecting...",
+                divider: "or with email",
+                form: {
+                    nameLabel: "Full name",
+                    optional: "(optional)",
+                    namePlaceholder: "e.g. Marcus Aurelius",
+                    nameHint: "We'll call you this in emails",
+                    emailLabel: "Email *",
+                    emailPlaceholder: "stoic@example.com",
+                    emailSuccess: "✓ Valid email",
+                    passwordLabel: "Password *",
+                    passwordPlaceholder: "Minimum 8 characters",
+                    passwordReq: {
+                        title: "Password must contain:",
+                        length: "At least 8 characters",
+                        uppercase: "One uppercase letter",
+                        lowercase: "One lowercase letter",
+                        number: "One number"
+                    },
+                    confirmPasswordLabel: "Confirm password *",
+                    confirmPasswordPlaceholder: "Repeat password",
+                    confirmPasswordSuccess: "✓ Passwords match",
+                    privacyText1: "I accept the",
+                    terms: "Terms of Service",
+                    privacyText2: "and the",
+                    privacy: "Privacy Policy",
+                    newsletter: "I want to receive weekly stoic reflections via email",
+                    submitBtn: "Accept the Challenge"
+                },
+                loginText: "Already have an account?",
+                loginLink: "Login here",
+                badges: {
+                    free: "Free forever",
+                    noCard: "No card required",
+                    cancel: "Instant cancellation",
+                    secure: "Your data is protected and encrypted"
+                },
+                validation: {
+                    emailRequired: "Email is required",
+                    emailInvalid: "Even Epictetus would verify this email",
+                    confirmRequired: "Confirm password",
+                    passwordMismatch: "Passwords do not match"
+                },
+                strength: {
+                    weak: "Slave to weak passwords",
+                    medium: "On the path to security",
+                    strong: "Emperor of security"
+                },
+                errors: {
+                    formErrors: "Fix form errors before continuing",
+                    privacyRequired: "You must accept the Terms of Service and Privacy Policy",
+                    googleOAuth: "Error during Google authentication. Try again.",
+                    generic: "An error occurred. Try again.",
+                    emailExists: "This email is already registered. Try logging in.",
+                    weakPassword: "Password does not meet minimum security requirements"
+                },
+                success: "✅ Account created! Check your email to confirm."
+            },
             footer: {
                 tagline: "Your daily guide to stoic wisdom.",
                 resources: "Resources",
@@ -563,6 +689,9 @@
             }
         }
     };
+    
+    // Esponi TRANSLATIONS globalmente per accesso da JavaScript
+    window.TRANSLATIONS = TRANSLATIONS;
     
     // ============================================
     // PARTE 2: FUNZIONI HELPER
