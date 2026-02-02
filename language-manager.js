@@ -54,7 +54,7 @@
                         name: "Marco Aurelio",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "Il cammino attraverso gli ostacoli",
-                        quote: ""Quod obstat viae, via fit."",
+                        quote: "Quod obstat viae, via fit.",
                         quoteTranslation: "\"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via.\"",
                         description: "Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.",
                         ai: "Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali."
