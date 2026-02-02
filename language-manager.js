@@ -124,7 +124,7 @@
                         title: "Il Viaggio attraverso i Secoli",
                         period1: {
                             date: "300 a.C. - Atene",
-                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome "stoicismo". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
+                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome 'stoicismo'. Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
                         },
                         period2: {
                             date: "280-206 a.C.",
