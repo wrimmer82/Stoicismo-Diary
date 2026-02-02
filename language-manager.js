@@ -1,7 +1,7 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 3.1 - Fixed Registrazione (No Switcher Pages)
+// Versione: 3.2 - Added Login Page Translations
 // ============================================
 
 (function() {
@@ -337,6 +337,41 @@
                     weakPassword: "La password non rispetta i requisiti minimi di sicurezza"
                 },
                 success: "✅ Account creato! Controlla la tua email per confermare."
+            },
+            login: {
+                loading: "Accesso in corso...",
+                quote: ""La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno"",
+                author: "— Epitteto",
+                title: "Bentornato",
+                subtitle: "Accedi al tuo diario stoico personale",
+                googleBtn: "Continua con Google",
+                googleRedirecting: "Reindirizzamento...",
+                divider: "oppure con email",
+                form: {
+                    emailLabel: "Email",
+                    emailPlaceholder: "stoico@esempio.com",
+                    passwordLabel: "Password",
+                    passwordPlaceholder: "La tua password",
+                    rememberMe: "Ricordami",
+                    forgotPassword: "Password dimenticata?",
+                    submitBtn: "Entra"
+                },
+                registerText: "Non hai ancora un account?",
+                registerLink: "Registrati qui",
+                badge: "Connessione sicura e crittografata",
+                validation: {
+                    emailRequired: "L'email è obbligatoria",
+                    emailInvalid: "Inserisci un'email valida",
+                    passwordRequired: "La password è obbligatoria"
+                },
+                errors: {
+                    fillFields: "Compila tutti i campi richiesti",
+                    invalidCredentials: "Email o password errate. Riprova.",
+                    emailNotConfirmed: "Conferma la tua email prima di accedere. Controlla la casella di posta.",
+                    googleOAuth: "Errore durante l'autenticazione con Google. Riprova.",
+                    generic: "Si è verificato un errore. Riprova."
+                },
+                success: "✅ Accesso effettuato! Reindirizzamento..."
             },
             footer: {
                 tagline: "La tua guida quotidiana alla saggezza stoica.",
@@ -674,6 +709,41 @@
                     weakPassword: "Password does not meet minimum security requirements"
                 },
                 success: "✅ Account created! Check your email to confirm."
+            },
+            login: {
+                loading: "Signing in...",
+                quote: ""The mind that finds no rest in itself seeks happiness in vain from outside"",
+                author: "— Epictetus",
+                title: "Welcome Back",
+                subtitle: "Access your personal stoic journal",
+                googleBtn: "Continue with Google",
+                googleRedirecting: "Redirecting...",
+                divider: "or with email",
+                form: {
+                    emailLabel: "Email",
+                    emailPlaceholder: "stoic@example.com",
+                    passwordLabel: "Password",
+                    passwordPlaceholder: "Your password",
+                    rememberMe: "Remember me",
+                    forgotPassword: "Forgot password?",
+                    submitBtn: "Enter"
+                },
+                registerText: "Don't have an account yet?",
+                registerLink: "Register here",
+                badge: "Secure and encrypted connection",
+                validation: {
+                    emailRequired: "Email is required",
+                    emailInvalid: "Enter a valid email",
+                    passwordRequired: "Password is required"
+                },
+                errors: {
+                    fillFields: "Fill in all required fields",
+                    invalidCredentials: "Incorrect email or password. Try again.",
+                    emailNotConfirmed: "Confirm your email before logging in. Check your inbox.",
+                    googleOAuth: "Error during Google authentication. Try again.",
+                    generic: "An error occurred. Try again."
+                },
+                success: "✅ Login successful! Redirecting..."
             },
             footer: {
                 tagline: "Your daily guide to stoic wisdom.",
