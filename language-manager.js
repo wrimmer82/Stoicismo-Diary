@@ -124,11 +124,11 @@
                         title: "Il Viaggio attraverso i Secoli",
                         period1: {
                             date: "300 a.C. - Atene",
-                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome \"stoicismo\". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
+                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome "stoicismo". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
                         },
                         period2: {
                             date: "280-206 a.C.",
-                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. \"Senza Crisippo non ci sarebbe la Stoà\" - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
+                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. "Senza Crisippo non ci sarebbe la Stoà" - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
                         },
                         period3: {
                             date: "I-II sec. d.C. - Roma",
@@ -139,7 +139,7 @@
                         title: "Perché Nacque lo Stoicismo",
                         p1: "Lo stoicismo emerge nell'<strong class='text-amber-300'>età ellenistica</strong>, dopo la morte di Alessandro Magno (323 a.C.). Il mondo greco vive una crisi profonda: le città-stato perdono indipendenza, l'incertezza politica è costante, gli individui si sentono impotenti davanti a forze più grandi.",
                         p2: "In questo contesto di crisi, le persone non cercavano speculazioni astratte, ma <strong class='text-amber-300'>guide pratiche per vivere bene</strong> nonostante le avversità. Lo stoicismo risponde offrendo strumenti concreti per trovare serenità interiore indipendentemente dalle circostanze esterne.",
-                        quote: "Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta.\"
+                        quote: "Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta."
                     }
                 },
                 philosophers: {
@@ -149,19 +149,19 @@
                         name: "Seneca",
                         dates: "4 a.C. - 65 d.C.",
                         bio: "Filosofo, drammaturgo e consigliere dell'imperatore Nerone. Le sue <strong class='text-amber-300'>Lettere a Lucilio</strong> sono una guida spirituale progressiva che accompagna il lettore verso la saggezza.",
-                        quote: "Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi.\"
+                        quote: "Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi."
                     },
                     epictetus: {
                         name: "Epitteto",
                         dates: "50 - 138 d.C.",
                         bio: "Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class='text-amber-300'>Manuale</strong> è un vademecum tascabile di saggezza pratica. Insegna la distinzione tra ciò che dipende da noi e ciò che non dipende.",
-                        quote: "Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile.\"
+                        quote: "Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile."
                     },
                     marcus: {
                         name: "Marco Aurelio",
                         dates: "121 - 180 d.C.",
                         bio: "Imperatore di Roma, l'uomo più potente del mondo che medita sulla vanità del potere. I suoi <strong class='text-amber-300'>Colloqui con sé stesso</strong> sono un diario filosofico scritto durante le campagne militari.",
-                        quote: "Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza.\"
+                        quote: "Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza."
                     }
                 },
                 cta1: {
@@ -213,8 +213,8 @@
                     },
                     nature: {
                         title: "Vivere Secondo Natura",
-                        description: "Il fine ultimo dello stoicismo è <em>\"vivere in accordo con la natura\"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
-                        p1: "Non si tratta di \"tornare alla natura selvaggia\", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
+                        description: "Il fine ultimo dello stoicismo è <em>"vivere in accordo con la natura"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
+                        p1: "Non si tratta di "tornare alla natura selvaggia", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
                         p2: "Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi."
                     }
                 },
@@ -340,7 +340,7 @@
             },
             login: {
                 loading: "Accesso in corso...",
-                quote: "La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno\",
+                quote: "La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno",
                 author: "— Epitteto",
                 title: "Bentornato",
                 subtitle: "Accedi al tuo diario stoico personale",
@@ -427,7 +427,7 @@
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
                         quote: "Quod obstat viae, via fit.",
-                        quoteTranslation: "What stands in the way becomes the way. And what lies on the path, this is the path.\",
+                        quoteTranslation: "What stands in the way becomes the way. And what lies on the path, this is the path.",
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
                     },
@@ -452,7 +452,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "Remember you must die\",
+                    subtitle: "Remember you must die",
                     text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
                     text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
                 },
@@ -496,11 +496,11 @@
                         title: "The Journey Through the Centuries",
                         period1: {
                             date: "300 BC - Athens",
-                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name \"Stoicism\" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
+                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name "Stoicism" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
                         },
                         period2: {
                             date: "280-206 BC",
-                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. \"Without Chrysippus there would be no Stoa\" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
+                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. "Without Chrysippus there would be no Stoa" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
                         },
                         period3: {
                             date: "1st-2nd century AD - Rome",
@@ -511,7 +511,7 @@
                         title: "Why Stoicism Was Born",
                         p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
                         p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\"
+                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living."
                     }
                 },
                 philosophers: {
@@ -521,19 +521,19 @@
                         name: "Seneca",
                         dates: "4 BC - 65 AD",
                         bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful.\"
+                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful."
                     },
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
                         bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible.\"
+                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible."
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
                         bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "You have power over your mind, not external events. Realize this, and you will find strength.\"
+                        quote: "You have power over your mind, not external events. Realize this, and you will find strength."
                     }
                 },
                 cta1: {
@@ -585,8 +585,8 @@
                     },
                     nature: {
                         title: "Living According to Nature",
-                        description: "The ultimate goal of Stoicism is <em>\"to live in accordance with nature\"</em> - which means living according to reason, because human nature is fundamentally rational.",
-                        p1: "It's not about \"returning to wild nature\", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
+                        description: "The ultimate goal of Stoicism is <em>"to live in accordance with nature"</em> - which means living according to reason, because human nature is fundamentally rational.",
+                        p1: "It's not about "returning to wild nature", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
                         p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
                     }
                 },
@@ -792,7 +792,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "Remember you must die\",
+                    subtitle: "Remember you must die",
                     text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
                     text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
                 },
@@ -836,11 +836,11 @@
                         title: "The Journey Through the Centuries",
                         period1: {
                             date: "300 BC - Athens",
-                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name \"Stoicism\" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
+                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name "Stoicism" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
                         },
                         period2: {
                             date: "280-206 BC",
-                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. \"Without Chrysippus there would be no Stoa\" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
+                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. "Without Chrysippus there would be no Stoa" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
                         },
                         period3: {
                             date: "1st-2nd century AD - Rome",
@@ -851,7 +851,7 @@
                         title: "Why Stoicism Was Born",
                         p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
                         p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\"
+                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living."
                     }
                 },
                 philosophers: {
@@ -861,19 +861,19 @@
                         name: "Seneca",
                         dates: "4 BC - 65 AD",
                         bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful.\"
+                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful."
                     },
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
                         bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible.\"
+                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible."
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
                         bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "You have power over your mind, not external events. Realize this, and you will find strength.\"
+                        quote: "You have power over your mind, not external events. Realize this, and you will find strength."
                     }
                 },
                 cta1: {
@@ -925,8 +925,8 @@
                     },
                     nature: {
                         title: "Living According to Nature",
-                        description: "The ultimate goal of Stoicism is <em>\"to live in accordance with nature\"</em> - which means living according to reason, because human nature is fundamentally rational.",
-                        p1: "It's not about \"returning to wild nature\", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
+                        description: "The ultimate goal of Stoicism is <em>"to live in accordance with nature"</em> - which means living according to reason, because human nature is fundamentally rational.",
+                        p1: "It's not about "returning to wild nature", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
                         p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
                     }
                 },
