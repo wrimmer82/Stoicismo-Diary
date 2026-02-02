@@ -725,7 +725,6 @@
                     passwordLabel: "Password",
                     passwordPlaceholder: "Your password",
                     rememberMe: "Remember me",
-                    forgVedo! Ancora **stesso errore** alla riga **1343**. Il problema è che ci sono **ALTRI apostrofi non escaped** nelle traduzioni italiane!
 
 Dalla console:
 
