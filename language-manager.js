@@ -726,10 +726,7 @@
                     passwordPlaceholder: "Your password",
                     rememberMe: "Remember me",
 
-Dalla console:
-
-
-        en: {
+ en: {
             nav: {
                 whatIsStoicism: "What is Stoicism",
                 login: "Login",
