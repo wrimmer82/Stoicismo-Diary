@@ -54,7 +54,7 @@
                         name: "Marco Aurelio",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "Il cammino attraverso gli ostacoli",
-                        quote: "«Quod obstat viae, via fit.»",
+                        quote: ""Quod obstat viae, via fit."",
                         quoteTranslation: "\"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via.\"",
                         description: "Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.",
                         ai: "Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali."
@@ -63,7 +63,7 @@
                         name: "Epitteto",
                         principle: "In Nostra Potestate",
                         principleTranslation: "La dicotomia del controllo",
-                        quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
+                        quote: ""En tois eph' hemin kai en tois ouk eph' hemin"",
                         quoteTranslation: "La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.",
                         description: "Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.",
                         ai: "L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace."
@@ -72,7 +72,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Prepararsi al peggio per vivere meglio",
-                        quote: "«Qui omnia timet, nihil cogitat»",
+                        quote: ""Qui omnia timet, nihil cogitat"",
                         quoteTranslation: "La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.",
                         description: "Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.",
                         ai: "L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio."
@@ -426,7 +426,7 @@
                         name: "Marcus Aurelius",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
-                        quote: "«Quod obstat viae, via fit.»",
+                        quote: ""Quod obstat viae, via fit."",
                         quoteTranslation: "\"What stands in the way becomes the way. And what lies on the path, this is the path.\"",
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
@@ -435,7 +435,7 @@
                         name: "Epictetus",
                         principle: "In Nostra Potestate",
                         principleTranslation: "The dichotomy of control",
-                        quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
+                        quote: ""En tois eph' hemin kai en tois ouk eph' hemin"",
                         quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
                         description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
                         ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
@@ -444,7 +444,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Preparing for the worst to live better",
-                        quote: "«Qui omnia timet, nihil cogitat»",
+                        quote: ""Qui omnia timet, nihil cogitat"",
                         quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
                         description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
                         ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
@@ -766,7 +766,7 @@
                         name: "Marcus Aurelius",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
-                        quote: "«Quod obstat viae, via fit.»",
+                        quote: ""Quod obstat viae, via fit."",
                         quoteTranslation: '"What stands in the way becomes the way. And what lies on the path, this is the path."',
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
@@ -775,7 +775,7 @@
                         name: "Epictetus",
                         principle: "In Nostra Potestate",
                         principleTranslation: "The dichotomy of control",
-                        quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
+                        quote: ""En tois eph' hemin kai en tois ouk eph' hemin"",
                         quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
                         description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
                         ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
@@ -784,7 +784,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Preparing for the worst to live better",
-                        quote: "«Qui omnia timet, nihil cogitat»",
+                        quote: ""Qui omnia timet, nihil cogitat"",
                         quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
                         description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
                         ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
