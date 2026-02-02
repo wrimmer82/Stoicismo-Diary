@@ -7,36 +7,68 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-GW6CH5RG1R');
 </script>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accedi - The Stoic Journey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     
+    <!-- SEO Meta Tags -->
+    <title>Accedi - The Stoic Journey | Il Tuo Diario Stoico Personale</title>
+    <meta name="description" content="Accedi al tuo account The Stoic Journey. Continua il tuo percorso di crescita personale attraverso la saggezza stoica antica.">
+    <meta name="keywords" content="stoicismo, login, accesso, meditazione, diario stoico">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Accedi - The Stoic Journey">
+    <meta property="og:description" content="Torna al tuo diario stoico personale">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thestoicjourney.app">
+    
+    <!-- Scripts & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
+    <!-- Language Manager -->
+    <script src="language-manager.js" defer></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-baskerville { font-family: 'Libre Baskerville', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-        
-        body {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
-                #c49050 80%, #a8754a 90%, #1c1410 100%
-            );
-            min-height: 100vh;
-            background-attachment: fixed;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-slideDown {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+        .animate-slideUp {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .shake { animation: shake 0.5s; }
+        
         .spinner {
             border: 3px solid rgba(251, 191, 36, 0.3);
             border-top-color: #fbbf24;
@@ -45,133 +77,86 @@
             height: 20px;
             animation: spin 0.8s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .sunset-gradient {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%,
+                #2d1b3d 15%,
+                #4a2c4f 30%,
+                #6b4a5a 45%,
+                #8b5a4e 60%,
+                #a8754a 75%,
+                #c49050 85%,
+                #1c1410 100%
+            );
         }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
-            20%, 40%, 60%, 80% { transform: translateX(10px); }
+        
+        .input-focus:focus {
+            border-color: rgba(251, 191, 36, 0.8);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            transform: scale(1.01);
         }
-
-        .shake {
-            animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .loading-pulse {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-
-        .delay-200 { animation-delay: 0.2s; opacity: 0; }
-        .delay-400 { animation-delay: 0.4s; opacity: 0; }
-
+        
         .input-error {
-            border-color: #ef4444 !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
         }
-
-        .input-success {
-            border-color: #10b981 !important;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
-        }
-
-        .input-disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            background-color: #1e293b !important;
-        }
-
+        
         .password-toggle {
             cursor: pointer;
             user-select: none;
-            transition: all 0.2s;
         }
-
-        .password-toggle:hover {
-            transform: scale(1.1);
+        
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            max-width: 400px;
+            z-index: 9999;
         }
-
-        .password-toggle:active {
-            transform: scale(0.95);
-        }
-
-        .error-message {
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-loading::after {
-            content: '';
-            position: absolute;
+        
+        .loading-overlay {
+            position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(2px);
-            border-radius: 0.5rem;
-            pointer-events: none;
-            z-index: 10;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
         }
-
-        .philosopher-circle {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .philosopher-circle img {
-            transition: all 0.3s ease;
-        }
-
-        .philosopher-circle:hover img {
-            transform: scale(1.1);
-            border-color: #fbbf24 !important;
-        }
-
-        .philosopher-circle p {
-            transition: opacity 0.3s ease;
-        }
-
-        /* MOBILE: Nascondi filosofi */
+        
         @media (max-width: 768px) {
-            .philosopher-section {
-                display: none !important;
+            .quote-section h1 {
+                font-size: 1.5rem !important;
+                line-height: 2rem !important;
             }
         }
     </style>
 </head>
-<body class="font-inter text-slate-100">
-
-    <section class="min-h-screen flex items-center justify-center py-8 md:py-12 px-4">
-        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
+<body class="bg-gray-50 font-inter">
+    
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4" style="width: 48px; height: 48px; border-width: 4px;"></div>
+            <p class="text-white font-cinzel text-lg" id="loadingText" data-i18n="login.loading">Accesso in corso...</p>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast"></div>
+    
+    <!-- Main Section -->
+    <section class="min-h-screen sunset-gradient flex items-center justify-center py-8 md:py-12 px-4">
+        <div class="max-w-6xl w-full mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             
-            <!-- LEFT: Filosofi + Citazione (3 col) - SOLO DESKTOP -->
-            <div class="philosopher-section md:col-span-3 text-center md:text-left animate-fadeIn">
-                
-                <!-- Logo e Link Home -->
+            <!-- Left: Quote -->
+            <div class="text-center md:text-left animate-fadeIn">
                 <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
                     <img src="sigma_logo.png" alt="The Stoic Journey" class="h-10 w-10 md:h-12 md:w-12 object-contain drop-shadow-2xl">
                     <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white">
@@ -179,451 +164,363 @@
                     </span>
                 </a>
                 
-                <!-- Citazione Rotativa -->
-                <div class="mb-6 md:mb-8 animate-fadeIn delay-200">
-                    <h1 id="rotatingQuote" class="text-3xl md:text-5xl lg:text-6xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
-                        "La felicità della tua vita dipende dalla qualità dei tuoi pensieri"
+                <div class="mb-6 md:mb-8 quote-section">
+                    <h1 class="text-2xl md:text-5xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
+                        <span data-i18n="login.quote">"La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno"</span>
                     </h1>
-                    <p id="rotatingAuthor" class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
-                        — Marco Aurelio
+                    <p class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
+                        <span data-i18n="login.author">— Epitteto</span>
                     </p>
                 </div>
                 
-                <!-- Immagini 3 Filosofi - Layout Anelli Olimpici -->
-                <div class="philosopher-images flex justify-center md:justify-start animate-fadeIn delay-400">
-                    <div class="relative w-full max-w-2xl mx-auto md:mx-0">
-                        <!-- Riga superiore: Marco Aurelio + Epitteto -->
-                        <div class="flex justify-center gap-6 md:gap-8 mb-[-80px] md:mb-[-110px]">
-                            <!-- Marco Aurelio -->
-                            <div class="philosopher-circle group">
-                                <img src="marco_aurelio_3d.jpg" 
-                                     alt="Marco Aurelio" 
-                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl">
-                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
-                            </div>
-                            
-                            <!-- Epitteto -->
-                            <div class="philosopher-circle group">
-                                <img src="Epitteto_3d.png" 
-                                     alt="Epitteto" 
-                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl">
-                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Riga inferiore: Zenone -->
-                        <div class="flex justify-center">
-                            <div class="philosopher-circle group">
-                                <img src="Zenone_di_Cinzio_3d.png" 
-                                     alt="Zenone di Cinzio" 
-                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl relative z-10">
-                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Zenone di Cinzio</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="hidden md:block">
+                    <img src="Epitteto_3d.png" 
+                         alt="Epitteto" 
+                         class="w-64 h-64 rounded-full border-4 border-amber-300/50 object-cover shadow-2xl mx-auto">
                 </div>
             </div>
             
-            <!-- RIGHT: Form Login (2 col) -->
-            <div class="md:col-span-2 animate-fadeIn">
-                <div class="max-w-md w-full bg-slate-900/95 backdrop-blur-sm rounded-2xl border border-amber-500/20 shadow-2xl p-8">
+            <!-- Right: Login Form -->
+            <div class="animate-fadeIn delay-200">
+                <div class="bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-6 md:p-10 backdrop-blur-sm shadow-2xl">
                     
-                    <!-- Logo Mobile Only -->
-                    <div class="md:hidden text-center mb-8">
-                        <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
-                            <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
-                        </a>
-                        <h1 class="text-3xl font-cinzel font-bold text-amber-400 mb-2">The Stoic Journey</h1>
-                        <p class="text-slate-400">Accedi per continuare il tuo percorso stoico</p>
-                    </div>
-
-                    <!-- Title Desktop Only -->
-                    <div class="hidden md:block text-center mb-8">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-300 mb-2">
-                            Bentornato, Stoico
+                    <!-- Header -->
+                    <div class="text-center mb-6 md:mb-8">
+                        <h2 class="text-2xl md:text-4xl font-cinzel font-bold text-amber-300 mb-2 md:mb-3" data-i18n="login.title">
+                            Bentornato
                         </h2>
-                        <p class="text-sm md:text-base text-slate-300 font-baskerville">
-                            Continua il tuo viaggio di saggezza
+                        <p class="text-sm md:text-base text-slate-300 font-baskerville" data-i18n="login.subtitle">
+                            Accedi al tuo diario stoico personale
                         </p>
                     </div>
-
-                    <!-- Google Login Button -->
+                    
+                    <!-- Google Sign-In Button -->
                     <button 
-                        id="googleLoginBtn"
-                        class="w-full bg-white hover:bg-gray-100 text-gray-900 font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-3 transition-all mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                        id="googleSignInBtn"
+                        type="button"
+                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 md:py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-4 md:mb-6 border-2 border-gray-200">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                         </svg>
-                        <span id="googleBtnText">Continua con Google</span>
+                        <span id="googleBtnText" class="font-cinzel text-sm md:text-base" data-i18n="login.googleBtn">Continua con Google</span>
                         <div id="googleSpinner" class="spinner hidden"></div>
                     </button>
-
+                    
                     <!-- Divider -->
-                    <div class="relative mb-6">
+                    <div class="relative my-4 md:my-6">
                         <div class="absolute inset-0 flex items-center">
                             <div class="w-full border-t border-slate-700"></div>
                         </div>
-                        <div class="relative flex justify-center text-sm">
-                            <span class="px-2 bg-slate-900 text-slate-500 font-baskerville">oppure con email</span>
+                        <div class="relative flex justify-center text-xs md:text-sm">
+                            <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville" data-i18n="login.divider">oppure con email</span>
                         </div>
                     </div>
-
-                    <!-- Form Login Email/Password -->
-                    <form id="loginForm" class="space-y-4 relative">
+                    
+                    <!-- Login Form -->
+                    <form id="loginForm" class="space-y-4 md:space-y-5" novalidate>
+                        
                         <!-- Email -->
                         <div>
-                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <label for="email" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel" data-i18n="login.form.emailLabel">
+                                Email
+                            </label>
                             <input 
                                 type="email" 
-                                id="emailInput"
+                                id="email" 
                                 required
+                                data-i18n-placeholder="login.form.emailPlaceholder"
                                 placeholder="stoico@esempio.com"
                                 autocomplete="email"
-                                class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 outline-none transition-all"
-                            >
-                            <p id="emailError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
-                            <p id="emailSuccess" class="text-green-400 text-sm mt-1 hidden error-message">✓ Email valida</p>
+                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p id="emailError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
                         </div>
-
+                        
                         <!-- Password -->
                         <div>
-                            <label class="block text-sm font-medium mb-2">Password</label>
+                            <label for="password" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel" data-i18n="login.form.passwordLabel">
+                                Password
+                            </label>
                             <div class="relative">
                                 <input 
                                     type="password" 
-                                    id="passwordInput"
+                                    id="password" 
                                     required
-                                    placeholder="Inserisci la tua password"
+                                    data-i18n-placeholder="login.form.passwordPlaceholder"
+                                    placeholder="La tua password"
                                     autocomplete="current-password"
-                                    class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg px-4 py-3 pr-12 outline-none transition-all"
-                                >
+                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
                                 <button 
                                     type="button" 
                                     id="togglePassword"
-                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle"
-                                    aria-label="Mostra/Nascondi password"
-                                >
-                                    <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
+                                    <svg id="eyeIcon" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                     </svg>
-                                    <svg id="eyeSlashIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                                    </svg>
                                 </button>
                             </div>
-                            <p id="passwordError" class="text-red-400 text-sm mt-1 hidden error-message"></p>
+                            <p id="passwordError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
                         </div>
-
-                        <!-- Remember Me Checkbox -->
-                        <div class="flex items-center">
-                            <input type="checkbox" id="rememberMe" class="mr-2 w-4 h-4 bg-slate-800 border-slate-700 rounded">
-                            <label for="rememberMe" class="text-sm text-slate-400">Ricordami su questo dispositivo</label>
+                        
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="flex items-center justify-between text-xs md:text-sm">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    id="rememberMe"
+                                    class="w-4 h-4 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                                <span class="text-slate-300 font-baskerville" data-i18n="login.form.rememberMe">Ricordami</span>
+                            </label>
+                            <a href="#" class="text-amber-300 hover:text-amber-200 font-baskerville underline" data-i18n="login.form.forgotPassword">
+                                Password dimenticata?
+                            </a>
                         </div>
-
+                        
                         <!-- Submit Button -->
                         <button 
                             type="submit"
                             id="submitBtn"
-                            class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            <span id="submitBtnText">Accedi</span>
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                            <span id="submitBtnText" data-i18n="login.form.submitBtn">Entra</span>
                             <div id="submitSpinner" class="spinner hidden"></div>
                         </button>
+                        
                     </form>
-
-                    <!-- Password Dimenticata -->
-                    <div class="mt-6 text-center">
-                        <a href="#" class="text-amber-400 hover:underline text-sm">Password dimenticata?</a>
+                    
+                    <!-- Register Link -->
+                    <div class="mt-4 md:mt-6 text-center">
+                        <p class="text-xs md:text-sm text-slate-400 font-baskerville">
+                            <span data-i18n="login.registerText">Non hai ancora un account?</span>
+                            <a href="registrazione.html" class="text-amber-300 underline hover:text-amber-200 font-semibold" data-i18n="login.registerLink">
+                                Registrati qui
+                            </a>
+                        </p>
                     </div>
-
-                    <!-- Link Registrazione -->
-                    <div class="mt-4 text-center text-sm text-slate-500">
-                        Non hai ancora un account? <a href="registrazione.html" class="text-amber-400 hover:underline">Registrati</a>
+                    
+                    <!-- Trust Badge -->
+                    <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-slate-700">
+                        <div class="flex items-center justify-center gap-2 text-xs text-slate-500">
+                            <svg class="w-3 h-3 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span data-i18n="login.badge">Connessione sicura e crittografata</span>
+                        </div>
                     </div>
-
-                    <!-- Privacy Footer -->
-                    <div class="mt-6 text-center text-xs text-slate-600">
-                        Continuando accetti i nostri <a href="#" class="text-amber-400 hover:underline">Termini</a> e la <a href="#" class="text-amber-400 hover:underline">Privacy Policy</a>
-                    </div>
+                    
                 </div>
             </div>
             
         </div>
     </section>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50">
-        <p id="toastMessage" class="text-sm font-medium"></p>
-    </div>
-
-   <script>
-    const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
-    
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const googleLoginBtn = document.getElementById('googleLoginBtn');
-    const googleBtnText = document.getElementById('googleBtnText');
-    const googleSpinner = document.getElementById('googleSpinner');
-    const loginForm = document.getElementById('loginForm');
-    const emailInput = document.getElementById('emailInput');
-    const emailError = document.getElementById('emailError');
-    const emailSuccess = document.getElementById('emailSuccess');
-    const passwordInput = document.getElementById('passwordInput');
-    const passwordError = document.getElementById('passwordError');
-    const submitBtn = document.getElementById('submitBtn');
-    const submitBtnText = document.getElementById('submitBtnText');
-    const submitSpinner = document.getElementById('submitSpinner');
-    const togglePassword = document.getElementById('togglePassword');
-    const eyeIcon = document.getElementById('eyeIcon');
-    const eyeSlashIcon = document.getElementById('eyeSlashIcon');
-
-    // ========== CITAZIONI ROTANTI ==========
-    const quotes = [
-        {
-            text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
-            author: "Marco Aurelio"
-        },
-        {
-            text: "Non è ciò che ti accade, ma come reagisci che conta",
-            author: "Epitteto"
-        },
-        {
-            text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
-            author: "Zenone di Cizio"
-        },
-        {
-            text: "Non conta quante volte cadi, ma quante volte ti rialzi",
-            author: "Marco Aurelio"
-        },
-        {
-            text: "Chi controlla le proprie passioni è più forte di chi conquista città",
-            author: "Marco Aurelio"
+    <script>
+        // SUPABASE CONFIG
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // TOAST NOTIFICATIONS
+        function getTranslation(key) {
+            const lang = localStorage.getItem('preferredLanguage') || 'it';
+            const translations = window.TRANSLATIONS || {};
+            const keys = key.split('.');
+            let value = translations[lang];
+            for (let k of keys) {
+                value = value?.[k];
+            }
+            return value || key;
         }
-    ];
-
-    let currentQuoteIndex = 0;
-
-    function rotateQuote() {
-        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-        const quote = quotes[currentQuoteIndex];
         
-        const quoteEl = document.getElementById('rotatingQuote');
-        const authorEl = document.getElementById('rotatingAuthor');
-        
-        if (quoteEl && authorEl) {
-            quoteEl.style.opacity = '0';
-            authorEl.style.opacity = '0';
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `animate-slideUp p-4 rounded-lg shadow-2xl mb-4 ${
+                type === 'success' ? 'bg-green-600' : 
+                type === 'error' ? 'bg-red-600' : 
+                'bg-amber-600'
+            } text-white font-baskerville`;
+            toast.textContent = message;
+            
+            document.getElementById('toastContainer').appendChild(toast);
             
             setTimeout(() => {
-                quoteEl.textContent = `"${quote.text}"`;
-                authorEl.textContent = `— ${quote.author}`;
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        
+        // LOADING OVERLAY
+        function showLoading(text) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+        
+        // DOM ELEMENTS
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnText = document.getElementById('submitBtnText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const googleSignInBtn = document.getElementById('googleSignInBtn');
+        const googleBtnText = document.getElementById('googleBtnText');
+        const googleSpinner = document.getElementById('googleSpinner');
+        
+        // TOGGLE PASSWORD
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        });
+        
+        // EMAIL VALIDATION
+        emailInput.addEventListener('blur', function() {
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email) {
+                emailError.textContent = getTranslation('login.validation.emailRequired');
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('input-error');
+                emailInput.classList.add('shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 500);
+            } else if (!emailRegex.test(email)) {
+                emailError.textContent = getTranslation('login.validation.emailInvalid');
+                emailError.classList.remove('hidden');
+                emailInput.classList.add('input-error');
+                emailInput.classList.add('shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 500);
+            } else {
+                emailError.classList.add('hidden');
+                emailInput.classList.remove('input-error');
+            }
+        });
+        
+        emailInput.addEventListener('input', function() {
+            emailError.classList.add('hidden');
+            emailInput.classList.remove('input-error');
+        });
+        
+        // PASSWORD VALIDATION
+        passwordInput.addEventListener('blur', function() {
+            if (!passwordInput.value) {
+                passwordError.textContent = getTranslation('login.validation.passwordRequired');
+                passwordError.classList.remove('hidden');
+                passwordInput.classList.add('input-error');
+                passwordInput.classList.add('shake');
+                setTimeout(() => passwordInput.classList.remove('shake'), 500);
+            } else {
+                passwordError.classList.add('hidden');
+                passwordInput.classList.remove('input-error');
+            }
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            passwordError.classList.add('hidden');
+            passwordInput.classList.remove('input-error');
+        });
+        
+        // GOOGLE SIGN-IN
+        googleSignInBtn.addEventListener('click', async function() {
+            googleBtnText.textContent = getTranslation('login.googleRedirecting');
+            googleSpinner.classList.remove('hidden');
+            googleSignInBtn.disabled = true;
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                        redirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
+                    }
+                });
                 
-                quoteEl.style.transition = 'opacity 0.5s';
-                authorEl.style.transition = 'opacity 0.5s';
-                quoteEl.style.opacity = '1';
-                authorEl.style.opacity = '1';
-            }, 500);
-        }
-    }
-
-    setInterval(rotateQuote, 8000);
-
-    // ========== VERIFICA SESSIONE ESISTENTE ==========
-    document.addEventListener('DOMContentLoaded', async () => {
-        const { data: { session }, error } = await supabaseClient.auth.getSession();
+                if (error) throw error;
+                
+            } catch (error) {
+                console.error('Errore Google Sign-In:', error);
+                showToast(getTranslation('login.errors.googleOAuth'), 'error');
+                
+                googleBtnText.textContent = getTranslation('login.googleBtn');
+                googleSpinner.classList.add('hidden');
+                googleSignInBtn.disabled = false;
+            }
+        });
         
-        if (session && !error) {
-            window.location.href = 'dashboard.html';
-            return;
-        }
-    });
-
-    // ========== TOGGLE PASSWORD VISIBILITY ==========
-    togglePassword.addEventListener('click', () => {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        
-        eyeIcon.classList.toggle('hidden');
-        eyeSlashIcon.classList.toggle('hidden');
-    });
-
-    // ========== VALIDAZIONE EMAIL REAL-TIME ==========
-    emailInput.addEventListener('input', () => {
-        emailError.classList.add('hidden');
-        emailSuccess.classList.add('hidden');
-        emailInput.classList.remove('input-error', 'input-success', 'shake');
-    });
-
-    emailInput.addEventListener('blur', () => {
-        const email = emailInput.value.trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!email) {
-            emailError.textContent = "L'email è obbligatoria";
-            emailError.classList.remove('hidden');
-            emailInput.classList.add('input-error', 'shake');
-            setTimeout(() => emailInput.classList.remove('shake'), 600);
-            return;
-        }
-
-        if (!emailRegex.test(email)) {
-            emailError.textContent = "Inserisci un'email valida";
-            emailError.classList.remove('hidden');
-            emailInput.classList.add('input-error', 'shake');
-            setTimeout(() => emailInput.classList.remove('shake'), 600);
-            return;
-        }
-
-        emailError.classList.add('hidden');
-        emailSuccess.classList.remove('hidden');
-        emailInput.classList.remove('input-error');
-        emailInput.classList.add('input-success');
-    });
-
-    // ========== HELPER: SET LOADING STATE ==========
-    function setLoadingState(isLoading) {
-        if (isLoading) {
-            emailInput.disabled = true;
-            passwordInput.disabled = true;
+        // FORM SUBMIT
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            
+            if (!email || !password) {
+                showToast(getTranslation('login.errors.fillFields'), 'error');
+                return;
+            }
+            
+            showLoading(getTranslation('login.loading'));
+            submitBtnText.textContent = getTranslation('login.loading');
+            submitSpinner.classList.remove('hidden');
             submitBtn.disabled = true;
-            googleLoginBtn.disabled = true;
-            togglePassword.disabled = true;
             
-            emailInput.classList.add('input-disabled', 'loading-pulse');
-            passwordInput.classList.add('input-disabled', 'loading-pulse');
-            
-            loginForm.classList.add('form-loading');
-        } else {
-            emailInput.disabled = false;
-            passwordInput.disabled = false;
-            submitBtn.disabled = false;
-            googleLoginBtn.disabled = false;
-            togglePassword.disabled = false;
-            
-            emailInput.classList.remove('input-disabled', 'loading-pulse');
-            passwordInput.classList.remove('input-disabled', 'loading-pulse');
-            
-            loginForm.classList.remove('form-loading');
-        }
-    }
-
-    // ========== LOGIN GOOGLE OAUTH ==========
-    googleLoginBtn.addEventListener('click', async () => {
-        googleBtnText.textContent = 'Reindirizzamento...';
-        googleSpinner.classList.remove('hidden');
-        setLoadingState(true);
-        
-        const { error } = await supabaseClient.auth.signInWithOAuth({
-            provider: 'google',
-            options: {
-                redirectTo: 'https://wrimmer82.github.io/Stoicismo-Diary/dashboard.html'
-            }
-        });
-
-        if (error) {
-            showToast('Errore durante il login con Google: ' + error.message);
-            googleBtnText.textContent = 'Continua con Google';
-            googleSpinner.classList.add('hidden');
-            setLoadingState(false);
-        }
-    });
-
-    // ========== LOGIN EMAIL/PASSWORD ==========
-    loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-
-        emailError.classList.add('hidden');
-        passwordError.classList.add('hidden');
-        emailInput.classList.remove('input-error', 'shake');
-        passwordInput.classList.remove('input-error', 'shake');
-
-        let hasError = false;
-
-        if (!email) {
-            emailError.textContent = "Inserisci la tua email";
-            emailError.classList.remove('hidden');
-            emailInput.classList.add('input-error', 'shake');
-            setTimeout(() => emailInput.classList.remove('shake'), 600);
-            hasError = true;
-        }
-
-        if (!password) {
-            passwordError.textContent = "Inserisci la tua password";
-            passwordError.classList.remove('hidden');
-            passwordInput.classList.add('input-error', 'shake');
-            setTimeout(() => passwordInput.classList.remove('shake'), 600);
-            hasError = true;
-        }
-
-        if (hasError) {
-            showToast('Compila tutti i campi');
-            return;
-        }
-
-        submitBtnText.textContent = 'Accesso in corso...';
-        submitSpinner.classList.remove('hidden');
-        setLoadingState(true);
-
-        const { data, error } = await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-        });
-
-        if (error) {
-            let errorMessage = 'Credenziali non valide';
-            
-            if (error.message.includes('Invalid login credentials')) {
-                errorMessage = 'Email o password non corretti';
-                emailInput.classList.add('input-error', 'shake');
-                passwordInput.classList.add('input-error', 'shake');
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+                
+                if (error) throw error;
+                
+                hideLoading();
+                showToast(getTranslation('login.success'), 'success');
+                
                 setTimeout(() => {
-                    emailInput.classList.remove('shake');
-                    passwordInput.classList.remove('shake');
-                }, 600);
-            } else if (error.message.includes('Email not confirmed')) {
-                errorMessage = 'Conferma prima la tua email';
-                emailInput.classList.add('input-error', 'shake');
-                setTimeout(() => emailInput.classList.remove('shake'), 600);
+                    window.location.href = 'dashboard.html';
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Errore login:', error);
+                hideLoading();
+                
+                let errorMessage = getTranslation('login.errors.generic');
+                
+                if (error.message.includes('Invalid login credentials')) {
+                    errorMessage = getTranslation('login.errors.invalidCredentials');
+                } else if (error.message.includes('Email not confirmed')) {
+                    errorMessage = getTranslation('login.errors.emailNotConfirmed');
+                } else {
+                    errorMessage = error.message;
+                }
+                
+                showToast(errorMessage, 'error');
+                
+                submitBtnText.textContent = getTranslation('login.form.submitBtn');
+                submitSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
             }
-            
-            showToast(errorMessage);
-            submitBtnText.textContent = 'Accedi';
-            submitSpinner.classList.add('hidden');
-            setLoadingState(false);
-            return;
-        }
-
-        showToast('✅ Login riuscito! Reindirizzamento...');
-        setTimeout(() => {
-            window.location.href = 'dashboard.html';
-        }, 1000);
-    });
-
-    // ========== TOAST NOTIFICATION ==========
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        document.getElementById('toastMessage').textContent = message;
-        toast.style.transform = 'translateY(0)';
-        setTimeout(() => toast.style.transform = 'translateY(8rem)', 3500);
-    }
-
-    // ========== GESTIONE CALLBACK OAUTH ==========
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_IN' && session) {
-            showToast('✅ Login riuscito!');
-            setLoadingState(true);
-            setTimeout(() => {
+        });
+        
+        // CHECK EXISTING SESSION
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
                 window.location.href = 'dashboard.html';
-            }, 1000);
-        }
-    });
-</script>
+            }
+        });
+        
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
