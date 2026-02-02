@@ -340,7 +340,7 @@
             },
             login: {
                 loading: "Accesso in corso...",
-                quote: \"La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno\",
+                quote: "\"La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno\"",
                 author: "— Epitteto",
                 title: "Bentornato",
                 subtitle: "Accedi al tuo diario stoico personale",
