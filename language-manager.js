@@ -1,7 +1,7 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 3.2.1 - Fixed All Italian Apostrophes
+// Versione: 3.1 - Fixed Registrazione (No Switcher Pages)
 // ============================================
 
 (function() {
@@ -54,8 +54,8 @@
                         name: "Marco Aurelio",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "Il cammino attraverso gli ostacoli",
-                        quote: "Quod obstat viae, via fit.",
-                        quoteTranslation: "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via.",
+                        quote: "«Quod obstat viae, via fit.»",
+                        quoteTranslation: '"Ciò che ostacola l\'azione fa avanzare l\'azione. E ciò che sta sulla via, questo è la via."',
                         description: "Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.",
                         ai: "Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali."
                     },
@@ -63,7 +63,7 @@
                         name: "Epitteto",
                         principle: "In Nostra Potestate",
                         principleTranslation: "La dicotomia del controllo",
-                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
+                        quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
                         quoteTranslation: "La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.",
                         description: "Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.",
                         ai: "L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace."
@@ -72,7 +72,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Prepararsi al peggio per vivere meglio",
-                        quote: "Qui omnia timet, nihil cogitat",
+                        quote: "«Qui omnia timet, nihil cogitat»",
                         quoteTranslation: "La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.",
                         description: "Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.",
                         ai: "L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio."
@@ -80,7 +80,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "Ricordati che devi morire",
+                    subtitle: "\"Ricordati che devi morire\"",
                     text1: "La consapevolezza della mortalità non è un peso, ma una liberazione. Ogni giorno è prezioso. Ogni scelta è importante. Ogni momento conta.",
                     text2: "Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità, gratitudine e saggezza. La fine inevitabile ci ricorda di non rimandare ciò che conta davvero."
                 },
@@ -124,11 +124,11 @@
                         title: "Il Viaggio attraverso i Secoli",
                         period1: {
                             date: "300 a.C. - Atene",
-                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome 'stoicismo'. Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
+                            text: "<strong class='text-amber-300'>Zenone di Cizio</strong> fonda la scuola nel Portico Dipinto (Stoà Poikilé), da cui il nome \"stoicismo\". Dopo un naufragio che lo porta ad Atene, studia con cinici e megarici, sviluppando una filosofia che unisce rigore logico e pratica quotidiana."
                         },
                         period2: {
                             date: "280-206 a.C.",
-                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. 'Senza Crisippo non ci sarebbe la Stoà' - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
+                            text: "<strong class='text-amber-300'>Crisippo di Soli</strong> sistematizza la dottrina scrivendo oltre 700 opere. \"Senza Crisippo non ci sarebbe la Stoà\" - dice un antico proverbio. Sviluppa la logica proposizionale e definisce le basi teoriche del pensiero stoico."
                         },
                         period3: {
                             date: "I-II sec. d.C. - Roma",
@@ -139,7 +139,7 @@
                         title: "Perché Nacque lo Stoicismo",
                         p1: "Lo stoicismo emerge nell'<strong class='text-amber-300'>età ellenistica</strong>, dopo la morte di Alessandro Magno (323 a.C.). Il mondo greco vive una crisi profonda: le città-stato perdono indipendenza, l'incertezza politica è costante, gli individui si sentono impotenti davanti a forze più grandi.",
                         p2: "In questo contesto di crisi, le persone non cercavano speculazioni astratte, ma <strong class='text-amber-300'>guide pratiche per vivere bene</strong> nonostante le avversità. Lo stoicismo risponde offrendo strumenti concreti per trovare serenità interiore indipendentemente dalle circostanze esterne.",
-                        quote: "Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta."
+                        quote: "\"Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta.\""
                     }
                 },
                 philosophers: {
@@ -149,19 +149,19 @@
                         name: "Seneca",
                         dates: "4 a.C. - 65 d.C.",
                         bio: "Filosofo, drammaturgo e consigliere dell'imperatore Nerone. Le sue <strong class='text-amber-300'>Lettere a Lucilio</strong> sono una guida spirituale progressiva che accompagna il lettore verso la saggezza.",
-                        quote: "Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi."
+                        quote: "\"Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi.\""
                     },
                     epictetus: {
                         name: "Epitteto",
                         dates: "50 - 138 d.C.",
                         bio: "Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class='text-amber-300'>Manuale</strong> è un vademecum tascabile di saggezza pratica. Insegna la distinzione tra ciò che dipende da noi e ciò che non dipende.",
-                        quote: "Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile."
+                        quote: "\"Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile.\""
                     },
                     marcus: {
                         name: "Marco Aurelio",
                         dates: "121 - 180 d.C.",
                         bio: "Imperatore di Roma, l'uomo più potente del mondo che medita sulla vanità del potere. I suoi <strong class='text-amber-300'>Colloqui con sé stesso</strong> sono un diario filosofico scritto durante le campagne militari.",
-                        quote: "Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza."
+                        quote: "\"Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza.\""
                     }
                 },
                 cta1: {
@@ -213,9 +213,9 @@
                     },
                     nature: {
                         title: "Vivere Secondo Natura",
-                        description: "Il fine ultimo dello stoicismo è <em>"vivere in accordo con la natura"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
-                        p1: "Non si tratta di "tornare alla natura selvaggia", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
-                        p2: 'Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi.'
+                        description: "Il fine ultimo dello stoicismo è <em>\"vivere in accordo con la natura\"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
+                        p1: "Non si tratta di \"tornare alla natura selvaggia\", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
+                        p2: "Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi."
                     }
                 },
                 today: {
@@ -338,41 +338,6 @@
                 },
                 success: "✅ Account creato! Controlla la tua email per confermare."
             },
-            login: {
-                loading: "Accesso in corso...",
-                quote: "La mente che non trova riposo in se stessa, cerca invano la felicità all\'esterno",
-                author: "— Epitteto",
-                title: "Bentornato",
-                subtitle: "Accedi al tuo diario stoico personale",
-                googleBtn: "Continua con Google",
-                googleRedirecting: "Reindirizzamento...",
-                divider: "oppure con email",
-                form: {
-                    emailLabel: "Email",
-                    emailPlaceholder: "stoico@esempio.com",
-                    passwordLabel: "Password",
-                    passwordPlaceholder: "La tua password",
-                    rememberMe: "Ricordami",
-                    forgotPassword: "Password dimenticata?",
-                    submitBtn: "Entra"
-                },
-                registerText: "Non hai ancora un account?",
-                registerLink: "Registrati qui",
-                badge: "Connessione sicura e crittografata",
-                validation: {
-                    emailRequired: "L'email è obbligatoria",
-                    emailInvalid: "Inserisci un'email valida",
-                    passwordRequired: "La password è obbligatoria"
-                },
-                errors: {
-                    fillFields: "Compila tutti i campi richiesti",
-                    invalidCredentials: "Email o password errate. Riprova.",
-                    emailNotConfirmed: "Conferma la tua email prima di accedere. Controlla la casella di posta.",
-                    googleOAuth: "Errore durante l'autenticazione con Google. Riprova.",
-                    generic: "Si è verificato un errore. Riprova."
-                },
-                success: "✅ Accesso effettuato! Reindirizzamento..."
-            },
             footer: {
                 tagline: "La tua guida quotidiana alla saggezza stoica.",
                 resources: "Risorse",
@@ -426,347 +391,7 @@
                         name: "Marcus Aurelius",
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
-                        quote: "Quod obstat viae, via fit.",
-                        quoteTranslation: "What stands in the way becomes the way. And what lies on the path, this is the path.",
-                        description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
-                        ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
-                    },
-                    epictetus: {
-                        name: "Epictetus",
-                        principle: "In Nostra Potestate",
-                        principleTranslation: "The dichotomy of control",
-                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
-                        quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
-                        description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
-                        ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
-                    },
-                    seneca: {
-                        name: "Seneca",
-                        principle: "Praemeditatio Malorum",
-                        principleTranslation: "Preparing for the worst to live better",
-                        quote: "Qui omnia timet, nihil cogitat",
-                        quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
-                        description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
-                        ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
-                    }
-                },
-                mementoMori: {
-                    title: "MEMENTO MORI",
-                    subtitle: "Remember you must die",
-                    text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
-                    text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
-                },
-                faq: {
-                    title: "Questions & Contacts",
-                    subtitle: "Find answers or write to us directly",
-                    q1: "Do I need to know stoic philosophy to start?",
-                    a1: "No, we guide you step by step. AI introduces stoic concepts through practical exercises applied to your daily life.",
-                    q2: "How much time should I dedicate each day?",
-                    a2: "Just 5-10 minutes. Write a reflection and AI immediately generates your personalized challenge to apply during the day.",
-                    q3: "Are my personal data safe?",
-                    a3: "Absolutely yes. Your reflections are end-to-end encrypted and never shared. AI processes content anonymously (GDPR compliant).",
-                    q4: "Can I try for free before subscribing?",
-                    a4: "Yes, 30 days free trial with full access. No card required to start. After the trial, upgrade to PRO to keep your data; otherwise they will be deleted after 60 days of inactivity."
-                },
-                contact: {
-                    title: "CONTACT US",
-                    subtitle: "Need help? Write to us!",
-                    name: "Name",
-                    namePlaceholder: "Your name",
-                    email: "Email",
-                    emailPlaceholder: "youremail@example.com",
-                    message: "Message",
-                    messagePlaceholder: "How can we help you?",
-                    send: "Send Message",
-                    note: "We will respond within 24 hours"
-                }
-            },
-            stoicism: {
-                hero: {
-                    title: "What is Stoicism: Complete Guide to Stoic Philosophy",
-                    subtitle: "A 2300-year-old philosophy more relevant than ever"
-                },
-                intro: {
-                    p1: "Stoicism is a practical philosophy founded in Athens around 300 BC by <strong>Zeno of Citium</strong>. It is not an abstract theory, but a life system that has helped emperors, slaves, writers, and ordinary people face the challenges of existence with clarity and serenity.",
-                    p2: "Today, over 2000 years later, Stoicism is experiencing an extraordinary renaissance because it offers concrete tools to manage anxiety, stress, and uncertainty in modern life."
-                },
-                origins: {
-                    title: "From Greek Origins to Imperial Rome",
-                    timeline: {
-                        title: "The Journey Through the Centuries",
-                        period1: {
-                            date: "300 BC - Athens",
-                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name "Stoicism" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
-                        },
-                        period2: {
-                            date: "280-206 BC",
-                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. "Without Chrysippus there would be no Stoa" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
-                        },
-                        period3: {
-                            date: "1st-2nd century AD - Rome",
-                            text: "Stoicism reached its peak in Imperial Rome with three extraordinary figures: <strong class='text-amber-300'>Seneca</strong> (philosopher and advisor), <strong class='text-amber-300'>Epictetus</strong> (former slave turned teacher), and <strong class='text-amber-300'>Marcus Aurelius</strong> (philosopher emperor)."
-                        }
-                    },
-                    why: {
-                        title: "Why Stoicism Was Born",
-                        p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
-                        p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living."
-                    }
-                },
-                philosophers: {
-                    title: "The Three Masters of Roman Stoicism",
-                    subtitle: "Three different lives, one same wisdom",
-                    seneca: {
-                        name: "Seneca",
-                        dates: "4 BC - 65 AD",
-                        bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful."
-                    },
-                    epictetus: {
-                        name: "Epictetus",
-                        dates: "50 - 138 AD",
-                        bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible."
-                    },
-                    marcus: {
-                        name: "Marcus Aurelius",
-                        dates: "121 - 180 AD",
-                        bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "You have power over your mind, not external events. Realize this, and you will find strength."
-                    }
-                },
-                cta1: {
-                    text: "Want to reflect every day like Marcus Aurelius?",
-                    button: "Try The Stoic Journey for Free"
-                },
-                principles: {
-                    title: "The Principles That Change Your Life",
-                    dichotomy: {
-                        title: "The Dichotomy of Control",
-                        description: "The fundamental principle taught by Epictetus: clearly distinguish what depends on us from things we cannot control.",
-                        dependsOnYou: "Depends on you",
-                        notDependsOnYou: "Does not depend on you",
-                        list1: {
-                            item1: "• Your opinions and judgments",
-                            item2: "• Your desires and aversions",
-                            item3: "• Your choices and actions",
-                            item4: "• Your attitude"
-                        },
-                        list2: {
-                            item1: "• External events",
-                            item2: "• Others' opinions",
-                            item3: "• Final results",
-                            item4: "• Body and health"
-                        },
-                        application: "Application today: Instead of stressing about traffic (don't control), focus on how you react (control). This distinction frees enormous mental energy.",
-                        ctaText: "Put these principles into practice every day",
-                        ctaButton: "Discover The Stoic Journey PRO"
-                    },
-                    virtues: {
-                        title: "The Four Cardinal Virtues",
-                        description: "For the Stoics, authentic happiness derives from virtue, not from external circumstances. These four qualities are the foundation of a life worth living.",
-                        wisdom: {
-                            title: "Wisdom",
-                            text: "Correct judgment, ability to discern good from evil, understanding reality as it is."
-                        },
-                        courage: {
-                            title: "Courage",
-                            text: "Physical and moral resistance, perseverance in difficulties, acting righteously despite fear."
-                        },
-                        justice: {
-                            title: "Justice",
-                            text: "Respect for duties toward others, fairness, recognition of common humanity, cosmic citizenship."
-                        },
-                        temperance: {
-                            title: "Temperance",
-                            text: "Self-control, moderation, inner order, freedom from destructive impulses."
-                        }
-                    },
-                    nature: {
-                        title: "Living According to Nature",
-                        description: "The ultimate goal of Stoicism is <em>"to live in accordance with nature"</em> - which means living according to reason, because human nature is fundamentally rational.",
-                        p1: "It's not about "returning to wild nature", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
-                        p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
-                    }
-                },
-                today: {
-                    title: "Why Stoicism is So Relevant Today",
-                    subtitle: "2300 years later, more relevant than ever",
-                    anxiety: {
-                        title: "Managing Anxiety and Stress",
-                        p1: "<strong class='text-amber-200'>Cognitive Behavioral Therapy</strong> (CBT), one of the most effective treatments for anxiety and depression, derives directly from Stoicism. Its founder, Albert Ellis, explicitly cited Epictetus.",
-                        p2: "<strong class='text-amber-300'>Key principle:</strong> It is not events that disturb us, but our judgments about events. By changing negative automatic thoughts, we transform emotions."
-                    },
-                    performance: {
-                        title: "Performance and Resilience",
-                        p1: "Olympic athletes, Silicon Valley entrepreneurs, elite military use Stoic techniques to maintain clarity under pressure and transform obstacles into opportunities.",
-                        p2: "<strong class='text-amber-300'>Modern application:</strong> Premeditation of adversities (premeditatio malorum) mentally prepares for worst-case scenarios, reducing anxiety and increasing preparation."
-                    },
-                    wisdom: {
-                        title: "Ancient Wisdom for Modern Life",
-                        intro: "In an era of <strong class='text-amber-300'>information overload</strong>, <strong class='text-amber-300'>continuous social comparison</strong> (social media), and <strong class='text-amber-300'>economic uncertainty</strong>, Stoicism offers:",
-                        item1: "<strong class='text-amber-300'>Mental clarity</strong> about what truly matters",
-                        item2: "<strong class='text-amber-300'>Practical tools</strong> for difficult decisions",
-                        item3: "<strong class='text-amber-300'>Emotional resilience</strong> in moments of crisis",
-                        item4: "<strong class='text-amber-300'>Inner freedom</strong> from external pressures"
-                    },
-                    practice: {
-                        title: "How to Practice Stoicism Today",
-                        readings: {
-                            title: "Essential Readings",
-                            item1: "• <strong class='text-amber-200'>Handbook</strong> by Epictetus",
-                            item2: "• <strong class='text-amber-200'>Meditations</strong> by Marcus Aurelius",
-                            item3: "• <strong class='text-amber-200'>Letters to Lucilius</strong> by Seneca",
-                            item4: "• <strong class='text-amber-200'>On the Shortness of Life</strong> by Seneca"
-                        },
-                        journal: {
-                            title: "Stoic Journal",
-                            intro: "Marcus Aurelius kept a philosophical journal. You can too:",
-                            item1: "• Morning examination of challenges",
-                            item2: "• Reflections during the day",
-                            item3: "• Evening review of actions"
-                        },
-                        daily: {
-                            title: "Daily Practices",
-                            item1: "• Meditation on mortality",
-                            item2: "• Premeditation of adversities",
-                            item3: "• Distancing exercise",
-                            item4: "• Day visualization"
-                        },
-                        note: {
-                            title: "The paper journal is essential",
-                            text: "Writing by hand slows down thinking, promotes deep reflection, and consolidates learning. Marcus Aurelius wrote his <em>Meditations</em> during military campaigns, in extreme conditions. The journal is your daily philosophical training ground."
-                        }
-                    }
-                },
-                ctaFinal: {
-                    title: "Start Your Stoic Journey",
-                    text: "The Stoic Journey accompanies you with personalized daily challenges, AI-guided reflections, and a community of modern practitioners.",
-                    button1: "Start Free Today",
-                    button2: "Back to Home"
-                }
-            },
-            registration: {
-                loading: "Creating account...",
-                title: "Start Your Journey",
-                subtitle: "Join thousands of modern stoicism practitioners",
-                googleBtn: "Continue with Google",
-                googleRedirecting: "Redirecting...",
-                divider: "or with email",
-                form: {
-                    nameLabel: "Full name",
-                    optional: "(optional)",
-                    namePlaceholder: "e.g. Marcus Aurelius",
-                    nameHint: "We'll call you this in emails",
-                    emailLabel: "Email *",
-                    emailPlaceholder: "stoic@example.com",
-                    emailSuccess: "✓ Valid email",
-                    passwordLabel: "Password *",
-                    passwordPlaceholder: "Minimum 8 characters",
-                    passwordReq: {
-                        title: "Password must contain:",
-                        length: "At least 8 characters",
-                        uppercase: "One uppercase letter",
-                        lowercase: "One lowercase letter",
-                        number: "One number"
-                    },
-                    confirmPasswordLabel: "Confirm password *",
-                    confirmPasswordPlaceholder: "Repeat password",
-                    confirmPasswordSuccess: "✓ Passwords match",
-                    privacyText1: "I accept the",
-                    terms: "Terms of Service",
-                    privacyText2: "and the",
-                    privacy: "Privacy Policy",
-                    newsletter: "I want to receive weekly stoic reflections via email",
-                    submitBtn: "Accept the Challenge"
-                },
-                loginText: "Already have an account?",
-                loginLink: "Login here",
-                badges: {
-                    free: "Free forever",
-                    noCard: "No card required",
-                    cancel: "Instant cancellation",
-                    secure: "Your data is protected and encrypted"
-                },
-                validation: {
-                    emailRequired: "Email is required",
-                    emailInvalid: "Even Epictetus would verify this email",
-                    confirmRequired: "Confirm password",
-                    passwordMismatch: "Passwords do not match"
-                },
-                strength: {
-                    weak: "Slave to weak passwords",
-                    medium: "On the path to security",
-                    strong: "Emperor of security"
-                },
-                errors: {
-                    formErrors: "Fix form errors before continuing",
-                    privacyRequired: "You must accept the Terms of Service and Privacy Policy",
-                    googleOAuth: "Error during Google authentication. Try again.",
-                    generic: "An error occurred. Try again.",
-                    emailExists: "This email is already registered. Try logging in.",
-                    weakPassword: "Password does not meet minimum security requirements"
-                },
-                success: "✅ Account created! Check your email to confirm."
-            },
-            login: {
-                loading: "Signing in...",
-                quote: `The mind that finds no rest in itself seeks happiness in vain from outside`,
-                author: "— Epictetus",
-                title: "Welcome Back",
-                subtitle: "Access your personal stoic journal",
-                googleBtn: "Continue with Google",
-                googleRedirecting: "Redirecting...",
-                divider: "or with email",
-                form: {
-                    emailLabel: "Email",
-                    emailPlaceholder: "stoic@example.com",
-                    passwordLabel: "Password",
-                    passwordPlaceholder: "Your password",
-                    rememberMe: "Remember me",
-
- en: {
-            nav: {
-                whatIsStoicism: "What is Stoicism",
-                login: "Login",
-                origins: "Origins",
-                philosophers: "Philosophers",
-                principles: "Principles",
-                today: "Today"
-            },
-            home: {
-                ctaShort: "Enter",
-                cta: "Start Your Stoic Journey",
-                hero: {
-                    title: "Transform your daily life with principles from ancient philosophers.",
-                    subtitle: "Reflections to build awareness and serenity,",
-                    ai: "with AI-powered analytical insights.",
-                    startNow: "Start Now"
-                },
-                howItWorks: {
-                    title: "How It Works",
-                    subtitle: "Your stoic growth journey in three simple steps",
-                    step1: {
-                        title: "Write reflection",
-                        description: "Dedicate a few minutes each day to write thoughts and challenges in your personal stoic journal."
-                    },
-                    step2: {
-                        title: "Personalized challenge",
-                        description: "AI generates a custom stoic micro-challenge based on Marcus Aurelius, Epictetus, and Seneca."
-                    },
-                    step3: {
-                        title: "Track progress",
-                        description: "Monitor your evolution through intuitive dashboards and visualize your patterns."
-                    }
-                },
-                philosophers: {
-                    title: "The Three Pillars of Stoic Wisdom",
-                    marcus: {
-                        name: "Marcus Aurelius",
-                        principle: "Impedimentum Via Est",
-                        principleTranslation: "The path through obstacles",
-                        quote: "Quod obstat viae, via fit.",
+                        quote: "«Quod obstat viae, via fit.»",
                         quoteTranslation: '"What stands in the way becomes the way. And what lies on the path, this is the path."',
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
@@ -775,7 +400,7 @@
                         name: "Epictetus",
                         principle: "In Nostra Potestate",
                         principleTranslation: "The dichotomy of control",
-                        quote: "En tois eph' hemin kai en tois ouk eph' hemin",
+                        quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
                         quoteTranslation: "The Dichotomy of Control distinguishes between what is in our power and what is not. In our power are opinions, desires, judgments, actions. Not in our power are external events, others' opinions, outcomes.",
                         description: "We free mental energy when we stop fighting what doesn't depend on us and invest it in what we can truly direct: our character, our choices, our way of responding to what happens.",
                         ai: "AI analyzes your daily reflections and guides you in distinguishing what you can control from what you cannot, refocusing attention where your will is truly effective."
@@ -784,7 +409,7 @@
                         name: "Seneca",
                         principle: "Praemeditatio Malorum",
                         principleTranslation: "Preparing for the worst to live better",
-                        quote: "Qui omnia timet, nihil cogitat",
+                        quote: "«Qui omnia timet, nihil cogitat»",
                         quoteTranslation: "Praemeditatio malorum is the exercise of imagining in advance what could go wrong: losses, failures, sudden changes. Not to live in fear, but to train the mind not to be surprised or broken by events.",
                         description: "When we have already contemplated the worst internally, every real difficulty loses part of its power. Mental preparation makes the trial lighter, strengthens character, and deepens gratitude for what we have now.",
                         ai: "AI will guide you in structured visualizations of your recurring fears, transforming them into concrete scenarios to face with clarity, instead of undefined shadows that silently consume you."
@@ -792,7 +417,7 @@
                 },
                 mementoMori: {
                     title: "MEMENTO MORI",
-                    subtitle: "Remember you must die",
+                    subtitle: "\"Remember you must die\"",
                     text1: "Awareness of mortality is not a burden, but a liberation. Every day is precious. Every choice matters. Every moment counts.",
                     text2: "The Stoics contemplated death not to live in fear, but to live with intensity, gratitude, and wisdom. The inevitable end reminds us not to postpone what truly matters."
                 },
@@ -836,11 +461,11 @@
                         title: "The Journey Through the Centuries",
                         period1: {
                             date: "300 BC - Athens",
-                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name "Stoicism" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
+                            text: "<strong class='text-amber-300'>Zeno of Citium</strong> founded the school in the Painted Porch (Stoà Poikilé), from which the name \"Stoicism\" derives. After a shipwreck that brought him to Athens, he studied with Cynics and Megarians, developing a philosophy that combines logical rigor and daily practice."
                         },
                         period2: {
                             date: "280-206 BC",
-                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. "Without Chrysippus there would be no Stoa" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
+                            text: "<strong class='text-amber-300'>Chrysippus of Soli</strong> systematized the doctrine by writing over 700 works. \"Without Chrysippus there would be no Stoa\" - says an ancient proverb. He developed propositional logic and defined the theoretical foundations of Stoic thought."
                         },
                         period3: {
                             date: "1st-2nd century AD - Rome",
@@ -851,7 +476,7 @@
                         title: "Why Stoicism Was Born",
                         p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
                         p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living."
+                        quote: "\"Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\""
                     }
                 },
                 philosophers: {
@@ -861,19 +486,19 @@
                         name: "Seneca",
                         dates: "4 BC - 65 AD",
                         bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful."
+                        quote: "\"We do not receive a short life, we make it so. We are not poor in time, but wasteful.\""
                     },
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
                         bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible."
+                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\""
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
                         bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "You have power over your mind, not external events. Realize this, and you will find strength."
+                        quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\""
                     }
                 },
                 cta1: {
@@ -925,8 +550,8 @@
                     },
                     nature: {
                         title: "Living According to Nature",
-                        description: "The ultimate goal of Stoicism is <em>"to live in accordance with nature"</em> - which means living according to reason, because human nature is fundamentally rational.",
-                        p1: "It's not about "returning to wild nature", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
+                        description: "The ultimate goal of Stoicism is <em>\"to live in accordance with nature\"</em> - which means living according to reason, because human nature is fundamentally rational.",
+                        p1: "It's not about \"returning to wild nature\", but following our rational nature. The Stoics believed that the universe was governed by a <strong class='text-amber-300'>Logos</strong> (universal reason), and that human reason was part of it.",
                         p2: "Living according to nature means aligning one's judgments and actions with this rational order, serenely accepting what happens and acting virtuously in what depends on us."
                     }
                 },
@@ -1049,41 +674,6 @@
                     weakPassword: "Password does not meet minimum security requirements"
                 },
                 success: "✅ Account created! Check your email to confirm."
-            },
-            login: {
-                loading: "Signing in...",
-                quote: "The mind that finds no rest in itself seeks happiness in vain from outside",
-                author: "— Epictetus",
-                title: "Welcome Back",
-                subtitle: "Access your personal stoic journal",
-                googleBtn: "Continue with Google",
-                googleRedirecting: "Redirecting...",
-                divider: "or with email",
-                form: {
-                    emailLabel: "Email",
-                    emailPlaceholder: "stoic@example.com",
-                    passwordLabel: "Password",
-                    passwordPlaceholder: "Your password",
-                    rememberMe: "Remember me",
-                    forgotPassword: "Forgot password?",
-                    submitBtn: "Enter"
-                },
-                registerText: "Don't have an account yet?",
-                registerLink: "Register here",
-                badge: "Secure and encrypted connection",
-                validation: {
-                    emailRequired: "Email is required",
-                    emailInvalid: "Enter a valid email",
-                    passwordRequired: "Password is required"
-                },
-                errors: {
-                    fillFields: "Fill in all required fields",
-                    invalidCredentials: "Incorrect email or password. Try again.",
-                    emailNotConfirmed: "Confirm your email before logging in. Check your inbox.",
-                    googleOAuth: "Error during Google authentication. Try again.",
-                    generic: "An error occurred. Try again."
-                },
-                success: "✅ Login successful! Redirecting..."
             },
             footer: {
                 tagline: "Your daily guide to stoic wisdom.",
