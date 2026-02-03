@@ -215,7 +215,7 @@
                         title: "Vivere Secondo Natura",
                         description: "Il fine ultimo dello stoicismo è <em>"vivere in accordo con la natura"</em> - che significa vivere secondo ragione, perché la natura umana è fondamentalmente razionale.",
                         p1: "Non si tratta di "tornare alla natura selvaggia", ma di seguire la nostra natura razionale. Gli stoici credevano che l'universo fosse governato da un <strong class='text-amber-300'>Logos</strong> (ragione universale), e che la ragione umana ne fosse parte.",
-                        p2: "Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi."
+                        p2: 'Vivere secondo natura significa allineare i propri giudizi e azioni con questo ordine razionale, accettando con serenità ciò che accade e agendo virtuosamente in ciò che dipende da noi.'
                     }
                 },
                 today: {
