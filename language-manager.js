@@ -1,13 +1,13 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 3.1 - Fixed Registrazione (No Switcher Pages)
+// Versione: 3.3 - Added LOGIN Section + Fixed All Quotes
 // ============================================
 
 (function() {
-    'use strict';
+    "use strict";
     
-    console.log('🌍 GLOBAL Language Manager: Loading...');
+    console.log("🌍 GLOBAL Language Manager: Loading...");
     
     // ============================================
     // PARTE 1: TRANSLATIONS DATABASE
@@ -55,7 +55,7 @@
                         principle: "Impedimentum Via Est",
                         principleTranslation: "Il cammino attraverso gli ostacoli",
                         quote: "«Quod obstat viae, via fit.»",
-                        quoteTranslation: '"Ciò che ostacola l\'azione fa avanzare l\'azione. E ciò che sta sulla via, questo è la via."',
+                        quoteTranslation: "\"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via.\"",
                         description: "Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.",
                         ai: "Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali."
                     },
@@ -139,7 +139,7 @@
                         title: "Perché Nacque lo Stoicismo",
                         p1: "Lo stoicismo emerge nell'<strong class='text-amber-300'>età ellenistica</strong>, dopo la morte di Alessandro Magno (323 a.C.). Il mondo greco vive una crisi profonda: le città-stato perdono indipendenza, l'incertezza politica è costante, gli individui si sentono impotenti davanti a forze più grandi.",
                         p2: "In questo contesto di crisi, le persone non cercavano speculazioni astratte, ma <strong class='text-amber-300'>guide pratiche per vivere bene</strong> nonostante le avversità. Lo stoicismo risponde offrendo strumenti concreti per trovare serenità interiore indipendentemente dalle circostanze esterne.",
-                        quote: "\"Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta.\""
+                        quote: "Gli individui cercavano nella filosofia non teorie, ma una terapia per l'anima: tecniche concrete per affrontare la paura, gestire il dolore e costruire una vita degna di essere vissuta."
                     }
                 },
                 philosophers: {
@@ -149,19 +149,19 @@
                         name: "Seneca",
                         dates: "4 a.C. - 65 d.C.",
                         bio: "Filosofo, drammaturgo e consigliere dell'imperatore Nerone. Le sue <strong class='text-amber-300'>Lettere a Lucilio</strong> sono una guida spirituale progressiva che accompagna il lettore verso la saggezza.",
-                        quote: "\"Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi.\""
+                        quote: "Non riceviamo una vita breve, la rendiamo tale. Non siamo poveri di tempo, ma prodighi."
                     },
                     epictetus: {
                         name: "Epitteto",
                         dates: "50 - 138 d.C.",
                         bio: "Nato schiavo, diventa uno dei più grandi maestri stoici. Il suo <strong class='text-amber-300'>Manuale</strong> è un vademecum tascabile di saggezza pratica. Insegna la distinzione tra ciò che dipende da noi e ciò che non dipende.",
-                        quote: "\"Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile.\""
+                        quote: "Alcune cose dipendono da noi, altre no. Distinguile, e sarai invincibile."
                     },
                     marcus: {
                         name: "Marco Aurelio",
                         dates: "121 - 180 d.C.",
                         bio: "Imperatore di Roma, l'uomo più potente del mondo che medita sulla vanità del potere. I suoi <strong class='text-amber-300'>Colloqui con sé stesso</strong> sono un diario filosofico scritto durante le campagne militari.",
-                        quote: "\"Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza.\""
+                        quote: "Hai potere sulla tua mente, non sugli eventi esterni. Realizza questo, e troverai forza."
                     }
                 },
                 cta1: {
@@ -338,6 +338,41 @@
                 },
                 success: "✅ Account creato! Controlla la tua email per confermare."
             },
+            login: {
+                loading: "Accesso in corso...",
+                quote: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
+                author: "— Epitteto",
+                title: "Bentornato",
+                subtitle: "Accedi al tuo diario stoico personale",
+                googleBtn: "Continua con Google",
+                googleRedirecting: "Reindirizzamento...",
+                divider: "oppure con email",
+                form: {
+                    emailLabel: "Email",
+                    emailPlaceholder: "stoico@esempio.com",
+                    passwordLabel: "Password",
+                    passwordPlaceholder: "La tua password",
+                    rememberMe: "Ricordami",
+                    forgotPassword: "Password dimenticata?",
+                    submitBtn: "Entra"
+                },
+                registerText: "Non hai ancora un account?",
+                registerLink: "Registrati qui",
+                badge: "Connessione sicura e crittografata",
+                validation: {
+                    emailRequired: "L'email è obbligatoria",
+                    emailInvalid: "Inserisci un'email valida",
+                    passwordRequired: "La password è obbligatoria"
+                },
+                errors: {
+                    fillFields: "Compila tutti i campi richiesti",
+                    invalidCredentials: "Email o password errate. Riprova.",
+                    emailNotConfirmed: "Conferma la tua email prima di accedere. Controlla la casella di posta.",
+                    googleOAuth: "Errore durante l'autenticazione con Google. Riprova.",
+                    generic: "Si è verificato un errore. Riprova."
+                },
+                success: "✅ Accesso effettuato! Reindirizzamento..."
+            },
             footer: {
                 tagline: "La tua guida quotidiana alla saggezza stoica.",
                 resources: "Risorse",
@@ -392,7 +427,7 @@
                         principle: "Impedimentum Via Est",
                         principleTranslation: "The path through obstacles",
                         quote: "«Quod obstat viae, via fit.»",
-                        quoteTranslation: '"What stands in the way becomes the way. And what lies on the path, this is the path."',
+                        quoteTranslation: "\"What stands in the way becomes the way. And what lies on the path, this is the path.\"",
                         description: "Obstacles do not block our progress, but become the way themselves. The rational mind can transform every impediment into an opportunity for growth, adapting its purposes to the obstacle rather than fleeing it.",
                         ai: "For each principle, artificial intelligence will generate personalized micro-challenges based on your real daily problems."
                     },
@@ -476,7 +511,7 @@
                         title: "Why Stoicism Was Born",
                         p1: "Stoicism emerged in the <strong class='text-amber-300'>Hellenistic age</strong>, after the death of Alexander the Great (323 BC). The Greek world experienced a profound crisis: city-states lost independence, political uncertainty was constant, individuals felt powerless before greater forces.",
                         p2: "In this context of crisis, people were not looking for abstract speculations, but <strong class='text-amber-300'>practical guides to live well</strong> despite adversity. Stoicism responds by offering concrete tools to find inner serenity regardless of external circumstances.",
-                        quote: "\"Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living.\""
+                        quote: "Individuals sought in philosophy not theories, but therapy for the soul: concrete techniques to face fear, manage pain, and build a life worth living."
                     }
                 },
                 philosophers: {
@@ -486,19 +521,19 @@
                         name: "Seneca",
                         dates: "4 BC - 65 AD",
                         bio: "Philosopher, playwright, and advisor to Emperor Nero. His <strong class='text-amber-300'>Letters to Lucilius</strong> are a progressive spiritual guide that accompanies the reader toward wisdom.",
-                        quote: "\"We do not receive a short life, we make it so. We are not poor in time, but wasteful.\""
+                        quote: "We do not receive a short life, we make it so. We are not poor in time, but wasteful."
                     },
                     epictetus: {
                         name: "Epictetus",
                         dates: "50 - 138 AD",
                         bio: "Born a slave, he became one of the greatest Stoic masters. His <strong class='text-amber-300'>Handbook</strong> is a pocket guide of practical wisdom. He teaches the distinction between what depends on us and what does not.",
-                        quote: "\"Some things depend on us, others do not. Distinguish them, and you will be invincible.\""
+                        quote: "Some things depend on us, others do not. Distinguish them, and you will be invincible."
                     },
                     marcus: {
                         name: "Marcus Aurelius",
                         dates: "121 - 180 AD",
                         bio: "Emperor of Rome, the most powerful man in the world who meditates on the vanity of power. His <strong class='text-amber-300'>Meditations</strong> are a philosophical diary written during military campaigns.",
-                        quote: "\"You have power over your mind, not external events. Realize this, and you will find strength.\""
+                        quote: "You have power over your mind, not external events. Realize this, and you will find strength."
                     }
                 },
                 cta1: {
@@ -675,6 +710,41 @@
                 },
                 success: "✅ Account created! Check your email to confirm."
             },
+            login: {
+                loading: "Signing in...",
+                quote: "The mind that finds no rest in itself seeks happiness in vain from outside",
+                author: "— Epictetus",
+                title: "Welcome Back",
+                subtitle: "Access your personal stoic journal",
+                googleBtn: "Continue with Google",
+                googleRedirecting: "Redirecting...",
+                divider: "or with email",
+                form: {
+                    emailLabel: "Email",
+                    emailPlaceholder: "stoic@example.com",
+                    passwordLabel: "Password",
+                    passwordPlaceholder: "Your password",
+                    rememberMe: "Remember me",
+                    forgotPassword: "Forgot password?",
+                    submitBtn: "Enter"
+                },
+                registerText: "Don't have an account yet?",
+                registerLink: "Register here",
+                badge: "Secure and encrypted connection",
+                validation: {
+                    emailRequired: "Email is required",
+                    emailInvalid: "Enter a valid email",
+                    passwordRequired: "Password is required"
+                },
+                errors: {
+                    fillFields: "Fill in all required fields",
+                    invalidCredentials: "Incorrect email or password. Try again.",
+                    emailNotConfirmed: "Confirm your email before logging in. Check your inbox.",
+                    googleOAuth: "Error during Google authentication. Try again.",
+                    generic: "An error occurred. Try again."
+                },
+                success: "✅ Login successful! Redirecting..."
+            },
             footer: {
                 tagline: "Your daily guide to stoic wisdom.",
                 resources: "Resources",
@@ -698,26 +768,26 @@
     // ============================================
     
     function getNestedTranslation(obj, path) {
-        return path.split('.').reduce((curr, key) => curr?.[key], obj);
+        return path.split(".").reduce((curr, key) => curr?.[key], obj);
     }
     
     function applyTranslations(lang) {
         const t = TRANSLATIONS[lang];
         if (!t) {
-            console.error('❌ Lingua non supportata:', lang);
+            console.error("❌ Lingua non supportata:", lang);
             return;
         }
         
-        console.log('🌍 Applicazione traduzioni:', lang);
+        console.log("🌍 Applicazione traduzioni:", lang);
         
         // Traduci data-i18n
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
             const value = getNestedTranslation(t, key);
             
             if (value) {
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    if (el.hasAttribute('placeholder')) {
+                if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                    if (el.hasAttribute("placeholder")) {
                         el.placeholder = value;
                     }
                 } else {
@@ -727,8 +797,8 @@
         });
         
         // Traduci placeholder
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-            const key = el.getAttribute('data-i18n-placeholder');
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+            const key = el.getAttribute("data-i18n-placeholder");
             const value = getNestedTranslation(t, key);
             if (value) {
                 el.placeholder = value;
@@ -739,59 +809,59 @@
         document.documentElement.lang = lang;
         
         // Salva preferenza
-        localStorage.setItem('preferredLanguage', lang);
+        localStorage.setItem("preferredLanguage", lang);
         
-        console.log('✅ Traduzioni applicate');
+        console.log("✅ Traduzioni applicate");
     }
     
     // ============================================
-    // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER (FIXED)
+    // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER
     // ============================================
     
     function initLanguageSwitcher() {
         // Cerca switcher nella home
-        let switcher = document.getElementById('languageSwitcherHome');
-        let dropdown = document.getElementById('languageDropdownHome');
-        let currentLangEl = document.getElementById('currentLangHome');
+        let switcher = document.getElementById("languageSwitcherHome");
+        let dropdown = document.getElementById("languageDropdownHome");
+        let currentLangEl = document.getElementById("currentLangHome");
         
         // Se non trovati, cerca switcher generici (altre pagine)
         if (!switcher) {
-            switcher = document.getElementById('languageSwitcher');
-            dropdown = document.getElementById('languageDropdown');
-            currentLangEl = document.getElementById('currentLang');
+            switcher = document.getElementById("languageSwitcher");
+            dropdown = document.getElementById("languageDropdown");
+            currentLangEl = document.getElementById("currentLang");
         }
         
         // Se NON ci sono switcher (es. registrazione, login), applica solo traduzioni
         if (!switcher || !dropdown || !currentLangEl) {
-            console.log('⚠️ Nessun language switcher trovato - Pagina senza switcher (Registrazione/Login)');
+            console.log("⚠️ Nessun language switcher trovato - Pagina senza switcher (Registrazione/Login)");
             
             // Carica lingua salvata e applica traduzioni
-            const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+            const savedLang = localStorage.getItem("preferredLanguage") || "it";
             applyTranslations(savedLang);
             
-            console.log('✅ GLOBAL Language Manager: Traduzioni applicate senza switcher - Lingua:', savedLang.toUpperCase());
+            console.log("✅ GLOBAL Language Manager: Traduzioni applicate senza switcher - Lingua:", savedLang.toUpperCase());
             return; // ESCI - niente switcher da inizializzare
         }
         
-        console.log('🎯 Language switcher trovato - inizializzazione...');
+        console.log("🎯 Language switcher trovato - inizializzazione...");
         
         // Toggle dropdown
-        switcher.addEventListener('click', function(e) {
+        switcher.addEventListener("click", function(e) {
             e.stopPropagation();
-            dropdown.classList.toggle('hidden');
+            dropdown.classList.toggle("hidden");
         });
         
         // Chiudi dropdown al click fuori
-        document.addEventListener('click', function() {
-            dropdown.classList.add('hidden');
+        document.addEventListener("click", function() {
+            dropdown.classList.add("hidden");
         });
         
         // Gestione cambio lingua
-        const langOptions = dropdown.querySelectorAll('.lang-option');
+        const langOptions = dropdown.querySelectorAll(".lang-option");
         langOptions.forEach(option => {
-            option.addEventListener('click', function(e) {
+            option.addEventListener("click", function(e) {
                 e.stopPropagation();
-                const lang = this.getAttribute('data-lang');
+                const lang = this.getAttribute("data-lang");
                 
                 // Applica traduzioni
                 applyTranslations(lang);
@@ -801,43 +871,43 @@
                 
                 // Aggiorna check marks
                 langOptions.forEach(opt => {
-                    const isActive = opt.getAttribute('data-lang') === lang;
-                    opt.classList.toggle('active', isActive);
-                    opt.querySelector('.check').classList.toggle('hidden', !isActive);
+                    const isActive = opt.getAttribute("data-lang") === lang;
+                    opt.classList.toggle("active", isActive);
+                    opt.querySelector(".check").classList.toggle("hidden", !isActive);
                 });
                 
                 // Chiudi dropdown
-                dropdown.classList.add('hidden');
+                dropdown.classList.add("hidden");
                 
-                console.log('✅ Lingua cambiata:', lang.toUpperCase());
+                console.log("✅ Lingua cambiata:", lang.toUpperCase());
             });
         });
         
         // Carica lingua salvata
-        const savedLang = localStorage.getItem('preferredLanguage') || 'it';
+        const savedLang = localStorage.getItem("preferredLanguage") || "it";
         applyTranslations(savedLang);
         currentLangEl.textContent = savedLang.toUpperCase();
         
         // Imposta stato iniziale dropdown
         langOptions.forEach(option => {
-            const isActive = option.getAttribute('data-lang') === savedLang;
-            option.classList.toggle('active', isActive);
-            option.querySelector('.check').classList.toggle('hidden', !isActive);
+            const isActive = option.getAttribute("data-lang") === savedLang;
+            option.classList.toggle("active", isActive);
+            option.querySelector(".check").classList.toggle("hidden", !isActive);
         });
         
-        console.log('✅ GLOBAL Language Manager: Attivo con switcher!');
+        console.log("✅ GLOBAL Language Manager: Attivo con switcher!");
     }
     
     // ============================================
     // PARTE 4: AVVIO AUTOMATICO
     // ============================================
     
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initLanguageSwitcher);
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initLanguageSwitcher);
     } else {
         initLanguageSwitcher();
     }
     
-    console.log('✅ GLOBAL Language Manager: Script caricato - waiting for DOM');
+    console.log("✅ GLOBAL Language Manager: Script caricato - waiting for DOM");
     
 })();
