@@ -33,6 +33,42 @@ function getDailyContentType() {
     return `tipo${cycle}`;
 }
 
+// ✅ NUOVA FUNZIONE: Rileva lingua utente
+function getUserLanguage() {
+    // 1. Check localStorage (preferenza salvata)
+    const savedLang = localStorage.getItem('userLanguage');
+    if (savedLang === 'en' || savedLang === 'it') {
+        console.log(`🌍 Lingua da localStorage: ${savedLang}`);
+        return savedLang;
+    }
+
+    // 2. Check browser language
+    const browserLang = navigator.language || navigator.userLanguage;
+    const langCode = browserLang.split('-')[0].toLowerCase();
+
+    // 3. Default = italiano se non è inglese
+    const finalLang = (langCode === 'en') ? 'en' : 'it';
+    console.log(`🌍 Lingua rilevata da browser: ${browserLang} → ${finalLang}`);
+
+    // Salva preferenza
+    localStorage.setItem('userLanguage', finalLang);
+    return finalLang;
+}
+
+// ✅ NUOVA FUNZIONE: Ottiene campo tradotto con fallback
+function getTranslatedField(data, fieldName, language) {
+    if (language === 'en') {
+        const enField = data[`${fieldName}_en`];
+        // Se campo inglese vuoto, fallback a italiano
+        if (enField && enField.trim() !== '') {
+            return enField;
+        }
+        console.warn(`⚠️ Campo ${fieldName}_en vuoto, uso italiano`);
+    }
+    // Default italiano
+    return data[fieldName] || '';
+}
+
 function checkTrialStatus(profile) {
     if (!profile) {
         console.warn('⚠️ Nessun profilo, accesso libero debug');
@@ -97,7 +133,7 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
             font-family: 'Cinzel', serif;
         ">
             <h2 style="font-size: 2.5rem; color: #5d4037; margin: 0 0 24px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">⏰ Trial Terminato</h2>
-            
+
             <p style="font-size: 1.125rem; color: #4e342e; line-height: 1.8; margin: 0 0 16px; font-weight: 500;">
                 Hai completato i <strong>30 giorni di prova gratuita</strong>.<br>
                 Per continuare il tuo cammino stoico, scegli il piano <strong>PRO</strong>.
@@ -116,7 +152,7 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
                     <span style="font-size: 2rem; display: block; margin: 8px 0;">€4,99</span>
                     <span style="font-size: 0.85rem; opacity: 0.9;">al mese</span>
                 </button>
-                
+
                 <button id="btnAnnuale" style="
                     background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%); color: white;
                     border: none; border-radius: 12px; padding: 20px 28px; font-size: 1rem; font-weight: bold;
@@ -148,7 +184,6 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
 
     document.body.appendChild(overlay);
 
-    // ✅ Funzione per aprire Stripe Checkout con parametri CORRETTI
     async function openCheckout(planType, planName) {
         try {
             const { data: { user } } = await sbClient.auth.getUser();
@@ -159,8 +194,7 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
 
             console.log(`🔵 Click ${planName}`);
             console.log('📦 Parametri:', { userId: user.id, planType, userEmail });
-            
-            // Disabilita bottoni
+
             const btnMensile = document.getElementById('btnMensile');
             const btnAnnuale = document.getElementById('btnAnnuale');
             if (btnMensile) {
@@ -172,7 +206,6 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
                 btnAnnuale.disabled = true;
             }
 
-            // ✅ PARAMETRI CORRETTI: planType, userId, userEmail
             const response = await fetch('https://fayuadwpchhrxafbdntw.supabase.co/functions/v1/create-checkout-session', {
                 method: 'POST',
                 headers: {
@@ -180,14 +213,14 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
                     'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                 },
                 body: JSON.stringify({
-                    planType: planType,      // 'monthly' o 'annual'
+                    planType: planType,
                     userId: user.id,
-                    userEmail: userEmail     // ✅ AGGIUNTO!
+                    userEmail: userEmail
                 })
             });
 
             const data = await response.json();
-            
+
             if (!response.ok) {
                 console.error('❌ Errore checkout:', data);
                 throw new Error(data.error || 'Errore apertura checkout');
@@ -199,8 +232,7 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
         } catch (error) {
             console.error('❌ Errore completo:', error);
             showToast('❌ Errore apertura checkout. Riprova.');
-            
-            // Reset bottoni
+
             const btnMensile = document.getElementById('btnMensile');
             const btnAnnuale = document.getElementById('btnAnnuale');
             if (btnMensile) {
@@ -214,23 +246,21 @@ function showTrialExpiredOverlay(trialInfo, userEmail) {
         }
     }
 
-    // Listener bottone Mensile
     document.getElementById('btnMensile').onclick = () => {
         openCheckout('monthly', 'Piano MENSILE');
     };
 
-    // Listener bottone Annuale
     document.getElementById('btnAnnuale').onclick = () => {
         openCheckout('annual', 'Piano ANNUALE');
     };
 
-    // Listener bottone Esci
     document.getElementById('btnEsci').onclick = async () => {
         await sbClient.auth.signOut();
         window.location.href = 'index.html';
     };
 }
 
+// ✅ FUNZIONE AGGIORNATA: Carica contenuto bilingue
 async function loadDailyContent() {
     const session = await getSessionRobusta();
     if (!session) {
@@ -243,9 +273,12 @@ async function loadDailyContent() {
     const dayRoman = arabicToRoman(dayOfYear);
     document.getElementById('dayOfYear').textContent = dayRoman;
 
-    console.log('📅 Carico sfida per giorno:', dayOfYear);
+    // ✅ Rileva lingua utente
+    const userLang = getUserLanguage();
+    console.log(`📅 Carico sfida giorno ${dayOfYear} in lingua: ${userLang}`);
 
     try {
+        // ✅ Query TUTTE le colonne (sia IT che EN)
         const { data, error } = await sbClient
             .from('sfide_quotidiane')
             .select('*')
@@ -260,18 +293,30 @@ async function loadDailyContent() {
 
         if (data) {
             console.log('✅ Sfida caricata da Supabase:', data);
+
+            // ✅ Estrai campi nella lingua corretta
+            const citazione = getTranslatedField(data, 'citazione', userLang);
+            const opera = getTranslatedField(data, 'opera', userLang);
+            const tema = getTranslatedField(data, 'tema', userLang);
+            const interpretazione = getTranslatedField(data, 'interpretazione', userLang);
+            const microSfida = getTranslatedField(data, 'micro_sfida', userLang);
+            const difficolta = getTranslatedField(data, 'difficolta', userLang);
+
+            console.log(`📝 Lingua caricata: ${userLang}`);
+            console.log(`📖 Citazione: ${citazione.substring(0, 50)}...`);
+
             setTimeout(() => {
                 document.getElementById('contentSkeleton').classList.add('hidden');
                 document.getElementById('dailyContent').classList.remove('hidden');
 
-                document.getElementById('citazione-testo').textContent = data.citazione;
-                document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${data.opera}`;
-                document.getElementById('tema-badge').textContent = data.tema;
-                document.getElementById('interpretazione-testo').textContent = data.interpretazione;
-                document.getElementById('micro-sfida-testo').textContent = data.micro_sfida;
+                document.getElementById('citazione-testo').textContent = citazione;
+                document.getElementById('citazione-autore').textContent = `— ${data.autore}, ${opera}`;
+                document.getElementById('tema-badge').textContent = tema;
+                document.getElementById('interpretazione-testo').textContent = interpretazione;
+                document.getElementById('micro-sfida-testo').textContent = microSfida;
 
-                if (data.difficolta) {
-                    document.getElementById('difficolta-badge').textContent = data.difficolta;
+                if (difficolta) {
+                    document.getElementById('difficolta-badge').textContent = difficolta;
                     document.getElementById('difficolta-badge').style.display = 'inline-block';
                 }
             }, 800);
@@ -375,7 +420,7 @@ function setupNavigation() {
             }
 
             switchView(view);
-            
+
             document.querySelectorAll('.nav-link').forEach(l => {
                 l.classList.remove('bg-amber-500/20', 'text-amber-400');
             });
@@ -399,14 +444,12 @@ function setupBaseListeners() {
     console.log('✅ Base listeners attivati (modalità trial scaduto)');
 }
 
-// ✅ GESTIONE BOTTONE "Gestione PRO"
 function setupManageSubscriptionButton(profile) {
     const manageBtnDesktop = document.getElementById('manageSubscriptionBtn');
     const manageBtnMobile = document.getElementById('manageSubscriptionBtnMobile');
-    
+
     const role = profile?.role?.toLowerCase() || 'vip';
 
-    // ✅ Se NON è PRO, mostra tooltip informativo
     if (role !== 'pro') {
         [manageBtnDesktop, manageBtnMobile].forEach(btn => {
             if (btn) {
@@ -422,13 +465,12 @@ function setupManageSubscriptionButton(profile) {
         return;
     }
 
-    // ✅ Se è PRO, apre Customer Portal
     async function openCustomerPortal() {
         try {
             console.log('🔵 Apertura Customer Portal Stripe...');
-            
+
             const { data: { user }, error: authError } = await sbClient.auth.getUser();
-            
+
             if (authError || !user) {
                 console.error('❌ Errore autenticazione:', authError);
                 showToast('Devi effettuare il login');
@@ -473,7 +515,7 @@ function setupManageSubscriptionButton(profile) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('🚀 Inizializzazione dashboard con TRIAL...');
+    console.log('🚀 Inizializzazione dashboard BILINGUE...');
 
     try {
         const session = await getSessionRobusta();
@@ -488,7 +530,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const trialStatus = checkTrialStatus(currentUserProfile);
         console.log('🔍 Trial status:', trialStatus);
 
-        // ✅ Setup bottone "Gestione PRO"
         setupManageSubscriptionButton(currentUserProfile);
 
         if (trialStatus.isExpired) {
@@ -510,7 +551,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             logoutBtn.addEventListener('click', handleLogout);
         }
 
-        console.log('✅ Dashboard caricata con successo!');
+        console.log('✅ Dashboard bilingue caricata con successo!');
 
     } catch (err) {
         console.error('💥 Errore init dashboard:', err);
