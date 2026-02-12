@@ -36,7 +36,7 @@ function getDailyContentType() {
 // ✅ NUOVA FUNZIONE: Rileva lingua utente
 function getUserLanguage() {
     // 1. Check localStorage (preferenza salvata)
-    const savedLang = localStorage.getItem('userLanguage');
+    const savedLang = localStorage.getItem('preferredLanguage');
     if (savedLang === 'en' || savedLang === 'it') {
         console.log(`🌍 Lingua da localStorage: ${savedLang}`);
         return savedLang;
@@ -51,7 +51,7 @@ function getUserLanguage() {
     console.log(`🌍 Lingua rilevata da browser: ${browserLang} → ${finalLang}`);
 
     // Salva preferenza
-    localStorage.setItem('userLanguage', finalLang);
+    localStorage.setItem('preferredLanguage', finalLang);
     return finalLang;
 }
 
