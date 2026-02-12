@@ -183,8 +183,8 @@
 </head>
 <body class="font-inter text-slate-100">
 
-    <!-- Language Switcher -->
-    <div class="fixed top-4 right-4 z-50 flex gap-2">
+    <!-- Language Switcher DESKTOP (fixed top-right) -->
+    <div class="hidden md:flex fixed top-4 right-4 z-50 gap-2">
         <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('it')">IT</button>
         <button id="btnLangEN" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('en')">EN</button>
     </div>
@@ -254,6 +254,11 @@
                     
                     <!-- Logo Mobile Only -->
                     <div class="md:hidden text-center mb-8">
+                        <!-- Language Switcher MOBILE -->
+                        <div class="flex justify-end mb-4 gap-2">
+                            <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('it')">IT</button>
+                            <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('en')">EN</button>
+                        </div>
                         <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
                             <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
                         </a>
@@ -519,9 +524,15 @@
         // Aggiorna il title della pagina
         document.title = translations[lang].pageTitle;
 
-        // Aggiorna bottoni lingua
-        document.getElementById('btnLangIT').classList.toggle('active', lang === 'it');
-        document.getElementById('btnLangEN').classList.toggle('active', lang === 'en');
+        // Aggiorna bottoni lingua (desktop + mobile)
+        ['btnLangIT', 'btnLangIT_mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('active', lang === 'it');
+        });
+        ['btnLangEN', 'btnLangEN_mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('active', lang === 'en');
+        });
 
         // Aggiorna citazione corrente
         const q = translations[lang].quotes[currentQuoteIndex];
