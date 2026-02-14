@@ -543,12 +543,42 @@
 
     // ============================================
     // PARTE 4: AVVIO AUTOMATICO
+    // Problema: common.js e dashboard.js hanno DOMContentLoaded che
+    // sovrascrivono i testi DOPO che language-manager li ha tradotti.
+    // Soluzione: registriamo UN SECONDO DOMContentLoaded che parte dopo
+    // tutti gli altri (stesso tick di evento, ma registrato per ultimo
+    // poiché questo script è l'ultimo caricato), più un secondo passaggio
+    // con setTimeout(0) per catturare i testi scritti da JS asincrono.
     // ============================================
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initLanguageSwitcher);
-    } else {
+    function runAfterAllScripts() {
         initLanguageSwitcher();
+
+        // Secondo passaggio: cattura testi scritti da common.js / dashboard.js
+        // in modo sincrono nei loro DOMContentLoaded
+        setTimeout(() => {
+            const savedLang = localStorage.getItem("preferredLanguage") || "it";
+            if (savedLang !== "it") {
+                applyTranslations(savedLang);
+                console.log("🔄 Re-apply traduzioni dopo script asincroni:", savedLang.toUpperCase());
+            }
+        }, 0);
+
+        // Terzo passaggio: cattura testi scritti da chiamate async (Supabase, ecc.)
+        // dashboard.js carica dati da Supabase in ~800ms
+        setTimeout(() => {
+            const savedLang = localStorage.getItem("preferredLanguage") || "it";
+            if (savedLang !== "it") {
+                applyTranslations(savedLang);
+                console.log("🔄 Re-apply traduzioni dopo async Supabase:", savedLang.toUpperCase());
+            }
+        }, 1500);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", runAfterAllScripts);
+    } else {
+        runAfterAllScripts();
     }
 
     console.log("✅ GLOBAL Language Manager v4.0: Script caricato");
