@@ -9,272 +9,188 @@
       gtag('js', new Date());
       gtag('config', 'G-GW6CH5RG1R');
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - The Stoic Journey</title>
     <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
     <meta name="robots" content="noindex, nofollow">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
-        
+        .font-inter  { font-family: 'Inter', sans-serif; }
+
         .pergamena-bg {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
                         url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
             position: relative;
         }
-        
+
         .highlighted-text {
-            color: #fde047;
-            font-weight: 900;
-            font-style: italic;
+            color: #fde047; font-weight: 900; font-style: italic;
             text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                         -4px 0 0 #000, 4px 0 0 #000, 0 -4px 0 #000, 0 4px 0 #000,
+                         -4px 0 0 #000,  4px 0 0 #000,  0 -4px 0 #000,  0 4px 0 #000,
                          -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-                         0 0 15px rgba(253, 224, 71, 1),
-                         0 0 25px rgba(253, 224, 71, 0.8),
-                         0 0 35px rgba(253, 224, 71, 0.6);
-            transition: all 0.3s ease;
-            letter-spacing: 0.04em;
+                         0 0 15px rgba(253,224,71,1), 0 0 25px rgba(253,224,71,0.8), 0 0 35px rgba(253,224,71,0.6);
+            transition: all 0.3s ease; letter-spacing: 0.04em;
         }
-        
         .highlighted-text:hover {
             color: #facc15;
             text-shadow: -4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000, 4px 4px 0 #000,
-                         -5px 0 0 #000, 5px 0 0 #000, 0 -5px 0 #000, 0 5px 0 #000,
+                         -5px 0 0 #000,  5px 0 0 #000,  0 -5px 0 #000,  0 5px 0 #000,
                          -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                         0 0 20px rgba(250, 204, 21, 1),
-                         0 0 30px rgba(250, 204, 21, 0.9),
-                         0 0 40px rgba(250, 204, 21, 0.7);
+                         0 0 20px rgba(250,204,21,1), 0 0 30px rgba(250,204,21,0.9), 0 0 40px rgba(250,204,21,0.7);
             transform: scale(1.02);
         }
-        
+
         .roman-number {
-            color: #fde047;
-            font-weight: 900;
-            font-size: 1.2em;
+            color: #fde047; font-weight: 900; font-size: 1.2em; letter-spacing: 0.1em;
             text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                         -4px 0 0 #000, 4px 0 0 #000, 0 -4px 0 #000, 0 4px 0 #000,
+                         -4px 0 0 #000,  4px 0 0 #000,  0 -4px 0 #000,  0 4px 0 #000,
                          -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-                         0 0 15px rgba(253, 224, 71, 1);
-            letter-spacing: 0.1em;
+                         0 0 15px rgba(253,224,71,1);
         }
-        
+
         .section-title-parchment {
             color: #92400e;
-            text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5),
-                        -1px -1px 0 rgba(0, 0, 0, 0.3);
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5), -1px -1px 0 rgba(0,0,0,0.3);
             font-weight: 900;
         }
-        
+
         .parchment-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 2px solid rgba(146, 64, 14, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            background: rgba(245,222,179,0.95);
+            border: 2px solid rgba(146,64,14,0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
-        
-        .parchment-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
-        
-        .parchment-card p {
-            color: #451a03;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-        }
-        
+        .parchment-card h3 { color: #92400e; text-shadow: 1px 1px 2px rgba(255,255,255,0.4); }
+        .parchment-card p  { color: #451a03; text-shadow: 0 1px 2px rgba(255,255,255,0.3); }
+
         body {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, 
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, 
+            background: linear-gradient(180deg,
+                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
+                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
                 #c49050 80%, #a8754a 90%, #1c1410 100%);
-            min-height: 100vh;
-            background-attachment: fixed;
+            min-height: 100vh; background-attachment: fixed;
         }
-        
+
         #mobileMenuOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px); z-index: 40;
+            opacity: 0; visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        
-        #mobileMenuOverlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
+        #mobileMenuOverlay.active { opacity: 1; visibility: visible; }
+
         #mobileSidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
+            position: fixed; top: 0; left: 0; bottom: 0; width: 280px;
             background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            z-index: 50; transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none;
         }
-        
-        #mobileSidebar::-webkit-scrollbar {
-            display: none;
-        }
-        
-        #mobileSidebar.active {
-            transform: translateX(0);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 10px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        
-        .gradient-border {
-            position: relative;
-            border-radius: 1rem;
-        }
-        
-        .progress-bar {
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
+        #mobileSidebar::-webkit-scrollbar { display: none; }
+        #mobileSidebar.active { transform: translateX(0); }
+
+        .custom-scrollbar::-webkit-scrollbar       { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track  { background: #f1f5f9; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb  { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .gradient-border { position: relative; border-radius: 1rem; }
+        .progress-bar { transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+
         .skeleton {
-            background: linear-gradient(90deg, 
-                rgba(245, 222, 179, 0.3) 25%, 
-                rgba(245, 222, 179, 0.5) 50%, 
-                rgba(245, 222, 179, 0.3) 75%);
+            background: linear-gradient(90deg,
+                rgba(245,222,179,0.3) 25%, rgba(245,222,179,0.5) 50%, rgba(245,222,179,0.3) 75%);
             background-size: 200% 100%;
             animation: loading 1.5s ease-in-out infinite;
         }
-        
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
-            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.6); }
+            0%, 100% { box-shadow: 0 0 20px rgba(251,191,36,0.3); }
+            50%       { box-shadow: 0 0 30px rgba(251,191,36,0.6); }
         }
-        
-        .streak-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        /* NUOVO: Badge Ruoli */
+        .streak-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
         .role-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-            padding: 0.375rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.375rem;
+            padding: 0.375rem 0.75rem; border-radius: 9999px;
+            font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease;
         }
-        
-        .role-badge.master {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #78350f;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-        
-        .role-badge.pro {
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-        }
-        
-        .role-badge.vip {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-        
-        .role-badge.vip-expired {
-            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-            color: #f1f5f9;
-            box-shadow: none;
-        }
-        
-        @media (max-width: 767px) {
-            .mobile-textarea { height: 120px; font-size: 16px; }
-            .mobile-btn { min-height: 48px; font-size: 16px; }
-        }
-        
-        @media (min-width: 768px) {
-            .desktop-textarea { height: 200px; }
-        }
+        .role-badge.master     { background: linear-gradient(135deg,#fbbf24,#f59e0b); color:#78350f; box-shadow:0 0 20px rgba(251,191,36,0.5); }
+        .role-badge.pro        { background: linear-gradient(135deg,#a855f7,#7c3aed); color:#fff;    box-shadow:0 0 15px rgba(168,85,247,0.4); }
+        .role-badge.vip        { background: linear-gradient(135deg,#3b82f6,#2563eb); color:#fff;    box-shadow:0 0 15px rgba(59,130,246,0.4); }
+        .role-badge.vip-expired{ background: linear-gradient(135deg,#64748b,#475569); color:#f1f5f9; box-shadow:none; }
+
+        /* Lang switcher */
+        .lang-btn { transition: all 0.2s; }
+        .lang-btn.active        { background-color:rgba(251,191,36,0.2); color:#fbbf24; border-color:#fbbf24; }
+        .lang-btn:not(.active)  { color:#94a3b8; border-color:#334155; }
+        .lang-btn:hover:not(.active) { border-color:#64748b; color:#cbd5e1; }
+
+        @media (max-width: 767px) { .mobile-textarea { height:120px; font-size:16px; } .mobile-btn { min-height:48px; font-size:16px; } }
+        @media (min-width: 768px) { .desktop-textarea { height:200px; } }
     </style>
 </head>
 <body class="font-inter text-slate-100">
 
+    <!-- ========== HEADER ========== -->
     <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
+
+                <!-- Sinistra: hamburger + logo -->
                 <div class="flex items-center gap-4">
                     <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors" aria-label="Apri menu">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
-                    
                     <div class="flex items-center gap-3">
                         <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
                         <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
                     </div>
                 </div>
-                
-                <div class="flex items-center gap-4 md:gap-6">
+
+                <!-- Destra: streak + badge + lang + user + logout -->
+                <div class="flex items-center gap-3 md:gap-4">
+
+                    <!-- Streak badge -->
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
                         <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
-                        <span class="text-xs text-slate-900 font-medium">giorni</span>
+                        <span class="text-xs text-slate-900 font-medium" data-i18n="dashboard.headerDays">giorni</span>
                     </div>
-                    
-                    <!-- NUOVO: Badge Ruolo (nascosto fino a caricamento) -->
+
+                    <!-- Role badge -->
                     <div id="roleBadge" class="hidden role-badge" title="Il tuo ruolo">
                         <span id="roleIcon"></span>
                         <span id="roleText">VIP</span>
                     </div>
-                    
+
+                    <!-- Lang switcher DESKTOP -->
+                    <div class="hidden md:flex items-center gap-1">
+                        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
+                        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                    </div>
+
+                    <!-- User + logout -->
                     <div class="flex items-center gap-3">
                         <span class="hidden md:inline text-sm text-slate-300">
-                            Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
+                            <span data-i18n="dashboard.greeting">Ciao,</span>
+                            <span id="userName" class="font-semibold text-amber-400 ml-1">...</span>
                         </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn" data-i18n="dashboard.logout">
                             Esci
                         </button>
                     </div>
@@ -284,92 +200,89 @@
     </header>
 
     <div id="mobileMenuOverlay"></div>
-    
+
+    <!-- ========== SIDEBAR MOBILE ========== -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
-            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            
+            <div class="flex items-center justify-between mb-6">
+                <button id="closeMobileMenu" class="text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+                <!-- Lang switcher MOBILE -->
+                <div class="flex gap-1">
+                    <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
+                    <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                </div>
+            </div>
+
             <nav class="space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span data-i18n="dashboard.navToday">Oggi</span>
                 </a>
-                
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                    <span data-i18n="dashboard.navArchive">Archivio</span>
                 </a>
-                
                 <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span data-i18n="dashboard.navSettings">Impostazioni</span>
                 </a>
-                
                 <button id="manageSubscriptionBtnMobile" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-700 hover:to-purple-800 transition-all mt-4 w-full text-left">
-                    <span style="font-size: 1.25rem;">✨</span>
-                    <span>Gestione PRO</span>
+                    <span style="font-size:1.25rem">✨</span>
+                    <span data-i18n="dashboard.navManagePro">Gestione PRO</span>
                 </button>
             </nav>
-            
+
             <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
                 <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
-                <div class="text-xs text-slate-400">giorni di streak</div>
+                <div class="text-xs text-slate-400" data-i18n="dashboard.streakLabel">giorni di streak</div>
             </div>
         </div>
     </aside>
 
+    <!-- ========== LAYOUT PRINCIPALE ========== -->
     <div class="flex">
+
+        <!-- Sidebar DESKTOP -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
                 <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span data-i18n="dashboard.navToday">Oggi</span>
                 </a>
-                
                 <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                    <span data-i18n="dashboard.navArchive">Archivio</span>
                 </a>
-                
                 <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span data-i18n="dashboard.navSettings">Impostazioni</span>
                 </a>
-                
                 <button id="manageSubscriptionBtn" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-700 hover:to-purple-800 transition-all mt-4 w-full text-left">
-                    <span style="font-size: 1.25rem;">✨</span>
-                    <span>Gestione PRO</span>
+                    <span style="font-size:1.25rem">✨</span>
+                    <span data-i18n="dashboard.navManagePro">Gestione PRO</span>
                 </button>
             </nav>
         </aside>
 
+        <!-- ========== MAIN ========== -->
         <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
+
+            <!-- VIEW: Oggi -->
             <div id="viewOggi" class="view-container">
+
+                <!-- Contenuto Quotidiano -->
                 <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
                     <div class="text-center mb-6">
-                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(251, 191, 36, 0.8);">
-                             Contenuto Quotidiano
-                        </h2>
-                        <p class="text-sm font-trajan font-bold" style="color: #f5dec3; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">
-                            Giorno <span id="dayOfYear" class="roman-number">I</span> dell'anno
+                        <h2 class="text-2xl md:text-3xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider"
+                            style="text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000,0 0 10px rgba(251,191,36,0.8);"
+                            data-i18n="dashboard.dailyTitle">Contenuto Quotidiano</h2>
+                        <p class="text-sm font-trajan font-bold" style="color:#f5dec3;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;">
+                            Giorno <span id="dayOfYear" class="roman-number">I</span>
+                            <span data-i18n="dashboard.dayLabel">dell'anno</span>
                         </p>
                     </div>
 
@@ -385,135 +298,135 @@
                             <p class="text-xl md:text-2xl font-trajan italic leading-relaxed mb-3 highlighted-text" id="citazione-testo">Caricamento citazione...</p>
                             <p class="text-sm font-semibold highlighted-text" id="citazione-autore">— Autore</p>
                         </div>
-
                         <div class="flex gap-3 flex-wrap">
                             <span id="tema-badge" class="inline-block bg-amber-600/90 text-white px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg">tema</span>
                             <span id="difficolta-badge" class="inline-block bg-slate-700/90 text-amber-400 px-4 py-2 rounded-full text-sm font-bold uppercase tracking-wide shadow-lg"></span>
                         </div>
-
                         <div class="parchment-card rounded-lg p-4 md:p-6">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment"> Interpretazione</h3>
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment" data-i18n="dashboard.interpretationTitle">Interpretazione</h3>
                             <p class="leading-relaxed font-trajan" id="interpretazione-testo">Caricamento interpretazione...</p>
                         </div>
-
-                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background: rgba(254, 243, 199, 0.95);">
-                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment"> Micro-Sfida di Oggi</h3>
+                        <div class="parchment-card rounded-lg p-4 md:p-6" style="background:rgba(254,243,199,0.95);">
+                            <h3 class="text-lg font-bold mb-3 font-cinzel uppercase tracking-wide section-title-parchment" data-i18n="dashboard.challengeTitle">Micro-Sfida di Oggi</h3>
                             <p class="leading-relaxed font-trajan" id="micro-sfida-testo">Caricamento micro-sfida...</p>
                         </div>
                     </div>
                 </div>
 
+                <!-- Riflessioni -->
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 mb-6 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide"> Le tue riflessioni di oggi</h3>
-                    
-                    <textarea 
-                        id="reflectionTextarea" 
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-4 uppercase tracking-wide" data-i18n="dashboard.reflectionTitle">
+                        Le tue riflessioni di oggi
+                    </h3>
+                    <textarea
+                        id="reflectionTextarea"
                         maxlength="2000"
+                        data-i18n-placeholder="dashboard.reflectionPlaceholder"
                         placeholder="Cosa pensi della sfida di oggi?&#10;Come la applicherai?&#10;Quali ostacoli prevedi?"
                         class="w-full bg-slate-800 text-slate-100 border border-slate-700 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 rounded-lg p-4 custom-scrollbar resize-none transition-all mobile-textarea md:desktop-textarea outline-none"
                     ></textarea>
-                    
                     <div class="flex items-center justify-between mt-3">
                         <span class="text-xs text-slate-500">
-                            <span id="charCount">0</span>/2000 caratteri
+                            <span id="charCount">0</span>/2000 <span data-i18n="dashboard.charCount">caratteri</span>
                         </span>
                         <div class="flex gap-3">
-                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn">
-                                <span>Copia</span>
-                            </button>
-                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn">
-                                <span>Salva</span>
-                            </button>
+                            <button id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium flex items-center gap-2 mobile-btn" data-i18n="dashboard.copyBtn">Copia</button>
+                            <button id="saveBtn" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-slate-900 px-6 py-2 rounded-lg transition-all text-sm font-bold flex items-center gap-2 mobile-btn" data-i18n="dashboard.saveBtn">Salva</button>
                         </div>
                     </div>
                 </div>
 
+                <!-- Progresso -->
                 <div class="bg-slate-900/95 backdrop-blur-sm rounded-lg p-6 md:p-8 border border-amber-500/20">
-                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide"> Il tuo progresso</h3>
-                    
+                    <h3 class="text-xl md:text-2xl font-cinzel font-bold text-amber-400 mb-6 uppercase tracking-wide" data-i18n="dashboard.progressTitle">Il tuo progresso</h3>
+
+                    <!-- Mobile -->
                     <div class="space-y-4 md:hidden">
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
                             <div class="text-2xl font-bold text-amber-400" id="progressStreak">0</div>
-                            <div class="text-xs text-slate-400">giorni di streak</div>
+                            <div class="text-xs text-slate-400" data-i18n="dashboard.streakLabel">giorni di streak</div>
                         </div>
-                        
                         <div class="bg-slate-800 rounded-lg p-4 text-center">
                             <div class="text-2xl font-bold text-amber-400 mb-1" id="progressReflections">0</div>
-                            <div class="text-xs text-slate-400">riflessioni scritte</div>
+                            <div class="text-xs text-slate-400" data-i18n="dashboard.reflectionsLabel">riflessioni scritte</div>
                         </div>
-                        
                         <div class="bg-slate-800 rounded-lg p-4">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-sm text-slate-300">Sfide completate</span>
+                                <span class="text-sm text-slate-300" data-i18n="dashboard.challengesLabel">Sfide completate</span>
                                 <span class="text-lg font-bold text-amber-400" id="progressChallenges">0/0</span>
                             </div>
                             <div class="w-full bg-slate-700 rounded-full h-2">
-                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width: 0%"></div>
+                                <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width:0%"></div>
                             </div>
-                            <div class="text-xs text-slate-500 text-right mt-1">
-                                <span id="progressPercentage">0</span>
-                            </div>
+                            <div class="text-xs text-slate-500 text-right mt-1"><span id="progressPercentage">0</span></div>
                         </div>
                     </div>
 
+                    <!-- Desktop -->
                     <div class="hidden md:grid md:grid-cols-3 gap-6">
                         <div class="bg-slate-800 rounded-lg p-6 text-center">
                             <div class="text-3xl font-bold text-amber-400 mb-1" id="progressStreakDesktop">0</div>
-                            <div class="text-sm text-slate-400">giorni di streak</div>
+                            <div class="text-sm text-slate-400" data-i18n="dashboard.streakLabel">giorni di streak</div>
                         </div>
-                        
                         <div class="bg-slate-800 rounded-lg p-6 text-center">
                             <div class="text-3xl font-bold text-amber-400 mb-1" id="progressReflectionsDesktop">0</div>
-                            <div class="text-sm text-slate-400">riflessioni scritte</div>
+                            <div class="text-sm text-slate-400" data-i18n="dashboard.reflectionsLabel">riflessioni scritte</div>
                         </div>
-                        
                         <div class="bg-slate-800 rounded-lg p-6">
                             <div class="text-center mb-3">
                                 <span class="text-2xl font-bold text-amber-400" id="progressChallengesDesktop">0/0</span>
                             </div>
                             <div class="w-full bg-slate-700 rounded-full h-3">
-                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width: 0%"></div>
+                                <div id="progressBarDesktop" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full" style="width:0%"></div>
                             </div>
                             <div class="text-xs text-slate-400 text-center mt-2">
-                                <span id="progressPercentageDesktop">0</span> completato
+                                <span id="progressPercentageDesktop">0</span>
+                                <span data-i18n="dashboard.completedLabel"> completato</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- VIEW: Archivio -->
             <div id="viewArchivio" class="view-container hidden">
                 <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Archivio Riflessioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4" data-i18n="dashboard.archiveTitle">Archivio Riflessioni</h2>
+                    <p class="text-slate-400 mb-8" data-i18n="dashboard.archiveWip">Funzionalità in sviluppo</p>
                 </div>
             </div>
 
+            <!-- VIEW: Impostazioni -->
             <div id="viewImpostazioni" class="view-container hidden">
                 <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Impostazioni</h2>
-                    <p class="text-slate-400 mb-8">Funzionalità in sviluppo</p>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4" data-i18n="dashboard.settingsTitle">Impostazioni</h2>
+                    <p class="text-slate-400 mb-8" data-i18n="dashboard.settingsWip">Funzionalità in sviluppo</p>
                 </div>
             </div>
 
+            <!-- VIEW: PRO -->
             <div id="viewPro" class="view-container hidden">
                 <div class="text-center py-20">
-                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4">Passa a PRO</h2>
-                    <p class="text-slate-400 mb-8">Sblocca funzionalità premium</p>
+                    <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4" data-i18n="dashboard.proTitle">Passa a PRO</h2>
+                    <p class="text-slate-400 mb-8" data-i18n="dashboard.proWip">Sblocca funzionalità premium</p>
                 </div>
             </div>
+
         </main>
     </div>
 
+    <!-- Toast -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-<script src="language-manager.js"></script>
-<script src="common.js"></script>
-<script src="dashboard.js"></script>>
+    <!-- ========== SCRIPTS — ORDINE CRITICO ========== -->
+    <!-- 1° language-manager.js → espone window.TRANSLATIONS e window.applyTranslations -->
+    <script src="language-manager.js"></script>
+    <!-- 2° common.js → Supabase, sessione, badge ruolo, abbonamento -->
+    <script src="common.js"></script>
+    <!-- 3° dashboard.js → contenuto quotidiano bilingue da Supabase -->
+    <script src="dashboard.js"></script>
 
-    <script>
-    
 </body>
 </html>
