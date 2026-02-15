@@ -3,218 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
     <title>Impostazioni - The Stoic Journey</title>
-    
     <meta name="description" content="Gestisci il tuo profilo e le preferenze - The Stoic Journey">
     <meta name="robots" content="noindex, nofollow">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <style>
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
-        .font-inter { font-family: 'Inter', sans-serif; }
+        .font-inter  { font-family: 'Inter', sans-serif; }
 
         body {
-            background: linear-gradient(180deg, 
-                #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
-                #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
-                #c49050 80%, #a8754a 90%, #1c1410 100%
-            );
-            min-height: 100vh;
-            background-attachment: fixed;
+            background: linear-gradient(180deg, #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%, #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%, #c49050 80%, #a8754a 90%, #1c1410 100%);
+            min-height: 100vh; background-attachment: fixed;
         }
 
-        .parchment-card {
-            background: rgba(245, 222, 179, 0.95);
-            border: 2px solid rgba(146, 64, 14, 0.4);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
+        .parchment-card { background: rgba(245,222,179,0.95); border: 2px solid rgba(146,64,14,0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .parchment-card h3 { color: #92400e; text-shadow: 1px 1px 2px rgba(255,255,255,0.4); }
+        .parchment-card label { color: #451a03; text-shadow: 0 1px 2px rgba(255,255,255,0.3); }
 
-        .parchment-card h3 {
-            color: #92400e;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-        }
+        .parchment-input { background: rgba(255,255,255,0.9); border: 2px solid rgba(146,64,14,0.3); color: #451a03; }
+        .parchment-input:focus { border-color: #92400e; outline: none; box-shadow: 0 0 0 3px rgba(146,64,14,0.2); }
+        .parchment-input:disabled { background: rgba(229,231,235,0.6); cursor: not-allowed; }
+        .parchment-input.error { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,0.2); }
 
-        .parchment-card label {
-            color: #451a03;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-        }
+        .error-message { color: #dc2626; font-size: 0.75rem; margin-top: 0.25rem; display: none; }
+        .error-message.active { display: block; }
 
-        .parchment-input {
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid rgba(146, 64, 14, 0.3);
-            color: #451a03;
-        }
+        #mobileMenuOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 40; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        #mobileMenuOverlay.active { opacity: 1; visibility: visible; }
 
-        .parchment-input:focus {
-            border-color: #92400e;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(146, 64, 14, 0.2);
-        }
+        #mobileSidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); z-index: 50; transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; -ms-overflow-style: none; scrollbar-width: none; }
+        #mobileSidebar::-webkit-scrollbar { display: none; }
+        #mobileSidebar.active { transform: translateX(0); }
 
-        .parchment-input:disabled {
-            background: rgba(229, 231, 235, 0.6);
-            cursor: not-allowed;
-        }
+        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(251,191,36,0.3); } 50% { box-shadow: 0 0 30px rgba(251,191,36,0.6); } }
+        .streak-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
-        .parchment-input.error {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
-        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.6s linear infinite; }
 
-        .error-message {
-            color: #dc2626;
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
-            display: none;
-        }
+        #toast { transition: transform 0.3s ease, opacity 0.5s ease; }
+        #toast.hiding { opacity: 0; }
 
-        .error-message.active {
-            display: block;
-        }
+        .role-badge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.375rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: all 0.3s ease; }
+        .role-badge.master { background: linear-gradient(135deg,#fbbf24,#f59e0b); color:#78350f; box-shadow:0 0 20px rgba(251,191,36,0.5); }
+        .role-badge.pro    { background: linear-gradient(135deg,#a855f7,#7c3aed); color:#fff;    box-shadow:0 0 15px rgba(168,85,247,0.4); }
+        .role-badge.vip    { background: linear-gradient(135deg,#3b82f6,#2563eb); color:#fff;    box-shadow:0 0 15px rgba(59,130,246,0.4); }
+        .role-badge.vip-expired { background: linear-gradient(135deg,#64748b,#475569); color:#f1f5f9; box-shadow:none; }
 
-        #mobileMenuOverlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 40;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
+        .admin-card { background: linear-gradient(135deg,rgba(251,191,36,0.1),rgba(245,158,11,0.1)); border: 2px solid rgba(251,191,36,0.3); box-shadow: 0 0 20px rgba(251,191,36,0.2); }
+        .user-row { transition: all 0.2s ease; }
+        .user-row:hover { background: rgba(251,191,36,0.05); transform: translateX(4px); }
 
-        #mobileMenuOverlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
+        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.5rem; transition: all 0.2s; }
+        .nav-link:hover { background-color: rgba(30,41,59,1); }
+        .nav-link.active { background-color: rgba(251,191,36,0.2); color: #fbbf24; font-weight: 500; }
 
-        #mobileSidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-            z-index: 50;
-            transform: translateX(-100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .lang-btn { transition: all 0.2s; }
+        .lang-btn.active        { background-color:rgba(251,191,36,0.2); color:#fbbf24; border-color:#fbbf24; }
+        .lang-btn:not(.active)  { color:#94a3b8; border-color:#334155; }
+        .lang-btn:hover:not(.active) { border-color:#64748b; color:#cbd5e1; }
 
-        #mobileSidebar::-webkit-scrollbar {
-            display: none;
-        }
-
-        #mobileSidebar.active {
-            transform: translateX(0);
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { 
-                box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-            }
-            50% { 
-                box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
-            }
-        }
-
-        .streak-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-        }
-
-        #toast {
-            transition: transform 0.3s ease, opacity 0.5s ease;
-        }
-
-        #toast.hiding {
-            opacity: 0;
-        }
-
-        /* NUOVO: Badge Ruoli */
-        .role-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
-            padding: 0.375rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.3s ease;
-        }
-
-        .role-badge.master {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: #78350f;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-
-        .role-badge.pro {
-            background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-        }
-
-        .role-badge.vip {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .role-badge.vip-expired {
-            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-            color: #f1f5f9;
-            box-shadow: none;
-        }
-
-        /* NUOVO: Stili Admin Panel */
-        .admin-card {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
-            border: 2px solid rgba(251, 191, 36, 0.3);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
-        }
-
-        .user-row {
-            transition: all 0.2s ease;
-        }
-
-        .user-row:hover {
-            background: rgba(251, 191, 36, 0.05);
-            transform: translateX(4px);
-        }
-
-        @media (max-width: 767px) {
-            .mobile-btn {
-                min-height: 48px;
-                font-size: 16px;
-            }
-        }
+        @media (max-width: 767px) { .mobile-btn { min-height: 48px; font-size: 16px; } }
     </style>
 </head>
 <body class="font-inter text-slate-100">
@@ -225,36 +84,37 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <button id="mobileMenuBtn" class="md:hidden text-amber-400 hover:text-amber-300 transition-colors" aria-label="Apri menu">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
-                    
                     <div class="flex items-center gap-3">
                         <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
-                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">
-                            The Stoic Journey
-                        </span>
+                        <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4 md:gap-6">
+                <div class="flex items-center gap-3 md:gap-4">
                     <div class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-2 rounded-full streak-glow">
                         <span class="font-bold text-slate-900 text-lg" id="headerStreak">0</span>
-                        <span class="text-xs text-slate-900 font-medium">giorni</span>
+                        <span class="text-xs text-slate-900 font-medium" data-i18n="dashboard.headerDays">giorni</span>
                     </div>
 
-                    <!-- NUOVO: Badge Ruolo -->
                     <div id="roleBadge" class="hidden role-badge" title="Il tuo ruolo">
                         <span id="roleIcon">👤</span>
                         <span id="roleText">VIP</span>
                     </div>
 
+                    <!-- Lang switcher -->
+                    <div class="flex items-center gap-1">
+                        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
+                        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                    </div>
+
                     <div class="flex items-center gap-3">
                         <span class="hidden md:inline text-sm text-slate-300">
-                            Ciao, <span id="userName" class="font-semibold text-amber-400">...</span>
+                            <span data-i18n="dashboard.greeting">Ciao,</span>
+                            <span id="userName" class="font-semibold text-amber-400 ml-1">...</span>
                         </span>
-                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn">
+                        <button id="logoutBtn" class="bg-slate-800 hover:bg-slate-700 text-amber-400 px-4 py-2 rounded-lg transition-all text-sm font-medium mobile-btn" data-i18n="dashboard.logout">
                             Esci
                         </button>
                     </div>
@@ -263,256 +123,167 @@
         </div>
     </header>
 
-    <!-- MOBILE MENU OVERLAY -->
     <div id="mobileMenuOverlay"></div>
 
     <!-- MOBILE SIDEBAR -->
     <aside id="mobileSidebar" class="md:hidden">
         <div class="p-6">
-            <button id="closeMobileMenu" class="mb-6 text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
+            <div class="flex items-center justify-between mb-6">
+                <button id="closeMobileMenu" class="text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <div class="flex gap-1">
+                    <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
+                    <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                </div>
+            </div>
             <nav class="space-y-2">
-                <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
+                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span data-i18n="dashboard.navToday">Oggi</span>
                 </a>
-                <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
+                <a href="archivio.html" class="nav-link text-slate-300 hover:text-amber-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                    <span data-i18n="dashboard.navArchive">Archivio</span>
                 </a>
-                <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
+                <a href="impostazioni.html" class="nav-link active">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span data-i18n="dashboard.navSettings">Impostazioni</span>
                 </a>
- <!-- ✨ Gestione Abbonamento PRO -->
-<button 
-  id="manage-subscription-dashboard" 
-  class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all mt-4 w-full text-left"
-  style="display: none;"
->
-  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-  </svg>
-  <span>✨ Gestione Abbonamento</span>
-</button>
-
             </nav>
-
             <div class="mt-6 p-4 bg-slate-800 rounded-lg text-center">
                 <div class="text-2xl font-bold text-amber-400" id="mobileStreak">0</div>
-                <div class="text-xs text-slate-400">giorni di streak</div>
+                <div class="text-xs text-slate-400" data-i18n="dashboard.streakLabel">giorni di streak</div>
             </div>
         </div>
     </aside>
 
-    <!-- DESKTOP SIDEBAR -->
+    <!-- DESKTOP LAYOUT -->
     <div class="flex">
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
-                <a href="dashboard.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    <span>Oggi</span>
+                <a href="dashboard.html" class="nav-link text-slate-300 hover:text-amber-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <span data-i18n="dashboard.navToday">Oggi</span>
                 </a>
-                <a href="archivio.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                    </svg>
-                    <span>Archivio</span>
+                <a href="archivio.html" class="nav-link text-slate-300 hover:text-amber-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                    <span data-i18n="dashboard.navArchive">Archivio</span>
                 </a>
-                <a href="impostazioni.html" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    <span>Impostazioni</span>
+                <a href="impostazioni.html" class="nav-link active">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span data-i18n="dashboard.navSettings">Impostazioni</span>
                 </a>
-<!-- ✨ Gestione Abbonamento PRO -->
-<button 
-  id="manage-subscription-dashboard" 
-  class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold hover:from-purple-700 hover:to-indigo-700 transition-all mt-4 w-full text-left"
-  style="display: none;"
->
-  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-  </svg>
-  <span>✨ Gestione Abbonamento</span>
-</button>
-
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
+        <!-- MAIN -->
         <main class="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full">
-            
+
             <div class="mb-6">
-                <h1 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider">
-                    ⚙️ Impostazioni
-                </h1>
-                <p class="text-slate-400 text-sm md:text-base">
-                    Gestisci il tuo profilo, sicurezza e preferenze
-                </p>
+                <h1 class="text-3xl md:text-4xl font-cinzel font-bold text-amber-400 mb-2 uppercase tracking-wider" data-i18n="settings.title">⚙️ Impostazioni</h1>
+                <p class="text-slate-400 text-sm md:text-base" data-i18n="settings.subtitle">Gestisci il tuo profilo, sicurezza e preferenze</p>
             </div>
 
-            <!-- NUOVO: PANNELLO ADMIN (solo per master) -->
+            <!-- PANNELLO ADMIN (solo master) -->
             <div id="adminPanel" class="hidden mb-6">
                 <div class="admin-card rounded-lg p-6 md:p-8">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="text-4xl">👑</span>
                         <div>
-                            <h2 class="text-2xl font-cinzel font-bold text-amber-400 uppercase tracking-wide">
-                                Pannello Admin
-                            </h2>
-                            <p class="text-amber-300 text-sm">Gestisci utenti e ruoli</p>
+                            <h2 class="text-2xl font-cinzel font-bold text-amber-400 uppercase tracking-wide" data-i18n="settings.adminTitle">Pannello Admin</h2>
+                            <p class="text-amber-300 text-sm" data-i18n="settings.adminSubtitle">Gestisci utenti e ruoli</p>
                         </div>
                     </div>
-
-                    <!-- Lista Utenti -->
                     <div class="bg-slate-900/60 rounded-lg p-4 md:p-6 border border-amber-500/20">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-bold text-amber-400 flex items-center gap-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                </svg>
-                                Utenti Registrati
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                                <span data-i18n="settings.registeredUsers">Utenti Registrati</span>
                             </h3>
                             <button id="refreshUsersBtn" class="text-amber-400 hover:text-amber-300 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                                </svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
                             </button>
                         </div>
-
                         <div id="usersListContainer">
                             <div class="text-center py-8 text-slate-400">
-                                <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                                </svg>
-                                <p>Caricamento utenti...</p>
+                                <p data-i18n="settings.loadingUsers">Caricamento utenti...</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- CARD PROFILO UTENTE -->
+            <!-- PROFILO UTENTE -->
             <div class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
                 <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Profilo Utente
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    <span data-i18n="settings.profileTitle">Profilo Utente</span>
                 </h3>
-                
                 <div class="space-y-3 md:space-y-4">
                     <div>
-                        <label for="profileName" class="block text-sm font-semibold mb-2">Nome Visualizzato</label>
-                        <input 
-                            type="text" 
-                            id="profileName" 
-                            placeholder="Es: Marco Aurelio o Emanuel82"
-                            maxlength="30"
-                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all"
-                        >
+                        <label for="profileName" class="block text-sm font-semibold mb-2" data-i18n="settings.displayName">Nome Visualizzato</label>
+                        <input type="text" id="profileName" data-i18n-placeholder="settings.namePlaceholder" placeholder="Es: Marco Aurelio o Emanuel82" maxlength="30" class="parchment-input w-full px-4 py-3 rounded-lg font-medium transition-all">
                         <p id="nameError" class="error-message"></p>
-                        <p class="text-xs text-amber-700 mt-1">Minimo 2 caratteri, massimo 30. Puoi usare lettere, numeri, spazi, apostrofi e trattini</p>
+                        <p class="text-xs text-amber-700 mt-1" data-i18n="settings.nameHint">Minimo 2 caratteri, massimo 30. Puoi usare lettere, numeri, spazi, apostrofi e trattini</p>
                     </div>
-                    
                     <div>
-                        <label for="profileEmail" class="block text-sm font-semibold mb-2">Email</label>
-                        <input 
-                            type="email" 
-                            id="profileEmail" 
-                            disabled
-                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium"
-                        >
-                        <p class="text-xs text-amber-800 mt-1">L'email non può essere modificata direttamente</p>
+                        <label for="profileEmail" class="block text-sm font-semibold mb-2" data-i18n="settings.email">Email</label>
+                        <input type="email" id="profileEmail" disabled class="parchment-input w-full px-4 py-3 rounded-lg font-medium">
+                        <p class="text-xs text-amber-800 mt-1" data-i18n="settings.emailNote">L'email non può essere modificata direttamente</p>
                     </div>
-                    
                     <button id="saveProfileBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn disabled:opacity-50 disabled:cursor-not-allowed">
-                        <span id="saveBtnText">💾 Salva Profilo</span>
+                        <span id="saveBtnText" data-i18n="settings.saveProfile">💾 Salva Profilo</span>
                     </button>
                 </div>
             </div>
 
-            <!-- CARD SICUREZZA -->
+            <!-- SICUREZZA -->
             <div class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
                 <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    Sicurezza
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                    <span data-i18n="settings.securityTitle">Sicurezza</span>
                 </h3>
-                
                 <div class="space-y-3 md:space-y-4">
-                    <p class="text-sm text-amber-900">
-                        Riceverai un'email con un link sicuro per reimpostare la tua password.
-                    </p>
-                    
+                    <p class="text-sm text-amber-900" data-i18n="settings.securityDesc">Riceverai un'email con un link sicuro per reimpostare la tua password.</p>
                     <div>
-                        <label for="resetEmail" class="block text-sm font-semibold mb-2">Email per Reset Password</label>
-                        <input 
-                            type="email" 
-                            id="resetEmail" 
-                            disabled
-                            class="parchment-input w-full px-4 py-3 rounded-lg font-medium"
-                        >
+                        <label for="resetEmail" class="block text-sm font-semibold mb-2" data-i18n="settings.resetEmailLabel">Email per Reset Password</label>
+                        <input type="email" id="resetEmail" disabled class="parchment-input w-full px-4 py-3 rounded-lg font-medium">
                     </div>
-                    
-                    <button id="resetPasswordBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn">
+                    <button id="resetPasswordBtn" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-6 py-3 rounded-lg transition-all font-bold text-sm w-full md:w-auto mobile-btn" data-i18n="settings.resetBtn">
                         📧 Invia Email per Cambio Password
                     </button>
                 </div>
             </div>
 
-            <!-- CARD PRIVACY & ACCOUNT -->
+            <!-- PRIVACY & ACCOUNT -->
             <div class="parchment-card rounded-lg p-4 md:p-6 mb-4 md:mb-6">
                 <h3 class="text-lg md:text-xl font-cinzel font-bold mb-4 md:mb-6 uppercase tracking-wide flex items-center gap-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                    </svg>
-                    Privacy & Gestione Dati
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span data-i18n="settings.privacyTitle">Privacy &amp; Gestione Dati</span>
                 </h3>
-                
                 <div class="space-y-3 md:space-y-4">
                     <div class="bg-amber-50 border-l-4 border-amber-600 p-3 md:p-4 rounded">
                         <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>📋 Dati Memorizzati:</strong><br>
-                            Raccogliamo e conserviamo: nome utente, indirizzo email, riflessioni quotidiane e data di registrazione. Questi dati sono utilizzati esclusivamente per il funzionamento dell'applicazione e per fornire il servizio richiesto.
+                            <strong data-i18n="settings.privacyData">📋 Dati Memorizzati:</strong><br>
+                            <span data-i18n="settings.privacyDataDesc">Raccogliamo e conserviamo: nome utente, indirizzo email, riflessioni quotidiane e data di registrazione. Questi dati sono utilizzati esclusivamente per il funzionamento dell'applicazione e per fornire il servizio richiesto.</span>
                         </p>
                         <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>🔒 Base Giuridica (GDPR):</strong><br>
-                            Il trattamento dei tuoi dati personali si basa sull'<strong>esecuzione del contratto</strong> (Art. 6.1.b Regolamento UE 2016/679) e sul <strong>consenso esplicito</strong> (Art. 6.1.a) fornito durante la registrazione.
+                            <strong data-i18n="settings.privacyLegal">🔒 Base Giuridica (GDPR):</strong><br>
+                            <span data-i18n="settings.privacyLegalDesc">Il trattamento dei tuoi dati personali si basa sull'esecuzione del contratto (Art. 6.1.b GDPR) e sul consenso esplicito (Art. 6.1.a) fornito durante la registrazione.</span>
                         </p>
                         <p class="text-sm text-amber-900 leading-relaxed mb-2 md:mb-3">
-                            <strong>⚖️ I Tuoi Diritti:</strong><br>
-                            Ai sensi degli articoli 15-22 del GDPR, hai diritto di: <strong>accedere</strong> ai tuoi dati, <strong>rettificarli</strong>, <strong>cancellarli</strong> (diritto all'oblio), <strong>limitarne il trattamento</strong>, <strong>opporti al trattamento</strong> e richiedere la <strong>portabilità dei dati</strong>.
+                            <strong data-i18n="settings.privacyRights">⚖️ I Tuoi Diritti:</strong><br>
+                            <span data-i18n="settings.privacyRightsDesc">Ai sensi degli articoli 15-22 del GDPR, hai diritto di accedere, rettificare, cancellare, limitare, opporti al trattamento e richiedere la portabilità dei tuoi dati.</span>
                         </p>
                         <p class="text-sm text-amber-900 leading-relaxed">
-                            <strong>🗄️ Conservazione:</strong><br>
-                            I dati sono conservati per tutta la durata dell'account attivo. Alla cancellazione dell'account, i dati vengono eliminati entro <strong>30 giorni</strong>, salvo obblighi di legge (Art. 17.3 GDPR).
+                            <strong data-i18n="settings.privacyStorage">🗄️ Conservazione:</strong><br>
+                            <span data-i18n="settings.privacyStorageDesc">I dati sono conservati per tutta la durata dell'account attivo. Alla cancellazione, i dati vengono eliminati entro 30 giorni (Art. 17.3 GDPR).</span>
                         </p>
                     </div>
-                    
                     <div class="pt-2">
-                        <p class="text-xs text-amber-800 mb-3 italic">
-                            ⚠️ La cancellazione dell'account è un'azione permanente e irreversibile.
-                        </p>
-                        <button id="deleteAccountBtn" class="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg transition-all font-medium text-sm w-full mobile-btn border border-slate-500">
+                        <p class="text-xs text-amber-800 mb-3 italic" data-i18n="settings.deleteWarning">⚠️ La cancellazione dell'account è un'azione permanente e irreversibile.</p>
+                        <button id="deleteAccountBtn" class="bg-slate-600 hover:bg-slate-700 text-white px-6 py-3 rounded-lg transition-all font-medium text-sm w-full mobile-btn border border-slate-500" data-i18n="settings.deleteBtn">
                             🗑️ Elimina Account
                         </button>
                     </div>
@@ -522,16 +293,17 @@
         </main>
     </div>
 
-    <!-- TOAST NOTIFICATION -->
+    <!-- TOAST -->
     <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 border border-amber-500 text-amber-400 px-6 py-3 rounded-lg shadow-2xl transform translate-y-32 transition-transform duration-300 z-50 max-w-sm">
         <p id="toastMessage" class="text-sm font-medium"></p>
     </div>
 
-    <!-- JAVASCRIPT -->
+    <!-- ========== SCRIPTS — ORDINE CRITICO ========== -->
+    <script src="language-manager.js"></script>
     <script>
 (function() {
     'use strict';
-    
+
     const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -540,404 +312,227 @@
     let currentUserRole = null;
     let currentUserProfile = null;
 
-    // INIZIALIZZAZIONE
     document.addEventListener('DOMContentLoaded', async () => {
-        console.log('⚙️ Impostazioni: Verifico autenticazione...');
-        
         try {
             const { data: { session }, error } = await sbClient.auth.getSession();
-            
-            if (!session || error) {
-                console.warn('❌ Nessuna sessione attiva, redirect a login');
-                window.location.href = 'accedi.html';
-                return;
-            }
-
+            if (!session || error) { window.location.href = 'accedi.html'; return; }
             currentUser = session.user;
-            console.log('✅ Utente autenticato:', currentUser.id);
-
             await loadUserData();
             loadProgressData();
             setupEventListeners();
-            
+
+            // Re-applica traduzioni dopo caricamento dati
+            setTimeout(() => {
+                const lang = localStorage.getItem('preferredLanguage') || 'it';
+                if (lang !== 'it' && window.applyTranslations) window.applyTranslations(lang);
+            }, 200);
         } catch (error) {
-            console.error('❌ Errore verifica sessione:', error);
             window.location.href = 'accedi.html';
         }
     });
 
-    // CARICA DATI UTENTE CON RUOLO
+    function getLang(key) {
+        const lang = localStorage.getItem('preferredLanguage') || 'it';
+        return lang;
+    }
+
     async function loadUserData() {
         let displayName = 'Stoico';
-        
         try {
-            const { data: profile, error } = await sbClient
-                .from('profiles')
-                .select('name, role, trial_ends_at, is_trial_expired')
-                .eq('id', currentUser.id)
-                .single();
-            
-            if (!error && profile) {
+            const { data: profile } = await sbClient.from('profiles').select('name, role, trial_ends_at, is_trial_expired').eq('id', currentUser.id).single();
+            if (profile) {
                 displayName = profile.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'Stoico';
                 currentUserProfile = profile;
                 currentUserRole = profile.role || 'vip';
-                
-                console.log('✅ Profilo caricato:', { name: displayName, role: currentUserRole });
-                
-                // Mostra badge ruolo
                 updateRoleBadge(currentUserRole, profile);
-                
-                // ✅ MODIFICA CRITICA: Se è master, mostra pannello admin
                 if (currentUserRole === 'master') {
-                    console.log('🔓 Utente MASTER - Attivo pannello admin');
                     document.getElementById('adminPanel').classList.remove('hidden');
                     await loadAllUsers();
                 }
-            } else {
-                displayName = currentUser.user_metadata?.full_name || 
-                             currentUser.user_metadata?.name || 
-                             currentUser.email?.split('@')[0] || 
-                             'Stoico';
-                console.log('✅ Nome caricato da metadata:', displayName);
             }
-        } catch (err) {
-            console.error('❌ Errore caricamento profilo:', err);
-            displayName = currentUser.user_metadata?.full_name || 
-                         currentUser.email?.split('@')[0] || 
-                         'Stoico';
-        }
+        } catch (err) { console.error('Errore loadUserData:', err); }
 
         document.getElementById('userName').textContent = displayName;
-        document.getElementById('profileName').value = displayName;
-        document.getElementById('profileEmail').value = currentUser.email;
-        document.getElementById('resetEmail').value = currentUser.email;
+        const emailEl = document.getElementById('profileEmail');
+        const resetEl = document.getElementById('resetEmail');
+        const nameEl  = document.getElementById('profileName');
+        if (emailEl) emailEl.value = currentUser.email || '';
+        if (resetEl) resetEl.value = currentUser.email || '';
+        if (nameEl)  nameEl.value  = displayName !== 'Stoico' ? displayName : '';
 
-        console.log('👤 Dati caricati:', { displayName, email: currentUser.email });
+        const mobileStreak = document.getElementById('mobileStreak');
+        if (mobileStreak) await loadProgressData();
     }
 
-    // NUOVO: Aggiorna badge ruolo
     function updateRoleBadge(role, profile) {
-        const badgeContainer = document.getElementById('roleBadge');
-        const roleIcon = document.getElementById('roleIcon');
-        const roleText = document.getElementById('roleText');
-
-        if (!role) {
-            badgeContainer.classList.add('hidden');
-            return;
+        const badge = document.getElementById('roleBadge');
+        const icon  = document.getElementById('roleIcon');
+        const text  = document.getElementById('roleText');
+        if (!badge) return;
+        badge.classList.remove('master','pro','vip','vip-expired');
+        if (role === 'master') { badge.classList.add('master'); icon.textContent='♛'; text.textContent='MASTER'; }
+        else if (role === 'pro') { badge.classList.add('pro'); icon.textContent='💎'; text.textContent='PRO'; }
+        else if (role === 'vip') {
+            if (profile?.is_trial_expired) { badge.classList.add('vip-expired'); icon.textContent='⌛'; text.textContent='TRIAL SCADUTO'; }
+            else { badge.classList.add('vip'); icon.textContent='★'; text.textContent='VIP'; }
         }
-
-        badgeContainer.classList.remove('master', 'pro', 'vip', 'vip-expired');
-
-        if (role === 'master') {
-            badgeContainer.classList.add('master');
-            roleIcon.textContent = '👑';
-            roleText.textContent = 'MASTER';
-        } else if (role === 'pro') {
-            badgeContainer.classList.add('pro');
-            roleIcon.textContent = '⭐';
-            roleText.textContent = 'PRO';
-        } else if (role === 'vip') {
-            if (profile?.is_trial_expired === true) {
-                badgeContainer.classList.add('vip-expired');
-                roleIcon.textContent = '⏰';
-                roleText.textContent = 'TRIAL SCADUTO';
-            } else {
-                badgeContainer.classList.add('vip');
-                roleIcon.textContent = '🎁';
-                roleText.textContent = 'VIP';
-            }
-        }
-
-        badgeContainer.classList.remove('hidden');
+        badge.classList.remove('hidden');
     }
 
-    // NUOVO: Carica tutti gli utenti (solo master)
-   async function loadAllUsers() {
-  console.log("Caricamento utenti...");
-  try {
-    const { data: users, error } = await sbClient
-      .rpc('get_all_users');
+    async function loadProgressData() {
+        try {
+            const { data: reflections } = await sbClient.from('reflections').select('date').eq('user_id', currentUser.id).order('date', { ascending: false });
+            const streak = calculateStreak(reflections);
+            const headerEl = document.getElementById('headerStreak');
+            const mobileEl = document.getElementById('mobileStreak');
+            if (headerEl) headerEl.textContent = streak;
+            if (mobileEl) mobileEl.textContent = streak;
+        } catch (error) { console.error('Errore progresso:', error); }
+    }
 
-    if (error) throw error;
-    console.log('Utenti caricati:', users?.length || 0);
-    renderUsersList(users);
-  } catch (error) {
-    console.error('Errore caricamento utenti:', error);
-    document.getElementById('usersListContainer').innerHTML = `
-      <div class="text-center py-8 text-red-400">
-        <p>Errore caricamento utenti</p>
-        <p class="text-sm mt-2">${error.message}</p>
-      </div>
-    `;
-  }
-}
+    function calculateStreak(reflections) {
+        if (!reflections || reflections.length === 0) return 0;
+        const today = new Date().toISOString().split('T')[0];
+        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+        const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
+        if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
+        let streak = 0;
+        let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
+        for (const dateStr of uniqueDates) {
+            const refDate = new Date(dateStr); const expectedDate = new Date(currentDate);
+            expectedDate.setHours(0,0,0,0); refDate.setHours(0,0,0,0);
+            if (refDate.getTime() === expectedDate.getTime()) { streak++; currentDate = new Date(currentDate.getTime() - 86400000); }
+            else break;
+        }
+        return streak;
+    }
 
+    // Carica tutti gli utenti tramite RPC Supabase (solo master)
+    async function loadAllUsers() {
+        console.log("Caricamento utenti...");
+        try {
+            const { data: users, error } = await sbClient.rpc('get_all_users');
+            if (error) throw error;
+            console.log('Utenti caricati:', users?.length || 0);
+            renderUsersList(users);
+        } catch (error) {
+            console.error('Errore caricamento utenti:', error);
+            document.getElementById('usersListContainer').innerHTML = `
+                <div class="text-center py-8 text-red-400">
+                    <p>Errore caricamento utenti</p>
+                    <p class="text-sm mt-2">${error.message}</p>
+                </div>`;
+        }
+    }
 
-    // NUOVO: Renderizza lista utenti
+    // Renderizza lista utenti con info trial e bottoni azione
     function renderUsersList(users) {
         const container = document.getElementById('usersListContainer');
-        
-        if (users.length === 0) {
-            container.innerHTML = `
-                <div class="text-center py-8 text-slate-400">
-                    <p>Nessun utente registrato</p>
-                </div>
-            `;
+        const lang = localStorage.getItem('preferredLanguage') || 'it';
+
+        if (!users || users.length === 0) {
+            container.innerHTML = `<div class="text-center py-8 text-slate-400"><p>${lang === 'en' ? 'No users found' : 'Nessun utente registrato'}</p></div>`;
             return;
         }
 
-        const usersHTML = users.map(user => {
-            const roleIcons = {
-                master: '👑',
-                pro: '⭐',
-                vip: '🎁'
-            };
-            
-            const roleColors = {
-                master: 'text-amber-400',
-                pro: 'text-purple-400',
-                vip: 'text-blue-400'
-            };
+        const roleIcons  = { master: '👑', pro: '⭐', vip: '🎁' };
+        const roleColors = { master: 'text-amber-400', pro: 'text-purple-400', vip: 'text-blue-400' };
 
+        const usersHTML = users.map(user => {
             const isExpired = user.role === 'vip' && user.is_trial_expired;
-            const trialInfo = user.trial_ends_at ? 
-                `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">
-                    ${isExpired ? '⏰ Scaduto' : '✅ Attivo fino al ' + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}
-                </span>` : 
-                '<span class="text-xs text-slate-500">Illimitato</span>';
+            const trialInfo = user.trial_ends_at
+                ? `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">
+                       ${isExpired
+                           ? (lang === 'en' ? '⏰ Expired' : '⏰ Scaduto')
+                           : (lang === 'en' ? '✅ Active until ' : '✅ Attivo fino al ') + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}
+                   </span>`
+                : `<span class="text-xs text-slate-500">${lang === 'en' ? 'Unlimited' : 'Illimitato'}</span>`;
 
             return `
                 <div class="user-row flex items-center justify-between p-4 bg-slate-800/40 rounded-lg mb-3">
                     <div class="flex-1">
                         <div class="flex items-center gap-2 mb-1">
-                            <span class="text-2xl">${roleIcons[user.role]}</span>
-                            <span class="font-bold text-slate-200">${user.name || 'Utente senza nome'}</span>
-                            <span class="text-xs ${roleColors[user.role]} uppercase font-bold">${user.role}</span>
+                            <span class="text-2xl">${roleIcons[user.role] || '👤'}</span>
+                            <span class="font-bold text-slate-200">${user.name || (lang === 'en' ? 'Unnamed user' : 'Utente senza nome')}</span>
+                            <span class="text-xs ${roleColors[user.role] || 'text-slate-400'} uppercase font-bold">${user.role}</span>
                         </div>
                         <div class="text-xs text-slate-400">
                             ID: ${user.id.substring(0, 8)}... • ${trialInfo}
                         </div>
                     </div>
                     ${user.id !== currentUser.id ? `
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 flex-wrap">
                             ${user.role !== 'pro' ? `
-                                <button 
-                                    onclick="window.changeUserRole('${user.id}', 'pro')"
+                                <button onclick="window.changeUserRole('${user.id}', 'pro')"
                                     class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
-                                    title="Promuovi a PRO"
-                                >
+                                    title="${lang === 'en' ? 'Promote to PRO' : 'Promuovi a PRO'}">
                                     ⭐ PRO
-                                </button>
-                            ` : ''}
+                                </button>` : ''}
                             ${user.role !== 'vip' ? `
-                                <button 
-                                    onclick="window.changeUserRole('${user.id}', 'vip')"
+                                <button onclick="window.changeUserRole('${user.id}', 'vip')"
                                     class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
-                                    title="Riporta a VIP"
-                                >
+                                    title="${lang === 'en' ? 'Set to VIP' : 'Riporta a VIP'}">
                                     🎁 VIP
-                                </button>
-                            ` : ''}
+                                </button>` : ''}
                             ${user.trial_ends_at ? `
-                                <button 
-                                    onclick="window.setUnlimitedVIP('${user.id}')"
+                                <button onclick="window.setUnlimitedVIP('${user.id}')"
                                     class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-bold transition-all"
-                                    title="VIP Illimitato (amici/parenti)"
-                                >
+                                    title="${lang === 'en' ? 'Unlimited VIP (friends/family)' : 'VIP Illimitato (amici/parenti)'}">
                                     ♾️ VIP∞
-                                </button>
-                            ` : ''}
+                                </button>` : ''}
                         </div>
-                    ` : `
-                        <span class="text-amber-400 text-xs font-bold">TU</span>
-                    `}
-                </div>
-            `;
+                    ` : `<span class="text-amber-400 text-xs font-bold">${lang === 'en' ? 'YOU' : 'TU'}</span>`}
+                </div>`;
         }).join('');
 
         container.innerHTML = usersHTML;
     }
 
-    // NUOVO: Cambia ruolo utente
-    window.changeUserRole = async function(userId, newRole) {
-        if (!confirm(`Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`)) {
-            return;
-        }
-
-        console.log(`🔄 Cambio ruolo utente ${userId} → ${newRole}`);
-
-        try {
-            const { error } = await sbClient
-                .from('profiles')
-                .update({ 
-                    role: newRole,
-                    trial_ends_at: null,
-                    is_trial_expired: false
-                })
-                .eq('id', userId);
-
-            if (error) throw error;
-
-            showToast(`✅ Ruolo aggiornato a ${newRole.toUpperCase()}!`, 'success');
-            await loadAllUsers();
-
-        } catch (error) {
-            console.error('❌ Errore cambio ruolo:', error);
-            showToast('❌ Errore: ' + error.message, 'error');
-        }
-    };
-
-    // NUOVO: Imposta VIP illimitato (amici/parenti)
-    window.setUnlimitedVIP = async function(userId) {
-        if (!confirm('Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?')) {
-            return;
-        }
-
-        console.log(`♾️ Imposto VIP illimitato per ${userId}`);
-
-        try {
-            const { error } = await sbClient
-                .from('profiles')
-                .update({ 
-                    role: 'vip',
-                    trial_ends_at: null,
-                    is_trial_expired: false
-                })
-                .eq('id', userId);
-
-            if (error) throw error;
-
-            showToast('✅ Utente impostato come VIP ILLIMITATO!', 'success');
-            await loadAllUsers();
-
-        } catch (error) {
-            console.error('❌ Errore:', error);
-            showToast('❌ Errore: ' + error.message, 'error');
-        }
-    };
-
-    // CARICA STREAK
-    async function loadProgressData() {
-        try {
-            const { data: reflections, error } = await sbClient
-                .from('reflections')
-                .select('date')
-                .eq('user_id', currentUser.id)
-                .order('date', { ascending: false });
-
-            if (error) throw error;
-
-            const streak = calculateStreak(reflections || []);
-            document.getElementById('headerStreak').textContent = streak;
-            document.getElementById('mobileStreak').textContent = streak;
-
-        } catch (error) {
-            console.error('❌ Errore caricamento progresso:', error);
-        }
-    }
-
-    // CALCOLA STREAK
-    function calculateStreak(reflections) {
-        if (!reflections || reflections.length === 0) return 0;
-
-        const today = new Date().toISOString().split('T')[0];
-        const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-        
-        const uniqueDates = [...new Set(reflections.map(r => r.date))].sort().reverse();
-        
-        if (uniqueDates[0] !== today && uniqueDates[0] !== yesterday) return 0;
-
-        let streak = 0;
-        let currentDate = uniqueDates[0] === today ? new Date() : new Date(Date.now() - 86400000);
-
-        for (const dateStr of uniqueDates) {
-            const refDate = new Date(dateStr);
-            const expectedDate = new Date(currentDate);
-            expectedDate.setHours(0, 0, 0, 0);
-            refDate.setHours(0, 0, 0, 0);
-
-            if (refDate.getTime() === expectedDate.getTime()) {
-                streak++;
-                currentDate = new Date(currentDate.getTime() - 86400000);
-            } else {
-                break;
-            }
-        }
-
-        return streak;
-    }
-
-    // VALIDAZIONE NOME
     function validateName(name) {
         const nameInput = document.getElementById('profileName');
-        const errorMsg = document.getElementById('nameError');
-        
+        const errorMsg  = document.getElementById('nameError');
+        const lang = getLang();
         name = name.trim();
-        
         if (name.length < 2) {
             nameInput.classList.add('error');
-            errorMsg.textContent = '❌ Nome troppo corto (minimo 2 caratteri)';
-            errorMsg.classList.add('active');
-            return false;
+            errorMsg.textContent = lang === 'en' ? '❌ Name too short (min 2 chars)' : '❌ Nome troppo corto (minimo 2 caratteri)';
+            errorMsg.classList.add('active'); return false;
         }
-        
         if (name.length > 30) {
             nameInput.classList.add('error');
-            errorMsg.textContent = '❌ Nome troppo lungo (massimo 30 caratteri)';
-            errorMsg.classList.add('active');
-            return false;
+            errorMsg.textContent = lang === 'en' ? '❌ Name too long (max 30 chars)' : '❌ Nome troppo lungo (massimo 30 caratteri)';
+            errorMsg.classList.add('active'); return false;
         }
-        
-        const regex = /^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/;
-        if (!regex.test(name)) {
+        if (!/^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/.test(name)) {
             nameInput.classList.add('error');
-            errorMsg.textContent = '❌ Solo lettere, numeri, spazi, apostrofi e trattini';
-            errorMsg.classList.add('active');
-            return false;
+            errorMsg.textContent = lang === 'en' ? '❌ Only letters, numbers, spaces, apostrophes and hyphens' : '❌ Solo lettere, numeri, spazi, apostrofi e trattini';
+            errorMsg.classList.add('active'); return false;
         }
-        
         nameInput.classList.remove('error');
         errorMsg.classList.remove('active');
         return true;
     }
 
-    // SETUP EVENT LISTENERS
     function setupEventListeners() {
         // Mobile menu
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const mobileSidebar = document.getElementById('mobileSidebar');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileSidebar.classList.add('active');
-            mobileMenuOverlay.classList.add('active');
-        });
-
-        function closeMobileMenuFunc() {
-            mobileSidebar.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-        }
-
-        closeMobileMenu.addEventListener('click', closeMobileMenuFunc);
-        mobileMenuOverlay.addEventListener('click', closeMobileMenuFunc);
+        const mobileMenuBtn    = document.getElementById('mobileMenuBtn');
+        const closeMobileMenu  = document.getElementById('closeMobileMenu');
+        const mobileMenuOverlay= document.getElementById('mobileMenuOverlay');
+        const mobileSidebar    = document.getElementById('mobileSidebar');
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => { mobileSidebar.classList.add('active'); mobileMenuOverlay.classList.add('active'); });
+        function closeFn() { mobileSidebar.classList.remove('active'); mobileMenuOverlay.classList.remove('active'); }
+        if (closeMobileMenu) closeMobileMenu.addEventListener('click', closeFn);
+        if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeFn);
 
         // Logout
         document.getElementById('logoutBtn').addEventListener('click', async () => {
-            console.log('👋 Logout...');
-            await sbClient.auth.signOut();
-            window.location.href = 'index.html';
+            await sbClient.auth.signOut(); window.location.href = 'index.html';
         });
 
-        // Validazione in tempo reale
+        // Validazione nome
         document.getElementById('profileName').addEventListener('input', (e) => {
-            const name = e.target.value;
-            if (name.length > 0) {
-                validateName(name);
-            } else {
-                document.getElementById('profileName').classList.remove('error');
-                document.getElementById('nameError').classList.remove('active');
-            }
+            if (e.target.value.length > 0) validateName(e.target.value);
+            else { document.getElementById('profileName').classList.remove('error'); document.getElementById('nameError').classList.remove('active'); }
         });
 
         // Salva profilo
@@ -945,145 +540,118 @@
             const newName = document.getElementById('profileName').value.trim();
             const saveBtn = document.getElementById('saveProfileBtn');
             const saveBtnText = document.getElementById('saveBtnText');
-            
-            if (!newName) {
-                showToast('⚠️ Inserisci un nome', 'error');
-                return;
-            }
-            
-            if (!validateName(newName)) {
-                showToast('⚠️ Correggi gli errori prima di salvare', 'error');
-                return;
-            }
-
+            const lang = getLang();
+            if (!newName) { showToast(lang === 'en' ? '⚠️ Enter a name' : '⚠️ Inserisci un nome', 'error'); return; }
+            if (!validateName(newName)) { showToast(lang === 'en' ? '⚠️ Fix errors before saving' : '⚠️ Correggi gli errori prima di salvare', 'error'); return; }
             try {
                 saveBtn.disabled = true;
-                saveBtnText.innerHTML = '<span class="spinner"></span> Salvataggio...';
-                console.log('⏳ Inizio salvataggio...');
-
-                const { error } = await sbClient
-                    .from('profiles')
-                    .update({ name: newName })
-                    .eq('id', currentUser.id);
-
+                saveBtnText.innerHTML = '<span class="spinner"></span>';
+                const { error } = await sbClient.from('profiles').update({ name: newName }).eq('id', currentUser.id);
                 if (error) throw error;
-
-                console.log('✅ Nome salvato in profiles:', newName);
                 document.getElementById('userName').textContent = newName;
-                
-                saveBtnText.textContent = '💾 Salva Profilo';
+                saveBtnText.textContent = lang === 'en' ? '💾 Save Profile' : '💾 Salva Profilo';
                 saveBtn.disabled = false;
-                
-                showToast('✅ Profilo aggiornato con successo!', 'success');
-
+                showToast(lang === 'en' ? '✅ Profile updated!' : '✅ Profilo aggiornato con successo!', 'success');
             } catch (error) {
-                console.error('❌ Errore aggiornamento profilo:', error);
-                
-                saveBtnText.textContent = '💾 Salva Profilo';
+                saveBtnText.textContent = lang === 'en' ? '💾 Save Profile' : '💾 Salva Profilo';
                 saveBtn.disabled = false;
-                
-                showToast('❌ Errore: ' + error.message, 'error');
+                showToast('❌ ' + error.message, 'error');
             }
         });
 
-        // Reset password con conferma
+        // Reset password
         document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
             const email = currentUser.email;
-            
-            const confirmReset = window.confirm(
-                `📧 Reset Password\n\n` +
-                `L'email sarà inviata a:\n${email}\n\n` +
-                `Clicca OK per confermare.`
-            );
-            
-            if (!confirmReset) {
-                console.log('⚠️ Reset password annullato dall\'utente');
-                showToast('❌ Operazione annullata', 'info');
-                return;
-            }
-            
+            const lang = getLang();
+            const confirmMsg = lang === 'en'
+                ? `📧 Reset Password\n\nEmail will be sent to:\n${email}\n\nClick OK to confirm.`
+                : `📧 Reset Password\n\nL'email sarà inviata a:\n${email}\n\nClicca OK per confermare.`;
+            if (!window.confirm(confirmMsg)) { showToast(lang === 'en' ? '❌ Cancelled' : '❌ Operazione annullata', 'info'); return; }
             try {
-                const { error } = await sbClient.auth.resetPasswordForEmail(email, {
-                    redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html'
-                });
-
+                const { error } = await sbClient.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html' });
                 if (error) throw error;
-
-                showToast('✅ Email inviata! Controlla la tua casella', 'success');
-                console.log('✅ Email reset inviata a:', email);
-
-            } catch (error) {
-                console.error('❌ Errore reset password:', error);
-                showToast('❌ Errore: ' + error.message, 'error');
-            }
+                showToast(lang === 'en' ? '✅ Email sent! Check your inbox' : '✅ Email inviata! Controlla la tua casella', 'success');
+            } catch (error) { showToast('❌ ' + error.message, 'error'); }
         });
 
-        // ELIMINA ACCOUNT CON DOPPIA CONFERMA
+        // Elimina account
         document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-            const confirm1 = window.confirm(
-                '⚠️ ATTENZIONE: Cancellazione Account\n\n' +
-                'Questa azione eliminerà permanentemente:\n' +
-                '• Il tuo profilo utente\n' +
-                '• Tutte le tue riflessioni\n' +
-                '• I tuoi progressi e statistiche\n\n' +
-                'Questa operazione NON è reversibile.\n\n' +
-                'Vuoi procedere?'
-            );
-            
-            if (confirm1) {
-                const confirm2 = window.confirm(
-                    '❗ ULTIMA CONFERMA\n\n' +
-                    'Sei assolutamente sicuro di voler eliminare il tuo account?\n\n' +
-                    'Clicca OK per confermare la cancellazione definitiva.'
-                );
-                
-                if (confirm2) {
-                    showToast('🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
-                    console.log('⚠️ Richiesta eliminazione account per:', currentUser.email);
+            const lang = getLang();
+            const msg1 = lang === 'en'
+                ? '⚠️ WARNING: Account Deletion\n\nThis will permanently delete:\n• Your user profile\n• All your reflections\n• Your progress and statistics\n\nThis cannot be undone.\n\nContinue?'
+                : '⚠️ ATTENZIONE: Cancellazione Account\n\nQuesta azione eliminerà permanentemente:\n• Il tuo profilo utente\n• Tutte le tue riflessioni\n• I tuoi progressi e statistiche\n\nQuesta operazione NON è reversibile.\n\nVuoi procedere?';
+            if (window.confirm(msg1)) {
+                const msg2 = lang === 'en' ? '❗ FINAL CONFIRMATION\n\nAre you absolutely sure?\n\nClick OK to confirm permanent deletion.' : '❗ ULTIMA CONFERMA\n\nSei assolutamente sicuro?\n\nClicca OK per confermare la cancellazione definitiva.';
+                if (window.confirm(msg2)) {
+                    showToast(lang === 'en' ? '🗑️ Request received. Account will be deleted within 48 hours.' : '🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info');
                 }
             }
         });
 
-        // NUOVO: Refresh utenti (solo master)
+        // Refresh utenti (solo master)
         const refreshBtn = document.getElementById('refreshUsersBtn');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', async () => {
-                showToast('🔄 Aggiornamento lista utenti...', 'info');
-                await loadAllUsers();
-            });
-        }
+        if (refreshBtn) refreshBtn.addEventListener('click', async () => { await loadAllUsers(); });
     }
 
-    // Toast
     function showToast(message, type = 'success') {
         const toast = document.getElementById('toast');
         const toastMessage = document.getElementById('toastMessage');
-        
-        if (type === 'error') {
-            toast.classList.remove('border-amber-500', 'text-amber-400');
-            toast.classList.add('border-red-500', 'text-red-400');
-        } else if (type === 'info') {
-            toast.classList.remove('border-amber-500', 'text-amber-400');
-            toast.classList.add('border-blue-500', 'text-blue-400');
-        } else {
-            toast.classList.remove('border-red-500', 'text-red-400', 'border-blue-500', 'text-blue-400');
-            toast.classList.add('border-amber-500', 'text-amber-400');
-        }
-        
+        toast.classList.remove('border-amber-500','text-amber-400','border-red-500','text-red-400','border-blue-500','text-blue-400');
+        if (type === 'error')      { toast.classList.add('border-red-500','text-red-400'); }
+        else if (type === 'info')  { toast.classList.add('border-blue-500','text-blue-400'); }
+        else                       { toast.classList.add('border-amber-500','text-amber-400'); }
         toastMessage.textContent = message;
         toast.classList.remove('hiding');
         toast.style.transform = 'translateY(0)';
-        
-        setTimeout(() => {
-            toast.classList.add('hiding');
-        }, 5500);
-        
-        setTimeout(() => {
-            toast.style.transform = 'translateY(8rem)';
-            toast.classList.remove('hiding');
-        }, 6000);
+        setTimeout(() => { toast.classList.add('hiding'); }, 5500);
+        setTimeout(() => { toast.style.transform = 'translateY(8rem)'; toast.classList.remove('hiding'); }, 6000);
     }
-    
+
+    // Cambia ruolo utente (con reset trial)
+    window.changeUserRole = async function(userId, newRole) {
+        const lang = getLang();
+        const confirmMsg = lang === 'en'
+            ? `Confirm changing this user's role to ${newRole.toUpperCase()}?`
+            : `Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`;
+        if (!confirm(confirmMsg)) return;
+
+        console.log(`🔄 Cambio ruolo utente ${userId} → ${newRole}`);
+        try {
+            const { error } = await sbClient.from('profiles')
+                .update({ role: newRole, trial_ends_at: null, is_trial_expired: false })
+                .eq('id', userId);
+            if (error) throw error;
+            showToast(lang === 'en' ? `✅ Role updated to ${newRole.toUpperCase()}!` : `✅ Ruolo aggiornato a ${newRole.toUpperCase()}!`, 'success');
+            await loadAllUsers();
+        } catch (error) {
+            console.error('❌ Errore cambio ruolo:', error);
+            showToast('❌ ' + error.message, 'error');
+        }
+    };
+
+    // Imposta VIP illimitato (amici/parenti)
+    window.setUnlimitedVIP = async function(userId) {
+        const lang = getLang();
+        const confirmMsg = lang === 'en'
+            ? 'Confirm setting this user as UNLIMITED VIP (friends/family)?'
+            : 'Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?';
+        if (!confirm(confirmMsg)) return;
+
+        console.log(`♾️ Imposto VIP illimitato per ${userId}`);
+        try {
+            const { error } = await sbClient.from('profiles')
+                .update({ role: 'vip', trial_ends_at: null, is_trial_expired: false })
+                .eq('id', userId);
+            if (error) throw error;
+            showToast(lang === 'en' ? '✅ User set as UNLIMITED VIP!' : '✅ Utente impostato come VIP ILLIMITATO!', 'success');
+            await loadAllUsers();
+        } catch (error) {
+            console.error('❌ Errore:', error);
+            showToast('❌ ' + error.message, 'error');
+        }
+    };
+
+    window.settingsApp = { changeUserRole: window.changeUserRole, setUnlimitedVIP: window.setUnlimitedVIP };
     window.showToast = showToast;
 })();
     </script>
