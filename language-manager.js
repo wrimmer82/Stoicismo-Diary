@@ -252,7 +252,7 @@
                 privacy: "Privacy Policy",
                 terms: "Termini di Servizio",
                 cookies: "Cookie Policy",
-                copyright: "© 2025 The Stoic Journey. Tutti i diritti riservati."
+                copyright: "© 2026 The Stoic Journey. Tutti i diritti riservati."  // ✅ FIX 3a
             }
         },
 
@@ -274,7 +274,7 @@
                 copyBtn: "Copy",
                 saveBtn: "Save",
                 progressTitle: "Your progress",
-                streakLabel: "day streak",
+                streakLabel: "days streak",              // ✅ FIX 2
                 reflectionsLabel: "reflections written",
                 challengesLabel: "Challenges completed",
                 completedLabel: "completed",
@@ -292,7 +292,7 @@
                 proTitle: "Upgrade to PRO",
                 proWip: "Unlock premium features",
                 interpretationTitle: "Interpretation",
-                challengeTitle: "Today\'s Micro-Challenge"
+                challengeTitle: "Today's Micro-Challenge"  // ✅ FIX 1
             },
             archive: {
                 filtersTitle: "Filters & Search",
@@ -487,7 +487,7 @@
                 privacy: "Privacy Policy",
                 terms: "Terms of Service",
                 cookies: "Cookie Policy",
-                copyright: "© 2025 The Stoic Journey. All rights reserved."
+                copyright: "© 2026 The Stoic Journey. All rights reserved."  // ✅ FIX 3b
             }
         }
     };
