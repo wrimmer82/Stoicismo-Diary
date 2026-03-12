@@ -1,76 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <!-- Homepage -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ============================================ -->
+  <!-- HOMEPAGE                                     -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/"/>
   </url>
-  
-  <!-- Cos'è lo Stoicismo -->
+  <url>
+    <loc>https://thestoicjourney.app/?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- COS'È LO STOICISMO / WHAT IS STOICISM        -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/cosa-e-stoicismo.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/cosa-e-stoicismo.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/cosa-e-stoicismo.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/cosa-e-stoicismo.html"/>
   </url>
-  
-  <!-- Accedi -->
+  <url>
+    <loc>https://thestoicjourney.app/cosa-e-stoicismo.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/cosa-e-stoicismo.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/cosa-e-stoicismo.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/cosa-e-stoicismo.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- ACCEDI / LOGIN                               -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/accedi.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/accedi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/accedi.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/accedi.html"/>
   </url>
-  
-  <!-- Registrazione -->
+  <url>
+    <loc>https://thestoicjourney.app/accedi.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/accedi.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/accedi.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/accedi.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- REGISTRAZIONE / REGISTRATION                 -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/registrazione.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/registrazione.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/registrazione.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/registrazione.html"/>
   </url>
-  
-  <!-- Dashboard -->
+  <url>
+    <loc>https://thestoicjourney.app/registrazione.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/registrazione.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/registrazione.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/registrazione.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- DASHBOARD                                    -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/dashboard.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/dashboard.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/dashboard.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/dashboard.html"/>
   </url>
-  
-  <!-- Pro -->
+  <url>
+    <loc>https://thestoicjourney.app/dashboard.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/dashboard.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/dashboard.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/dashboard.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- PRO                                          -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/pro.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/pro.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/pro.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/pro.html"/>
   </url>
-  
-  <!-- Privacy Policy -->
+  <url>
+    <loc>https://thestoicjourney.app/pro.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/pro.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/pro.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/pro.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- PRIVACY POLICY                               -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/privacy-policy.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/privacy-policy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/privacy-policy.html"/>
   </url>
-  
-  <!-- Terms of Service -->
+  <url>
+    <loc>https://thestoicjourney.app/privacy-policy.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/privacy-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/privacy-policy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/privacy-policy.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- TERMS OF SERVICE                             -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/terms-of-service.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/terms-of-service.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/terms-of-service.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/terms-of-service.html"/>
   </url>
-  
-  <!-- Cookie Policy -->
+  <url>
+    <loc>https://thestoicjourney.app/terms-of-service.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/terms-of-service.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/terms-of-service.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/terms-of-service.html"/>
+  </url>
+
+  <!-- ============================================ -->
+  <!-- COOKIE POLICY                                -->
+  <!-- ============================================ -->
   <url>
     <loc>https://thestoicjourney.app/cookie-policy.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-03-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/cookie-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/cookie-policy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/cookie-policy.html"/>
   </url>
-  
+  <url>
+    <loc>https://thestoicjourney.app/cookie-policy.html?lang=en</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thestoicjourney.app/cookie-policy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thestoicjourney.app/cookie-policy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/cookie-policy.html"/>
+  </url>
+
 </urlset>
