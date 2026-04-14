@@ -406,7 +406,7 @@
             orWithEmail: "oppure con email",
             emailLabel: "Email",
             emailPlaceholder: "stoico@esempio.com",
-            emailValid: "✓ Email valida",
+            emailValid: "\u2713 Email valida",
             passwordLabel: "Password",
             passwordPlaceholder: "Inserisci la tua password",
             togglePasswordAria: "Mostra/Nascondi password",
@@ -419,8 +419,7 @@
             terms: "Termini",
             termsMid: "e la",
             privacy: "Privacy Policy",
-            // Messaggi dinamici JS
-            emailRequired: "L'email è obbligatoria",
+            emailRequired: "L'email \u00e8 obbligatoria",
             emailInvalid: "Inserisci un'email valida",
             enterEmail: "Inserisci la tua email",
             enterPassword: "Inserisci la tua password",
@@ -430,15 +429,15 @@
             invalidCredentials: "Credenziali non valide",
             wrongEmailOrPassword: "Email o password non corretti",
             confirmEmail: "Conferma prima la tua email",
-            loginSuccess: "✅ Login riuscito! Reindirizzamento...",
-            loginSuccessShort: "✅ Login riuscito!",
+            loginSuccess: "\u2705 Login riuscito! Reindirizzamento...",
+            loginSuccessShort: "\u2705 Login riuscito!",
             googleError: "Errore durante il login con Google: ",
             quotes: [
-                { text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri", author: "Marco Aurelio" },
-                { text: "Non è ciò che ti accade, ma come reagisci che conta", author: "Epitteto" },
-                { text: "Il bene e il male risiedono nella volontà, non nelle cose esterne", author: "Zenone di Cizio" },
+                { text: "La felicit\u00e0 della tua vita dipende dalla qualit\u00e0 dei tuoi pensieri", author: "Marco Aurelio" },
+                { text: "Non \u00e8 ci\u00f2 che ti accade, ma come reagisci che conta", author: "Epitteto" },
+                { text: "Il bene e il male risiedono nella volont\u00e0, non nelle cose esterne", author: "Zenone di Cizio" },
                 { text: "Non conta quante volte cadi, ma quante volte ti rialzi", author: "Marco Aurelio" },
-                { text: "Chi controlla le proprie passioni è più forte di chi conquista città", author: "Marco Aurelio" }
+                { text: "Chi controlla le proprie passioni \u00e8 pi\u00f9 forte di chi conquista citt\u00e0", author: "Marco Aurelio" }
             ]
         },
         en: {
@@ -451,7 +450,7 @@
             orWithEmail: "or with email",
             emailLabel: "Email",
             emailPlaceholder: "stoic@example.com",
-            emailValid: "✓ Valid email",
+            emailValid: "\u2713 Valid email",
             passwordLabel: "Password",
             passwordPlaceholder: "Enter your password",
             togglePasswordAria: "Show/Hide password",
@@ -464,7 +463,6 @@
             terms: "Terms",
             termsMid: "and the",
             privacy: "Privacy Policy",
-            // Dynamic JS messages
             emailRequired: "Email is required",
             emailInvalid: "Please enter a valid email",
             enterEmail: "Please enter your email",
@@ -475,8 +473,8 @@
             invalidCredentials: "Invalid credentials",
             wrongEmailOrPassword: "Wrong email or password",
             confirmEmail: "Please confirm your email first",
-            loginSuccess: "✅ Login successful! Redirecting...",
-            loginSuccessShort: "✅ Login successful!",
+            loginSuccess: "\u2705 Login successful! Redirecting...",
+            loginSuccessShort: "\u2705 Login successful!",
             googleError: "Error signing in with Google: ",
             quotes: [
                 { text: "The happiness of your life depends upon the quality of your thoughts", author: "Marcus Aurelius" },
@@ -488,16 +486,16 @@
         }
     };
 
-    let currentLang = localStorage.getItem('tsj_lang') || 'it';
+    // ✅ FIX: chiave unificata su 'preferredLanguage' (allineata a language-manager.js)
+    let currentLang = localStorage.getItem('preferredLanguage') || 'it';
 
     function setLanguage(lang) {
         currentLang = lang;
-        localStorage.setItem('tsj_lang', lang);
+        // ✅ FIX: era 'tsj_lang', ora 'preferredLanguage'
+        localStorage.setItem('preferredLanguage', lang);
 
-        // Aggiorna html lang attribute
         document.documentElement.lang = lang;
 
-        // Aggiorna tutti i data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang][key] !== undefined) {
@@ -505,7 +503,6 @@
             }
         });
 
-        // Aggiorna i placeholder
         document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
             const key = el.getAttribute('data-i18n-placeholder');
             if (translations[lang][key] !== undefined) {
@@ -513,7 +510,6 @@
             }
         });
 
-        // Aggiorna aria-label
         document.querySelectorAll('[data-i18n-aria]').forEach(el => {
             const key = el.getAttribute('data-i18n-aria');
             if (translations[lang][key] !== undefined) {
@@ -521,10 +517,8 @@
             }
         });
 
-        // Aggiorna il title della pagina
         document.title = translations[lang].pageTitle;
 
-        // Aggiorna bottoni lingua (desktop + mobile)
         ['btnLangIT', 'btnLangIT_mobile'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.toggle('active', lang === 'it');
@@ -534,10 +528,9 @@
             if (el) el.classList.toggle('active', lang === 'en');
         });
 
-        // Aggiorna citazione corrente
         const q = translations[lang].quotes[currentQuoteIndex];
         document.getElementById('rotatingQuote').textContent = `"${q.text}"`;
-        document.getElementById('rotatingAuthor').textContent = `— ${q.author}`;
+        document.getElementById('rotatingAuthor').textContent = `\u2014 ${q.author}`;
     }
 
     // ========== SUPABASE ==========
@@ -581,7 +574,7 @@
             
             setTimeout(() => {
                 quoteEl.textContent = `"${quote.text}"`;
-                authorEl.textContent = `— ${quote.author}`;
+                authorEl.textContent = `\u2014 ${quote.author}`;
                 
                 quoteEl.style.opacity = '1';
                 authorEl.style.opacity = '1';
@@ -593,7 +586,6 @@
 
     // ========== VERIFICA SESSIONE ESISTENTE ==========
     document.addEventListener('DOMContentLoaded', async () => {
-        // Applica la lingua salvata all'avvio
         setLanguage(currentLang);
 
         const { data: { session }, error } = await supabaseClient.auth.getSession();
