@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-GW6CH5RG1R');
 </script>
     <meta charset="UTF-8">
@@ -57,15 +56,9 @@
             to { transform: translateY(0); opacity: 1; }
         }
         
-        .animate-fadeIn {
-            animation: fadeIn 0.8s ease-out forwards;
-        }
-        .animate-slideDown {
-            animation: slideDown 0.3s ease-out forwards;
-        }
-        .animate-slideUp {
-            animation: slideUp 0.3s ease-out forwards;
-        }
+        .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-slideDown { animation: slideDown 0.3s ease-out forwards; }
+        .animate-slideUp { animation: slideUp 0.3s ease-out forwards; }
         .delay-200 { animation-delay: 0.2s; opacity: 0; }
         .delay-400 { animation-delay: 0.4s; opacity: 0; }
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
@@ -86,14 +79,9 @@
         
         .sunset-gradient {
             background: linear-gradient(180deg, 
-                #1a0f1f 0%,
-                #2d1b3d 15%,
-                #4a2c4f 30%,
-                #6b4a5a 45%,
-                #8b5a4e 60%,
-                #a8754a 75%,
-                #c49050 85%,
-                #1c1410 100%
+                #1a0f1f 0%, #2d1b3d 15%, #4a2c4f 30%,
+                #6b4a5a 45%, #8b5a4e 60%, #a8754a 75%,
+                #c49050 85%, #1c1410 100%
             );
         }
         
@@ -123,12 +111,8 @@
         .strength-medium { width: 66%; background: #f59e0b; }
         .strength-strong { width: 100%; background: #10b981; }
         
-        .password-toggle {
-            cursor: pointer;
-            user-select: none;
-        }
+        .password-toggle { cursor: pointer; user-select: none; }
         
-        /* Toast Notification */
         .toast {
             position: fixed;
             bottom: 2rem;
@@ -137,7 +121,6 @@
             z-index: 9999;
         }
         
-        /* Loading Overlay */
         .loading-overlay {
             position: fixed;
             inset: 0;
@@ -149,38 +132,43 @@
             z-index: 9998;
         }
         
-        /* Philosopher circles hover effect */
-        .philosopher-circle {
-            position: relative;
-            cursor: pointer;
-        }
+        .philosopher-circle { position: relative; cursor: pointer; }
+        .philosopher-circle img { position: relative; }
         
-        .philosopher-circle img {
-            position: relative;
+        /* Lang switcher */
+        .lang-btn { transition: all 0.2s; }
+        .lang-btn.active {
+            background-color: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border-color: #fbbf24;
         }
-        
+        .lang-btn:not(.active) {
+            color: #94a3b8;
+            border-color: #334155;
+        }
+        .lang-btn:hover:not(.active) {
+            border-color: #64748b;
+            color: #cbd5e1;
+        }
+
         /* MOBILE OPTIMIZATIONS */
         @media (max-width: 768px) {
-            .philosopher-images {
-                display: none !important;
-            }
-            .quote-section h1 {
-                font-size: 1.875rem !important;
-                line-height: 2.25rem !important;
-            }
-            .quote-section p {
-                font-size: 1rem !important;
-            }
-            .form-container {
-                padding: 1.5rem !important;
-            }
-            .form-spacing {
-                gap: 1rem !important;
-            }
+            .philosopher-images { display: none !important; }
+            .quote-section h1 { font-size: 1.875rem !important; line-height: 2.25rem !important; }
+            .quote-section p { font-size: 1rem !important; }
+            .form-container { padding: 1.5rem !important; }
+            .form-spacing { gap: 1rem !important; }
         }
     </style>
 </head>
 <body class="bg-gray-50 font-inter">
+
+    <!-- Language Switcher DESKTOP (fixed top-right) -->
+    <div class="hidden md:flex fixed top-4 right-4 z-50 gap-2">
+        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('it')">IT</button>
+        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('en')">EN</button>
+        <button id="btnLangES" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('es')">ES</button>
+    </div>
     
     <!-- Loading Overlay -->
     <div id="loadingOverlay" class="loading-overlay hidden">
@@ -227,7 +215,6 @@
                                      class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
                                 <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
                             </div>
-                            
                             <div class="philosopher-circle group">
                                 <img src="Epitteto_3d.png" 
                                      alt="Epitteto" 
@@ -235,7 +222,6 @@
                                 <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
                             </div>
                         </div>
-                        
                         <div class="flex justify-center">
                             <div class="philosopher-circle group">
                                 <img src="Zenone_di_Cinzio_3d.png" 
@@ -252,6 +238,13 @@
             <div class="md:col-span-2 animate-fadeIn delay-600">
                 <div class="form-container bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-6 md:p-10 backdrop-blur-sm shadow-2xl">
                     
+                    <!-- Language Switcher MOBILE (dentro il form) -->
+                    <div class="flex md:hidden justify-end mb-4 gap-2">
+                        <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('it')">IT</button>
+                        <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('en')">EN</button>
+                        <button id="btnLangES_mobile" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('es')">ES</button>
+                    </div>
+
                     <!-- Header Form -->
                     <div class="text-center mb-6 md:mb-8">
                         <h2 class="text-2xl md:text-4xl font-cinzel font-bold text-amber-300 mb-2 md:mb-3" data-i18n="registration.title">
@@ -496,36 +489,15 @@
         
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
-        // ========== CITAZIONI ROTANTI (NON tradotte - testi filosofici originali) ==========
+        // ========== CITAZIONI ROTANTI ==========
         const quotes = [
-            {
-                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
-                author: "Marco Aurelio"
-            },
-            {
-                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
-                author: "Marco Aurelio"
-            },
-            {
-                text: "Non è ciò che ti accade, ma come reagisci che conta",
-                author: "Epitteto"
-            },
-            {
-                text: "Abbiamo due orecchie e una bocca per ascoltare più di quanto parliamo",
-                author: "Zenone di Cizio"
-            },
-            {
-                text: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
-                author: "Epitteto"
-            },
-            {
-                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
-                author: "Zenone di Cizio"
-            },
-            {
-                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
-                author: "Marco Aurelio"
-            }
+            { text: "Non conta quante volte cadi, ma quante volte ti rialzi", author: "Marco Aurelio" },
+            { text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri", author: "Marco Aurelio" },
+            { text: "Non è ciò che ti accade, ma come reagisci che conta", author: "Epitteto" },
+            { text: "Abbiamo due orecchie e una bocca per ascoltare più di quanto parliamo", author: "Zenone di Cizio" },
+            { text: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno", author: "Epitteto" },
+            { text: "Il bene e il male risiedono nella volontà, non nelle cose esterne", author: "Zenone di Cizio" },
+            { text: "Chi controlla le proprie passioni è più forte di chi conquista città", author: "Marco Aurelio" }
         ];
         
         let currentQuoteIndex = 0;
@@ -533,17 +505,13 @@
         function rotateQuote() {
             currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
             const quote = quotes[currentQuoteIndex];
-            
             const quoteEl = document.getElementById('rotatingQuote');
             const authorEl = document.getElementById('rotatingAuthor');
-            
             quoteEl.style.opacity = '0';
             authorEl.style.opacity = '0';
-            
             setTimeout(() => {
                 quoteEl.textContent = `"${quote.text}"`;
                 authorEl.textContent = `— ${quote.author}`;
-                
                 quoteEl.style.transition = 'opacity 0.5s';
                 authorEl.style.transition = 'opacity 0.5s';
                 quoteEl.style.opacity = '1';
@@ -562,9 +530,7 @@
                 'bg-amber-600'
             } text-white font-baskerville`;
             toast.textContent = message;
-            
             document.getElementById('toastContainer').appendChild(toast);
-            
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s';
@@ -612,19 +578,17 @@
             confirmPasswordInput.setAttribute('type', type);
         });
         
-        // ========== VALIDAZIONE EMAIL ==========
-        // Funzione getTranslation per accedere alle traduzioni
+        // ========== HELPER: getTranslation ==========
         function getTranslation(key) {
             const lang = localStorage.getItem('preferredLanguage') || 'it';
             const translations = window.TRANSLATIONS || {};
             const keys = key.split('.');
             let value = translations[lang];
-            for (let k of keys) {
-                value = value?.[k];
-            }
+            for (let k of keys) { value = value?.[k]; }
             return value || key;
         }
         
+        // ========== VALIDAZIONE EMAIL ==========
         emailInput.addEventListener('blur', validateEmail);
         emailInput.addEventListener('input', function() {
             emailError.classList.add('hidden');
@@ -635,7 +599,6 @@
         function validateEmail() {
             const email = emailInput.value.trim();
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
             if (!email) {
                 emailError.textContent = getTranslation('registration.validation.emailRequired');
                 emailError.classList.remove('hidden');
@@ -646,7 +609,6 @@
                 setTimeout(() => emailInput.classList.remove('shake'), 500);
                 return false;
             }
-            
             if (!emailRegex.test(email)) {
                 emailError.textContent = getTranslation('registration.validation.emailInvalid');
                 emailError.classList.remove('hidden');
@@ -657,7 +619,6 @@
                 setTimeout(() => emailInput.classList.remove('shake'), 500);
                 return false;
             }
-            
             emailError.classList.add('hidden');
             emailSuccess.classList.remove('hidden');
             emailInput.classList.remove('input-error');
@@ -679,19 +640,15 @@
                 lowercase: /[a-z]/.test(password),
                 number: /[0-9]/.test(password)
             };
-            
             updateRequirement('req-length', requirements.length);
             updateRequirement('req-uppercase', requirements.uppercase);
             updateRequirement('req-lowercase', requirements.lowercase);
             updateRequirement('req-number', requirements.number);
-            
             if (requirements.length) strength++;
             if (requirements.uppercase && requirements.lowercase) strength++;
             if (requirements.number) strength++;
             if (/[^a-zA-Z0-9]/.test(password)) strength++;
-            
             strengthBar.className = 'password-strength';
-            
             if (password.length === 0) {
                 strengthBar.style.width = '0';
                 strengthText.textContent = '';
@@ -708,17 +665,13 @@
                 strengthText.textContent = getTranslation('registration.strength.strong');
                 strengthText.className = "text-xs mt-1 text-green-400 font-baskerville";
             }
-            
-            if (confirmPasswordInput.value) {
-                validateConfirmPassword();
-            }
+            if (confirmPasswordInput.value) { validateConfirmPassword(); }
         });
         
         function updateRequirement(id, met) {
             const element = document.getElementById(id);
             const icon = element.querySelector('span:first-child');
             const text = element.querySelector('span:last-child');
-            
             if (met) {
                 icon.textContent = '✓';
                 icon.className = 'text-green-500';
@@ -741,7 +694,6 @@
         function validateConfirmPassword() {
             const password = passwordInput.value;
             const confirmPassword = confirmPasswordInput.value;
-            
             if (!confirmPassword) {
                 confirmPasswordError.textContent = getTranslation('registration.validation.confirmRequired');
                 confirmPasswordError.classList.remove('hidden');
@@ -752,7 +704,6 @@
                 setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
                 return false;
             }
-            
             if (password !== confirmPassword) {
                 confirmPasswordError.textContent = getTranslation('registration.validation.passwordMismatch');
                 confirmPasswordError.classList.remove('hidden');
@@ -763,7 +714,6 @@
                 setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
                 return false;
             }
-            
             confirmPasswordError.classList.add('hidden');
             confirmPasswordSuccess.classList.remove('hidden');
             confirmPasswordInput.classList.remove('input-error');
@@ -776,21 +726,15 @@
             googleBtnText.textContent = getTranslation('registration.googleRedirecting');
             googleSpinner.classList.remove('hidden');
             googleSignInBtn.disabled = true;
-            
             try {
                 const { data, error } = await supabase.auth.signInWithOAuth({
                     provider: 'google',
-                    options: {
-                        redirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
-                    }
+                    options: { redirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html' }
                 });
-                
                 if (error) throw error;
-                
             } catch (error) {
                 console.error('Errore Google Sign-In:', error);
                 showToast(getTranslation('registration.errors.googleOAuth'), 'error');
-                
                 googleBtnText.textContent = getTranslation('registration.googleBtn');
                 googleSpinner.classList.add('hidden');
                 googleSignInBtn.disabled = false;
@@ -800,58 +744,42 @@
         // ========== FORM SUBMIT ==========
         form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const isEmailValid = validateEmail();
             const isConfirmPasswordValid = validateConfirmPassword();
             const isPasswordStrong = passwordInput.value.length >= 8;
             const isPrivacyAccepted = document.getElementById('privacy').checked;
-            
             if (!isEmailValid || !isConfirmPasswordValid || !isPasswordStrong) {
                 showToast(getTranslation('registration.errors.formErrors'), 'error');
                 return;
             }
-            
             if (!isPrivacyAccepted) {
                 showToast(getTranslation('registration.errors.privacyRequired'), 'error');
                 return;
             }
-            
             showLoading(getTranslation('registration.loading'));
             submitBtnText.textContent = getTranslation('registration.loading');
             submitSpinner.classList.remove('hidden');
             submitBtn.disabled = true;
-            
             try {
                 const email = emailInput.value;
                 const password = passwordInput.value;
                 const nome = document.getElementById('nome').value;
-                
                 const { data, error } = await supabase.auth.signUp({
-                    email: email,
-                    password: password,
+                    email,
+                    password,
                     options: {
-                        data: {
-                            full_name: nome || null,
-                        },
+                        data: { full_name: nome || null },
                         emailRedirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
                     }
                 });
-                
                 if (error) throw error;
-                
                 hideLoading();
                 showToast(getTranslation('registration.success'), 'success');
-                
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-                
+                setTimeout(() => { window.location.href = 'index.html'; }, 2000);
             } catch (error) {
                 console.error('Errore registrazione:', error);
                 hideLoading();
-                
                 let errorMessage = getTranslation('registration.errors.generic');
-                
                 if (error.message.includes('already registered')) {
                     errorMessage = getTranslation('registration.errors.emailExists');
                 } else if (error.message.includes('password')) {
@@ -859,9 +787,7 @@
                 } else {
                     errorMessage = error.message;
                 }
-                
                 showToast(errorMessage, 'error');
-                
                 submitBtnText.textContent = getTranslation('registration.form.submitBtn');
                 submitSpinner.classList.add('hidden');
                 submitBtn.disabled = false;
@@ -870,15 +796,11 @@
         
         // ========== CONTROLLO SESSIONE ESISTENTE ==========
         supabase.auth.getSession().then(({ data: { session } }) => {
-            if (session) {
-                window.location.href = 'dashboard.html';
-            }
+            if (session) { window.location.href = 'dashboard.html'; }
         });
         
         supabase.auth.onAuthStateChange((event, session) => {
-            if (event === 'SIGNED_IN' && session) {
-                window.location.href = 'dashboard.html';
-            }
+            if (event === 'SIGNED_IN' && session) { window.location.href = 'dashboard.html'; }
         });
     </script>
 </body>
