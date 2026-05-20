@@ -7,7 +7,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-GW6CH5RG1R');
 </script>
 
@@ -116,14 +115,8 @@
         }
 
         @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-loading::after {
@@ -187,6 +180,7 @@
     <div class="hidden md:flex fixed top-4 right-4 z-50 gap-2">
         <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('it')">IT</button>
         <button id="btnLangEN" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('en')">EN</button>
+        <button id="btnLangES" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('es')">ES</button>
     </div>
 
     <section class="min-h-screen flex items-center justify-center py-8 md:py-12 px-4">
@@ -258,6 +252,7 @@
                         <div class="flex justify-end mb-4 gap-2">
                             <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('it')">IT</button>
                             <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('en')">EN</button>
+                            <button id="btnLangES_mobile" class="lang-btn text-xs font-semibold px-3 py-1.5 rounded-md border bg-transparent" onclick="setLanguage('es')">ES</button>
                         </div>
                         <a href="index.html" class="inline-block hover:opacity-80 transition-opacity">
                             <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-16 w-16 mx-auto mb-4">
@@ -483,17 +478,60 @@
                 { text: "It does not matter how many times you fall, but how many times you get up", author: "Marcus Aurelius" },
                 { text: "He who controls his passions is stronger than he who conquers cities", author: "Marcus Aurelius" }
             ]
+        },
+        // 🆕 ES — aggiunto v5.0
+        es: {
+            pageTitle: "Iniciar sesi\u00f3n - The Stoic Journey",
+            zenoName: "Zen\u00f3n de Citio",
+            mobileSubtitle: "Inicia sesi\u00f3n para continuar tu camino estoico",
+            welcomeBack: "Bienvenido de nuevo, Estoico",
+            continueJourney: "Contin\u00faa tu viaje de sabidur\u00eda",
+            continueGoogle: "Continuar con Google",
+            orWithEmail: "o con correo electr\u00f3nico",
+            emailLabel: "Correo electr\u00f3nico",
+            emailPlaceholder: "estoico@ejemplo.com",
+            emailValid: "\u2713 Correo v\u00e1lido",
+            passwordLabel: "Contrase\u00f1a",
+            passwordPlaceholder: "Introduce tu contrase\u00f1a",
+            togglePasswordAria: "Mostrar/Ocultar contrase\u00f1a",
+            rememberMe: "Rec\u00uerdarme en este dispositivo",
+            loginBtn: "Iniciar sesi\u00f3n",
+            forgotPassword: "\u00bfOlvidaste tu contrase\u00f1a?",
+            noAccount: "\u00bfA\u00fan no tienes una cuenta?",
+            register: "Reg\u00edstrate",
+            termsPrefix: "Al continuar aceptas nuestros",
+            terms: "T\u00e9rminos",
+            termsMid: "y la",
+            privacy: "Pol\u00edtica de Privacidad",
+            emailRequired: "El correo es obligatorio",
+            emailInvalid: "Introduce un correo v\u00e1lido",
+            enterEmail: "Introduce tu correo electr\u00f3nico",
+            enterPassword: "Introduce tu contrase\u00f1a",
+            fillAllFields: "Completa todos los campos",
+            redirecting: "Redirigiendo...",
+            loggingIn: "Iniciando sesi\u00f3n...",
+            invalidCredentials: "Credenciales no v\u00e1lidas",
+            wrongEmailOrPassword: "Correo o contrase\u00f1a incorrectos",
+            confirmEmail: "Confirma primero tu correo electr\u00f3nico",
+            loginSuccess: "\u2705 \u00a1Inicio de sesi\u00f3n exitoso! Redirigiendo...",
+            loginSuccessShort: "\u2705 \u00a1Inicio de sesi\u00f3n exitoso!",
+            googleError: "Error al iniciar sesi\u00f3n con Google: ",
+            quotes: [
+                { text: "La felicidad de tu vida depende de la calidad de tus pensamientos", author: "Marco Aurelio" },
+                { text: "No es lo que te sucede, sino c\u00f3mo reaccionas lo que importa", author: "Epicteto" },
+                { text: "El bien y el mal residen en la voluntad, no en las cosas externas", author: "Zen\u00f3n de Citio" },
+                { text: "No importa cu\u00e1ntas veces caigas, sino cu\u00e1ntas te levantes", author: "Marco Aurelio" },
+                { text: "Quien controla sus pasiones es m\u00e1s fuerte que quien conquista ciudades", author: "Marco Aurelio" }
+            ]
         }
     };
 
-    // ✅ FIX: chiave unificata su 'preferredLanguage' (allineata a language-manager.js)
+    // chiave unificata su 'preferredLanguage' (allineata a language-manager.js)
     let currentLang = localStorage.getItem('preferredLanguage') || 'it';
 
     function setLanguage(lang) {
         currentLang = lang;
-        // ✅ FIX: era 'tsj_lang', ora 'preferredLanguage'
         localStorage.setItem('preferredLanguage', lang);
-
         document.documentElement.lang = lang;
 
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -519,6 +557,7 @@
 
         document.title = translations[lang].pageTitle;
 
+        // Aggiorna classe active su tutti e 3 i bottoni (desktop + mobile)
         ['btnLangIT', 'btnLangIT_mobile'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.toggle('active', lang === 'it');
@@ -526,6 +565,10 @@
         ['btnLangEN', 'btnLangEN_mobile'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.classList.toggle('active', lang === 'en');
+        });
+        ['btnLangES', 'btnLangES_mobile'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.toggle('active', lang === 'es');
         });
 
         const q = translations[lang].quotes[currentQuoteIndex];
@@ -575,7 +618,6 @@
             setTimeout(() => {
                 quoteEl.textContent = `"${quote.text}"`;
                 authorEl.textContent = `\u2014 ${quote.author}`;
-                
                 quoteEl.style.opacity = '1';
                 authorEl.style.opacity = '1';
             }, 500);
@@ -600,7 +642,6 @@
     togglePassword.addEventListener('click', () => {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        
         eyeIcon.classList.toggle('hidden');
         eyeSlashIcon.classList.toggle('hidden');
     });
@@ -648,10 +689,8 @@
             submitBtn.disabled = true;
             googleLoginBtn.disabled = true;
             togglePassword.disabled = true;
-            
             emailInput.classList.add('input-disabled', 'loading-pulse');
             passwordInput.classList.add('input-disabled', 'loading-pulse');
-            
             loginForm.classList.add('form-loading');
         } else {
             emailInput.disabled = false;
@@ -659,10 +698,8 @@
             submitBtn.disabled = false;
             googleLoginBtn.disabled = false;
             togglePassword.disabled = false;
-            
             emailInput.classList.remove('input-disabled', 'loading-pulse');
             passwordInput.classList.remove('input-disabled', 'loading-pulse');
-            
             loginForm.classList.remove('form-loading');
         }
     }
