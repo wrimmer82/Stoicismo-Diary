@@ -166,7 +166,6 @@
         .delay-600 { animation-delay: 0.6s; opacity: 0; }
         .delay-900 { animation-delay: 0.9s; opacity: 0; }
         
-        /* Parallax con effetto zoom prospettico */
         .parallax-zoom-container {
             position: relative;
             height: 100vh;
@@ -191,7 +190,6 @@
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter { font-family: 'Inter', sans-serif; }
 
-        /* Bordo nero per testo hero */
         .text-stroke-black-strong {
             text-shadow: 
                 -2px -2px 0 #000,
@@ -230,7 +228,6 @@
                 1px 1px 4px rgba(0,0,0,0.3);
         }
 
-        /* Reveal Animation */
         .reveal {
             opacity: 0;
             transform: translateY(60px);
@@ -242,7 +239,6 @@
             transform: none;
         }
 
-        /* Effetto rotazione 3D per card filosofi */
         .card-3d {
             perspective: 1000px;
             transform-style: preserve-3d;
@@ -269,7 +265,6 @@
             opacity: 1;
         }
 
-        /* Fade-in on scroll per Memento Mori */
         .fade-in-scroll {
             opacity: 0;
             transform: translateY(50px);
@@ -280,7 +275,6 @@
             transform: translateY(0);
         }
 
-        /* Effetto 3D per titolo sezione */
         .text-3d {
             text-shadow: 
                 1px 1px 0 #c49050,
@@ -295,7 +289,6 @@
             letter-spacing: 0.05em;
         }
 
-        /* Gradiente tramonto continuo */
         .sunset-gradient {
             background: linear-gradient(180deg, 
                 #1a0f1f 0%,
@@ -309,7 +302,6 @@
             );
         }
 
-        /* Icone numerate per Come Funziona */
         .step-number {
             width: 56px;
             height: 56px;
@@ -381,7 +373,6 @@
             }
         }
 
-        /* FAQ Accordion - Compatto */
         .faq-item {
             border-bottom: 1px solid rgba(251, 191, 36, 0.2);
             transition: all 0.3s ease;
@@ -433,7 +424,6 @@
             padding: 0 1rem 1rem 1rem;
         }
 
-        /* Contact Form Styling - Mobile First */
         .contact-form-input,
         .contact-form-textarea {
             width: 100%;
@@ -483,7 +473,6 @@
             transform: translateY(0);
         }
 
-        /* Layout 2 Colonne Desktop, Stack Mobile */
         @media (max-width: 1023px) {
             .faq-contact-grid {
                 display: block !important;
@@ -494,7 +483,6 @@
             }
         }
 
-        /* Testo responsive per CTA Header */
         .cta-text-full {
             display: none;
         }
@@ -513,7 +501,6 @@
             }
         }
 
-        /* Scroll to Top Button */
         .scroll-to-top {
             position: fixed;
             bottom: 2rem;
@@ -685,7 +672,6 @@
             display: none;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 640px) {
             .language-btn {
                 padding: 0.625rem 0.875rem;
@@ -750,7 +736,7 @@
                             <span id="currentLangHome" class="font-semibold">IT</span>
                         </button>
                         
-                        <!-- Dropdown -->
+                        <!-- Dropdown — IT / EN / ES -->
                         <div id="languageDropdownHome" class="language-dropdown-home hidden">
                             <button class="lang-option active" data-lang="it">
                                 <span class="flag">🇮🇹</span>
@@ -762,6 +748,14 @@
                             <button class="lang-option" data-lang="en">
                                 <span class="flag">🇬🇧</span>
                                 <span>English</span>
+                                <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                            <!-- 🆕 ES — aggiunto in v5.0 -->
+                            <button class="lang-option" data-lang="es">
+                                <span class="flag">🇪🇸</span>
+                                <span>Español</span>
                                 <svg class="check hidden" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                 </svg>
@@ -877,28 +871,14 @@
                      alt="Marco Aurelio - Filosofo stoico imperatore romano"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.marcus.name">
-                Marco Aurelio
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principle">
-                Impedimentum Via Est
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principleTranslation">
-                Il cammino attraverso gli ostacoli
-              </div>
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.marcus.name">Marco Aurelio</div>
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principle">Impedimentum Via Est</div>
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.marcus.principleTranslation">Il cammino attraverso gli ostacoli</div>
               <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quote">
-                «Quod obstat viae, via fit.»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quoteTranslation">
-                "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.description">
-                Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.marcus.ai">
-                Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
-              </p>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quote">«Quod obstat viae, via fit.»</div>
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.quoteTranslation">"Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."</p>
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.marcus.description">Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via. La mente razionale può trasformare ogni impedimento in opportunità di crescita, adattando i propri scopi all'ostacolo anziché fuggirlo.</p>
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.marcus.ai">Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.</p>
             </div>
 
             <!-- EPITTETO -->
@@ -911,28 +891,14 @@
                      alt="Epitteto - Filosofo stoico maestro della dicotomia del controllo"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.epictetus.name">
-                Epitteto
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principle">
-                In Nostra Potestate
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principleTranslation">
-                La dicotomia del controllo
-              </div>
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.epictetus.name">Epitteto</div>
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principle">In Nostra Potestate</div>
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.epictetus.principleTranslation">La dicotomia del controllo</div>
               <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quote">
-                «En tois eph' hemin kai en tois ouk eph' hemin»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quoteTranslation">
-                La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.description">
-                Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.epictetus.ai">
-                L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.
-              </p>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quote">«En tois eph' hemin kai en tois ouk eph' hemin»</div>
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.quoteTranslation">La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è. In nostro potere sono le opinioni, i desideri, i giudizi, le azioni. Non sono in nostro potere gli eventi esterni, le opinioni altrui, i risultati.</p>
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.epictetus.description">Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi e la investiamo in ciò che possiamo realmente orientare: il nostro carattere, le nostre scelte, il nostro modo di rispondere a ciò che accade.</p>
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.epictetus.ai">L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi, riportando l'attenzione dove la tua volontà è davvero efficace.</p>
             </div>
 
             <!-- SENECA -->
@@ -945,28 +911,14 @@
                      alt="Seneca - Filosofo stoico maestro della praemeditatio malorum"
                      class="relative z-10 w-56 h-56 md:w-64 md:h-64 mx-auto rounded-full border-2 border-amber-300 shadow-[0_18px_40px_rgba(0,0,0,0.9)] object-cover">
               </div>
-              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.seneca.name">
-                Seneca
-              </div>
-              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principle">
-                Praemeditatio Malorum
-              </div>
-              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principleTranslation">
-                Prepararsi al peggio per vivere meglio
-              </div>
+              <div class="uppercase tracking-[0.25em] text-sm text-amber-200/90 font-trajan z-10" data-i18n="home.philosophers.seneca.name">Seneca</div>
+              <div class="mt-2 text-[13px] tracking-[0.32em] text-amber-300/90 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principle">Praemeditatio Malorum</div>
+              <div class="mt-2 text-[11px] tracking-[0.22em] text-slate-300/80 uppercase font-trajan z-10" data-i18n="home.philosophers.seneca.principleTranslation">Prepararsi al peggio per vivere meglio</div>
               <div class="w-16 h-px bg-gradient-to-r from-transparent via-amber-300/80 to-transparent mt-4 mb-3 mx-auto z-10"></div>
-              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quote">
-                «Qui omnia timet, nihil cogitat»
-              </div>
-              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quoteTranslation">
-                La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.description">
-                Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.
-              </p>
-              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.seneca.ai">
-                L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.
-              </p>
+              <div class="text-xs md:text-sm tracking-[0.18em] text-amber-100/90 uppercase mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quote">«Qui omnia timet, nihil cogitat»</div>
+              <p class="text-[13px] md:text-[15px] text-slate-200/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.quoteTranslation">La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto: perdite, fallimenti, cambiamenti improvvisi. Non per vivere nella paura, ma per allenare la mente a non essere sorpresa né spezzata dagli eventi.</p>
+              <p class="text-[13px] md:text-[15px] text-slate-300/90 leading-relaxed mb-3 font-trajan z-10" data-i18n="home.philosophers.seneca.description">Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere. Prepararsi mentalmente rende più leggera la prova, rafforza il carattere e rende più profonda la gratitudine per ciò che abbiamo ora.</p>
+              <p class="text-[13px] md:text-[15px] text-amber-300/90 italic leading-relaxed font-trajan z-10" data-i18n="home.philosophers.seneca.ai">L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti, trasformandole in scenari concreti da affrontare con lucidità, invece che in ombre indefinite che ti consumano in silenzio.</p>
             </div>
         </div>
         </div>
@@ -1144,7 +1096,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p data-i18n="footer.copyright">&copy; 2025 The Stoic Journey. Tutti i diritti riservati.</p>
+                <p data-i18n="footer.copyright">&copy; 2026 The Stoic Journey. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
@@ -1156,24 +1108,17 @@
         </svg>
     </div>
 
-    <!-- ========================================
-         ALTRI SCRIPT (parallax, reveal, FAQ, ecc.)
-         ======================================== -->
     <script>
-        // Effetto zoom parallax su scroll
         window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxBg = document.getElementById('parallaxBg');
             const maxScroll = window.innerHeight;
             const scrollFraction = Math.min(scrolled / maxScroll, 1);
-            
             const scaleValue = 2 - (scrollFraction * 0.5);
             const translateZ = -1 - (scrollFraction * 0.3);
-            
             parallaxBg.style.transform = `translateZ(${translateZ}px) scale(${scaleValue})`;
         });
 
-        // Reveal effect
         document.addEventListener('DOMContentLoaded', function() {
             function revealOnScroll() {
                 document.querySelectorAll('.reveal').forEach(function(el) {
@@ -1188,7 +1133,6 @@
             window.addEventListener('scroll', revealOnScroll);
             revealOnScroll();
 
-            // IntersectionObserver per Memento Mori fade-in
             const fadeElements = document.querySelectorAll('.fade-in-scroll');
             const fadeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1205,7 +1149,6 @@
                 fadeObserver.observe(element);
             });
 
-            // FAQ Accordion Toggle
             const faqItems = document.querySelectorAll('.faq-item');
             faqItems.forEach(item => {
                 const question = item.querySelector('.faq-question');
@@ -1227,7 +1170,6 @@
                 const isActive = item.classList.contains('active');
                 const question = item.querySelector('.faq-question');
                 
-                // Chiudi altri item
                 faqItems.forEach(otherItem => {
                     if (otherItem !== item) {
                         otherItem.classList.remove('active');
@@ -1235,7 +1177,6 @@
                     }
                 });
                 
-                // Toggle corrente
                 if (isActive) {
                     item.classList.remove('active');
                     question.setAttribute('aria-expanded', 'false');
@@ -1245,7 +1186,6 @@
                 }
             }
 
-            // Scroll to Top Button
             const scrollToTopBtn = document.getElementById('scrollToTop');
             
             window.addEventListener('scroll', function() {
@@ -1264,7 +1204,6 @@
             });
         });
 
-        // Formspree Form Handling
         document.addEventListener("DOMContentLoaded", function() {
             var form = document.getElementById("contact-form");
             var status = document.getElementById("form-status");
