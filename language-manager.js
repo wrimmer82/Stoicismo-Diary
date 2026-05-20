@@ -1,13 +1,13 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 4.0 - Added DASHBOARD Section
+// Versione: 5.0 - Added ES (Spanish) + btnLangES support
 // ============================================
 
 (function() {
     "use strict";
 
-    console.log("🌍 GLOBAL Language Manager: Loading...");
+    console.log("🌍 GLOBAL Language Manager v5.0: Loading...");
 
     // ============================================
     // PARTE 1: TRANSLATIONS DATABASE
@@ -17,31 +17,25 @@
         it: {
             // ---- DASHBOARD ----
             dashboard: {
-                // Header
                 headerDays: "giorni",
                 greeting: "Ciao,",
                 logout: "Esci",
-                // Sidebar / nav
                 navToday: "Oggi",
                 navArchive: "Archivio",
                 navSettings: "Impostazioni",
                 navManagePro: "Gestione PRO",
-                // Main content
                 dailyTitle: "Contenuto Quotidiano",
                 dayLabel: "dell'anno",
-                // Sezione riflessioni
                 reflectionTitle: "Le tue riflessioni di oggi",
                 reflectionPlaceholder: "Cosa pensi della sfida di oggi?\nCome la applicherai?\nQuali ostacoli prevedi?",
                 charCount: "caratteri",
                 copyBtn: "Copia",
                 saveBtn: "Salva",
-                // Sezione progresso
                 progressTitle: "Il tuo progresso",
                 streakLabel: "giorni di streak",
                 reflectionsLabel: "riflessioni scritte",
                 challengesLabel: "Sfide completate",
                 completedLabel: "completato",
-                // Toast / feedback
                 toastWriteFirst: "✍️ Scrivi prima una riflessione!",
                 toastNotAuthenticated: "❌ Errore: non autenticato",
                 toastSaved: "✅ Riflessione salvata!",
@@ -49,7 +43,6 @@
                 toastNothingToCopy: "⚠️ Niente da copiare!",
                 toastCopied: "📋 Copiato!",
                 toastProComing: "✨ Funzionalità PRO in arrivo",
-                // Archivio / Impostazioni / Pro placeholder
                 archiveTitle: "Archivio Riflessioni",
                 archiveWip: "Funzionalità in sviluppo",
                 settingsTitle: "Impostazioni",
@@ -220,7 +213,41 @@
                 },
                 loginText: "Hai già un account?",
                 loginLink: "Accedi qui",
-                success: "✅ Account creato! Controlla la tua email per confermare."
+                success: "✅ Account creato! Controlla la tua email per confermare.",
+                validation: {
+                    emailRequired: "L'email è obbligatoria",
+                    emailInvalid: "Inserisci un'email valida",
+                    confirmRequired: "Conferma la password",
+                    passwordMismatch: "Le password non coincidono"
+                },
+                strength: {
+                    weak: "Debole",
+                    medium: "Media",
+                    strong: "Forte"
+                },
+                errors: {
+                    formErrors: "Correggi gli errori nel modulo",
+                    privacyRequired: "Devi accettare i termini per continuare",
+                    generic: "Si è verificato un errore",
+                    emailExists: "Questa email è già registrata",
+                    weakPassword: "Password troppo debole",
+                    googleOAuth: "Errore durante il login con Google"
+                },
+                badges: {
+                    free: "Gratis per sempre",
+                    noCard: "Nessuna carta richiesta",
+                    cancel: "Cancellazione istantanea",
+                    secure: "I tuoi dati sono protetti e crittografati"
+                },
+                form: {
+                    passwordReq: {
+                        title: "La password deve contenere:",
+                        length: "Almeno 8 caratteri",
+                        uppercase: "Una lettera maiuscola",
+                        lowercase: "Una lettera minuscola",
+                        number: "Un numero"
+                    }
+                }
             },
             login: {
                 loading: "Accesso in corso...",
@@ -252,12 +279,14 @@
                 privacy: "Privacy Policy",
                 terms: "Termini di Servizio",
                 cookies: "Cookie Policy",
-                copyright: "© 2026 The Stoic Journey. Tutti i diritti riservati."  // ✅ FIX 3a
+                copyright: "© 2026 The Stoic Journey. Tutti i diritti riservati."
             }
         },
 
+        // ============================================
+        // 🇬🇧 ENGLISH
+        // ============================================
         en: {
-            // ---- DASHBOARD ----
             dashboard: {
                 headerDays: "days",
                 greeting: "Hi,",
@@ -274,7 +303,7 @@
                 copyBtn: "Copy",
                 saveBtn: "Save",
                 progressTitle: "Your progress",
-                streakLabel: "days streak",              // ✅ FIX 2
+                streakLabel: "days streak",
                 reflectionsLabel: "reflections written",
                 challengesLabel: "Challenges completed",
                 completedLabel: "completed",
@@ -292,7 +321,7 @@
                 proTitle: "Upgrade to PRO",
                 proWip: "Unlock premium features",
                 interpretationTitle: "Interpretation",
-                challengeTitle: "Today's Micro-Challenge"  // ✅ FIX 1
+                challengeTitle: "Today's Micro-Challenge"
             },
             archive: {
                 filtersTitle: "Filters & Search",
@@ -451,11 +480,43 @@
                     privacyText2: "and the",
                     privacy: "Privacy Policy",
                     newsletter: "I want to receive weekly stoic reflections via email",
-                    submitBtn: "Accept the Challenge"
+                    submitBtn: "Accept the Challenge",
+                    passwordReq: {
+                        title: "Password must contain:",
+                        length: "At least 8 characters",
+                        uppercase: "One uppercase letter",
+                        lowercase: "One lowercase letter",
+                        number: "One number"
+                    }
                 },
                 loginText: "Already have an account?",
                 loginLink: "Login here",
-                success: "✅ Account created! Check your email to confirm."
+                success: "✅ Account created! Check your email to confirm.",
+                validation: {
+                    emailRequired: "Email is required",
+                    emailInvalid: "Please enter a valid email",
+                    confirmRequired: "Please confirm your password",
+                    passwordMismatch: "Passwords do not match"
+                },
+                strength: {
+                    weak: "Weak",
+                    medium: "Medium",
+                    strong: "Strong"
+                },
+                errors: {
+                    formErrors: "Please fix the errors in the form",
+                    privacyRequired: "You must accept the terms to continue",
+                    generic: "An error occurred",
+                    emailExists: "This email is already registered",
+                    weakPassword: "Password too weak",
+                    googleOAuth: "Error signing in with Google"
+                },
+                badges: {
+                    free: "Free forever",
+                    noCard: "No card required",
+                    cancel: "Instant cancellation",
+                    secure: "Your data is protected and encrypted"
+                }
             },
             login: {
                 loading: "Signing in...",
@@ -487,12 +548,281 @@
                 privacy: "Privacy Policy",
                 terms: "Terms of Service",
                 cookies: "Cookie Policy",
-                copyright: "© 2026 The Stoic Journey. All rights reserved."  // ✅ FIX 3b
+                copyright: "© 2026 The Stoic Journey. All rights reserved."
+            }
+        },
+
+        // ============================================
+        // 🇪🇸 ESPAÑOL — NEW in v5.0
+        // ============================================
+        es: {
+            dashboard: {
+                headerDays: "días",
+                greeting: "Hola,",
+                logout: "Salir",
+                navToday: "Hoy",
+                navArchive: "Archivo",
+                navSettings: "Configuración",
+                navManagePro: "Gestión PRO",
+                dailyTitle: "Contenido Diario",
+                dayLabel: "del año",
+                reflectionTitle: "Tus reflexiones de hoy",
+                reflectionPlaceholder: "¿Qué piensas del desafío de hoy?\n¿Cómo lo aplicarás?\n¿Qué obstáculos prevés?",
+                charCount: "caracteres",
+                copyBtn: "Copiar",
+                saveBtn: "Guardar",
+                progressTitle: "Tu progreso",
+                streakLabel: "días de racha",
+                reflectionsLabel: "reflexiones escritas",
+                challengesLabel: "Desafíos completados",
+                completedLabel: "completado",
+                toastWriteFirst: "✍️ ¡Escribe primero una reflexión!",
+                toastNotAuthenticated: "❌ Error: no autenticado",
+                toastSaved: "✅ ¡Reflexión guardada!",
+                toastSaveError: "❌ Error al guardar: ",
+                toastNothingToCopy: "⚠️ ¡Nada que copiar!",
+                toastCopied: "📋 ¡Copiado!",
+                toastProComing: "✨ Función PRO próximamente",
+                archiveTitle: "Archivo de Reflexiones",
+                archiveWip: "Función en desarrollo",
+                settingsTitle: "Configuración",
+                settingsWip: "Función en desarrollo",
+                proTitle: "Actualizar a PRO",
+                proWip: "Desbloquea funciones premium",
+                interpretationTitle: "Interpretación",
+                challengeTitle: "Micro-Desafío de Hoy"
+            },
+            archive: {
+                filtersTitle: "Filtros y Búsqueda",
+                filtersBtn: "Filtros",
+                searchPlaceholder: "Buscar en reflexiones...",
+                allTypes: "Todos los tipos",
+                applyFilters: "Aplicar Filtros",
+                statsTitle: "Estadísticas",
+                totalReflections: "Reflexiones Totales",
+                period: "Período",
+                prevPage: "← Anterior",
+                nextPage: "Siguiente →",
+                editTitle: "Editar Reflexión",
+                editPlaceholder: "Edita el texto de tu reflexión...",
+                saveEdit: "Guardar Cambios",
+                cancel: "Cancelar",
+                errorLoad: "Error al cargar reflexiones"
+            },
+            settings: {
+                title: "⚙️ Configuración",
+                subtitle: "Gestiona tu perfil, seguridad y preferencias",
+                adminTitle: "Panel de Administración",
+                adminSubtitle: "Gestiona usuarios y roles",
+                registeredUsers: "Usuarios Registrados",
+                loadingUsers: "Cargando usuarios...",
+                profileTitle: "Perfil de Usuario",
+                displayName: "Nombre Mostrado",
+                namePlaceholder: "Ej: Marco Aurelio o Emanuel82",
+                nameHint: "Mínimo 2 caracteres, máximo 30. Letras, números, espacios, apóstrofes y guiones.",
+                email: "Correo electrónico",
+                emailNote: "El correo no puede modificarse directamente",
+                saveProfile: "💾 Guardar Perfil",
+                securityTitle: "Seguridad",
+                securityDesc: "Recibirás un correo con un enlace seguro para restablecer tu contraseña.",
+                resetEmailLabel: "Correo para Restablecer Contraseña",
+                resetBtn: "📧 Enviar Correo de Cambio de Contraseña",
+                privacyTitle: "Privacidad y Gestión de Datos",
+                privacyData: "📋 Datos Almacenados:",
+                privacyDataDesc: "Recopilamos: nombre de usuario, correo, reflexiones diarias y fecha de registro, usados exclusivamente para el funcionamiento de la app.",
+                privacyLegal: "🔒 Base Legal (GDPR):",
+                privacyLegalDesc: "El tratamiento se basa en la ejecución del contrato (Art. 6.1.b GDPR) y el consentimiento explícito (Art. 6.1.a).",
+                privacyRights: "⚖️ Tus Derechos:",
+                privacyRightsDesc: "Según los artículos 15-22 del GDPR, tienes derecho a acceder, rectificar, eliminar, limitar, oponerte y solicitar la portabilidad de tus datos.",
+                privacyStorage: "🗄️ Conservación:",
+                privacyStorageDesc: "Los datos se conservan durante la vida del account activo. Al eliminar la cuenta se borran en 30 días (Art. 17.3 GDPR).",
+                deleteWarning: "⚠️ La eliminación de la cuenta es permanente e irreversible.",
+                deleteBtn: "🗑️ Eliminar Cuenta"
+            },
+            nav: {
+                whatIsStoicism: "¿Qué es el Estoicismo?",
+                login: "Iniciar sesión",
+                origins: "Orígenes",
+                philosophers: "Filósofos",
+                principles: "Principios",
+                today: "Hoy"
+            },
+            home: {
+                ctaShort: "Entrar",
+                cta: "Entra en el Viaje Estoico",
+                hero: {
+                    title: "Transforma tu vida cotidiana con los principios de los filósofos antiguos.",
+                    subtitle: "Reflexiones para construir conciencia y serenidad,",
+                    ai: "con perspectivas analíticas potenciadas por IA.",
+                    startNow: "Empezar Ahora"
+                },
+                howItWorks: {
+                    title: "Cómo Funciona",
+                    subtitle: "Tu camino de crecimiento estoico en tres sencillos pasos",
+                    step1: { title: "Escribe tu reflexión", description: "Dedica unos minutos al día para escribir pensamientos y desafíos en tu diario estoico personal." },
+                    step2: { title: "Desafío personalizado", description: "La IA genera un micro-desafío estoico a medida basado en Marco Aurelio, Epicteto y Séneca." },
+                    step3: { title: "Rastrea el progreso", description: "Monitorea tu evolución a través de dashboards intuitivos y visualiza tus patrones." }
+                },
+                philosophers: {
+                    title: "Los Tres Pilares de la Sabiduría Estoica",
+                    marcus: {
+                        name: "Marco Aurelio",
+                        principle: "Impedimentum Via Est",
+                        principleTranslation: "El camino a través de los obstáculos",
+                        quote: "«Quod obstat viae, via fit.»",
+                        quoteTranslation: "\"Lo que obstaculiza la acción, hace avanzar la acción. Y lo que está en el camino, es el camino.\"",
+                        description: "Los obstáculos no bloquean nuestro progreso, sino que se convierten ellos mismos en el camino.",
+                        ai: "Para cada principio, la IA generará micro-desafíos personalizados basados en tus problemas cotidianos reales."
+                    },
+                    epictetus: {
+                        name: "Epicteto",
+                        principle: "In Nostra Potestate",
+                        principleTranslation: "La dicotomía del control",
+                        quote: "«En tois eph' hemin kai en tois ouk eph' hemin»",
+                        quoteTranslation: "La Dicotomía del Control distingue entre lo que está en nuestro poder y lo que no.",
+                        description: "Liberamos energía mental cuando dejamos de luchar contra lo que no depende de nosotros.",
+                        ai: "La IA analiza tus reflexiones diarias y te guía para distinguir lo que puedes controlar de lo que no."
+                    },
+                    seneca: {
+                        name: "Séneca",
+                        principle: "Praemeditatio Malorum",
+                        principleTranslation: "Prepararse para lo peor para vivir mejor",
+                        quote: "«Qui omnia timet, nihil cogitat»",
+                        quoteTranslation: "La praemeditatio malorum es el ejercicio de imaginar de antemano lo que podría salir mal.",
+                        description: "Cuando ya hemos contemplado interiormente lo peor, cada dificultad real pierde parte de su poder.",
+                        ai: "La IA te guiará en visualizaciones estructuradas de tus miedos recurrentes."
+                    }
+                },
+                mementoMori: {
+                    title: "MEMENTO MORI",
+                    subtitle: "\"Recuerda que debes morir\"",
+                    text1: "La conciencia de la mortalidad no es una carga, sino una liberación.",
+                    text2: "Los estoicos contemplaban la muerte no para vivir con miedo, sino para vivir con intensidad."
+                },
+                faq: {
+                    title: "Preguntas y Contacto",
+                    subtitle: "Encuentra respuestas o escríbenos directamente",
+                    q1: "¿Necesito conocer la filosofía estoica para empezar?",
+                    a1: "No, te guiamos paso a paso.",
+                    q2: "¿Cuánto tiempo debo dedicar cada día?",
+                    a2: "Bastan 5-10 minutos.",
+                    q3: "¿Mis datos personales están seguros?",
+                    a3: "Absolutamente sí. Tus reflexiones están cifradas de extremo a extremo.",
+                    q4: "¿Puedo probarlo gratis antes de suscribirme?",
+                    a4: "Sí, 30 días de prueba gratuita con acceso completo."
+                },
+                contact: {
+                    title: "CONTÁCTANOS",
+                    subtitle: "¿Necesitas ayuda? ¡Escríbenos!",
+                    name: "Nombre",
+                    namePlaceholder: "Tu nombre",
+                    email: "Correo electrónico",
+                    emailPlaceholder: "tucorreo@ejemplo.com",
+                    message: "Mensaje",
+                    messagePlaceholder: "¿Cómo podemos ayudarte?",
+                    send: "Enviar Mensaje",
+                    note: "Responderemos en 24 horas"
+                }
+            },
+            registration: {
+                loading: "Creando cuenta...",
+                title: "Comienza Tu Viaje",
+                subtitle: "Únete a miles de practicantes modernos del estoicismo",
+                googleBtn: "Continuar con Google",
+                googleRedirecting: "Redirigiendo...",
+                divider: "o con correo electrónico",
+                form: {
+                    nameLabel: "Nombre completo",
+                    optional: "(opcional)",
+                    namePlaceholder: "ej. Marco Aurelio",
+                    nameHint: "Así te llamaremos en los correos",
+                    emailLabel: "Correo electrónico *",
+                    emailPlaceholder: "estoico@ejemplo.com",
+                    emailSuccess: "✓ Correo válido",
+                    passwordLabel: "Contraseña *",
+                    passwordPlaceholder: "Mínimo 8 caracteres",
+                    confirmPasswordLabel: "Confirmar contraseña *",
+                    confirmPasswordPlaceholder: "Repite la contraseña",
+                    confirmPasswordSuccess: "✓ Las contraseñas coinciden",
+                    privacyText1: "Acepto los",
+                    terms: "Términos de Servicio",
+                    privacyText2: "y la",
+                    privacy: "Política de Privacidad",
+                    newsletter: "Quiero recibir reflexiones estoicas semanales por correo",
+                    submitBtn: "Acepta el Desafío",
+                    passwordReq: {
+                        title: "La contraseña debe contener:",
+                        length: "Al menos 8 caracteres",
+                        uppercase: "Una letra mayúscula",
+                        lowercase: "Una letra minúscula",
+                        number: "Un número"
+                    }
+                },
+                loginText: "¿Ya tienes una cuenta?",
+                loginLink: "Inicia sesión aquí",
+                success: "✅ ¡Cuenta creada! Revisa tu correo para confirmar.",
+                validation: {
+                    emailRequired: "El correo es obligatorio",
+                    emailInvalid: "Introduce un correo válido",
+                    confirmRequired: "Confirma la contraseña",
+                    passwordMismatch: "Las contraseñas no coinciden"
+                },
+                strength: {
+                    weak: "Débil",
+                    medium: "Media",
+                    strong: "Fuerte"
+                },
+                errors: {
+                    formErrors: "Corrige los errores del formulario",
+                    privacyRequired: "Debes aceptar los términos para continuar",
+                    generic: "Se ha producido un error",
+                    emailExists: "Este correo ya está registrado",
+                    weakPassword: "Contraseña demasiado débil",
+                    googleOAuth: "Error al iniciar sesión con Google"
+                },
+                badges: {
+                    free: "Gratis para siempre",
+                    noCard: "Sin tarjeta requerida",
+                    cancel: "Cancelación instantánea",
+                    secure: "Tus datos están protegidos y cifrados"
+                }
+            },
+            login: {
+                loading: "Iniciando sesión...",
+                title: "Bienvenido de nuevo",
+                subtitle: "Accede a tu diario estoico personal",
+                googleBtn: "Continuar con Google",
+                googleRedirecting: "Redirigiendo...",
+                divider: "o con correo electrónico",
+                form: {
+                    emailLabel: "Correo electrónico",
+                    emailPlaceholder: "estoico@ejemplo.com",
+                    passwordLabel: "Contraseña",
+                    passwordPlaceholder: "Tu contraseña",
+                    rememberMe: "Recuérdame en este dispositivo",
+                    forgotPassword: "¿Olvidaste tu contraseña?",
+                    submitBtn: "Entrar"
+                },
+                registerText: "¿Aún no tienes cuenta?",
+                registerLink: "Regístrate aquí",
+                success: "✅ ¡Sesión iniciada! Redirigiendo..."
+            },
+            footer: {
+                tagline: "Tu guía diaria para la sabiduría estoica.",
+                resources: "Recursos",
+                whatIsStoicism: "¿Qué es el Estoicismo?",
+                blog: "Blog",
+                community: "Comunidad",
+                legal: "Legal",
+                privacy: "Política de Privacidad",
+                terms: "Términos de Servicio",
+                cookies: "Política de Cookies",
+                copyright: "© 2026 The Stoic Journey. Todos los derechos reservados."
             }
         }
     };
 
-    // Esponi globalmente — usato da dashboard.js e common.js
+    // Esponi globalmente
     window.TRANSLATIONS = TRANSLATIONS;
 
     // ============================================
@@ -512,7 +842,6 @@
 
         console.log("🌍 Applicazione traduzioni:", lang);
 
-        // Traduci data-i18n
         document.querySelectorAll("[data-i18n]").forEach(el => {
             const key = el.getAttribute("data-i18n");
             const value = getNestedTranslation(t, key);
@@ -525,77 +854,80 @@
             }
         });
 
-        // Traduci placeholder separati
         document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
             const key = el.getAttribute("data-i18n-placeholder");
             const value = getNestedTranslation(t, key);
             if (value) el.placeholder = value;
         });
 
-        // Aggiorna HTML lang
-        document.documentElement.lang = lang;
+        // Aggiorna aria-label per accessibilità
+        document.querySelectorAll("[data-i18n-aria]").forEach(el => {
+            const key = el.getAttribute("data-i18n-aria");
+            const value = getNestedTranslation(t, key);
+            if (value) el.setAttribute("aria-label", value);
+        });
 
-        // Salva preferenza (chiave condivisa con dashboard.js)
+        document.documentElement.lang = lang;
         localStorage.setItem("preferredLanguage", lang);
 
         console.log("✅ Traduzioni applicate:", lang.toUpperCase());
     }
 
-    // Esponi applyTranslations globalmente — chiamabile da dashboard.js
     window.applyTranslations = applyTranslations;
 
     // ============================================
     // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER
+    // Supporta: bottoni IT/EN/ES, dropdown home
     // ============================================
 
     function initLanguageSwitcher() {
-        // Cerca switcher nella home
-        let switcher = document.getElementById("languageSwitcherHome");
-        let dropdown = document.getElementById("languageDropdownHome");
-        let currentLangEl = document.getElementById("currentLangHome");
-
-        // Se non trovati, cerca switcher generici (altre pagine)
-        if (!switcher) {
-            switcher = document.getElementById("languageSwitcher");
-            dropdown = document.getElementById("languageDropdown");
-            currentLangEl = document.getElementById("currentLang");
-        }
-
-        // Carica lingua salvata
         const savedLang = localStorage.getItem("preferredLanguage") || "it";
 
-        // Se NON ci sono switcher dropdown (dashboard usa bottoni IT/EN)
+        // Cerca switcher dropdown (home page)
+        let switcher = document.getElementById("languageSwitcherHome") || document.getElementById("languageSwitcher");
+        let dropdown = document.getElementById("languageDropdownHome") || document.getElementById("languageDropdown");
+        let currentLangEl = document.getElementById("currentLangHome") || document.getElementById("currentLang");
+
+        // Gestione bottoni IT / EN / ES (dashboard, accedi, registrazione)
+        const btnIds = {
+            it: ["btnLangIT", "btnLangIT_mobile"],
+            en: ["btnLangEN", "btnLangEN_mobile"],
+            es: ["btnLangES", "btnLangES_mobile"]
+        };
+
+        function activateLangButtons(lang) {
+            Object.entries(btnIds).forEach(([code, ids]) => {
+                ids.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.toggle("active", lang === code);
+                });
+            });
+        }
+
+        function bindButtonLang(ids, lang) {
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.addEventListener("click", () => {
+                    applyTranslations(lang);
+                    activateLangButtons(lang);
+                });
+            });
+        }
+
         if (!switcher || !dropdown || !currentLangEl) {
-            console.log("ℹ️ Nessun dropdown switcher — applico traduzioni direttamente");
+            console.log("ℹ️ Nessun dropdown switcher — applico traduzioni + bottoni IT/EN/ES");
             applyTranslations(savedLang);
-
-            // Gestione bottoni IT/EN stile dashboard (btnLangIT / btnLangEN)
-            const btnIT = document.getElementById("btnLangIT");
-            const btnEN = document.getElementById("btnLangEN");
-            const btnIT_m = document.getElementById("btnLangIT_mobile");
-            const btnEN_m = document.getElementById("btnLangEN_mobile");
-
-            function activateLangButtons(lang) {
-                [btnIT, btnIT_m].forEach(b => { if (b) b.classList.toggle("active", lang === "it"); });
-                [btnEN, btnEN_m].forEach(b => { if (b) b.classList.toggle("active", lang === "en"); });
-            }
-
             activateLangButtons(savedLang);
 
-            [btnIT, btnIT_m].forEach(b => {
-                if (b) b.addEventListener("click", () => { applyTranslations("it"); activateLangButtons("it"); });
-            });
-            [btnEN, btnEN_m].forEach(b => {
-                if (b) b.addEventListener("click", () => { applyTranslations("en"); activateLangButtons("en"); });
-            });
+            Object.entries(btnIds).forEach(([lang, ids]) => bindButtonLang(ids, lang));
 
             console.log("✅ Language Manager: attivo (modalità bottoni) — lingua:", savedLang.toUpperCase());
             return;
         }
 
-        console.log("🎯 Language switcher dropdown trovato — inizializzazione...");
+        // Modalità dropdown
+        console.log("🎯 Language switcher dropdown trovato");
 
-        // Toggle dropdown
         switcher.addEventListener("click", function(e) {
             e.stopPropagation();
             dropdown.classList.toggle("hidden");
@@ -605,7 +937,6 @@
             dropdown.classList.add("hidden");
         });
 
-        // Gestione cambio lingua
         const langOptions = dropdown.querySelectorAll(".lang-option");
         langOptions.forEach(option => {
             option.addEventListener("click", function(e) {
@@ -616,10 +947,10 @@
                 langOptions.forEach(opt => {
                     const isActive = opt.getAttribute("data-lang") === lang;
                     opt.classList.toggle("active", isActive);
-                    opt.querySelector(".check").classList.toggle("hidden", !isActive);
+                    const check = opt.querySelector(".check");
+                    if (check) check.classList.toggle("hidden", !isActive);
                 });
                 dropdown.classList.add("hidden");
-                console.log("✅ Lingua cambiata:", lang.toUpperCase());
             });
         });
 
@@ -629,42 +960,33 @@
         langOptions.forEach(option => {
             const isActive = option.getAttribute("data-lang") === savedLang;
             option.classList.toggle("active", isActive);
-            option.querySelector(".check").classList.toggle("hidden", !isActive);
+            const check = option.querySelector(".check");
+            if (check) check.classList.toggle("hidden", !isActive);
         });
 
-        console.log("✅ GLOBAL Language Manager: Attivo con switcher dropdown!");
+        console.log("✅ GLOBAL Language Manager v5.0: Dropdown attivo — lingua:", savedLang.toUpperCase());
     }
 
     // ============================================
-    // PARTE 4: AVVIO AUTOMATICO
-    // Problema: common.js e dashboard.js hanno DOMContentLoaded che
-    // sovrascrivono i testi DOPO che language-manager li ha tradotti.
-    // Soluzione: registriamo UN SECONDO DOMContentLoaded che parte dopo
-    // tutti gli altri (stesso tick di evento, ma registrato per ultimo
-    // poiché questo script è l'ultimo caricato), più un secondo passaggio
-    // con setTimeout(0) per catturare i testi scritti da JS asincrono.
+    // PARTE 4: AVVIO
     // ============================================
 
     function runAfterAllScripts() {
         initLanguageSwitcher();
 
-        // Secondo passaggio: cattura testi scritti da common.js / dashboard.js
-        // in modo sincrono nei loro DOMContentLoaded
         setTimeout(() => {
             const savedLang = localStorage.getItem("preferredLanguage") || "it";
             if (savedLang !== "it") {
                 applyTranslations(savedLang);
-                console.log("🔄 Re-apply traduzioni dopo script asincroni:", savedLang.toUpperCase());
+                console.log("🔄 Re-apply dopo script sincroni:", savedLang.toUpperCase());
             }
         }, 0);
 
-        // Terzo passaggio: cattura testi scritti da chiamate async (Supabase, ecc.)
-        // dashboard.js carica dati da Supabase in ~800ms
         setTimeout(() => {
             const savedLang = localStorage.getItem("preferredLanguage") || "it";
             if (savedLang !== "it") {
                 applyTranslations(savedLang);
-                console.log("🔄 Re-apply traduzioni dopo async Supabase:", savedLang.toUpperCase());
+                console.log("🔄 Re-apply dopo async Supabase:", savedLang.toUpperCase());
             }
         }, 1500);
     }
@@ -675,6 +997,6 @@
         runAfterAllScripts();
     }
 
-    console.log("✅ GLOBAL Language Manager v4.0: Script caricato");
+    console.log("✅ GLOBAL Language Manager v5.0: Script caricato — IT / EN / 🇪🇸 ES");
 
 })();
