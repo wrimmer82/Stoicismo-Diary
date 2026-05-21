@@ -15,6 +15,7 @@
     <title>Dashboard - The Stoic Journey</title>
     <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
     <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0f172a">
 
     <!--
         TAILWIND CDN — ripristinato dopo tentativo fallito di sostituzione con jsDelivr.
@@ -35,6 +36,49 @@
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter  { font-family: 'Inter', sans-serif; }
+
+        /* ====================================================
+           FIX #1 — SVG/img protezione globale
+           Impedisce a qualsiasi svg o img di esplodere
+           oltre le dimensioni del suo contenitore.
+        ==================================================== */
+        img { max-width: 100%; height: auto; }
+        svg { overflow: hidden; }
+
+        /* ====================================================
+           FIX #2 — Logo header: dimensioni fisse garantite
+        ==================================================== */
+        .logo-img {
+            width: 40px !important;
+            height: 40px !important;
+            min-width: 40px;
+            min-height: 40px;
+            max-width: 40px;
+            max-height: 40px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        /* ====================================================
+           FIX #3 — Icone SVG inline della sidebar e header:
+           bloccate a 20×20 tramite classe w-5 h-5, ma aggiungiamo
+           min/max espliciti come guardia extra.
+        ==================================================== */
+        nav svg, header svg, #mobileSidebar svg {
+            min-width: 20px;
+            min-height: 20px;
+            max-width: 20px;
+            max-height: 20px;
+            flex-shrink: 0;
+        }
+        /* Solo l'hamburger è 24×24 */
+        #mobileMenuBtn svg,
+        #closeMobileMenu svg {
+            min-width: 24px !important;
+            min-height: 24px !important;
+            max-width: 24px !important;
+            max-height: 24px !important;
+        }
 
         .pergamena-bg {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
@@ -81,12 +125,22 @@
         .parchment-card h3 { color: #92400e; text-shadow: 1px 1px 2px rgba(255,255,255,0.4); }
         .parchment-card p  { color: #451a03; text-shadow: 0 1px 2px rgba(255,255,255,0.3); }
 
+        /* ====================================================
+           FIX #4 — background-attachment: fixed rimosso su mobile.
+           Su iOS/Android causa rendering stuttering e il bg
+           viene trattato come elemento a dimensione intera pagina.
+           Su desktop (≥768px) lo ripristiniamo.
+        ==================================================== */
         body {
             background: linear-gradient(180deg,
                 #1a0f1f 0%, #2d1b3d 10%, #4a2c4f 20%,
                 #6b4a5a 35%, #8b5a4e 50%, #a8754a 65%,
                 #c49050 80%, #a8754a 90%, #1c1410 100%);
-            min-height: 100vh; background-attachment: fixed;
+            min-height: 100vh;
+            /* background-attachment: scroll su mobile (default) */
+        }
+        @media (min-width: 768px) {
+            body { background-attachment: fixed; }
         }
 
         #mobileMenuOverlay {
@@ -106,6 +160,18 @@
         }
         #mobileSidebar::-webkit-scrollbar { display: none; }
         #mobileSidebar.active { transform: translateX(0); }
+
+        /* ====================================================
+           FIX #5 — Sidebar desktop: max-height + overflow
+           per evitare che cresca oltre lo schermo.
+        ==================================================== */
+        aside.hidden.md\:block,
+        aside:not(#mobileSidebar) {
+            max-height: calc(100vh - 73px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #334155 transparent;
+        }
 
         .custom-scrollbar::-webkit-scrollbar       { width: 8px; }
         .custom-scrollbar::-webkit-scrollbar-track  { background: #f1f5f9; border-radius: 10px; }
@@ -128,6 +194,13 @@
             50%       { box-shadow: 0 0 30px rgba(251,191,36,0.6); }
         }
         .streak-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+        /* ====================================================
+           FIX #6 — Pausa animazioni quando tab non è visibile
+           (risparmio batteria mobile)
+        ==================================================== */
+        body.page-hidden .streak-glow { animation-play-state: paused; }
+        body.page-hidden .skeleton    { animation-play-state: paused; }
 
         .role-badge {
             display: inline-flex; align-items: center; gap: 0.375rem;
@@ -165,7 +238,7 @@
                         </svg>
                     </button>
                     <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" width="40" height="40" class="h-10 w-10 object-contain" decoding="async">
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" width="40" height="40" class="logo-img" decoding="async">
                         <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
                     </div>
                 </div>
@@ -256,7 +329,7 @@
     <div class="flex">
 
         <!-- Sidebar DESKTOP -->
-        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
+        <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start" style="max-height:calc(100vh - 73px);overflow-y:auto;">
             <nav class="p-6 space-y-2">
                 <a href="#" data-view="oggi" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -367,7 +440,10 @@
                             <div class="w-full bg-slate-700 rounded-full h-2">
                                 <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width:0%"></div>
                             </div>
-                            <div class="text-xs text-slate-500 text-right mt-1"><span id="progressPercentage">0</span>%</div>
+                            <div class="text-xs text-slate-500 text-right mt-1">
+                                <span id="progressPercentage">0</span>%
+                                <span data-i18n="dashboard.completedLabel"> completato</span>
+                            </div>
                         </div>
                     </div>
 
@@ -436,6 +512,13 @@
     <script src="common.js" defer></script>
     <!-- 3° dashboard.js → contenuto quotidiano bilingue da Supabase -->
     <script src="dashboard.js" defer></script>
+
+    <!-- FIX #6 — Pausa animazioni quando tab non è visibile -->
+    <script>
+        document.addEventListener('visibilitychange', function() {
+            document.body.classList.toggle('page-hidden', document.hidden);
+        });
+    </script>
 
 </body>
 </html>
