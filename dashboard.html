@@ -17,90 +17,25 @@
     <meta name="robots" content="noindex, nofollow">
 
     <!--
-        FIX PERFORMANCE: Tailwind CDN runtime rimosso.
-        Il CDN runtime (cdn.tailwindcss.com) carica ~350KB di JS che genera il CSS
-        al volo nel browser ad ogni caricamento pagina, rallentando l'FCP.
-
-        SOLUZIONE: CSS Tailwind pre-built e minificato via jsDelivr (solo CSS, zero JS runtime).
-        Tutte le utility classes usate nel progetto sono incluse nel bundle completo v3.
+        TAILWIND CDN — ripristinato dopo tentativo fallito di sostituzione con jsDelivr.
+        Il bundle pre-built di Tailwind v3 NON è disponibile come CSS standalone su npm/jsDelivr.
+        Per rimuovere il CDN runtime in futuro occorre un processo di build locale (Tailwind CLI).
+        TODO: configurare GitHub Actions con `npx tailwindcss -o tailwind.min.css --minify`
+              e referenziare il file compilato al posto di questo script.
     -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/base.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/utilities.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Trajan+Pro:wght@400;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* =============================================
-           TAILWIND CUSTOM UTILITIES
-           Poiché usiamo il CSS pre-built invece del CDN
-           runtime, le classi generate dinamicamente
-           (es. bg-slate-900/95, border-amber-500/20)
-           con opacity modifier devono essere esplicitate
-           qui come fallback custom.
-        ============================================= */
-
-        /* Opacity utilities usate nel progetto */
-        .bg-slate-900\/95  { background-color: rgb(15 23 42 / 0.95); }
-        .bg-black\/40      { background-color: rgb(0 0 0 / 0.40); }
-        .border-amber-500\/20 { border-color: rgb(245 158 11 / 0.20); }
-        .border-amber-500\/30 { border-color: rgb(245 158 11 / 0.30); }
-        .bg-amber-500\/20  { background-color: rgb(245 158 11 / 0.20); }
-        .bg-amber-600\/90  { background-color: rgb(217 119 6 / 0.90); }
-        .bg-slate-700\/90  { background-color: rgb(51 65 85 / 0.90); }
-        .focus\:ring-amber-500\/20:focus { --tw-ring-color: rgb(245 158 11 / 0.20); }
-
-        /* Classi responsive usate (md: prefix) */
-        @media (min-width: 768px) {
-            .md\:block   { display: block; }
-            .md\:hidden  { display: none; }
-            .md\:inline  { display: inline; }
-            .md\:flex    { display: flex; }
-            .md\:grid    { display: grid; }
-            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-            .md\:p-8     { padding: 2rem; }
-            .md\:gap-4   { gap: 1rem; }
-            .md\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-            .md\:text-2xl{ font-size: 1.5rem;  line-height: 2rem; }
-            .md\:text-3xl{ font-size: 1.875rem; line-height: 2.25rem; }
-            .desktop-textarea { height: 200px; }
-        }
-
-        @media (min-width: 640px) {
-            .sm\:flex    { display: flex; }
-            .sm\:px-6    { padding-left: 1.5rem; padding-right: 1.5rem; }
-        }
-
-        @media (min-width: 1024px) {
-            .lg\:px-8    { padding-left: 2rem; padding-right: 2rem; }
-        }
-
-        /* sm:hidden */
-        @media (max-width: 639px) {
-            .sm\:hidden { display: none; }
-        }
-
-        /* md:hidden già sopra, ma serve anche il lato opposto */
-        @media (max-width: 767px) {
-            .md\:hidden  { display: none !important; }
-            .mobile-textarea { height: 120px; font-size: 16px; }
-            .mobile-btn  { min-height: 48px; font-size: 16px; }
-        }
-
-        /* =============================================
-           FONT FAMILIES
-        ============================================= */
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter  { font-family: 'Inter', sans-serif; }
 
-        /* =============================================
-           COMPONENTI CUSTOM
-        ============================================= */
         .pergamena-bg {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
                         url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
@@ -211,26 +146,14 @@
         .lang-btn:not(.active)  { color:#94a3b8; border-color:#334155; }
         .lang-btn:hover:not(.active) { border-color:#64748b; color:#cbd5e1; }
 
-        /* Nav links */
-        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.15s, color 0.15s; text-decoration: none; width: 100%; text-align: left; cursor: pointer; border: none; }
-        .nav-link:hover:not(.active-nav) { background-color: #1e293b; color: #fbbf24; }
-
-        /* View containers */
-        .view-container { display: none; }
-        .view-container:not(.hidden) { display: block; }
-
-        /* Backdrop blur header */
-        .header-blur {
-            background-color: rgb(15 23 42 / 0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-        }
+        @media (max-width: 767px) { .mobile-textarea { height:120px; font-size:16px; } .mobile-btn { min-height:48px; font-size:16px; } }
+        @media (min-width: 768px) { .desktop-textarea { height:200px; } }
     </style>
 </head>
 <body class="font-inter text-slate-100">
 
     <!-- ========== HEADER ========== -->
-    <header class="sticky top-0 z-30 header-blur border-b border-amber-500/20 shadow-lg">
+    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
 
@@ -304,19 +227,19 @@
             </div>
 
             <nav class="space-y-2">
-                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                <a href="#" data-view="oggi" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span data-i18n="dashboard.navToday">Oggi</span>
                 </a>
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="#" data-view="archivio" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
                     <span data-i18n="dashboard.navArchive">Archivio</span>
                 </a>
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="#" data-view="impostazioni" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     <span data-i18n="dashboard.navSettings">Impostazioni</span>
                 </a>
-                <button id="manageSubscriptionBtnMobile" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-700 hover:to-purple-800 transition-all mt-4 w-full text-left">
+                <button id="manageSubscriptionBtnMobile" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-700 hover:to-purple-800 transition-all mt-4 w-full text-left">
                     <span style="font-size:1.25rem">✨</span>
                     <span data-i18n="dashboard.navManagePro">Gestione PRO</span>
                 </button>
@@ -335,19 +258,19 @@
         <!-- Sidebar DESKTOP -->
         <aside class="hidden md:block w-64 bg-slate-900/95 backdrop-blur-sm border-r border-amber-500/20 min-h-screen sticky top-[73px] self-start">
             <nav class="p-6 space-y-2">
-                <a href="#" data-view="oggi" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
+                <a href="#" data-view="oggi" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-amber-500/20 text-amber-400 font-medium transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                     <span data-i18n="dashboard.navToday">Oggi</span>
                 </a>
-                <a href="#" data-view="archivio" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="#" data-view="archivio" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
                     <span data-i18n="dashboard.navArchive">Archivio</span>
                 </a>
-                <a href="#" data-view="impostazioni" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
+                <a href="#" data-view="impostazioni" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-amber-400 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     <span data-i18n="dashboard.navSettings">Impostazioni</span>
                 </a>
-                <button id="manageSubscriptionBtn" class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-700 hover:to-purple-800 transition-all mt-4 w-full text-left">
+                <button id="manageSubscriptionBtn" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-700 hover:to-purple-800 transition-all mt-4 w-full text-left">
                     <span style="font-size:1.25rem">✨</span>
                     <span data-i18n="dashboard.navManagePro">Gestione PRO</span>
                 </button>
@@ -358,7 +281,7 @@
         <main class="flex-1 p-4 md:p-8 max-w-5xl mx-auto w-full">
 
             <!-- VIEW: Oggi -->
-            <div id="viewOggi" class="view-container">
+            <div id="viewOggi">
 
                 <!-- Contenuto Quotidiano -->
                 <div class="gradient-border pergamena-bg p-6 md:p-8 mb-6 border-2 border-amber-500/30 rounded-2xl">
@@ -444,7 +367,7 @@
                             <div class="w-full bg-slate-700 rounded-full h-2">
                                 <div id="progressBar" class="progress-bar bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full" style="width:0%"></div>
                             </div>
-                            <div class="text-xs text-slate-500 text-right mt-1"><span id="progressPercentage">0</span></div>
+                            <div class="text-xs text-slate-500 text-right mt-1"><span id="progressPercentage">0</span>%</div>
                         </div>
                     </div>
 
@@ -475,7 +398,7 @@
             </div>
 
             <!-- VIEW: Archivio -->
-            <div id="viewArchivio" class="view-container hidden">
+            <div id="viewArchivio" class="hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4" data-i18n="dashboard.archiveTitle">Archivio Riflessioni</h2>
                     <p class="text-slate-400 mb-8" data-i18n="dashboard.archiveWip">Funzionalità in sviluppo</p>
@@ -483,7 +406,7 @@
             </div>
 
             <!-- VIEW: Impostazioni -->
-            <div id="viewImpostazioni" class="view-container hidden">
+            <div id="viewImpostazioni" class="hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4" data-i18n="dashboard.settingsTitle">Impostazioni</h2>
                     <p class="text-slate-400 mb-8" data-i18n="dashboard.settingsWip">Funzionalità in sviluppo</p>
@@ -491,7 +414,7 @@
             </div>
 
             <!-- VIEW: PRO -->
-            <div id="viewPro" class="view-container hidden">
+            <div id="viewPro" class="hidden">
                 <div class="text-center py-20">
                     <h2 class="text-3xl font-cinzel font-bold text-amber-400 mb-4" data-i18n="dashboard.proTitle">Passa a PRO</h2>
                     <p class="text-slate-400 mb-8" data-i18n="dashboard.proWip">Sblocca funzionalità premium</p>
