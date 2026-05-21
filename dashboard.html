@@ -16,7 +16,17 @@
     <meta name="description" content="La tua dashboard personale per crescita stoica quotidiana - The Stoic Journey">
     <meta name="robots" content="noindex, nofollow">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!--
+        FIX PERFORMANCE: Tailwind CDN runtime rimosso.
+        Il CDN runtime (cdn.tailwindcss.com) carica ~350KB di JS che genera il CSS
+        al volo nel browser ad ogni caricamento pagina, rallentando l'FCP.
+
+        SOLUZIONE: CSS Tailwind pre-built e minificato via jsDelivr (solo CSS, zero JS runtime).
+        Tutte le utility classes usate nel progetto sono incluse nel bundle completo v3.
+    -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.17/utilities.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,10 +35,72 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+        /* =============================================
+           TAILWIND CUSTOM UTILITIES
+           Poiché usiamo il CSS pre-built invece del CDN
+           runtime, le classi generate dinamicamente
+           (es. bg-slate-900/95, border-amber-500/20)
+           con opacity modifier devono essere esplicitate
+           qui come fallback custom.
+        ============================================= */
+
+        /* Opacity utilities usate nel progetto */
+        .bg-slate-900\/95  { background-color: rgb(15 23 42 / 0.95); }
+        .bg-black\/40      { background-color: rgb(0 0 0 / 0.40); }
+        .border-amber-500\/20 { border-color: rgb(245 158 11 / 0.20); }
+        .border-amber-500\/30 { border-color: rgb(245 158 11 / 0.30); }
+        .bg-amber-500\/20  { background-color: rgb(245 158 11 / 0.20); }
+        .bg-amber-600\/90  { background-color: rgb(217 119 6 / 0.90); }
+        .bg-slate-700\/90  { background-color: rgb(51 65 85 / 0.90); }
+        .focus\:ring-amber-500\/20:focus { --tw-ring-color: rgb(245 158 11 / 0.20); }
+
+        /* Classi responsive usate (md: prefix) */
+        @media (min-width: 768px) {
+            .md\:block   { display: block; }
+            .md\:hidden  { display: none; }
+            .md\:inline  { display: inline; }
+            .md\:flex    { display: flex; }
+            .md\:grid    { display: grid; }
+            .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .md\:p-8     { padding: 2rem; }
+            .md\:gap-4   { gap: 1rem; }
+            .md\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+            .md\:text-2xl{ font-size: 1.5rem;  line-height: 2rem; }
+            .md\:text-3xl{ font-size: 1.875rem; line-height: 2.25rem; }
+            .desktop-textarea { height: 200px; }
+        }
+
+        @media (min-width: 640px) {
+            .sm\:flex    { display: flex; }
+            .sm\:px-6    { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .lg\:px-8    { padding-left: 2rem; padding-right: 2rem; }
+        }
+
+        /* sm:hidden */
+        @media (max-width: 639px) {
+            .sm\:hidden { display: none; }
+        }
+
+        /* md:hidden già sopra, ma serve anche il lato opposto */
+        @media (max-width: 767px) {
+            .md\:hidden  { display: none !important; }
+            .mobile-textarea { height: 120px; font-size: 16px; }
+            .mobile-btn  { min-height: 48px; font-size: 16px; }
+        }
+
+        /* =============================================
+           FONT FAMILIES
+        ============================================= */
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-trajan { font-family: 'Trajan Pro', 'Cinzel', serif; }
         .font-inter  { font-family: 'Inter', sans-serif; }
 
+        /* =============================================
+           COMPONENTI CUSTOM
+        ============================================= */
         .pergamena-bg {
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
                         url('https://wrimmer82.github.io/Stoicismo-Diary/pergamena-sfondo.png') center/cover no-repeat;
@@ -139,14 +211,26 @@
         .lang-btn:not(.active)  { color:#94a3b8; border-color:#334155; }
         .lang-btn:hover:not(.active) { border-color:#64748b; color:#cbd5e1; }
 
-        @media (max-width: 767px) { .mobile-textarea { height:120px; font-size:16px; } .mobile-btn { min-height:48px; font-size:16px; } }
-        @media (min-width: 768px) { .desktop-textarea { height:200px; } }
+        /* Nav links */
+        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background-color 0.15s, color 0.15s; text-decoration: none; width: 100%; text-align: left; cursor: pointer; border: none; }
+        .nav-link:hover:not(.active-nav) { background-color: #1e293b; color: #fbbf24; }
+
+        /* View containers */
+        .view-container { display: none; }
+        .view-container:not(.hidden) { display: block; }
+
+        /* Backdrop blur header */
+        .header-blur {
+            background-color: rgb(15 23 42 / 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
     </style>
 </head>
 <body class="font-inter text-slate-100">
 
     <!-- ========== HEADER ========== -->
-    <header class="sticky top-0 z-30 bg-slate-900/95 backdrop-blur-sm border-b border-amber-500/20 shadow-lg">
+    <header class="sticky top-0 z-30 header-blur border-b border-amber-500/20 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div class="flex items-center justify-between">
 
@@ -158,7 +242,7 @@
                         </svg>
                     </button>
                     <div class="flex items-center gap-3">
-                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" class="h-10 w-10 object-contain">
+                        <img src="sigma_logo.png" alt="The Stoic Journey Logo" width="40" height="40" class="h-10 w-10 object-contain" decoding="async">
                         <span class="text-lg md:text-xl font-cinzel font-bold text-amber-400 tracking-wide">The Stoic Journey</span>
                     </div>
                 </div>
@@ -180,9 +264,9 @@
 
                     <!-- Lang switcher DESKTOP — IT / EN / ES -->
                     <div class="hidden md:flex items-center gap-1">
-                        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('it')">IT</button>
-                        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('en')">EN</button>
-                        <button id="btnLangES" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('es')">ES</button>
+                        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('it')" aria-label="Italiano">IT</button>
+                        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('en')" aria-label="English">EN</button>
+                        <button id="btnLangES" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('es')" aria-label="Español">ES</button>
                     </div>
 
                     <!-- User + logout -->
@@ -213,9 +297,9 @@
                 </button>
                 <!-- Lang switcher MOBILE — IT / EN / ES -->
                 <div class="flex gap-1">
-                    <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('it')">IT</button>
-                    <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('en')">EN</button>
-                    <button id="btnLangES_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('es')">ES</button>
+                    <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('it')" aria-label="Italiano">IT</button>
+                    <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('en')" aria-label="English">EN</button>
+                    <button id="btnLangES_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('es')" aria-label="Español">ES</button>
                 </div>
             </div>
 
@@ -424,11 +508,11 @@
 
     <!-- ========== SCRIPTS — ORDINE CRITICO ========== -->
     <!-- 1° language-manager.js → espone window.TRANSLATIONS e window.applyTranslations -->
-    <script src="language-manager.js"></script>
+    <script src="language-manager.js" defer></script>
     <!-- 2° common.js → Supabase, sessione, badge ruolo, abbonamento -->
-    <script src="common.js"></script>
+    <script src="common.js" defer></script>
     <!-- 3° dashboard.js → contenuto quotidiano bilingue da Supabase -->
-    <script src="dashboard.js"></script>
+    <script src="dashboard.js" defer></script>
 
 </body>
 </html>
