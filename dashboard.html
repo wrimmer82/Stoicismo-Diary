@@ -178,10 +178,11 @@
                         <span id="roleText">VIP</span>
                     </div>
 
-                    <!-- Lang switcher DESKTOP -->
+                    <!-- Lang switcher DESKTOP — IT / EN / ES -->
                     <div class="hidden md:flex items-center gap-1">
-                        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
-                        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                        <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('it')">IT</button>
+                        <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('en')">EN</button>
+                        <button id="btnLangES" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('es')">ES</button>
                     </div>
 
                     <!-- User + logout -->
@@ -210,10 +211,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
-                <!-- Lang switcher MOBILE -->
+                <!-- Lang switcher MOBILE — IT / EN / ES -->
                 <div class="flex gap-1">
-                    <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
-                    <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                    <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('it')">IT</button>
+                    <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('en')">EN</button>
+                    <button id="btnLangES_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent" onclick="setLanguage('es')">ES</button>
                 </div>
             </div>
 
