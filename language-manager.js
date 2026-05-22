@@ -1,13 +1,13 @@
 // ============================================
 // 🌍 GLOBAL LANGUAGE MANAGER
 // File: language-manager.js
-// Versione: 5.0 - Added ES (Spanish) + btnLangES support
+// Versione: 5.1 - Fix: it.registration.form duplicata unificata
 // ============================================
 
 (function() {
     "use strict";
 
-    console.log("🌍 GLOBAL Language Manager v5.0: Loading...");
+    console.log("🌍 GLOBAL Language Manager v5.1: Loading...");
 
     // ============================================
     // PARTE 1: TRANSLATIONS DATABASE
@@ -191,6 +191,7 @@
                 googleBtn: "Continua con Google",
                 googleRedirecting: "Reindirizzamento...",
                 divider: "oppure con email",
+                // ✅ FIX v5.1: blocco form unificato (era duplicato — il secondo sovrascriveva il primo)
                 form: {
                     nameLabel: "Nome completo",
                     optional: "(opzionale)",
@@ -209,7 +210,14 @@
                     privacyText2: "e la",
                     privacy: "Privacy Policy",
                     newsletter: "Voglio ricevere riflessioni stoiche settimanali via email",
-                    submitBtn: "Accetta la Sfida"
+                    submitBtn: "Accetta la Sfida",
+                    passwordReq: {
+                        title: "La password deve contenere:",
+                        length: "Almeno 8 caratteri",
+                        uppercase: "Una lettera maiuscola",
+                        lowercase: "Una lettera minuscola",
+                        number: "Un numero"
+                    }
                 },
                 loginText: "Hai già un account?",
                 loginLink: "Accedi qui",
@@ -238,15 +246,6 @@
                     noCard: "Nessuna carta richiesta",
                     cancel: "Cancellazione istantanea",
                     secure: "I tuoi dati sono protetti e crittografati"
-                },
-                form: {
-                    passwordReq: {
-                        title: "La password deve contenere:",
-                        length: "Almeno 8 caratteri",
-                        uppercase: "Una lettera maiuscola",
-                        lowercase: "Una lettera minuscola",
-                        number: "Un numero"
-                    }
                 }
             },
             login: {
@@ -799,7 +798,7 @@
                     emailPlaceholder: "estoico@ejemplo.com",
                     passwordLabel: "Contraseña",
                     passwordPlaceholder: "Tu contraseña",
-                    rememberMe: "Recuérdame en este dispositivo",
+                    rememberMe: "Recuérdame",
                     forgotPassword: "¿Olvidaste tu contraseña?",
                     submitBtn: "Entrar"
                 },
@@ -874,6 +873,8 @@
     }
 
     window.applyTranslations = applyTranslations;
+    // Alias per compatibilità con onclick="setLanguage('it')" nei bottoni HTML
+    window.setLanguage = applyTranslations;
 
     // ============================================
     // PARTE 3: INIZIALIZZAZIONE LANGUAGE SWITCHER
@@ -964,7 +965,7 @@
             if (check) check.classList.toggle("hidden", !isActive);
         });
 
-        console.log("✅ GLOBAL Language Manager v5.0: Dropdown attivo — lingua:", savedLang.toUpperCase());
+        console.log("✅ GLOBAL Language Manager v5.1: Dropdown attivo — lingua:", savedLang.toUpperCase());
     }
 
     // ============================================
@@ -997,6 +998,6 @@
         runAfterAllScripts();
     }
 
-    console.log("✅ GLOBAL Language Manager v5.0: Script caricato — IT / EN / 🇪🇸 ES");
+    console.log("✅ GLOBAL Language Manager v5.1: Script caricato — IT / EN / 🇪🇸 ES");
 
 })();
