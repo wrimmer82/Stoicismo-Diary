@@ -103,10 +103,11 @@
                         <span id="roleText">VIP</span>
                     </div>
 
-                    <!-- Lang switcher -->
+                    <!-- Lang switcher DESKTOP — IT / EN / ES -->
                     <div class="flex items-center gap-1">
                         <button id="btnLangIT" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
                         <button id="btnLangEN" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                        <button id="btnLangES" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">ES</button>
                     </div>
 
                     <div class="flex items-center gap-3">
@@ -132,9 +133,11 @@
                 <button id="closeMobileMenu" class="text-amber-400 hover:text-amber-300 transition-colors" aria-label="Chiudi menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
+                <!-- Lang switcher MOBILE — IT / EN / ES -->
                 <div class="flex gap-1">
                     <button id="btnLangIT_mobile" class="lang-btn active text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">IT</button>
                     <button id="btnLangEN_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">EN</button>
+                    <button id="btnLangES_mobile" class="lang-btn text-xs font-semibold px-2.5 py-1 rounded border bg-transparent">ES</button>
                 </div>
             </div>
             <nav class="space-y-2">
@@ -331,6 +334,99 @@
 
     function getLang() { return localStorage.getItem('preferredLanguage') || 'it'; }
 
+    // Testi trilingue per stringhe JS dinamiche (non coperte da data-i18n)
+    const T = {
+        it: {
+            noUsers: 'Nessun utente registrato',
+            unnamed: 'Utente senza nome',
+            expired: '⏰ Scaduto',
+            activeUntil: '✅ Attivo fino al ',
+            unlimited: 'Illimitato',
+            you: 'TU',
+            promotePro: 'Promuovi a PRO',
+            setVip: 'Riporta a VIP',
+            setVipInf: 'VIP Illimitato (amici/parenti)',
+            nameShort: '❌ Nome troppo corto (minimo 2 caratteri)',
+            nameLong: '❌ Nome troppo lungo (massimo 30 caratteri)',
+            nameChars: '❌ Solo lettere, numeri, spazi, apostrofi e trattini',
+            enterName: '⚠️ Inserisci un nome',
+            fixErrors: '⚠️ Correggi gli errori prima di salvare',
+            saveProfile: '💾 Salva Profilo',
+            profileSaved: '✅ Profilo aggiornato con successo!',
+            resetConfirm: (email) => `📧 Reset Password\n\nL'email sarà inviata a:\n${email}\n\nClicca OK per confermare.`,
+            cancelled: '❌ Operazione annullata',
+            emailSent: '✅ Email inviata! Controlla la tua casella',
+            deleteMsg1: '⚠️ ATTENZIONE: Cancellazione Account\n\nQuesta azione eliminerà permanentemente:\n• Il tuo profilo utente\n• Tutte le tue riflessioni\n• I tuoi progressi e statistiche\n\nQuesta operazione NON è reversibile.\n\nVuoi procedere?',
+            deleteMsg2: '❗ ULTIMA CONFERMA\n\nSei assolutamente sicuro?\n\nClicca OK per confermare la cancellazione definitiva.',
+            deleteReceived: "🗑️ Richiesta ricevuta. L'account verrà eliminato entro 48 ore.",
+            confirmRole: (role) => `Confermi di voler cambiare il ruolo di questo utente in ${role.toUpperCase()}?`,
+            roleUpdated: (role) => `✅ Ruolo aggiornato a ${role.toUpperCase()}!`,
+            confirmVipInf: 'Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?',
+            vipInfSet: '✅ Utente impostato come VIP ILLIMITATO!'
+        },
+        en: {
+            noUsers: 'No users found',
+            unnamed: 'Unnamed user',
+            expired: '⏰ Expired',
+            activeUntil: '✅ Active until ',
+            unlimited: 'Unlimited',
+            you: 'YOU',
+            promotePro: 'Promote to PRO',
+            setVip: 'Set to VIP',
+            setVipInf: 'Unlimited VIP (friends/family)',
+            nameShort: '❌ Name too short (min 2 chars)',
+            nameLong: '❌ Name too long (max 30 chars)',
+            nameChars: '❌ Only letters, numbers, spaces, apostrophes and hyphens',
+            enterName: '⚠️ Enter a name',
+            fixErrors: '⚠️ Fix errors before saving',
+            saveProfile: '💾 Save Profile',
+            profileSaved: '✅ Profile updated!',
+            resetConfirm: (email) => `📧 Reset Password\n\nEmail will be sent to:\n${email}\n\nClick OK to confirm.`,
+            cancelled: '❌ Cancelled',
+            emailSent: '✅ Email sent! Check your inbox',
+            deleteMsg1: '⚠️ WARNING: Account Deletion\n\nThis will permanently delete:\n• Your user profile\n• All your reflections\n• Your progress and statistics\n\nThis cannot be undone.\n\nContinue?',
+            deleteMsg2: '❗ FINAL CONFIRMATION\n\nAre you absolutely sure?\n\nClick OK to confirm permanent deletion.',
+            deleteReceived: '🗑️ Request received. Account will be deleted within 48 hours.',
+            confirmRole: (role) => `Confirm changing this user's role to ${role.toUpperCase()}?`,
+            roleUpdated: (role) => `✅ Role updated to ${role.toUpperCase()}!`,
+            confirmVipInf: 'Confirm setting this user as UNLIMITED VIP (friends/family)?',
+            vipInfSet: '✅ User set as UNLIMITED VIP!'
+        },
+        es: {
+            noUsers: 'No hay usuarios registrados',
+            unnamed: 'Usuario sin nombre',
+            expired: '⏰ Expirado',
+            activeUntil: '✅ Activo hasta el ',
+            unlimited: 'Ilimitado',
+            you: 'TÚ',
+            promotePro: 'Promover a PRO',
+            setVip: 'Establecer como VIP',
+            setVipInf: 'VIP Ilimitado (amigos/familia)',
+            nameShort: '❌ Nombre demasiado corto (mínimo 2 caracteres)',
+            nameLong: '❌ Nombre demasiado largo (máximo 30 caracteres)',
+            nameChars: '❌ Solo letras, números, espacios, apóstrofes y guiones',
+            enterName: '⚠️ Introduce un nombre',
+            fixErrors: '⚠️ Corrige los errores antes de guardar',
+            saveProfile: '💾 Guardar Perfil',
+            profileSaved: '✅ ¡Perfil actualizado!',
+            resetConfirm: (email) => `📧 Restablecer Contraseña\n\nSe enviará un correo a:\n${email}\n\nHaz clic en Aceptar para confirmar.`,
+            cancelled: '❌ Cancelado',
+            emailSent: '✅ ¡Correo enviado! Revisa tu bandeja de entrada',
+            deleteMsg1: '⚠️ ADVERTENCIA: Eliminar Cuenta\n\nEsta acción eliminará permanentemente:\n• Tu perfil de usuario\n• Todas tus reflexiones\n• Tu progreso y estadísticas\n\nEsta operación NO es reversible.\n\n¿Deseas continuar?',
+            deleteMsg2: '❗ CONFIRMACIÓN FINAL\n\n¿Estás absolutamente seguro?\n\nHaz clic en Aceptar para confirmar la eliminación definitiva.',
+            deleteReceived: '🗑️ Solicitud recibida. La cuenta se eliminará en 48 horas.',
+            confirmRole: (role) => `¿Confirmas cambiar el rol de este usuario a ${role.toUpperCase()}?`,
+            roleUpdated: (role) => `✅ ¡Rol actualizado a ${role.toUpperCase()}!`,
+            confirmVipInf: '¿Confirmas establecer este usuario como VIP ILIMITADO (amigos/familia)?',
+            vipInfSet: '✅ ¡Usuario establecido como VIP ILIMITADO!'
+        }
+    };
+
+    function t(key) {
+        const lang = getLang();
+        return (T[lang] || T['it'])[key];
+    }
+
     async function loadUserData() {
         let displayName = 'Stoico';
         try {
@@ -418,9 +514,8 @@
 
     function renderUsersList(users) {
         const container = document.getElementById('usersListContainer');
-        const lang = localStorage.getItem('preferredLanguage') || 'it';
         if (!users || users.length === 0) {
-            container.innerHTML = `<div class="text-center py-8 text-slate-400"><p>${lang === 'en' ? 'No users found' : 'Nessun utente registrato'}</p></div>`;
+            container.innerHTML = `<div class="text-center py-8 text-slate-400"><p>${t('noUsers')}</p></div>`;
             return;
         }
         const roleIcons  = { master: '👑', pro: '⭐', vip: '🎁' };
@@ -428,25 +523,25 @@
         const usersHTML = users.map(user => {
             const isExpired = user.role === 'vip' && user.is_trial_expired;
             const trialInfo = user.trial_ends_at
-                ? `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">${isExpired ? (lang === 'en' ? '⏰ Expired' : '⏰ Scaduto') : (lang === 'en' ? '✅ Active until ' : '✅ Attivo fino al ') + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}</span>`
-                : `<span class="text-xs text-slate-500">${lang === 'en' ? 'Unlimited' : 'Illimitato'}</span>`;
+                ? `<span class="text-xs ${isExpired ? 'text-red-400' : 'text-green-400'}">${isExpired ? t('expired') : t('activeUntil') + new Date(user.trial_ends_at).toLocaleDateString('it-IT')}</span>`
+                : `<span class="text-xs text-slate-500">${t('unlimited')}</span>`;
             return `
                 <div class="user-row flex items-center justify-between p-4 bg-slate-800/40 rounded-lg mb-3">
                     <div class="flex-1">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="text-2xl">${roleIcons[user.role] || '👤'}</span>
-                            <span class="font-bold text-slate-200">${user.name || (lang === 'en' ? 'Unnamed user' : 'Utente senza nome')}</span>
+                            <span class="font-bold text-slate-200">${user.name || t('unnamed')}</span>
                             <span class="text-xs ${roleColors[user.role] || 'text-slate-400'} uppercase font-bold">${user.role}</span>
                         </div>
                         <div class="text-xs text-slate-400">ID: ${user.id.substring(0,8)}... • ${trialInfo}</div>
                     </div>
                     ${user.id !== currentUser.id ? `
                         <div class="flex gap-2 flex-wrap">
-                            ${user.role !== 'pro' ? `<button onclick="window.changeUserRole('${user.id}', 'pro')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold transition-all">⭐ PRO</button>` : ''}
-                            ${user.role !== 'vip' ? `<button onclick="window.changeUserRole('${user.id}', 'vip')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold transition-all">🎁 VIP</button>` : ''}
-                            ${user.trial_ends_at ? `<button onclick="window.setUnlimitedVIP('${user.id}')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-bold transition-all">♾️ VIP∞</button>` : ''}
+                            ${user.role !== 'pro' ? `<button onclick="window.changeUserRole('${user.id}', 'pro')" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs font-bold transition-all" title="${t('promotePro')}">⭐ PRO</button>` : ''}
+                            ${user.role !== 'vip' ? `<button onclick="window.changeUserRole('${user.id}', 'vip')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs font-bold transition-all" title="${t('setVip')}">🎁 VIP</button>` : ''}
+                            ${user.trial_ends_at ? `<button onclick="window.setUnlimitedVIP('${user.id}')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-bold transition-all" title="${t('setVipInf')}">♾️ VIP∞</button>` : ''}
                         </div>
-                    ` : `<span class="text-amber-400 text-xs font-bold">${lang === 'en' ? 'YOU' : 'TU'}</span>`}
+                    ` : `<span class="text-amber-400 text-xs font-bold">${t('you')}</span>`}
                 </div>`;
         }).join('');
         container.innerHTML = usersHTML;
@@ -455,11 +550,10 @@
     function validateName(name) {
         const nameInput = document.getElementById('profileName');
         const errorMsg  = document.getElementById('nameError');
-        const lang = getLang();
         name = name.trim();
-        if (name.length < 2) { nameInput.classList.add('error'); errorMsg.textContent = lang === 'en' ? '❌ Name too short (min 2 chars)' : '❌ Nome troppo corto (minimo 2 caratteri)'; errorMsg.classList.add('active'); return false; }
-        if (name.length > 30) { nameInput.classList.add('error'); errorMsg.textContent = lang === 'en' ? '❌ Name too long (max 30 chars)' : '❌ Nome troppo lungo (massimo 30 caratteri)'; errorMsg.classList.add('active'); return false; }
-        if (!/^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙ\s'-]+$/.test(name)) { nameInput.classList.add('error'); errorMsg.textContent = lang === 'en' ? '❌ Only letters, numbers, spaces, apostrophes and hyphens' : '❌ Solo lettere, numeri, spazi, apostrofi e trattini'; errorMsg.classList.add('active'); return false; }
+        if (name.length < 2)  { nameInput.classList.add('error'); errorMsg.textContent = t('nameShort'); errorMsg.classList.add('active'); return false; }
+        if (name.length > 30) { nameInput.classList.add('error'); errorMsg.textContent = t('nameLong');  errorMsg.classList.add('active'); return false; }
+        if (!/^[a-zA-Z0-9àèéìòùÀÈÉÌÒÙáéíóúÁÉÍÓÚñÑüÜ\s'-]+$/.test(name)) { nameInput.classList.add('error'); errorMsg.textContent = t('nameChars'); errorMsg.classList.add('active'); return false; }
         nameInput.classList.remove('error'); errorMsg.classList.remove('active'); return true;
     }
 
@@ -484,19 +578,18 @@
             const newName = document.getElementById('profileName').value.trim();
             const saveBtn = document.getElementById('saveProfileBtn');
             const saveBtnText = document.getElementById('saveBtnText');
-            const lang = getLang();
-            if (!newName) { showToast(lang === 'en' ? '⚠️ Enter a name' : '⚠️ Inserisci un nome', 'error'); return; }
-            if (!validateName(newName)) { showToast(lang === 'en' ? '⚠️ Fix errors before saving' : '⚠️ Correggi gli errori prima di salvare', 'error'); return; }
+            if (!newName) { showToast(t('enterName'), 'error'); return; }
+            if (!validateName(newName)) { showToast(t('fixErrors'), 'error'); return; }
             try {
                 saveBtn.disabled = true; saveBtnText.innerHTML = '<span class="spinner"></span>';
                 const { error } = await sbClient.from('profiles').update({ name: newName }).eq('id', currentUser.id);
                 if (error) throw error;
                 document.getElementById('userName').textContent = newName;
-                saveBtnText.textContent = lang === 'en' ? '💾 Save Profile' : '💾 Salva Profilo';
+                saveBtnText.textContent = t('saveProfile');
                 saveBtn.disabled = false;
-                showToast(lang === 'en' ? '✅ Profile updated!' : '✅ Profilo aggiornato con successo!', 'success');
+                showToast(t('profileSaved'), 'success');
             } catch (error) {
-                saveBtnText.textContent = lang === 'en' ? '💾 Save Profile' : '💾 Salva Profilo';
+                saveBtnText.textContent = t('saveProfile');
                 saveBtn.disabled = false;
                 showToast('❌ ' + error.message, 'error');
             }
@@ -504,22 +597,19 @@
 
         document.getElementById('resetPasswordBtn').addEventListener('click', async () => {
             const email = currentUser.email;
-            const lang = getLang();
-            const confirmMsg = lang === 'en' ? `📧 Reset Password\n\nEmail will be sent to:\n${email}\n\nClick OK to confirm.` : `📧 Reset Password\n\nL'email sarà inviata a:\n${email}\n\nClicca OK per confermare.`;
-            if (!window.confirm(confirmMsg)) { showToast(lang === 'en' ? '❌ Cancelled' : '❌ Operazione annullata', 'info'); return; }
+            if (!window.confirm(t('resetConfirm')(email))) { showToast(t('cancelled'), 'info'); return; }
             try {
                 const { error } = await sbClient.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/Stoicismo-Diary/accedi.html' });
                 if (error) throw error;
-                showToast(lang === 'en' ? '✅ Email sent! Check your inbox' : '✅ Email inviata! Controlla la tua casella', 'success');
+                showToast(t('emailSent'), 'success');
             } catch (error) { showToast('❌ ' + error.message, 'error'); }
         });
 
         document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-            const lang = getLang();
-            const msg1 = lang === 'en' ? '⚠️ WARNING: Account Deletion\n\nThis will permanently delete:\n• Your user profile\n• All your reflections\n• Your progress and statistics\n\nThis cannot be undone.\n\nContinue?' : '⚠️ ATTENZIONE: Cancellazione Account\n\nQuesta azione eliminerà permanentemente:\n• Il tuo profilo utente\n• Tutte le tue riflessioni\n• I tuoi progressi e statistiche\n\nQuesta operazione NON è reversibile.\n\nVuoi procedere?';
-            if (window.confirm(msg1)) {
-                const msg2 = lang === 'en' ? '❗ FINAL CONFIRMATION\n\nAre you absolutely sure?\n\nClick OK to confirm permanent deletion.' : '❗ ULTIMA CONFERMA\n\nSei assolutamente sicuro?\n\nClicca OK per confermare la cancellazione definitiva.';
-                if (window.confirm(msg2)) { showToast(lang === 'en' ? '🗑️ Request received. Account will be deleted within 48 hours.' : '🗑️ Richiesta ricevuta. L\'account verrà eliminato entro 48 ore.', 'info'); }
+            if (window.confirm(t('deleteMsg1'))) {
+                if (window.confirm(t('deleteMsg2'))) {
+                    showToast(t('deleteReceived'), 'info');
+                }
             }
         });
 
@@ -542,23 +632,21 @@
     }
 
     window.changeUserRole = async function(userId, newRole) {
-        const lang = getLang();
-        if (!confirm(lang === 'en' ? `Confirm changing this user's role to ${newRole.toUpperCase()}?` : `Confermi di voler cambiare il ruolo di questo utente in ${newRole.toUpperCase()}?`)) return;
+        if (!confirm(t('confirmRole')(newRole))) return;
         try {
             const { error } = await sbClient.from('profiles').update({ role: newRole, trial_ends_at: null, is_trial_expired: false }).eq('id', userId);
             if (error) throw error;
-            showToast(lang === 'en' ? `✅ Role updated to ${newRole.toUpperCase()}!` : `✅ Ruolo aggiornato a ${newRole.toUpperCase()}!`, 'success');
+            showToast(t('roleUpdated')(newRole), 'success');
             await loadAllUsers();
         } catch (error) { showToast('❌ ' + error.message, 'error'); }
     };
 
     window.setUnlimitedVIP = async function(userId) {
-        const lang = getLang();
-        if (!confirm(lang === 'en' ? 'Confirm setting this user as UNLIMITED VIP (friends/family)?' : 'Confermi di voler rendere questo utente VIP ILLIMITATO (amici/parenti)?')) return;
+        if (!confirm(t('confirmVipInf'))) return;
         try {
             const { error } = await sbClient.from('profiles').update({ role: 'vip', trial_ends_at: null, is_trial_expired: false }).eq('id', userId);
             if (error) throw error;
-            showToast(lang === 'en' ? '✅ User set as UNLIMITED VIP!' : '✅ Utente impostato come VIP ILLIMITATO!', 'success');
+            showToast(t('vipInfSet'), 'success');
             await loadAllUsers();
         } catch (error) { showToast('❌ ' + error.message, 'error'); }
     };
