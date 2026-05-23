@@ -146,3 +146,1018 @@
       }
     }
     </script>
+
+    <style>
+        /* ============================================================
+           THE STOIC JOURNEY — index.html styles
+           ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #e8e0d0;
+            overflow-x: hidden;
+        }
+
+        /* ---- NAV ---- */
+        .nav-container {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            padding: 0 2rem;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: #c8bfa8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #d4af37; }
+        .nav-cta {
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: #0a0a0a !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem !important;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: all 0.3s !important;
+        }
+        .nav-cta:hover {
+            background: linear-gradient(135deg, #e8c84a, #d4af37) !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+        }
+
+        /* Language switcher (home dropdown) */
+        .lang-switcher-home {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        #languageSwitcherHome {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: #d4af37;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        #languageSwitcherHome:hover {
+            background: rgba(212,175,55,0.2);
+            border-color: rgba(212,175,55,0.6);
+        }
+        #languageDropdownHome {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: #1a1a1a;
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 8px;
+            min-width: 130px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+            z-index: 9999;
+        }
+        #languageDropdownHome.hidden { display: none; }
+        .lang-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 1rem;
+            color: #c8bfa8;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            gap: 0.5rem;
+        }
+        .lang-option:hover { background: rgba(212,175,55,0.1); color: #d4af37; }
+        .lang-option.active { color: #d4af37; background: rgba(212,175,55,0.08); }
+        .lang-option .check { color: #d4af37; font-size: 0.75rem; }
+        .lang-option .check.hidden { visibility: hidden; }
+
+        /* Hamburger mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #d4af37;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px; left: 0; right: 0;
+            background: rgba(10,10,10,0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            padding: 1.5rem 2rem;
+            z-index: 999;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: #c8bfa8;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: #d4af37; }
+        .mobile-lang-btns {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .mobile-lang-btns button {
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: #d4af37;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 0.08em;
+            transition: all 0.3s;
+        }
+        .mobile-lang-btns button:hover,
+        .mobile-lang-btns button.active {
+            background: rgba(212,175,55,0.3);
+            border-color: #d4af37;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(212,175,55,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(180,140,30,0.06) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0a0a 0%, #0f0e0b 100%);
+        }
+        .hero-image-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('colonnato_restaurato WebP mini.webp');
+            background-size: cover;
+            background-position: center 30%;
+            opacity: 0.18;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 860px;
+            padding: 2rem;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(212,175,55,0.1);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: #d4af37;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.3;
+            color: #f0e8d0;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.02em;
+        }
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: #a09880;
+            line-height: 1.7;
+            margin-bottom: 0.4rem;
+        }
+        .hero-ai {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            color: #d4af37;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+        .hero-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: #0a0a0a;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.3);
+        }
+        .hero-cta:hover {
+            background: linear-gradient(135deg, #e8c84a, #d4af37);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212,175,55,0.4);
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b6350;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* ---- SECTIONS GENERAL ---- */
+        section { padding: 6rem 2rem; }
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 400;
+            color: #f0e8d0;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: #8a8070;
+            font-size: 1rem;
+            max-width: 600px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-header .section-subtitle { margin: 0 auto; }
+
+        /* ---- HOW IT WORKS ---- */
+        .how-it-works { background: #0d0d0d; }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .step-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(212,175,55,0.12);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .step-card:hover {
+            border-color: rgba(212,175,55,0.3);
+            transform: translateY(-4px);
+        }
+        .step-number {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: rgba(212,175,55,0.15);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .step-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: #d4af37;
+            margin-bottom: 0.8rem;
+        }
+        .step-desc {
+            color: #8a8070;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ---- PHILOSOPHERS ---- */
+        .philosophers-section { background: #0a0a0a; }
+        .philosophers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .philosopher-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(212,175,55,0.12);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .philosopher-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .philosopher-card:hover {
+            border-color: rgba(212,175,55,0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .philosopher-card:hover::before { opacity: 1; }
+        .philosopher-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #f0e8d0;
+            margin-bottom: 0.3rem;
+        }
+        .philosopher-principle {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: #d4af37;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+        .philosopher-principle-translation {
+            font-size: 0.8rem;
+            color: #6b6350;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .philosopher-quote {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: #d4af37;
+            font-style: italic;
+            margin-bottom: 0.6rem;
+            line-height: 1.5;
+        }
+        .philosopher-quote-translation {
+            font-size: 0.82rem;
+            color: #6b6350;
+            font-style: italic;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+        .philosopher-desc {
+            color: #a09880;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+        .philosopher-ai {
+            background: rgba(212,175,55,0.06);
+            border-left: 2px solid #d4af37;
+            padding: 0.8rem 1rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.82rem;
+            color: #8a8070;
+            line-height: 1.6;
+        }
+        .philosopher-divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(212,175,55,0.3);
+            margin: 1.2rem 0;
+        }
+
+        /* ---- MEMENTO MORI ---- */
+        .memento-mori {
+            background: #050505;
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .memento-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(212,175,55,0.04) 0%, transparent 70%);
+        }
+        .memento-content { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+        .memento-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            color: #d4af37;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        .memento-subtitle {
+            font-size: 1.1rem;
+            color: #6b6350;
+            font-style: italic;
+            margin-bottom: 3rem;
+            letter-spacing: 0.05em;
+        }
+        .memento-divider {
+            width: 60px;
+            height: 1px;
+            background: rgba(212,175,55,0.4);
+            margin: 0 auto 2rem;
+        }
+        .memento-text {
+            font-size: 1rem;
+            color: #8a8070;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        /* ---- FAQ + CONTACT ---- */
+        .faq-contact { background: #0d0d0d; }
+        .faq-contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) { .faq-contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+        .faq-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin-bottom: 0.4rem;
+        }
+        .faq-subtitle {
+            font-size: 0.9rem;
+            color: #6b6350;
+            margin-bottom: 2rem;
+        }
+        .faq-item {
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+            padding: 1rem 0;
+        }
+        .faq-question {
+            font-size: 0.9rem;
+            color: #d4af37;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .faq-answer {
+            font-size: 0.85rem;
+            color: #8a8070;
+            line-height: 1.6;
+        }
+        /* Contact form */
+        .contact-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.05em;
+        }
+        .contact-subtitle {
+            font-size: 0.9rem;
+            color: #6b6350;
+            margin-bottom: 2rem;
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+        .form-label {
+            font-size: 0.8rem;
+            color: #8a8070;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .form-input, .form-textarea {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(212,175,55,0.15);
+            color: #e8e0d0;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .form-input:focus, .form-textarea:focus {
+            border-color: rgba(212,175,55,0.5);
+            background: rgba(212,175,55,0.04);
+        }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        .contact-send-btn {
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: #0a0a0a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .contact-send-btn:hover {
+            background: linear-gradient(135deg, #e8c84a, #d4af37);
+            transform: translateY(-1px);
+        }
+        .contact-note {
+            font-size: 0.75rem;
+            color: #4a4540;
+            text-align: center;
+            margin-top: 0.3rem;
+        }
+
+        /* ---- FOOTER ---- */
+        footer {
+            background: #050505;
+            border-top: 1px solid rgba(212,175,55,0.1);
+            padding: 4rem 2rem 2rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+        }
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+        .footer-brand { }
+        .footer-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #d4af37;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: #5a5040;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+        .footer-col-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: #d4af37;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+        .footer-links a {
+            color: #5a5040;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: #d4af37; }
+        .footer-divider {
+            max-width: 1100px;
+            margin: 0 auto 1.5rem;
+            height: 1px;
+            background: rgba(212,175,55,0.08);
+        }
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #3a3530;
+        }
+        @media (max-width: 600px) {
+            .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+        .footer-stoic-quote {
+            font-style: italic;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+         NAV
+         ============================================================ -->
+    <nav class="nav-container">
+        <a href="/" class="nav-logo">✦ The Stoic Journey</a>
+
+        <div class="nav-links">
+            <a href="cosa-e-stoicismo.html" data-i18n="nav.whatIsStoicism">Cos'è lo Stoicismo</a>
+            <a href="accedi.html" data-i18n="nav.login">Accedi</a>
+
+            <!-- Language switcher dropdown -->
+            <div class="lang-switcher-home">
+                <button id="languageSwitcherHome" aria-label="Cambia lingua">
+                    <span id="currentLangHome">IT</span>
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                        <path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div id="languageDropdownHome" class="hidden">
+                    <div class="lang-option" data-lang="it">
+                        <span>🇮🇹 IT</span>
+                        <span class="check">✓</span>
+                    </div>
+                    <div class="lang-option" data-lang="en">
+                        <span>🇬🇧 EN</span>
+                        <span class="check hidden">✓</span>
+                    </div>
+                    <div class="lang-option" data-lang="es">
+                        <span>🇪🇸 ES</span>
+                        <span class="check hidden">✓</span>
+                    </div>
+                </div>
+            </div>
+
+            <a href="registrazione.html" class="nav-cta" data-i18n="home.ctaShort">Entra</a>
+        </div>
+
+        <!-- Hamburger mobile -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="cosa-e-stoicismo.html" data-i18n="nav.whatIsStoicism">Cos'è lo Stoicismo</a>
+        <a href="accedi.html" data-i18n="nav.login">Accedi</a>
+        <a href="registrazione.html" class="nav-cta" style="text-align:center;" data-i18n="home.cta">Entra Nel Viaggio Stoico</a>
+        <div class="mobile-lang-btns">
+            <button id="btnLangIT_mobile" onclick="setLanguage('it')">🇮🇹 IT</button>
+            <button id="btnLangEN_mobile" onclick="setLanguage('en')">🇬🇧 EN</button>
+            <button id="btnLangES_mobile" onclick="setLanguage('es')">🇪🇸 ES</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-image-overlay"></div>
+
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>✦</span>
+                <span>STOICISMO · AI · CRESCITA</span>
+            </div>
+
+            <h1 class="hero-title" data-i18n="home.hero.title">
+                Trasforma la tua vita quotidiana con i principi degli antichi filosofi.
+            </h1>
+
+            <p class="hero-subtitle" data-i18n="home.hero.subtitle">
+                Riflessioni per costruire consapevolezza e serenità,
+            </p>
+            <p class="hero-ai" data-i18n="home.hero.ai">
+                con approfondimenti analitici potenziati dall'AI.
+            </p>
+
+            <a href="registrazione.html" class="hero-cta" data-i18n="home.hero.startNow">
+                Inizia Ora
+            </a>
+        </div>
+
+        <div class="hero-scroll">
+            <span>Scorri</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 3v10M3 9l5 5 5-5" stroke="#6b6350" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         HOW IT WORKS
+         ============================================================ -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <div class="section-label">IL METODO</div>
+            <h2 class="section-title" data-i18n="home.howItWorks.title">Come Funziona</h2>
+            <p class="section-subtitle" data-i18n="home.howItWorks.subtitle">
+                Il tuo percorso di crescita stoica in tre semplici passi
+            </p>
+        </div>
+
+        <div class="steps-grid">
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-number">01</div>
+                <h3 class="step-title" data-i18n="home.howItWorks.step1.title">Scrivi riflessione</h3>
+                <p class="step-desc" data-i18n="home.howItWorks.step1.description">
+                    Dedica pochi minuti al giorno per scrivere pensieri e sfide nel tuo diario stoico personale.
+                </p>
+            </div>
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-number">02</div>
+                <h3 class="step-title" data-i18n="home.howItWorks.step2.title">Sfida personalizzata</h3>
+                <p class="step-desc" data-i18n="home.howItWorks.step2.description">
+                    L'AI genera una micro-sfida stoica su misura basata su Marco Aurelio, Epitteto e Seneca.
+                </p>
+            </div>
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-number">03</div>
+                <h3 class="step-title" data-i18n="home.howItWorks.step3.title">Traccia progresso</h3>
+                <p class="step-desc" data-i18n="home.howItWorks.step3.description">
+                    Monitora la tua evoluzione attraverso dashboard intuitive e visualizza i tuoi pattern.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         PHILOSOPHERS
+         ============================================================ -->
+    <section class="philosophers-section">
+        <div class="section-header">
+            <div class="section-label">I PILASTRI</div>
+            <h2 class="section-title" data-i18n="home.philosophers.title">
+                I Tre Pilastri della Saggezza Stoica
+            </h2>
+        </div>
+
+        <div class="philosophers-grid">
+
+            <!-- Marco Aurelio -->
+            <div class="philosopher-card">
+                <h3 class="philosopher-name" data-i18n="home.philosophers.marcus.name">Marco Aurelio</h3>
+                <div class="philosopher-principle" data-i18n="home.philosophers.marcus.principle">Impedimentum Via Est</div>
+                <div class="philosopher-principle-translation" data-i18n="home.philosophers.marcus.principleTranslation">Il cammino attraverso gli ostacoli</div>
+                <div class="philosopher-divider"></div>
+                <div class="philosopher-quote" data-i18n="home.philosophers.marcus.quote">«Quod obstat viae, via fit.»</div>
+                <div class="philosopher-quote-translation" data-i18n="home.philosophers.marcus.quoteTranslation">
+                    "Ciò che ostacola l'azione fa avanzare l'azione. E ciò che sta sulla via, questo è la via."
+                </div>
+                <p class="philosopher-desc" data-i18n="home.philosophers.marcus.description">
+                    Gli ostacoli non bloccano il nostro progresso, ma diventano essi stessi la via.
+                </p>
+                <div class="philosopher-ai" data-i18n="home.philosophers.marcus.ai">
+                    Per ogni principio, l'intelligenza artificiale genererà micro-sfide personalizzate basate sui tuoi problemi quotidiani reali.
+                </div>
+            </div>
+
+            <!-- Epitteto -->
+            <div class="philosopher-card">
+                <h3 class="philosopher-name" data-i18n="home.philosophers.epictetus.name">Epitteto</h3>
+                <div class="philosopher-principle" data-i18n="home.philosophers.epictetus.principle">In Nostra Potestate</div>
+                <div class="philosopher-principle-translation" data-i18n="home.philosophers.epictetus.principleTranslation">La dicotomia del controllo</div>
+                <div class="philosopher-divider"></div>
+                <div class="philosopher-quote" data-i18n="home.philosophers.epictetus.quote">«En tois eph' hemin kai en tois ouk eph' hemin»</div>
+                <div class="philosopher-quote-translation" data-i18n="home.philosophers.epictetus.quoteTranslation">
+                    La Dicotomia del Controllo distingue tra ciò che è in nostro potere e ciò che non lo è.
+                </div>
+                <p class="philosopher-desc" data-i18n="home.philosophers.epictetus.description">
+                    Liberiamo energia mentale quando smettiamo di combattere ciò che non dipende da noi.
+                </p>
+                <div class="philosopher-ai" data-i18n="home.philosophers.epictetus.ai">
+                    L'AI analizza le tue riflessioni quotidiane e ti guida nel distinguere ciò che puoi controllare da ciò che non puoi.
+                </div>
+            </div>
+
+            <!-- Seneca -->
+            <div class="philosopher-card">
+                <h3 class="philosopher-name" data-i18n="home.philosophers.seneca.name">Seneca</h3>
+                <div class="philosopher-principle" data-i18n="home.philosophers.seneca.principle">Praemeditatio Malorum</div>
+                <div class="philosopher-principle-translation" data-i18n="home.philosophers.seneca.principleTranslation">Prepararsi al peggio per vivere meglio</div>
+                <div class="philosopher-divider"></div>
+                <div class="philosopher-quote" data-i18n="home.philosophers.seneca.quote">«Qui omnia timet, nihil cogitat»</div>
+                <div class="philosopher-quote-translation" data-i18n="home.philosophers.seneca.quoteTranslation">
+                    La praemeditatio malorum è l'esercizio di immaginare in anticipo ciò che potrebbe andare storto.
+                </div>
+                <p class="philosopher-desc" data-i18n="home.philosophers.seneca.description">
+                    Quando abbiamo già contemplato interiormente il peggio, ogni difficoltà reale perde parte del suo potere.
+                </p>
+                <div class="philosopher-ai" data-i18n="home.philosophers.seneca.ai">
+                    L'AI ti guiderà in visualizzazioni strutturate delle tue paure ricorrenti.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         MEMENTO MORI
+         ============================================================ -->
+    <section class="memento-mori">
+        <div class="memento-bg"></div>
+        <div class="memento-content">
+            <h2 class="memento-title" data-i18n="home.mementoMori.title">MEMENTO MORI</h2>
+            <p class="memento-subtitle" data-i18n="home.mementoMori.subtitle">"Ricordati che devi morire"</p>
+            <div class="memento-divider"></div>
+            <p class="memento-text" data-i18n="home.mementoMori.text1">
+                La consapevolezza della mortalità non è un peso, ma una liberazione.
+            </p>
+            <p class="memento-text" data-i18n="home.mementoMori.text2">
+                Gli stoici contemplavano la morte non per vivere nella paura, ma per vivere con intensità.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ + CONTACT
+         ============================================================ -->
+    <section class="faq-contact">
+        <div class="faq-contact-grid">
+
+            <!-- FAQ -->
+            <div>
+                <h2 class="faq-title" data-i18n="home.faq.title">Domande &amp; Contatti</h2>
+                <p class="faq-subtitle" data-i18n="home.faq.subtitle">Trova risposte o scrivici direttamente</p>
+
+                <div class="faq-item">
+                    <p class="faq-question" data-i18n="home.faq.q1">Devo conoscere la filosofia stoica per iniziare?</p>
+                    <p class="faq-answer" data-i18n="home.faq.a1">No, ti guidiamo passo dopo passo.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-question" data-i18n="home.faq.q2">Quanto tempo devo dedicare ogni giorno?</p>
+                    <p class="faq-answer" data-i18n="home.faq.a2">Bastano 5-10 minuti.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-question" data-i18n="home.faq.q3">I miei dati personali sono al sicuro?</p>
+                    <p class="faq-answer" data-i18n="home.faq.a3">Assolutamente sì. Le tue riflessioni sono criptate end-to-end.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="faq-question" data-i18n="home.faq.q4">Posso provare gratuitamente prima di abbonarmi?</p>
+                    <p class="faq-answer" data-i18n="home.faq.a4">Sì, 30 giorni di prova gratuita con accesso completo.</p>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h2 class="contact-title" data-i18n="home.contact.title">CONTATTACI</h2>
+                <p class="contact-subtitle" data-i18n="home.contact.subtitle">Hai bisogno di aiuto? Scrivici!</p>
+
+                <form class="contact-form" onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="home.contact.name">Nome</label>
+                        <input type="text" class="form-input" id="contactName"
+                               data-i18n-placeholder="home.contact.namePlaceholder"
+                               placeholder="Il tuo nome">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="home.contact.email">Email</label>
+                        <input type="email" class="form-input" id="contactEmail"
+                               data-i18n-placeholder="home.contact.emailPlaceholder"
+                               placeholder="tuaemail@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="home.contact.message">Messaggio</label>
+                        <textarea class="form-textarea" id="contactMessage"
+                                  data-i18n-placeholder="home.contact.messagePlaceholder"
+                                  placeholder="Come possiamo aiutarti?"></textarea>
+                    </div>
+                    <button type="submit" class="contact-send-btn" data-i18n="home.contact.send">
+                        Invia Messaggio
+                    </button>
+                    <p class="contact-note" data-i18n="home.contact.note">Risponderemo entro 24 ore</p>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">✦ The Stoic Journey</a>
+                <p class="footer-tagline" data-i18n="footer.tagline">La tua guida quotidiana alla saggezza stoica.</p>
+            </div>
+            <div>
+                <h4 class="footer-col-title" data-i18n="footer.resources">Risorse</h4>
+                <ul class="footer-links">
+                    <li><a href="cosa-e-stoicismo.html" data-i18n="footer.whatIsStoicism">Cos'è lo Stoicismo</a></li>
+                    <li><a href="#" data-i18n="footer.blog">Blog</a></li>
+                    <li><a href="#" data-i18n="footer.community">Community</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-col-title" data-i18n="footer.legal">Legale</h4>
+                <ul class="footer-links">
+                    <li><a href="privacy-policy.html" data-i18n="footer.privacy">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html" data-i18n="footer.terms">Termini di Servizio</a></li>
+                    <li><a href="cookie-policy.html" data-i18n="footer.cookies">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-bottom">
+            <span data-i18n="footer.copyright">© 2026 The Stoic Journey. Tutti i diritti riservati.</span>
+            <span class="footer-stoic-quote">«Nusquam est qui ubique est.» — Seneca</span>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+         SCRIPTS
+         ============================================================ -->
+    <script>
+        // Hamburger toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        document.addEventListener('click', (e) => {
+            if (!hamburgerBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.remove('open');
+            }
+        });
+
+        // Contact form handler
+        function handleContact(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+            if (!name || !email || !message) return;
+            alert('✅ Messaggio inviato! Ti risponderemo entro 24 ore.');
+            e.target.reset();
+        }
+    </script>
+
+</body>
+</html>
