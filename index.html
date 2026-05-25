@@ -1233,42 +1233,6 @@
         scrollToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // ============================================================
-        // LANGUAGE SWITCHER (dropdown home)
-        // ============================================================
-        const langSwitcherBtn = document.getElementById('languageSwitcherHome');
-        const langDropdown = document.getElementById('languageDropdownHome');
-
-        langSwitcherBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            langDropdown.classList.toggle('hidden');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!langSwitcherBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-                langDropdown.classList.add('hidden');
-            }
-        });
-
-        langDropdown.querySelectorAll('.lang-option').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const lang = btn.dataset.lang;
-                if (typeof setLanguage === 'function') {
-                    setLanguage(lang);
-                }
-                // Update active state
-                langDropdown.querySelectorAll('.lang-option').forEach(b => {
-                    b.classList.remove('active');
-                    b.querySelector('.check').classList.add('hidden');
-                });
-                btn.classList.add('active');
-                btn.querySelector('.check').classList.remove('hidden');
-                // Update label
-                document.getElementById('currentLangHome').textContent = lang.toUpperCase();
-                langDropdown.classList.add('hidden');
-            });
-        });
     </script>
 </body>
 </html>
