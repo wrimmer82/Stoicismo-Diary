@@ -532,24 +532,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         setupManageSubscriptionButton(currentUserProfile);
 
+        // ✅ FIX: navigation, mobile menu e logout sempre attivi,
+        // indipendentemente dallo stato del trial
+        setupNavigation();
+        setupMobileMenu();
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', handleLogout);
+        }
+
         if (trialStatus.isExpired) {
             console.warn('🚫 Trial scaduto → mostro overlay, non carico contenuti');
             showTrialExpiredOverlay(trialStatus, user.email);
-            setupBaseListeners();
             return;
         }
 
         await loadDailyContent();
         await loadProgressData(user.id);
-
-        setupMobileMenu();
         setupReflectionHandlers();
-        setupNavigation();
-
-        const logoutBtn = document.getElementById('logoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', handleLogout);
-        }
 
         console.log('✅ Dashboard bilingue caricata con successo!');
 
