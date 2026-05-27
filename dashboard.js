@@ -401,7 +401,9 @@ function setupReflectionHandlers() {
 }
 
 function setupNavigation() {
-    document.querySelectorAll('.nav-link').forEach(link => {
+    // FIX: selettore aggiornato da '.nav-link' a '[data-view]'
+    // I link della sidebar usano l'attributo data-view ma non la classe .nav-link
+    document.querySelectorAll('[data-view]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const view = e.currentTarget.dataset.view;
@@ -421,7 +423,7 @@ function setupNavigation() {
 
             switchView(view);
 
-            document.querySelectorAll('.nav-link').forEach(l => {
+            document.querySelectorAll('[data-view]').forEach(l => {
                 l.classList.remove('bg-amber-500/20', 'text-amber-400');
             });
             e.currentTarget.classList.add('bg-amber-500/20', 'text-amber-400');
