@@ -7,6 +7,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-GW6CH5RG1R');
 </script>
     <meta charset="UTF-8">
@@ -22,13 +23,6 @@
     <meta property="og:description" content="Unisciti al viaggio stoico. Registrazione gratuita.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://thestoicjourney.app">
-
-    <!-- Canonical + hreflang -->
-    <link rel="canonical" href="https://thestoicjourney.app/registrazione.html">
-    <link rel="alternate" hreflang="it" href="https://thestoicjourney.app/registrazione.html">
-    <link rel="alternate" hreflang="en" href="https://thestoicjourney.app/registrazione.html">
-    <link rel="alternate" hreflang="es" href="https://thestoicjourney.app/registrazione.html">
-    <link rel="alternate" hreflang="x-default" href="https://thestoicjourney.app/registrazione.html">
     
     <!-- Scripts & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -40,3 +34,852 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        .animate-slideDown {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+        .animate-slideUp {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        .delay-200 { animation-delay: 0.2s; opacity: 0; }
+        .delay-400 { animation-delay: 0.4s; opacity: 0; }
+        .delay-600 { animation-delay: 0.6s; opacity: 0; }
+        .shake { animation: shake 0.5s; }
+        
+        .spinner {
+            border: 3px solid rgba(251, 191, 36, 0.3);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-baskerville { font-family: 'Libre Baskerville', serif; }
+        .font-inter { font-family: 'Inter', sans-serif; }
+        
+        .sunset-gradient {
+            background: linear-gradient(180deg, 
+                #1a0f1f 0%,
+                #2d1b3d 15%,
+                #4a2c4f 30%,
+                #6b4a5a 45%,
+                #8b5a4e 60%,
+                #a8754a 75%,
+                #c49050 85%,
+                #1c1410 100%
+            );
+        }
+        
+        .input-focus:focus {
+            border-color: rgba(251, 191, 36, 0.8);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+            transform: scale(1.01);
+        }
+        
+        .input-error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+        }
+        
+        .input-success {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .strength-weak { width: 33%; background: #ef4444; }
+        .strength-medium { width: 66%; background: #f59e0b; }
+        .strength-strong { width: 100%; background: #10b981; }
+        
+        .password-toggle {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            max-width: 400px;
+            z-index: 9999;
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+        }
+        
+        /* Philosopher circles hover effect */
+        .philosopher-circle {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .philosopher-circle img {
+            position: relative;
+        }
+        
+        /* MOBILE OPTIMIZATIONS */
+        @media (max-width: 768px) {
+            .philosopher-images {
+                display: none !important;
+            }
+            .quote-section h1 {
+                font-size: 1.875rem !important;
+                line-height: 2.25rem !important;
+            }
+            .quote-section p {
+                font-size: 1rem !important;
+            }
+            .form-container {
+                padding: 1.5rem !important;
+            }
+            .form-spacing {
+                gap: 1rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter">
+    
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="text-center">
+            <div class="spinner mx-auto mb-4" style="width: 48px; height: 48px; border-width: 4px;"></div>
+            <p class="text-white font-cinzel text-lg" id="loadingText" data-i18n="registration.loading">Creazione account...</p>
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast"></div>
+    
+    <!-- Main Section -->
+    <section class="min-h-screen sunset-gradient flex items-center justify-center py-8 md:py-12 px-4">
+        <div class="max-w-7xl w-full mx-auto grid md:grid-cols-5 gap-8 md:gap-12 items-center">
+            
+            <!-- Left: Filosofi + Citazione (3 col) -->
+            <div class="md:col-span-3 text-center md:text-left animate-fadeIn">
+                <!-- Logo e Link Home -->
+                <a href="index.html" class="inline-flex items-center gap-3 mb-6 md:mb-8 hover:opacity-80 transition-opacity">
+                    <img src="sigma_logo.png" alt="The Stoic Journey" class="h-10 w-10 md:h-12 md:w-12 object-contain drop-shadow-2xl">
+                    <span class="text-xl md:text-2xl font-bold font-cinzel tracking-wider text-white">
+                        The Stoic Journey
+                    </span>
+                </a>
+                
+                <!-- Citazione Rotativa -->
+                <div class="mb-6 md:mb-8 animate-fadeIn delay-200 quote-section">
+                    <h1 id="rotatingQuote" class="text-3xl md:text-6xl font-cinzel font-bold text-amber-200 mb-4 md:mb-6 leading-tight">
+                        "Non conta quante volte cadi, ma quante volte ti rialzi"
+                    </h1>
+                    <p id="rotatingAuthor" class="text-lg md:text-2xl text-slate-200 font-baskerville italic">
+                        — Marco Aurelio
+                    </p>
+                </div>
+                
+                <!-- Immagini 3 Filosofi -->
+                <div class="philosopher-images flex justify-center md:justify-start animate-fadeIn delay-400">
+                    <div class="relative w-full max-w-2xl mx-auto md:mx-0">
+                        <div class="flex justify-center gap-6 md:gap-8 mb-[-80px] md:mb-[-110px]">
+                            <div class="philosopher-circle group">
+                                <img src="marco_aurelio_3d.jpg" 
+                                     alt="Marco Aurelio"
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Marco Aurelio</p>
+                            </div>
+                            
+                            <div class="philosopher-circle group">
+                                <img src="Epitteto_3d.png" 
+                                     alt="Epitteto" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Epitteto</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-center">
+                            <div class="philosopher-circle group">
+                                <img src="Zenone_di_Cinzio_3d.png" 
+                                     alt="Zenone di Cinzio" 
+                                     class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 md:border-[5px] border-amber-300/50 object-cover shadow-2xl transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400 relative z-10">
+                                <p class="text-center text-sm md:text-base text-amber-200 font-cinzel mt-3 opacity-0 group-hover:opacity-100 transition-opacity">Zenone di Cinzio</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right: Form Registrazione (2 col) -->
+            <div class="md:col-span-2 animate-fadeIn delay-600">
+                <div class="form-container bg-slate-900/90 border-2 border-amber-400/50 rounded-3xl p-6 md:p-10 backdrop-blur-sm shadow-2xl">
+                    
+                    <!-- Header Form -->
+                    <div class="text-center mb-6 md:mb-8">
+                        <h2 class="text-2xl md:text-4xl font-cinzel font-bold text-amber-300 mb-2 md:mb-3" data-i18n="registration.title">
+                            Inizia il Tuo Viaggio
+                        </h2>
+                        <p class="text-sm md:text-base text-slate-300 font-baskerville" data-i18n="registration.subtitle">
+                            Unisciti a migliaia di praticanti moderni dello stoicismo
+                        </p>
+                    </div>
+                    
+                    <!-- Google Sign-In Button -->
+                    <button 
+                        id="googleSignInBtn"
+                        type="button"
+                        class="w-full bg-white hover:bg-gray-50 text-gray-800 font-semibold py-3 md:py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-3 mb-4 md:mb-6 border-2 border-gray-200">
+                        <svg class="w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span id="googleBtnText" class="font-cinzel text-sm md:text-base" data-i18n="registration.googleBtn">Continua con Google</span>
+                        <div id="googleSpinner" class="spinner hidden"></div>
+                    </button>
+                    
+                    <!-- Divider -->
+                    <div class="relative my-4 md:my-6">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-slate-700"></div>
+                        </div>
+                        <div class="relative flex justify-center text-xs md:text-sm">
+                            <span class="px-4 bg-slate-900/90 text-slate-400 font-baskerville" data-i18n="registration.divider">oppure con email</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Email/Password -->
+                    <form id="registrationForm" class="form-spacing space-y-4 md:space-y-5" novalidate>
+                        
+                        <!-- Nome Completo -->
+                        <div>
+                            <label for="nome" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel">
+                                <span data-i18n="registration.form.nameLabel">Nome completo</span>
+                                <span class="text-slate-500 font-normal text-xs ml-1" data-i18n="registration.form.optional">(opzionale)</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="nome" 
+                                data-i18n-placeholder="registration.form.namePlaceholder"
+                                placeholder="es. Marco Aurelio"
+                                autocomplete="name"
+                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p class="text-slate-400 text-xs mt-1 font-baskerville" data-i18n="registration.form.nameHint">Ti chiameremo così nelle email</p>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel" data-i18n="registration.form.emailLabel">
+                                Email *
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                required
+                                data-i18n-placeholder="registration.form.emailPlaceholder"
+                                placeholder="stoico@esempio.com"
+                                autocomplete="email"
+                                class="w-full px-3 md:px-4 py-2.5 md:py-3 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                            <p id="emailError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                            <p id="emailSuccess" class="text-green-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown" data-i18n="registration.form.emailSuccess">✓ Email valida</p>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div>
+                            <label for="password" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel" data-i18n="registration.form.passwordLabel">
+                                Password *
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    required
+                                    data-i18n-placeholder="registration.form.passwordPlaceholder"
+                                    placeholder="Minimo 8 caratteri"
+                                    autocomplete="new-password"
+                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                                <button 
+                                    type="button" 
+                                    id="togglePassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
+                                    <svg id="eyeIcon" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Password Strength Indicator -->
+                            <div class="mt-2">
+                                <div class="bg-slate-800 h-1 rounded-full overflow-hidden">
+                                    <div id="strengthBar" class="password-strength"></div>
+                                </div>
+                                <p id="strengthText" class="text-xs mt-1 font-baskerville"></p>
+                            </div>
+                            
+                            <!-- Password Requirements -->
+                            <div id="passwordRequirements" class="mt-2 md:mt-3 space-y-1 text-xs font-baskerville hidden">
+                                <p class="text-slate-400 font-semibold mb-1" data-i18n="registration.form.passwordReq.title">La password deve contenere:</p>
+                                <div class="flex items-center gap-2" id="req-length">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400" data-i18n="registration.form.passwordReq.length">Almeno 8 caratteri</span>
+                                </div>
+                                <div class="flex items-center gap-2" id="req-uppercase">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400" data-i18n="registration.form.passwordReq.uppercase">Una lettera maiuscola</span>
+                                </div>
+                                <div class="flex items-center gap-2" id="req-lowercase">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400" data-i18n="registration.form.passwordReq.lowercase">Una lettera minuscola</span>
+                                </div>
+                                <div class="flex items-center gap-2" id="req-number">
+                                    <span class="text-slate-500">○</span>
+                                    <span class="text-slate-400" data-i18n="registration.form.passwordReq.number">Un numero</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Conferma Password -->
+                        <div>
+                            <label for="confirmPassword" class="block text-xs md:text-sm font-semibold text-amber-200 mb-2 font-cinzel" data-i18n="registration.form.confirmPasswordLabel">
+                                Conferma password *
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="confirmPassword" 
+                                    required
+                                    data-i18n-placeholder="registration.form.confirmPasswordPlaceholder"
+                                    placeholder="Ripeti la password"
+                                    autocomplete="new-password"
+                                    class="w-full px-3 md:px-4 py-2.5 md:py-3 pr-10 md:pr-12 text-sm md:text-base bg-slate-950/50 border-2 border-amber-400/40 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none input-focus transition-all font-inter">
+                                <button 
+                                    type="button" 
+                                    id="toggleConfirmPassword"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-amber-300 transition-colors password-toggle">
+                                    <svg id="eyeIconConfirm" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p id="confirmPasswordError" class="text-red-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown"></p>
+                            <p id="confirmPasswordSuccess" class="text-green-400 text-xs md:text-sm mt-1 hidden font-baskerville animate-slideDown" data-i18n="registration.form.confirmPasswordSuccess">✓ Le password coincidono</p>
+                        </div>
+                        
+                        <!-- Privacy Checkbox -->
+                        <div class="flex items-start gap-2 md:gap-3 pt-2">
+                            <input 
+                                type="checkbox" 
+                                id="privacy" 
+                                required
+                                class="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="privacy" class="text-xs md:text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer">
+                                <span data-i18n="registration.form.privacyText1">Accetto i</span> <a href="#" class="text-amber-300 underline hover:text-amber-200" data-i18n="registration.form.terms">Termini di Servizio</a> <span data-i18n="registration.form.privacyText2">e la</span> <a href="#" class="text-amber-300 underline hover:text-amber-200" data-i18n="registration.form.privacy">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <!-- Newsletter Checkbox -->
+                        <div class="flex items-start gap-2 md:gap-3">
+                            <input 
+                                type="checkbox" 
+                                id="newsletter" 
+                                checked
+                                class="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 bg-slate-950/50 border-2 border-amber-400/40 rounded focus:ring-2 focus:ring-amber-400 cursor-pointer">
+                            <label for="newsletter" class="text-xs md:text-sm text-slate-300 font-baskerville leading-relaxed cursor-pointer" data-i18n="registration.form.newsletter">
+                                Voglio ricevere riflessioni stoiche settimanali via email
+                            </label>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            id="submitBtn"
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-3 md:py-4 rounded-lg text-base md:text-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 font-cinzel flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                            <span id="submitBtnText" data-i18n="registration.form.submitBtn">Accetta la Sfida</span>
+                            <div id="submitSpinner" class="spinner hidden"></div>
+                        </button>
+                        
+                    </form>
+                    
+                    <!-- Login Link -->
+                    <div class="mt-4 md:mt-6 text-center">
+                        <p class="text-xs md:text-sm text-slate-400 font-baskerville">
+                            <span data-i18n="registration.loginText">Hai già un account?</span> 
+                            <a href="accedi.html" class="text-amber-300 underline hover:text-amber-200 font-semibold" data-i18n="registration.loginLink">
+                                Accedi qui
+                            </a>
+                        </p>
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-slate-700">
+                        <div class="flex flex-wrap justify-center gap-3 md:gap-4 text-xs text-slate-400 font-baskerville">
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span data-i18n="registration.badges.free">Gratis per sempre</span>
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span data-i18n="registration.badges.noCard">Nessuna carta richiesta</span>
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <svg class="w-3 h-3 md:w-4 md:h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span data-i18n="registration.badges.cancel">Cancellazione istantanea</span>
+                            </span>
+                        </div>
+                        
+                        <!-- Security Badge -->
+                        <div class="mt-3 md:mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
+                            <svg class="w-3 h-3 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span data-i18n="registration.badges.secure">I tuoi dati sono protetti e crittografati</span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script>
+        // ========== CONFIGURAZIONE SUPABASE ==========
+        const SUPABASE_URL = 'https://fayuadwpchhrxafbdntw.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZheXVhZHdwY2hocnhhZmJkbnR3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjUxMTY3NDksImV4cCI6MjA4MDY5Mjc0OX0._D_c4Q0NFFSRfwiMKbrbqcrSbGDYfUSQ6BqjKjhauRE';
+        
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // ========== CITAZIONI ROTANTI (NON tradotte - testi filosofici originali) ==========
+        const quotes = [
+            {
+                text: "Non conta quante volte cadi, ma quante volte ti rialzi",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "La felicità della tua vita dipende dalla qualità dei tuoi pensieri",
+                author: "Marco Aurelio"
+            },
+            {
+                text: "Non è ciò che ti accade, ma come reagisci che conta",
+                author: "Epitteto"
+            },
+            {
+                text: "Abbiamo due orecchie e una bocca per ascoltare più di quanto parliamo",
+                author: "Zenone di Cizio"
+            },
+            {
+                text: "La mente che non trova riposo in se stessa, cerca invano la felicità all'esterno",
+                author: "Epitteto"
+            },
+            {
+                text: "Il bene e il male risiedono nella volontà, non nelle cose esterne",
+                author: "Zenone di Cizio"
+            },
+            {
+                text: "Chi controlla le proprie passioni è più forte di chi conquista città",
+                author: "Marco Aurelio"
+            }
+        ];
+        
+        let currentQuoteIndex = 0;
+        
+        function rotateQuote() {
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            const quote = quotes[currentQuoteIndex];
+            
+            const quoteEl = document.getElementById('rotatingQuote');
+            const authorEl = document.getElementById('rotatingAuthor');
+            
+            quoteEl.style.opacity = '0';
+            authorEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                quoteEl.textContent = `"${quote.text}"`;
+                authorEl.textContent = `— ${quote.author}`;
+                
+                quoteEl.style.transition = 'opacity 0.5s';
+                authorEl.style.transition = 'opacity 0.5s';
+                quoteEl.style.opacity = '1';
+                authorEl.style.opacity = '1';
+            }, 500);
+        }
+        
+        setInterval(rotateQuote, 8000);
+        
+        // ========== TOAST NOTIFICATIONS ==========
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `animate-slideUp p-4 rounded-lg shadow-2xl mb-4 ${
+                type === 'success' ? 'bg-green-600' : 
+                type === 'error' ? 'bg-red-600' : 
+                'bg-amber-600'
+            } text-white font-baskerville`;
+            toast.textContent = message;
+            
+            document.getElementById('toastContainer').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+        
+        // ========== LOADING OVERLAY ==========
+        function showLoading(text = 'Caricamento...') {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+        }
+        
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.add('hidden');
+        }
+        
+        // ========== ELEMENTI DOM ==========
+        const form = document.getElementById('registrationForm');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const emailSuccess = document.getElementById('emailSuccess');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        const confirmPasswordSuccess = document.getElementById('confirmPasswordSuccess');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+        const passwordRequirements = document.getElementById('passwordRequirements');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitBtnText = document.getElementById('submitBtnText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const googleSignInBtn = document.getElementById('googleSignInBtn');
+        const googleBtnText = document.getElementById('googleBtnText');
+        const googleSpinner = document.getElementById('googleSpinner');
+        
+        // ========== TOGGLE PASSWORD VISIBILITY ==========
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        });
+        
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+        });
+        
+        // ========== VALIDAZIONE EMAIL ==========
+        // Funzione getTranslation per accedere alle traduzioni
+        function getTranslation(key) {
+            const lang = localStorage.getItem('preferredLanguage') || 'it';
+            const translations = window.TRANSLATIONS || {};
+            const keys = key.split('.');
+            let value = translations[lang];
+            for (let k of keys) {
+                value = value?.[k];
+            }
+            return value || key;
+        }
+        
+        emailInput.addEventListener('blur', validateEmail);
+        emailInput.addEventListener('input', function() {
+            emailError.classList.add('hidden');
+            emailSuccess.classList.add('hidden');
+            emailInput.classList.remove('input-error', 'input-success');
+        });
+        
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!email) {
+                emailError.textContent = getTranslation('registration.validation.emailRequired');
+                emailError.classList.remove('hidden');
+                emailSuccess.classList.add('hidden');
+                emailInput.classList.add('input-error');
+                emailInput.classList.remove('input-success');
+                emailInput.classList.add('shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            if (!emailRegex.test(email)) {
+                emailError.textContent = getTranslation('registration.validation.emailInvalid');
+                emailError.classList.remove('hidden');
+                emailSuccess.classList.add('hidden');
+                emailInput.classList.add('input-error');
+                emailInput.classList.remove('input-success');
+                emailInput.classList.add('shake');
+                setTimeout(() => emailInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            emailError.classList.add('hidden');
+            emailSuccess.classList.remove('hidden');
+            emailInput.classList.remove('input-error');
+            emailInput.classList.add('input-success');
+            return true;
+        }
+        
+        // ========== PASSWORD STRENGTH ==========
+        passwordInput.addEventListener('focus', function() {
+            passwordRequirements.classList.remove('hidden');
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            const requirements = {
+                length: password.length >= 8,
+                uppercase: /[A-Z]/.test(password),
+                lowercase: /[a-z]/.test(password),
+                number: /[0-9]/.test(password)
+            };
+            
+            updateRequirement('req-length', requirements.length);
+            updateRequirement('req-uppercase', requirements.uppercase);
+            updateRequirement('req-lowercase', requirements.lowercase);
+            updateRequirement('req-number', requirements.number);
+            
+            if (requirements.length) strength++;
+            if (requirements.uppercase && requirements.lowercase) strength++;
+            if (requirements.number) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+            
+            strengthBar.className = 'password-strength';
+            
+            if (password.length === 0) {
+                strengthBar.style.width = '0';
+                strengthText.textContent = '';
+            } else if (strength <= 1) {
+                strengthBar.classList.add('strength-weak');
+                strengthText.textContent = getTranslation('registration.strength.weak');
+                strengthText.className = "text-xs mt-1 text-red-400 font-baskerville";
+            } else if (strength <= 2) {
+                strengthBar.classList.add('strength-medium');
+                strengthText.textContent = getTranslation('registration.strength.medium');
+                strengthText.className = "text-xs mt-1 text-amber-400 font-baskerville";
+            } else {
+                strengthBar.classList.add('strength-strong');
+                strengthText.textContent = getTranslation('registration.strength.strong');
+                strengthText.className = "text-xs mt-1 text-green-400 font-baskerville";
+            }
+            
+            if (confirmPasswordInput.value) {
+                validateConfirmPassword();
+            }
+        });
+        
+        function updateRequirement(id, met) {
+            const element = document.getElementById(id);
+            const icon = element.querySelector('span:first-child');
+            const text = element.querySelector('span:last-child');
+            
+            if (met) {
+                icon.textContent = '✓';
+                icon.className = 'text-green-500';
+                text.className = 'text-green-400';
+            } else {
+                icon.textContent = '○';
+                icon.className = 'text-slate-500';
+                text.className = 'text-slate-400';
+            }
+        }
+        
+        // ========== CONFERMA PASSWORD ==========
+        confirmPasswordInput.addEventListener('blur', validateConfirmPassword);
+        confirmPasswordInput.addEventListener('input', function() {
+            confirmPasswordError.classList.add('hidden');
+            confirmPasswordSuccess.classList.add('hidden');
+            confirmPasswordInput.classList.remove('input-error', 'input-success');
+        });
+        
+        function validateConfirmPassword() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            
+            if (!confirmPassword) {
+                confirmPasswordError.textContent = getTranslation('registration.validation.confirmRequired');
+                confirmPasswordError.classList.remove('hidden');
+                confirmPasswordSuccess.classList.add('hidden');
+                confirmPasswordInput.classList.add('input-error');
+                confirmPasswordInput.classList.remove('input-success');
+                confirmPasswordInput.classList.add('shake');
+                setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = getTranslation('registration.validation.passwordMismatch');
+                confirmPasswordError.classList.remove('hidden');
+                confirmPasswordSuccess.classList.add('hidden');
+                confirmPasswordInput.classList.add('input-error');
+                confirmPasswordInput.classList.remove('input-success');
+                confirmPasswordInput.classList.add('shake');
+                setTimeout(() => confirmPasswordInput.classList.remove('shake'), 500);
+                return false;
+            }
+            
+            confirmPasswordError.classList.add('hidden');
+            confirmPasswordSuccess.classList.remove('hidden');
+            confirmPasswordInput.classList.remove('input-error');
+            confirmPasswordInput.classList.add('input-success');
+            return true;
+        }
+        
+        // ========== GOOGLE SIGN-IN ==========
+        googleSignInBtn.addEventListener('click', async function() {
+            googleBtnText.textContent = getTranslation('registration.googleRedirecting');
+            googleSpinner.classList.remove('hidden');
+            googleSignInBtn.disabled = true;
+            
+            try {
+                const { data, error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                    options: {
+                        redirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
+                    }
+                });
+                
+                if (error) throw error;
+                
+            } catch (error) {
+                console.error('Errore Google Sign-In:', error);
+                showToast(getTranslation('registration.errors.googleOAuth'), 'error');
+                
+                googleBtnText.textContent = getTranslation('registration.googleBtn');
+                googleSpinner.classList.add('hidden');
+                googleSignInBtn.disabled = false;
+            }
+        });
+        
+        // ========== FORM SUBMIT ==========
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const isEmailValid = validateEmail();
+            const isConfirmPasswordValid = validateConfirmPassword();
+            const isPasswordStrong = passwordInput.value.length >= 8;
+            const isPrivacyAccepted = document.getElementById('privacy').checked;
+            
+            if (!isEmailValid || !isConfirmPasswordValid || !isPasswordStrong) {
+                showToast(getTranslation('registration.errors.formErrors'), 'error');
+                return;
+            }
+            
+            if (!isPrivacyAccepted) {
+                showToast(getTranslation('registration.errors.privacyRequired'), 'error');
+                return;
+            }
+            
+            showLoading(getTranslation('registration.loading'));
+            submitBtnText.textContent = getTranslation('registration.loading');
+            submitSpinner.classList.remove('hidden');
+            submitBtn.disabled = true;
+            
+            try {
+                const email = emailInput.value;
+                const password = passwordInput.value;
+                const nome = document.getElementById('nome').value;
+                
+                const { data, error } = await supabase.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: nome || null,
+                        },
+                        emailRedirectTo: window.location.origin + '/Stoicismo-Diary/dashboard.html'
+                    }
+                });
+                
+                if (error) throw error;
+                
+                hideLoading();
+                showToast(getTranslation('registration.success'), 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Errore registrazione:', error);
+                hideLoading();
+                
+                let errorMessage = getTranslation('registration.errors.generic');
+                
+                if (error.message.includes('already registered')) {
+                    errorMessage = getTranslation('registration.errors.emailExists');
+                } else if (error.message.includes('password')) {
+                    errorMessage = getTranslation('registration.errors.weakPassword');
+                } else {
+                    errorMessage = error.message;
+                }
+                
+                showToast(errorMessage, 'error');
+                
+                submitBtnText.textContent = getTranslation('registration.form.submitBtn');
+                submitSpinner.classList.add('hidden');
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // ========== CONTROLLO SESSIONE ESISTENTE ==========
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+        
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+                window.location.href = 'dashboard.html';
+            }
+        });
+    </script>
+</body>
+</html>
